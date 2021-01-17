@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>搜索</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <script src="__PUBLIC__/js/mui.min.js"></script>
+    <script src="__PUBLIC__/js/jquery-1.11.1.min.js"></script>
+    <link rel="stylesheet" href="__PUBLIC__/mobile/css_v3/mui.min.css">
+    <link rel="stylesheet" href="__PUBLIC__/mobile/css_v3/goods_index.css?n=2">
+    <link rel="stylesheet" href="__PUBLIC__/mobile/style/main_style.css">
+    <link rel="stylesheet" href="__PUBLIC__/mobile/css_v3/near.css">
+    <link rel="stylesheet" href="__PUBLIC__/mobile/css_v3/property.css">
+    <link rel="stylesheet" href="__PUBLIC__/mobile/style/dropload.css">
+    <script src="__PUBLIC__/layer/mobile/layer.js"></script>
+
+    <link rel="stylesheet" href="__PUBLIC__/mobile/style/jquery-weui.min.css">
+    <!--<link rel="stylesheet" href="__PUBLIC__/mobile/css_v3/weui.min.css?n=1">-->
+    <link rel="stylesheet" href="__PUBLIC__/mobile/style/main_style.css?n=1">
+    <link rel="stylesheet" href="__PUBLIC__/mobile/css_v3/index.css?n=5">
+    <link href="__PUBLIC__/css/footer.css" rel="stylesheet" type="text/css"/>
+    <!--上拉加载-->
+    <link rel="stylesheet" href="__PUBLIC__/mobile/style/dropload.css">
+    <script type="text/javascript" src="__PUBLIC__/layer/mobile/layer.js"></script>
+
+
+    <style type="text/css">
+        /*搜索*/
+        .goods-list {
+            padding: 0 2.5vw 3vw 2.5vw;
+        }
+        .goods-list ul {
+            overflow: hidden;
+        }
+        .f_search {
+            width: 100%;
+            padding: 4.4vw 3.8vw 4vw 3.8vw;
+            overflow: hidden;
+            background-color: #fff;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .f_search .sea_fh {
+            width: 2.59vw;
+            height: 4.44vw;
+        }
+
+        .f_search .middle {
+            width: 65.37vw;
+            height: 8.89vw;
+            border-radius: 4.44vw;
+            background-color: #f7f8fa;
+            padding: 0 3.52vw 0 3.52vw;
+            display: flex;
+            align-items: center;
+            margin-left: 1vw;
+        }
+
+        .middle .return_img {
+            width: 3.98vw;
+            height: 4.07vw;
+            margin-right: 3vw;
+        }
+
+        .middle input {
+            width: 84%;
+            border: 0;
+            background-color: #f7f8fa;
+            font-size: 3.33vw;
+            color: #555555;
+            height: 7vw;
+            margin-bottom: 0;
+        }
+
+        .sea_button {
+            width: 17.87vw;
+            height: 8.89vw;
+            background-color: #fe4543;
+            border-radius: 4.44vw;
+            font-size: 3.33vw;
+            color: #fff;
+            text-align: center;
+            border: 0;
+        }
+
+        .pro-info-tootm1 {
+            font-size: 2.22vw;
+            color: #999;
+            margin-top: 1.68vw;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+    </style>
+</head>
+
+
+    <!--<header class="mui-bar mui-bar-nav dis_ea" style="background: #FE274E;">
+        <a class="mui-pull-left mui-icon mui_turn" href="javascript:history.go(-1)"><img src="__PUBLIC__/img/return.png" width="20vw" height="20vw" /></a>
+
+        <input type="text" name="content" id="search" value="" placeholder="请输入商品名称" />
+        <p id="search_id" onclick="search()">搜索</p>
+
+    </header>-->
+    <!--新写的搜索-->
+
+        <!--搜索-->
+        <div class="f_search">
+            <a href="javascript:history.back(-1)" style="margin-top: 1vw;">
+                <img class="sea_fh" src="__PUBLIC__/mobile/images_v3/shousuo.png" />
+            </a>
+            <div class="middle">
+                <img class="return_img" src="__PUBLIC__/mobile/images_v3/f_shou.png" />
+                <input placeholder="" name="content" value="{$content}" type="text" id="search"/>
+            </div>
+            <button class="sea_button"  onclick="seach()" >搜索</button>
+        </div>
+
+
+        <div class="goods-list">
+            <!--商品列表-->
+            <div class="good_list" id="inx_id2">
+                <ul class="in_pad" id="inx_id1">
+                    <volist name="goods" id="vo">
+                        <li>
+                            <div class="proshow">
+                                <a href="{:U('Goods/detail', array('id'=>$vo['id']))}">
+                                    <img class="product_img" src="{$vo.thumb}" />
+                                    <div class="pro-info">
+                                        <p class="cakes_tit">
+                                            <span class="cakes">热销</span>
+                                            {$vo.name}
+                                        </p>
+
+                                        <div class="buy_cont">
+                                            <span class="price"><span class="symbol">￥</span>{$vo.price}</span>
+                                            <img class="gwc" src="__PUBLIC__/mobile/images_v3/f_dm26.png" />
+                                        </div>
+                                        <div class="pro-info-tootm1">
+                                            <div class="">
+                                                <span style="font-size: 3.5vw;">已售:{$vo.sell_count}</span>
+                                                <p><span style="font-size: 3.5vw;">评论:{$vo.common_count}</span></p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                        </li>
+                    </volist>
+                </ul>
+            </div>
+
+
+            <div class="good_list">
+                <ul class="in_pad" id="inx_id">
+
+                </ul>
+            </div>
+            <!--end-->
+        </div>
+
+
+
+
+    <script src="__PUBLIC__/mobile/js/vue.min.js"></script>
+    <script src="__PUBLIC__/mobile/js/jquery-2.1.4.js"></script>
+    <script src="__PUBLIC__/mobile/js/jquery-weui.min.js"></script>
+    <script src="__PUBLIC__/mobile/js/swiper.min.js"></script>
+    <script src="__PUBLIC__/mobile/js/dropload.min.js"></script>
+    <script type="text/javascript">
+
+        function seach(){
+            $('#inx_id1').remove();
+            $('#inx_id2').hide();
+            var page = 0;
+            var stop = 0;
+            var search = $('#search').val();
+            // dropload
+            $('.inx-like').dropload({
+                scrollArea: window,
+                domDown : {
+                    domClass   : 'dropload-down',
+                    domRefresh : '<div class="dropload-refresh">↑上拉加载更多</div>',
+                    domLoad    : '<div class="dropload-load"><span class="loading"></span>加载中...</div>',
+                    domNoData  : '<div class="dropload-noData">我是有底线的 </div>'
+                },
+                loadDownFn: function (me) {
+                    if (stop == 0) {
+                        page++; // 拼接HTML
+                        var html = '';
+                        $.ajax({
+                            type: 'GET',
+                            url: "{:U('Index/search1')}?page=" + page + '&search=' + search,
+                            dataType: 'json',
+                            success: function (data) {
+
+                                stop = data.status;
+                                if (data.status == 1) {
+                                    //
+                                    layer.open({
+                                        content: '我是有底线的',
+                                        skin: 'msg',
+                                        time: 1.5
+                                    });
+                                    me.resetload();
+                                    return;
+                                }
+                                var arrLen = data.result.length;
+                                if (arrLen > 0) {
+                                    $.each(data.result, function (index, item) {
+                                        html += '<li style="margin-bottom: 0vw;">';
+                                        html += '<div class="proshow">';
+                                        html += '<a href="{:U(\'Goods/detail\')}?id=' + item.id + '">';
+                                        html += '<img class="product_img" src="' + item.thumb + '"/>';
+                                        html += '<div class="pro-info">';
+                                        html += ' <p class="cakes_tit">';
+                                        html += ' <span class="cakes">热销</span>' + item.name;
+                                        html += '</p>';
+                                        html += '<div class="buy_cont">';
+                                        html += '<span class="price"><span class="symbol">￥</span>' + item.price + '</span>';
+                                        html += ' <img class="gwc" src="__PUBLIC__/mobile/images_v3/f_dm26.png" /></div> <div class="pro-info-tootm1">  <div class="">';
+                                        html += ' <span style="font-size: 3.5vw;">已售:' + item.sell_count + '</span>';
+                                        html += ' <p><span style="font-size: 3.5vw;">评论:' + item.common_count + '</span></p>';
+                                        html += '</div></div> </div>   </a></div>    </li>';
+                                    });
+                                    // 如果没有数据
+                                } else {
+                                    $(".dropload-noData").text('我是有底线的');
+                                    me.lock(); // 锁定
+                                    me.noData(); // 无数据
+                                }
+                                // 为了测试，延迟1秒加载
+                                setTimeout(function () {
+                                    // console.log(html) // 插入数据到页面，放到最后面
+                                    $('#inx_id').append(html); // 每次数据插入，必须重置
+                                    me.resetload();
+                                }, 8);
+                            },
+                            error: function (xhr, type) {
+                                // alert('Ajax error!'); // 即使加载出错，也得重置
+                                me.resetload();
+                            }
+                        });
+
+                    }else{
+                        me.lock(); // 锁定
+                        me.noData(); // 无数据
+                        // 为了测试，延迟1秒加载
+                        setTimeout(function () {
+                            // console.log(html) // 插入数据到页面，放到最后面
+                            $('#inx_id').append(html); // 每次数据插入，必须重置
+                            me.resetload();
+                        }, 8);
+                    }
+                }
+
+            });
+        }
+
+    </script>
+    </body>
+
+</html>

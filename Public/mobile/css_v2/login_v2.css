@@ -1,0 +1,333 @@
+﻿html,
+body {
+	min-height: 100%;
+	font-size: 0.9em;
+}
+
+body {
+	margin: 0px;
+	padding: 0px;
+	font-family: "Microsoft YaHei", "simsun", "Helvetica Neue", Arial, Helvetica, sans-serif;
+	font-size: 0.9em;
+	color: #333;
+	background: #fff;
+}
+
+a:hover {
+	text-decoration: none;
+}
+
+a {
+	color: #666;
+	text-decoration: none;
+}
+
+img {
+	border: 0
+}
+
+ul,
+li {
+	list-style: none
+}
+
+ul,
+li,
+div {
+	box-sizing: border-box
+}
+
+
+/*清理浮动的方法*/
+
+.clearfix:after {
+	content: " ";
+	display: block;
+	clear: both;
+	height: 0;
+}
+
+.clearfix {
+	zoom: 1;
+}
+
+
+/*登录页头部的返回箭头*/
+
+.login_return {
+	width: 92%;
+	margin: 0 auto;
+	padding-top: 6vw;
+}
+
+.login_return img {
+	width: 6.4vw;
+	height: 6.4vw;
+}
+
+
+/*注册*/
+
+.reg-div {
+	width: 100%;
+	display: table;
+	padding: 5vw;
+}
+.reg-div ul {
+	margin: 0;
+	padding: 0
+}
+
+.reg-div ul li {
+	width: 92%;
+	margin: 0 auto;
+	position: relative;
+	margin-bottom: 3.8vw;
+	border: 1px solid #F8F8F8;
+	padding: 0px 2vw;
+	line-height: 9.3vw;
+	height:15vw;
+	border-radius: 33px;
+	background-color: #F8F8F8;
+}
+.reg-div input[type="password"],
+.reg-div input[type="text"] {
+	width: 100%;
+	height: 32px;
+	border: 0px;
+	box-sizing: border-box;
+	background: none;
+	font-size: 3.7vw;
+}
+
+.reg-div input[type="button"] {
+	line-height: 35px;
+	-webkit-appearance: none;
+	border-radius: 0;
+	border: 0px;
+	background: #f0f0f0;
+	padding: 0 2vw;
+	position: absolute;
+	right: 0;
+	top: 0;
+	z-index: 100;
+	color: #666;
+	font-size: 14px;
+}
+/****************************************************************登录***************************************************************************/
+
+.reg-cont {
+	text-align: center;
+	overflow: hidden;
+	margin-top: 2.5vw;
+	margin-bottom: 1vw;
+}
+
+.reg-cont .The_login {
+	font-size: 8vw;
+	color: #323333;
+	font-weight: bold;
+}
+
+.reg-cont .account {
+	font-size: 3.7vw;
+	color: #ccc;
+	margin-top: 5.5vw;
+}
+
+.reg-div input[type="text"],
+.reg-div input[type="password"] {
+	margin: 11px 5px 0 0;
+}
+ 
+
+/****************************************************************立即注册和忘记密码****************************************************************************/
+
+.up_reg {
+	margin-top: 4.7vw;
+	padding: 0 5vw 0 5vw;
+}
+
+.clearfix a p {
+	color: #999;
+	font-size: 3.7vw;
+}
+
+.up_reg a:nth-child(1) {
+	float: left;
+}
+
+.up_reg a:nth-child(2) {
+	float: right;
+}
+
+
+/*****************************************************************第三方登录*************************************************************************************************/
+
+.third {
+	position: relative;
+	bottom: 0;
+	width: 100%;
+	top: 31vw;
+}
+
+.third .th_rd {
+	padding-bottom: 2vw;
+}
+
+.third p {
+	width: 35%;
+	height: 1px;
+	background: #eee;
+	display: inline-block;
+	margin: 0;
+	margin-bottom: 5px;
+}
+
+.third span {
+	padding: 0 8px;
+}
+
+.reg-bottom {
+	margin-bottom: 6.5vw;
+}
+
+
+/*还没有账号？*/
+
+.account_cont {
+	width: 100%;
+	overflow: hidden;
+	text-align: center;
+}
+
+.account_cont .account_img {
+	margin-top: 4.5vw;
+	margin-bottom: 6.5vw;
+}
+
+.account_cont p {
+	color: #999;
+	font-size: 3.7vw;
+}
+
+.account_cont a {
+	color: #FF2857;
+	font-weight: bold;
+	display: inline-block;
+	margin-left: 2vw;
+}
+
+
+/*微信 支付宝*/
+
+.pay_cont {
+	width: 80%;
+	margin: 0 auto;
+	overflow: hidden;
+	text-align: center;
+	margin-top: 11vw;
+}
+
+.pay_cont .pay_left {
+	width: 50%;
+	float: left;
+}
+
+.pay_cont .pay_right {
+	width: 50%;
+	float: left;
+}
+.pay_cont img{
+	width: 8.5vw;
+	height: 8.5vw; 
+	display: block; 
+	margin: 0 auto;
+	margin-bottom: 1.8vw;
+}
+
+.pay_cont span {
+	display: block;
+	font-size: 2.8vw;
+	color: #ccc;
+	margin-top: 1.2vw;
+}
+
+
+/*验证码登录页*/
+.Verification_code{width: 100%; overflow: hidden;}
+.reg-div .area_code{
+	display: block;
+	width: 33%;  
+	float: left;
+	font-size: 5.3vw;
+	font-weight: bold;
+	text-align: center;
+	margin-top: 3vw;
+	border-right:2px solid #eee;
+}
+ 
+.area_code_input{
+	width: 62% !important;
+	float: left;
+}
+/*重发*/
+.The_countdown{
+	width: 33%;
+	height: 10vw;
+	line-height: 10vw;
+	background:rgba(204,204,204,1);
+	color: #fff;
+	text-align: center;
+	border-radius:19px;
+	font-size: 1vw;
+	display: block;
+	float: left;
+	margin-top:2.6vw;
+}
+/*注册页*/ 
+span.countdown_red{background:rgba(255,40,87,1);}
+.account_cont .Agreed_to{
+	font-size: 3vw;
+	color: #ccc;
+}
+.account_cont .Agreed_to span{
+	color: #FF2857;
+	display: inline-block;
+	margin-left: 0.5vw;
+}
+
+
+
+
+/*去掉点击时的默认边框*/
+input{
+outline:medium;
+}
+/*改变input的默认字体*/
+input::-webkit-input-placeholder{
+	color:#ccc;
+    font-size:3.7vw;
+}
+
+/* WebKit browsers */
+input::-webkit-input-placeholder {
+   color:#CCCCCC;
+   font-size:3.7vw;
+}
+/* Mozilla Firefox 4 to 18 */
+input:-moz-placeholder {
+   color:#CCCCCC;
+   font-size:3.7vw;
+}
+/* Mozilla Firefox 19+ */
+input::-moz-placeholder {
+   color:#CCCCCC;
+   font-size:3.7vw;
+}
+/* Internet Explorer 10+ */
+input:-ms-input-placeholder {
+  color:#CCCCCC;
+   font-size:3.7vw;
+}
+ 

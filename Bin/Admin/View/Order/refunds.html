@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<!--<meta name="viewport" content="width=device-width, initial-scale=1">-->
+	<title>{:GC('web_title')}管理后台-售后订单</title>
+	<include file="Public/asset_top_page"/>
+</head>
+<body>
+<!-- header -->
+<include file="Public/header"/>
+<!-- /header -->
+<!-- Page container -->
+<div class="page-container">
+	<!-- Page content -->
+	<div class="page-content">
+		<!-- main sidebar -->
+		<include file="Public/left"/>
+		<!-- /main sidebar -->
+
+		<!-- Main content -->
+		<div class="content-wrapper">
+
+			<!-- Content area -->
+			<div class="content" style="padding-top: 10px;">
+				<!-- Pagination types -->
+				<div class="v-container">
+					<div class="alert alert-tips alert-dismissible" role="alert">
+						<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span
+								aria-hidden="true">×</span></button>
+						本页面是售后订单，对订单进行售后操作。
+					</div>
+
+					<div class="panel panel-flat">
+						<div class="panel-heading">
+
+							<form class="v-filter-container" action="" method="get" style="width: 100%;">
+
+								<div class="filter-fields-wrap">
+									<div class="filter-item clearfix">
+										<div class="filter-item__field">
+											<div class="v__control-group">
+												<label class="v__control-label">退款编号</label>
+												<div class="v__controls">
+													<input type="text" name="refund_no" value="{$_REQUEST['refund_no']}"
+													       class="v__control_input" placeholder="请输入退款编号"
+													       autocomplete="off">
+												</div>
+											</div>
+
+<!--											<div class="v__control-group">-->
+<!--												<label class="v__control-label">会员信息</label>-->
+<!--												<div class="v__controls">-->
+<!--													<input type="text" class="v__control_input" name="content"-->
+<!--													       value="{$_REQUEST['content']}" autocomplete="off"-->
+<!--													       placeholder="手机号码/会员ID/用户名">-->
+<!--												</div>-->
+<!--											</div>-->
+
+											<div class="v__control-group">
+												<label class="v__control-label">售后状态</label>
+												<div class="v__controls">
+													<select class="v__control_input" name="refund_status">
+														<option value="0"
+														<if condition="$_REQUEST['refund_status'] eq '0' "> selected
+														</if>
+														>全部</option>
+														<option value="1"
+														<if condition="$_REQUEST['refund_status'] eq 1 "> selected</if>
+														>申请售后</option>
+														<option value="2"
+														<if condition="$_REQUEST['refund_status'] eq 2 "> selected</if>
+														>同意售后</option>
+														<option value="3"
+														<if condition="$_REQUEST['refund_status'] eq 3 "> selected</if>
+														>拒绝售后</option>
+														<option value="4"
+														<if condition="$_REQUEST['refund_status'] eq 4 "> selected</if>
+														>买家邮寄</option>
+														<option value="5"
+														<if condition="$_REQUEST['refund_status'] eq 5 "> selected</if>
+														>商家收货</option>
+														<option value="6"
+														<if condition="$_REQUEST['refund_status'] eq 6 "> selected</if>
+														>商家回寄</option>
+														<option value="7"
+														<if condition="$_REQUEST['refund_status'] eq 6 "> selected</if>
+														>买家收货</option>
+														<option value="8"
+														<if condition="$_REQUEST['refund_status'] eq 6 "> selected</if>
+														>退款</option>
+														<option value="9"
+														<if condition="$_REQUEST['refund_status'] eq 6 "> selected</if>
+														>售后完成</option>
+													</select>
+												</div>
+											</div>
+
+
+											<div class="v__control-group">
+												<label class="v__control-label">创建时间</label>
+												<div class="v__controls v-date-input-control">
+													<label for="add_time">
+														<input type="text" class="v__control_input pr-30" id="add_time"
+														       name="add_time" value="{$_REQUEST['add_time']}"
+														       placeholder="请选择时间" autocomplete="off"
+														       data-types="datetime" lay-key="3">
+														<i class="icon icon-calendar"></i>
+													</label>
+												</div>
+											</div>
+
+										</div>
+									</div>
+									<div class="filter-item clearfix">
+										<div class="filter-item__field">
+											<div class="v__control-group">
+												<label class="v__control-label"></label>
+												<div class="v__controls">
+													<!--													<a class="btn btn-primary search">搜索</a>-->
+													<input type="submit" value="搜索" class="btn btn-primary search"
+													       style="width:100px;height: 35px;">
+													<a class="btn btn-success ml-15 dataExcel" style="display: none;">导出订单</a>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</form>
+							<!--搜索框-->
+							<div class="heading-elements">
+
+							</div>
+						</div>
+						<div class="dataTables_wrapper no-footer">
+							<table class="table datatable-tools-basic basic_table">
+								<thead>
+								<tr>
+									<th style="width: 1px;"><input type="checkbox"
+									                               onclick="$('input[name*=\'selected\']').prop('checked', this.checked);">
+									</th>
+									<th>ID</th>
+									<th>退款编号</th>
+									<th>用户信息</th>
+									<th>商品详情</th>
+									<th>商家信息</th>
+									<th class="text-center">原订单信息</th>
+									<th class="text-center">退换类型</th>
+									<th class="text-center">售后状态</th>
+									<th class="text-center">创建时间</th>
+									<th class="text-center">操作</th>
+								</tr>
+								</thead>
+
+
+								<foreach name="list" item="vo">
+
+									<tr class="tt_color" style="">
+										<td style="width: 1px;">
+											<input type="checkbox" name="selected[]" value="{$vo.id}">
+											<input type="hidden" name="shipping_code[]" value="{$vo.id}">
+										</td>
+
+
+										<td class="">{$vo.id}</td>
+										<td class="">{$vo.refund_no}</td>
+
+										<td class="">
+											<div class="ed_stand">
+												<p>ID:{$vo.user_id}</p>
+												<p>姓名：{$vo.user_id|get_user_field=###,phone}</p>
+												<p>手机号：{$vo.user_id|get_user_field=###,phone}</p>
+											</div>
+										</td>
+										<td class="col-xs-3">
+											<div class="id_stand">
+												<img src="{$vo.goods_thumb}" style="width: 80px;height: 80px;"
+												     class="stand_left"/>
+												<div class="stand_right">
+													<h6 title="{$sub.goods_name}">{$vo.goods_name}</h6>
+													<p>规格：{$vo.goods_spec_price_name}</p>
+													<p>数量：{$vo.goods_num}件</p>
+													<p>小计：<span>￥{$vo.refund_total}元</span></p>
+												</div>
+												<div class="clear"></div>
+											</div>
+										</td>
+
+
+										<td class="">
+											<div class="ed_stand">
+												<div class="ed_stand">
+													<p>UID:{$vo.shop_id}</p>
+													<p>{$vo.shop_id|get_user_field=###,shop_name,0,2}</p>
+												</div>
+
+											</div>
+										</td>
+										<td class="text-center">
+											<div class="ed_stand">
+												<p>ID：{$vo.order_id}</p>
+												<p>{$vo.order_id|get_order_info=###,'','order_no'}</p>
+											</div>
+										</td>
+										<td class="text-center">
+											<div class="ed_stand">
+												<p>{$vo.refund_type|get_refund_type}</p>
+											</div>
+										</td>
+										<td class="text-center">
+											<div class="ed_stand">
+												<p>{$vo.refund_status|get_refund_status=###}</p>
+											</div>
+										</td>
+										<td class="text-center">
+											<div class="ed_stand">
+												<p>{$vo.add_time|get_time=###,'Y-m-d H:i:s'}</p>
+											</div>
+										</td>
+										<td class="text-center col-xs-1">
+											<div class="tt_stand">
+												<a title="操作" href="{:U('refund_detail', array('id'=>$vo['id']))}"  class="layui-btn layui-btn-sm layui-btn-normal btn_detail" >操作</a>
+											</div>
+										</td>
+
+									</tr>
+								</foreach>
+							</table>
+							<!-- 分页 -->
+
+							<div class="page_1028" >
+<!--								<if condition="$express_type eq 1 ">-->
+<!--									<a onclick="pi_ship()" class="btn btn-primary pull-left">批量发货</a></if>-->
+								{$show}
+<!--								<a onclick="pi_ship()" class="btn btn-primary pull-left"-->
+<!--								  style="display: none">批量删除</a></if>-->
+								<div class="clear"></div>
+							</div>
+
+							<style type="text/css">
+								.page div span {
+									float: left;
+									padding: 0 5px;
+									height: 25px;
+									display: table;
+									border: 1px solid #eee;
+									line-height: 25px;
+									text-align: center;
+									margin: 5px;
+								}
+							</style>
+							<!-- 分页 -->
+						</div>
+						<!-- /pagination types -->
+					</div>
+				</div>
+				<!--end-->
+				<!-- Footer -->
+				<include file="Public/footer"/>
+				<!-- /footer -->
+			</div>
+			<!-- /content area -->
+		</div>
+		<!-- /main content -->
+
+	</div>
+	<!-- /page content -->
+
+</div>
+<!-- /page container -->
+
+<script>
+    //执行一个laydate实例
+    //  laydate.render({
+    //      elem: '#startTime' //指定元素
+    //  });
+    //  laydate.render({
+    //      elem: '#endTime' //指定元素
+    //  });
+    //执行一个laydate实例
+    //下单时间
+    laydate.render({
+        elem: '#add_time'
+        , type: 'datetime'
+        , range: true
+    });
+
+    laydate.render({
+        elem: '#pay_time'
+        , type: 'datetime'
+        , range: true
+    });
+
+    //根据搜索值导出订单
+    function expOrder() {
+        var content = $("#content").val();//搜索内容
+        var cate = $("#cate").val();//搜索条件
+        var startTime = $("#startTime").val();//开始时间
+        var endTime = $("#endTime").val();//结束时间
+        var refund_status = $("#refund_status").val();//结束时间
+
+        $downUrl = "/index.php/Admin/Order/expOrder?content=" + content + "&cate=" + cate + "&order_type=0&starttime=" + startTime + "&endtime=" + endTime + "&refund_status=" + refund_status;
+        location.href = $downUrl;
+        // console.log($downUrl);
+        return;
+    }
+
+    //批量发货
+    function pi_ship() {
+        var arr = [];
+        $('input:checkbox:checked').each(function () {
+            var checkValue = $(this).val();
+            arr.push(checkValue);
+            // 选中框中的值
+        });
+        if (arr === undefined || arr.length == 0) {
+            alert('未选择商品');
+            return false;
+        }
+        if (arr[0] == 'on') {
+            arr.splice(0, 1);
+        }
+        $.ajax({
+            type: "POST",
+            url: "/index.php/Admin/order/pi_ship",
+            data: {pi: arr},
+            dataType: 'json',
+            success: function (data) {
+                console.log(data);
+                if (data.status == 0) {
+                    alert('操作成功');
+                } else {
+                    alert('操作失败');
+                }
+            }
+        });
+    }
+</script>
+
+
+</body>
+</html>

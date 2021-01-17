@@ -1,0 +1,743 @@
+body,
+dl,
+dd,
+ul,
+ol,
+li,
+h1,
+h2,
+h3,
+h4,
+form,
+fieldset,
+input,
+textarea,
+p,
+th,
+td {
+	margin: 0;
+	padding: 0;
+}
+
+body,
+button,
+input,
+select,
+textarea {
+	margin: 0;
+	padding: 0;
+	font-size: 1rem;
+	font-family: "microsoft yahei", Arial, Helvetica, sans-serif;
+}
+
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+	line-height: 1.5;
+}
+
+img {
+	border: 0;
+}
+
+* {
+	padding: 0;
+	margin: 0;
+}
+
+ol,
+ul,
+li {
+	list-style: none;
+}
+
+caption,
+th {
+	text-align: left;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+	font-size: 100%;
+	font-weight: normal;
+}
+
+
+/*html5*/
+
+article,
+aside,
+dialog,
+footer,
+header,
+section,
+footer,
+nav,
+figure,
+menu {
+	display: block;
+}
+
+input,
+textarea,
+button,
+select {
+	outline: none;
+}
+
+textarea {
+	resize: none;
+}
+
+i,
+em,
+cite {
+	font-style: normal;
+}
+
+a {
+	text-decoration: none;
+	color: #333;
+}
+
+.hide {
+	display: none;
+}
+
+* {
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+}
+
+*:before,
+*:after {
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+}
+
+.iconfont {
+	font-family: "iconfont";
+	font-style: normal;
+	-webkit-font-smoothing: antialiased;
+	-webkit-text-stroke-width: 0.2px;
+}
+
+
+/*结算页*/
+
+.grid_c1 {
+	width: 1200px;
+	margin: 0 auto;
+}
+
+
+/*header*/
+
+.head_img {
+	width: 100%;
+	height: auto;
+}
+
+.head_img img {
+	width: 100%;
+	height: 100%;
+	vertical-align: middle;
+}
+
+
+/*头部登录*/
+
+.hed_login {
+	width: 100%;
+	height: 28px;
+	line-height: 28px;
+	background-color: #e3e4e5;
+}
+
+.hed_login-cont em {
+	color: #999;
+	margin: 0 5px;
+}
+
+.hed_login a {
+	color: #999;
+	font-size: 12px;
+}
+
+.hed_login a:hover {
+	color: #df1a0f;
+}
+
+.hed_login-cont {
+	text-align: right;
+}
+
+
+/*头部左边的三个*/
+
+.settle_cont {
+	overflow: hidden;
+	margin-bottom: 30px;
+	margin-top: 37px;
+}
+
+.settle_cont .set_lf {
+	font-size: 20px;
+	color: #333;
+	width: 230px;
+	float: left;
+	text-align: right;
+	margin-top: 10px;
+}
+
+.settle_cont .acc_ul {
+	width: 511px;
+	height: 51px;
+	padding-top: 12px;
+	float: right;
+}
+
+.settle_cont .acc_ul li {
+	width: 170px;
+	float: left;
+	position: relative;
+}
+
+.settle_cont .acc_ul li .line {
+	width: 170px;
+	height: 6px;
+	display: block;
+	background-color: #caecb6;
+}
+
+.settle_cont .acc_ul li .digi .tal {
+	width: 18px;
+	height: 18px;
+	text-align: center;
+	border-radius: 50%;
+	color: #fff;
+	font-size: 12px;
+	background-color: #caecb6;
+	position: absolute;
+	top: -6px;
+	left: 79px;
+}
+
+.settle_cont .acc_ul li .digi .font {
+	color: #caecb6;
+	font-size: 12px;
+	display: block;
+	text-align: center;
+	margin-top: 9px;
+}
+
+
+/*主要内容*/
+
+.or_infor {
+	color: #333;
+	overflow: hidden;
+	margin-bottom: 95px;
+}
+
+.or_infor .fi_in {
+	font-size: 16px;
+}
+
+.consi_cont {
+	border: 1px solid #e6e6e6;
+	margin-top: 10px;
+	padding: 10px 21px 0 21px;
+	border-bottom: 0;
+	/*height: 585px;*/
+}
+
+.consi_cont .con_top {
+	margin-bottom: 18px;
+}
+.con_top2{
+	margin-bottom: 15px!important;
+}
+
+.consi_cont .con_top span {
+	font-size: 15px;
+	font-weight: bold;
+}
+
+.consi_cont .con_top a {
+	font-size: 14px;
+	color: #005ea7;
+	float: right;
+}
+
+.Sh_add {
+	width: 100%;
+	overflow: hidden;
+	font-size: 13px;
+	border-bottom: 1px solid #e6e6e6;
+	padding-bottom: 55px;
+}
+
+.Sh_add .options {
+	position: relative;
+	width: 160px;
+	height: 31px;
+	line-height: 26px;
+	border: 2px solid #e4393c;
+	float: left;
+	margin-left: 18px;
+	text-align: center;
+}
+
+.Sh_add .options img {
+	width: 13px;
+	height: 12px;
+	position: absolute;
+	bottom: 0;
+	right: -1px;
+}
+
+.add_text {
+	width: 968px;
+	float: right;
+	margin-top: 6px;
+}
+
+.Sh_pay {
+	margin-top: 18px;
+	font-size: 13px;
+	overflow: hidden;
+	height: 82px;
+	border-bottom: 1px solid #e6e6e6;
+}
+
+.Sh_pay .pay_tit {
+	font-size: 15px;
+	font-weight: bold;
+	margin-bottom: 13px;
+}
+
+.Onl_ment {
+	position: relative;
+	width: 109px;
+	height: 31px;
+	border: 2px solid #e4393c;
+	float: left;
+	margin-left: 18px;
+}
+
+.Onl_ment .hui {
+	padding-top: 4px;
+	padding-left: 3px;
+	margin-right: 5px;
+	float: left;
+}
+.Onl_ment span {
+	float: left;
+	margin-top: 3px;
+}
+
+.Onl_ment .zfz_img {
+	width: 13px;
+	height: 12px;
+	position: absolute;
+	bottom: 0;
+	right: -1px;
+}
+
+.more_cont {
+	width: 100px;
+	float: left;
+}
+
+.more_cont a {
+	display: block;
+	width: 100%;
+}
+
+.more_cont .more {
+	font-size: 15px;
+	margin-left: 20px;
+	margin-top: 6px;
+	display: block;
+	float: left;
+}
+
+.more_cont .arrow {
+	font-size: 12px;
+	margin-top: 7px;
+	float: left;
+	margin-left: 8px;
+}
+
+
+/*下半部分*/
+
+.Sh_bottom {
+	padding-top: 18px;
+}
+
+
+/*配送部分*/
+
+.dist_cont {
+	width: 100%;
+	overflow: hidden;
+	background-color: #f7f7f7;
+	/*height: 250px;*/
+}
+
+.dist_left {
+	padding: 10px 19px;
+	width: 340px;
+	float: left;
+}
+
+.dist_left .way {
+	font-size: 13px;
+	color: #666;
+	font-weight: bold;
+	margin-bottom: 11px;
+}
+
+.dist_cont .de_time {
+	width: 340px;
+	font-size: 14px;
+	border-bottom: 1px solid #e6e6e6;
+	padding-bottom: 6px;
+}
+
+.dist_cont .de_time span {
+	color: #999;
+}
+
+
+/*右边*/
+
+.dist_ri {
+	width: 782px;
+	float: right;
+	background-color: #f3fbfe;
+	/*height: 600px;*/
+	padding: 12px 19px;
+}
+
+.dist_ri .mer {
+	font-size: 14px;
+	color: #333;
+	font-weight: bold;
+	margin-bottom: 9px;
+}
+
+.dist_ri .fu_con {
+	width: 100%;
+	overflow: hidden;
+}
+
+.dist_ri .fu_con span {
+	font-size: 30px;
+	width: 41px;
+	float: left;
+	height: 21px;
+	line-height: 21px;
+	color: #fff;
+	text-align: center;
+	font-size: 12px;
+	background-color: #e4393c;
+	display: block;
+	margin-right: 8px;
+}
+
+.dist_ri .fu_con p {
+	font-size: 14px;
+	color: #333;
+	font-weight: bold;
+}
+
+
+/*有图片的部分*/
+
+.Val_cont {
+	width: 100%;
+	overflow: hidden;
+	margin-top: 19px;
+	margin-bottom: 20px;
+	border-bottom: 1px solid #eee;
+	padding-bottom: 20px;
+}
+
+.Val_cont .al_fl {
+	width: 105px;
+	height: 99px;
+	float: left;
+}
+
+.Val_cont .al_fl img {
+	width: 100%;
+	height: 100%;
+	border: 1px solid #EEEEEE;
+}
+
+.Val_cont .al_midd {
+	width: 240px;
+	float: left;
+	margin-left: 12px;
+}
+
+.Val_cont .al_midd h2 {
+	font-size: 14px;
+	color: #333;
+	height: 38px;
+	overflow: hidden;
+	margin-bottom: 10px;
+}
+
+.Val_cont .al_midd .col_cont {
+	width: 100%;
+	overflow: hidden;
+	font-size: 14px;
+	color: #333;
+	margin-bottom: 11px;
+}
+
+.col_cont .col_red {
+	font-weight: bold;
+}
+
+.al_midd .return {
+	overflow: hidden;
+	font-size: 14px;
+	color: #6678b4;
+}
+
+.al_midd .return img {
+	width: 17px;
+	height: 16px;
+	float: left;
+	margin-top: 2px;
+	margin-right: 5px;
+}
+
+.al_midd .return img {
+	width: 17px;
+	height: 16px;
+	float: left;
+}
+
+.Val_cont .al_fr {
+	width: 305px;
+	float: right;
+}
+
+.Val_cont .al_fr span {
+	display: block;
+	width: 82px;
+	text-align: center;
+	float: left;
+	font-size: 14px;
+}
+
+
+/*留言*/
+
+.mes_con {
+	width: 100%;
+	overflow: hidden;
+	font-size: 14px;
+	color: #333;
+	margin-top: 25px;
+}
+
+.mes_con span {
+	width: 41px;
+	float: left;
+	margin-top: 5px;
+}
+
+.mes_con .mg {
+	width: 600px;
+	height: 30px;
+	background-color: #f3fbfe;
+	padding: 4px 10px;
+	font-size: 13px;
+}
+
+
+/*底部*/
+
+.ord_bot {
+	width: 1165px;
+	margin: 0 auto;
+	overflow: hidden;
+	border-top: 1px solid #EDEDEE;
+	font-size: 14px;
+	padding-top: 16px;
+}
+
+.ord_bot .tot_pr {
+	width: 282px;
+	margin-left: 883px;
+	overflow: hidden;
+	margin-bottom: 12px;
+}
+
+.tot_pr .amount {
+	width: 144px;
+	display: block;
+	float: left;
+}
+
+.tot_pr .pri {
+	width: 130px;
+	float: right;
+	text-align: right;
+}
+
+.tot_pr .amount em {
+	color: #e54044;
+}
+
+
+/*应付总额*/
+
+.cope_cont {
+	width: 100%;
+	background-color: #f4f4f4;
+	padding: 10px 21px 15px 21px;
+	text-align: right;
+	font-size: 14px;
+}
+
+.cope_cont .amount .co_red {
+	font-size: 19px;
+	color: #e33d3f;
+	font-weight: bold;
+	width: 128px;
+	display: inline-block;
+	margin-bottom: 7px;
+}
+
+.cope_cont .send {
+	color: #999;
+}
+
+
+/*提交订单*/
+
+.Sub_ord {
+	width: 165px;
+	height: 41px;
+	line-height: 31px;
+	text-align: center;
+	color: #fff;
+	font-size: 18px;
+	background-color: #e1373a;
+	border: 1px solid #e1373a;
+	font-weight: bold;
+	border-radius: 3px;
+	float: right;
+	margin-top: 10px;
+	margin-right: 16px;
+}
+
+
+/*新增的收获地址*/
+/*新加的开始*/
+ .lab_cont{
+ 	overflow: hidden;
+ 	margin-left: 22px;
+ }
+ .lab_cont label{
+ 	 display: block;
+ 	 margin-bottom: 5px;
+ }
+ .lab_cont label .add_sn{
+ 	display: inline-block;
+ 	margin-left: 4px;
+}
+.lab_cont label input{
+	 margin-top: 6px;
+ 	 float: left;
+ 	 margin-right: 4px;
+ 	 
+}
+.lab_cont label .add_sn span{
+ 	 margin-right: 4px;
+ 	 font-size: 14px;
+ 	 color: #333;
+}
+/*新加的结束*/
+
+
+ input[type=checkbox] {
+  margin-right: 5px;
+  cursor: pointer;
+  font-size: 14px;
+  width: 15px;
+  height: 12px;
+  position: relative;
+}
+
+input[type=checkbox]:after {
+  position: absolute;
+  width: 10px;
+  height: 15px;
+  top: 0;
+  content: " ";
+  background-color: #ff0000;
+  color: #fff;
+  display: inline-block;
+  visibility: visible;
+  padding: 0px 3px;
+  border-radius: 3px;
+}
+
+input[type=checkbox]:checked:after {
+  content: "✓";
+  font-size: 12px;
+}
+
+
+
+input[type=radio] {
+    margin-right: 5px;
+    cursor: pointer;
+    font-size: 14px;
+    width: 15px;
+    height: 12px;
+    position: relative;
+}
+
+input[type=radio]:after {
+    position: absolute;
+    width: 14px;
+    height: 15px;
+    top: -1px;
+    content: " ";
+    background-color: #e4393c;
+    color: #fff;
+    display: inline-block;
+    visibility: visible;
+    padding: 0px 3px;
+    border-radius: 2px;
+}
+
+input[type=radio]:checked:before {
+    content: "✓";
+    display: block;
+    position: relative;
+    top: -2px;
+    left: 3px;
+    width: 6px;
+    height: 6px;
+    color: #fff;
+    font-weight: 400;
+    z-index: 1;
+ 
+}
+ 

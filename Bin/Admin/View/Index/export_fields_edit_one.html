@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<!--<meta name="viewport" content="width=device-width, initial-scale=1">-->
+	<title>{:GC('web_title')}管理后台-导出字段管理</title>
+	<include file="Public/asset_top_page"/>
+
+</head>
+
+<body>
+
+
+<!-- header -->
+<include file="Public/header"/>
+<!-- /header -->
+
+<!-- Page container -->
+<div class="page-container">
+
+	<!-- Page content -->
+	<div class="page-content">
+		<!-- main sidebar -->
+		<include file="Public/left"/>
+		<!-- /main sidebar -->
+
+		<!-- Main content -->
+		<div class="content-wrapper">
+
+			<!-- Content area -->
+			<div class="content" style="padding-top: 10px;">
+				<!-- Pagination types -->
+				<div class="v-container">
+
+					<div class="alert alert-tips alert-dismissible" role="alert">
+						<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span
+								aria-hidden="true">×</span></button>
+						在本页可对添加、修改导出模板，导出模板分为各种类型，请注意操作。
+					</div>
+
+					<div class="panel panel-flat">
+						<div class="panel-heading">
+							<form class="v-filter-container" action="" method="POST">
+								<div class="filter-fields-wrap">
+									<div class="filter-item clearfix">
+										<div class="filter-item__field">
+											<div class="v__control-group padd_left_11">
+												<div class="v__controls">
+													<a href="{:U('export_fields_list')}"><input type="button"
+													                                            value="表管理"
+													                                            class="layui-btn layui-btn-normal"></a>&nbsp;&nbsp;&nbsp;
+
+													<if condition="$type gt 0">
+														<a href="{:U('export_fields_detail', array('type'=>$type))}"><input
+																type="button"
+																value="同表管理"
+																class="layui-btn layui-btn-normal"></a>&nbsp;&nbsp;&nbsp;
+													</if>
+
+													<a href="{:U('export_template_list')}"><input type="button"
+													                                              value="模板管理"
+													                                              class="layui-btn"></a>&nbsp;
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</form>
+
+							<!--搜索框-->
+							<div class="heading-elements">
+
+							</div>
+						</div>
+					</div>
+
+					<!-- page -->
+					<form class="form-horizontal" action="" method="post" enctype="multipart/form-data">
+						<input type="hidden" name="id" value="{$data.id}">
+
+
+						<div class="form-group">
+							<label class="col-xs-2 control-label text-right">导出类型</label>
+							<div class="col-xs-5">
+								<select name="type" class="form-control select-form-control inline-block" <if condition="$type gt 0"> style="pointer-events:none;" </if> >
+									<option value="0">请选择类型</option>
+									<foreach name="type_list" item="vo">
+										<option value="{$key}"
+										<if condition="$type eq $key"> selected='selected'</if>
+										>{$vo}</option>
+									</foreach>
+								</select>
+							</div>
+						</div>
+
+						<div class="form-group">
+							<label class="col-xs-2 control-label text-right">字段表名</label>
+							<div class="col-xs-5">
+								<input type="text" class="form-control" value="{$data.table_name}" placeholder="请输入内容"  name="table_name" required <if condition=" $table_name neq '' "> readonly='readonly' </if> >
+							</div>
+						</div>
+
+						<div class="form-group">
+							<label class="col-xs-2 control-label text-right"><b>字段名称（英文）</b></label>
+							<div class="col-xs-5">
+								<input type="text" class="form-control" value="{$data.field_en}" placeholder="请输入内容"
+								       name="field_en" required>
+							</div>
+						</div>
+
+						<div class="form-group">
+							<label class="col-xs-2 control-label text-right">字段别名（英文）</label>
+							<div class="col-xs-5">
+								<input type="text" class="form-control" value="{$data.field_en_alias}"
+								       placeholder="请输入内容"
+								       name="field_en_alias" >
+							</div>
+						</div>
+
+						<div class="form-group">
+							<label class="col-xs-2 control-label text-right"><b>字段中文名称</b></label>
+							<div class="col-xs-5">
+								<input type="text" class="form-control" value="{$data.field_cn}" placeholder="请输入内容"
+								       name="field_cn" required>
+							</div>
+						</div>
+
+						<div class="form-group">
+							<label class="col-xs-2 control-label text-right">是否关联</label>
+							<div class="col-xs-5">
+								<select name="is_relation" class="form-control select-form-control inline-block">
+									<option value="0">不关联</option>
+									<option value="1" <if condition="$is_relation eq 1"> selected='selected'</if> >关联表</option>
+									<option value="2" <if condition="$is_relation eq 2"> selected='selected'</if> >关联方法</option>
+									<option value="3" <if condition="$is_relation eq 3"> selected='selected'</if> >格式化日期</option>
+									<option value="4" <if condition="$is_relation eq 4"> selected='selected'</if> >转时间戳</option>
+								</select>
+							</div>
+						</div>
+
+						<div class="form-group">
+							<label class="col-xs-2 control-label text-right">被关联表/方法</label>
+							<div class="col-xs-5">
+								<input type="text" class="form-control" value="{$data.relation_table_name}"
+								       placeholder="请输入内容"
+								       name="relation_table_name" >
+							</div>
+						</div>
+
+						<div class="form-group">
+							<label class="col-xs-2 control-label text-right">被关联表条件字段</label>
+							<div class="col-xs-5">
+								<input type="text" class="form-control" value="{$data.relation_condition_field_en}"
+								       placeholder="请输入内容"
+								       name="relation_condition_field_en" >
+							</div>
+						</div>
+
+						<div class="form-group">
+							<label class="col-xs-2 control-label text-right">被关联表返回字段</label>
+							<div class="col-xs-5">
+								<input type="text" class="form-control" value="{$data.relation_field_en}"
+								       placeholder="请输入内容"
+								       name="relation_field_en" >
+							</div>
+						</div>
+
+						<div class="form-group">
+							<label class="col-xs-2 control-label text-right">排序（小在前）</label>
+							<div class="col-xs-5">
+								<input type="text" class="form-control" value="{$data.sorting|default=100}"
+								       placeholder="越小越在前，默认100"
+								       name="sorting" required>
+							</div>
+						</div>
+
+						<div class="form-group text-center">
+							<label class="col-xs-2 control-label text-right"></label>
+							<div class="col-lg-5 card_n">
+								<button type="submit" class="btn btn-primary">保 存</button>
+							</div>
+						</div>
+					</form>
+
+					<!-- page end -->
+
+					<!-- Footer -->
+					<include file="Public/footer"/>
+					<!-- /footer -->
+
+				</div>
+				<!-- /content area -->
+
+			</div>
+			<!-- /main content -->
+
+		</div>
+		<!-- /main content -->
+
+
+		<style type="text/css">
+			.rule_card {
+				border: 1px solid #ccc;
+				border-radius: 3px;
+				padding: 8px;
+				margin-bottom: 5px;
+				clear: both;
+			}
+
+			.rule_c_4 {
+				padding-top: 5px;
+				padding-bottom: 5px;
+				padding-left: 12px;
+				float: left;
+			}
+
+			.card_n {
+				padding-top: 8px;
+			}
+		</style>
+
+	</div>
+	<!-- /page content -->
+
+</div>
+<!-- /page container -->
+
+
+<script type="text/javascript">
+
+
+</script>
+
+
+</body>
+</html>
+
+

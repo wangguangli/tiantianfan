@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<!--<meta name="viewport" content="width=device-width, initial-scale=1">-->
+	<title>{:GC('web_title')}管理后台</title>
+	<include file="Public/asset_top_page"/>
+</head>
+<body>
+<!-- header -->
+<include file="Public/header"/>
+<!-- /header -->
+<!-- Page container -->
+<div class="page-container">
+	<!-- Page content -->
+	<div class="page-content">
+		<!-- main sidebar -->
+		<include file="Public/left"/>
+		<!-- /main sidebar -->
+
+		<!-- Main content -->
+		<div class="content-wrapper">
+
+			<!-- Content area -->
+			<div class="content" style="padding-top: 10px;">
+				<!-- Pagination types -->
+				<div class="v-container">
+
+					<!-- page -->
+					<form class="form-horizontal pt-15" method="post" action="{:U('edit')}">
+						<input type="hidden" class="form-control" name="user_id" value="{$data['id']}">
+						<div class="form-group">
+							<label class="col-xs-2 control-label text-right">UID</label>
+							<div class="col-xs-5 control-label">
+								{$data['id']}
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-xs-2 control-label text-right">手机</label>
+							<div class="col-xs-5 control-label">
+								{$data['phone']}
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-xs-2 control-label text-right">姓名</label>
+							<div class="col-xs-5">
+								<input type="text" class="form-control" name="realname" value="{$data['realname']}" required>
+							</div>
+						</div>
+						<div class="form-group">
+						<label class="col-xs-2 control-label text-right">昵称</label>
+						<div class="col-xs-5">
+							<input type="text" class="form-control" name="nickname" value="{$data['nickname']}" required>
+						</div>
+					</div>
+						<div class="form-group">
+							<label class="col-xs-2 control-label text-right">身份证</label>
+							<div class="col-xs-5">
+								<input type="text" class="form-control" name="id_card" value="{$data['id_card']}" required>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-xs-2 control-label text-right">登录密码</label>
+							<div class="col-xs-5">
+								<input type="text" class="form-control" name="password" value="" minlength="6">
+							</div>
+							<label class="col-xs-2 control-label text-danger">为空 则表示不更改</label>
+						</div>
+						<div class="form-group">
+							<label class="col-xs-2 control-label text-right">支付密码</label>
+							<div class="col-xs-5">
+								<input type="text" class="form-control" name="pay_password" value="" minlength="6">
+							</div>
+							<label class="col-xs-2 control-label text-danger">为空 则表示不更改</label>
+						</div>
+						<div class="form-group">
+							<label class="col-xs-2 control-label text-right">用户级别</label>
+							<div class="col-xs-5">
+								<select name="level" class="form-control select-form-control inline-block">
+									<option value="0" >请选择</option>
+									<volist name="level" id="vo">
+										<option value="{$vo.level_ranking}" <if condition="$data['level'] eq $vo['level_ranking']"> selected </if>  >{$vo.level_name}</option>
+									</volist>
+								</select>
+							</div>
+						</div>
+						<!--<div class="form-group">
+							<label class="col-xs-2 control-label text-right">级别升降</label>
+							<div class="col-xs-5 ">
+								<select name="only_up_level" class="form-control select-form-control inline-block">
+									<option value="0" <if condition="$data['only_up_level'] eq 0">selected</if> >（级别自动调整）可升降</option>
+									<option value="1" <if condition="$data['only_up_level'] eq 1">selected</if> >（级别自动调整）只升不降</option>
+								</select>
+							</div>
+						</div>-->
+						<div class="form-group">
+							<label class="col-xs-2 control-label text-right">账户状态</label>
+							<div class="col-xs-5 ">
+								<select name="status" class="form-control select-form-control inline-block">
+									<option value="1" <if condition="$data['status'] eq 1">selected</if> >正常</option>
+									<option value="2" <if condition="$data['status'] eq 2">selected</if> >冻结</option>
+									<option value="3" <if condition="$data['status'] eq 3">selected</if> >审核中</option>
+								</select>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-xs-2 control-label text-right">佣金</label>
+							<div class="col-xs-5  control-label">
+								{$data['money']}
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-xs-2 control-label text-right">积分</label>
+							<div class="col-xs-5  control-label">
+								{$data['score']}
+							</div>
+						</div>
+
+						<div class="form-group">
+							<label class="col-xs-2 control-label text-right">已返金额</label>
+							<div class="col-xs-5  control-label">
+								{$data['price']}
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-xs-2 control-label text-right">待返金额</label>
+							<div class="col-xs-5  control-label">
+								{$data['money_wait']}
+							</div>
+						</div>
+
+						<div class="form-group">
+							<label class="col-xs-2 control-label text-right">分红股数</label>
+							<div class="col-xs-5  control-label">
+								{$data['ipo']}
+							</div>
+						</div>
+
+
+						<div class="form-group">
+							<label class="col-xs-2 control-label text-right">性别</label>
+							<div class="col-xs-5 ">
+								<label class="radio-inline">
+									<input type="radio" name="sex" value="1" class="styled" <if condition="$data['sex'] eq 1">checked</if> required>男
+								</label>
+								<label class="radio-inline">
+									<input type="radio" name="sex" value="2" class="styled" <if condition="$data['sex'] eq 2">checked</if>>女
+								</label>
+								<label class="radio-inline">
+									<input type="radio" name="sex" value="0" class="styled" <if condition="$data['sex'] eq 0">checked</if>>保密
+								</label>
+
+							</div>
+						</div>
+
+						<div class="form-group">
+							<label class="col-xs-2 control-label text-right">注册时间</label>
+							<div class="col-xs-5  control-label">
+								{$data['cre_time']|get_date=###,'Y-m-d H:i:s'}
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-xs-2 control-label text-right">上一级</label>
+							<div class="col-xs-5  control-label">
+								<if condition="$data['first_leader'] gt 0">
+									<a href="{:U('detail', array('id'=>$data['first_leader']))}">
+										UID：{$data['first_leader']}，手机：{$data['first_leader']|get_user_field=###}
+									</a>
+								<else/>
+									无
+								</if>
+
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-xs-2 control-label text-right">上二级</label>
+							<div class="col-xs-5  control-label">
+								<if condition="$data['second_leader'] gt 0">
+									<a href="{:U('detail', array('id'=>$data['second_leader']))}">
+										UID：{$data['second_leader']}，手机：{$data['second_leader']|get_user_field=###}
+									</a>
+									<else/>
+									无
+								</if>
+							</div>
+						</div>
+
+						<div class="form-group">
+							<label class="col-xs-2 control-label text-right"></label>
+							<div class="col-xs-5 control-label">
+								<div class="placeholder">
+									<img src="{$data['headimgurl']}" class="img_headimgurl">
+								</div>
+								<button type="button" class="layui-btn layui-btn-sm" id="upimg">
+									<i class="layui-icon">&#xe67c;</i>上传图片
+								</button>
+
+								<input type="hidden" name="headimgurl" class="headimgurl"  value="{$data['headimgurl']}">
+							</div>
+						</div>
+
+						<!-- 多行文本 文本域 -->
+						<!--<div class="form-group">
+							<label class="col-xs-2 control-label text-right">备注</label>
+							<div class="col-xs-5  control-label">
+								<textarea class="form-control" name="test" rows="3"></textarea>
+							</div>
+						</div>-->
+
+
+						<div class="form-group">
+							<label class="col-xs-2 control-label"></label>
+							<div class="col-xs-8">
+								<button class="layui-btn layui-btn-sm layui-btn-normal" type="submit">提交</button>
+								<a href="javascript:history.go(-1);" class="layui-btn layui-btn-sm layui-btn-primary">返回</a>
+							</div>
+						</div>
+					</form>
+
+					<!-- page end -->
+
+					<!-- Footer -->
+					<include file="Public/footer" />
+					<!-- /footer -->
+
+				</div>
+				<!-- /content area -->
+
+			</div>
+			<!-- /main content -->
+
+		</div>
+		<!-- /page content -->
+
+	</div>
+	<!-- /page container -->
+
+	<!-- 上传图片 -->
+	<script>
+        layui.use('upload', function(){
+            var upload = layui.upload;
+
+            //执行实例
+            var uploadInst = upload.render({
+                elem: '#upimg' 							//绑定元素
+                ,url: '/index.php/Admin/Common/uploads' 	//上传接口
+                ,data:{handlename:"headimg"}			// 接口接收值
+                ,field:"headimg"						// input name，与接口接收值 一致
+                ,done: function(res)
+                {
+                    //上传完毕回调-不一定成功，需要判断
+                    console.log(res);
+                    if (res.status > 0)
+                    {
+                        // 异常提示
+                        layer.alert(res.result);
+                    }
+                    else
+                    {
+                        $(".headimgurl").val(res.result);
+                        $(".img_headimgurl").attr("src", res.result);
+                    }
+                }
+                ,error: function(e)
+                {
+                    //请求异常回调
+                    console.log(e);
+                }
+            });
+        });
+	</script>
+	<!-- 上传图片 -->
+
+</body>
+</html>

@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<!--<meta name="viewport" content="width=device-width, initial-scale=1">-->
+	<title>{:GC('web_title')}管理后台</title>
+	<include file="Public/asset_top_page"/>
+	<style>
+		.shenhe {
+			height: 30px;
+			line-height: 30px;
+			padding: 0px 8px;
+		}
+	</style>
+</head>
+<body>
+<!-- header -->
+<include file="Public/header"/>
+<!-- /header -->
+<!-- Page container -->
+<div class="page-container">
+	<!-- Page content -->
+	<div class="page-content">
+		<!-- main sidebar -->
+		<include file="Public/left"/>
+		<!-- /main sidebar -->
+
+		<!-- Main content -->
+		<div class="content-wrapper">
+
+			<!-- Content area -->
+			<div class="content" style="padding-top: 10px;">
+				<!-- Pagination types -->
+				<div class="v-container">
+					<div class="alert alert-tips alert-dismissible" role="alert">
+						<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span
+								aria-hidden="true">×</span></button>
+						代理商列表
+					</div>
+
+					<div class="panel panel-flat">
+						<div class="panel-heading">
+
+							<form class="v-filter-container" action="{:U('index')}" method="get" id="formHandle">
+
+								<div class="filter-fields-wrap">
+									<div class="filter-item clearfix">
+										<div class="filter-item__field">
+
+											<div class="v__control-group">
+												<label class="v__control-label">会员ID</label>
+												<div class="v__controls">
+													<input type="text" id="user_id" name="user_id"
+													       value="{$_REQUEST['user_id']}" class="v__control_input"
+													       placeholder="请输入会员ID" autocomplete="off">
+												</div>
+											</div>
+
+											<div class="v__control-group">
+												<label class="v__control-label">会员信息</label>
+												<div class="v__controls">
+													<input type="text" name="content"
+													       value="{$_REQUEST['content']}" class="v__control_input"
+													       placeholder="用户名/昵称/电话" autocomplete="off">
+												</div>
+											</div>
+
+											<div class="v__control-group">
+												<label class="v__control-label">代理地区</label>
+												<div class="v__controls">
+													<input type="text" id="area_name" name="area_name"
+													       value="{$_REQUEST['area_name']}" class="v__control_input"
+													       placeholder="代理地区" autocomplete="off">
+												</div>
+											</div>
+
+
+											<div class="v__control-group">
+												<label class="v__control-label">申请时间</label>
+												<div class="v__controls v-date-input-control">
+													<label for="cre_time">
+														<input type="text" class="v__control_input pr-30" id="cre_time"
+														       name="cre_time" value="{$_REQUEST['cre_time']}"
+														       placeholder="请选择时间" autocomplete="off"
+														       data-types="datetime" lay-key="4">
+														<i class="icon icon-calendar"></i>
+													</label>
+												</div>
+											</div>
+
+
+										</div>
+									</div>
+
+
+									<div class="filter-item clearfix">
+										<div class="filter-item__field">
+											<div class="v__control-group">
+												<label class="v__control-label"></label>
+												<div class="v__controls">
+													<!--													<a class="btn btn-primary search">搜索</a>-->
+													<input type="submit" value="搜索" class="btn btn-primary search"
+													       style="width:100px;height: 35px;">
+													<a class="btn btn-success ml-15" onclick="ExportExcel();">导出表格</a>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</form>
+							<!--搜索框-->
+							<div class="heading-elements">
+
+							</div>
+						</div>
+
+
+						<div class="dataTables_wrapper no-footer">
+							<table class="table datatable-tools-basic basic_table">
+								<thead>
+								<tr>
+									<th style="width: 1px;"></th>
+									<th>ID</th>
+									<th>代理姓名</th>
+									<th>用户UID/姓名</th>
+									<th>联系方式</th>
+									<th>代理收益</th>
+									<th>代理地区</th>
+									<th>申请时间</th>
+									<th class="text-center">操作</th>
+								</tr>
+								</thead>
+
+								<volist name="data" id="vo">
+									<tr class="tt_color">
+										<td style="width: 1px;">
+											<input type="checkbox" name="much_id[]" value="{$vo.id}">
+										</td>
+
+										<td class="">{$vo.id}</td>
+										<td class="">
+											<div class="ed_stand">
+												<p>{$vo.realname}</p>
+											</div>
+										</td>
+										<td class="">
+											<div class="ed_stand">
+												<p>{$vo.user_id}</p>
+												<p>{$vo.user_id|get_user_name=###}</p>
+											</div>
+										</td>
+										<td class="">
+											<div class="ed_stand">
+												<p>{$vo.phone}</p>
+											</div>
+										</td>
+										<td class="">
+											<div class="ed_stand">
+												<p>{$vo.agent_money}</p>
+											</div>
+										</td>
+
+										<td class="">
+											<div class="ed_stand">
+												<p>{$vo.area_name}</p>
+											</div>
+										</td>
+
+										<td class="">
+											<div class="ed_stand">
+												<p>{$vo.cre_time|get_time}</p>
+											</div>
+										</td>
+
+										<td class="text-center">
+											<div class="tt_stand">
+												<a title="查看详情" href="{:U('agent_update')}?id={$vo.id}"
+												   class="layui-btn layui-btn-sm layui-btn-normal btn_detail">详情</a>
+												<a title="调额" href="{:U('User/amount')}?id={$vo.id}&utype=3"
+												   class="layui-btn layui-btn-sm layui-btn-normal btn_detail">调额</a>
+
+												<a title="收支记录" href="{:U('User/account')}?id={$vo.id}&utype=3"
+												   class="layui-btn layui-btn-sm btn_detail">收支记录</a>
+												<a title="删除用户" href="{:U('delete')}?id={$vo.id}"
+												   class="layui-btn layui-btn-sm layui-btn-danger btn_detail"
+												   onclick="return confirm('确定要删除吗?');">删除</a>
+											</div>
+										</td>
+									</tr>
+
+								</volist>
+							</table>
+							<!-- 分页 -->
+							<div class="page_1028">
+
+								<div class="pull-left">
+									<!-- 这里一定要注意 整个页面只有，且只能在这里有 全选框，并且按钮的值有特殊要求 -->
+									<!-- 如：5_1   横线前面数字 代表删除的哪些内容，1=用户，2商家，3代理，4订单，5商品，6商品三级分类，7日志 -->
+									<!-- 如：5_1   横线后面数字 代理删除类型，0逻辑删除，1彻底删除 -->
+									<a class="num"><label><input type="checkbox"
+									                             onclick="$('input[name*=\'much_id\']').prop('checked', this.checked);">
+										全选</label></a>
+									<a onclick="delete_much('3_0', 0)" class="num">批量删除</a>
+									<a onclick="delete_much('3_1', 1)" class="num">彻底删除</a>
+								</div>
+
+								{$show}
+								<div class="clear"></div>
+							</div>
+
+						</div>
+						<!-- 分页 -->
+					</div>
+					<!-- /pagination types -->
+
+				</div>
+				<!-- Footer -->
+				<include file="Public/footer"/>
+				<!-- /footer -->
+
+			</div>
+			<!-- /content area -->
+
+		</div>
+		<!-- /main content -->
+
+	</div>
+	<!-- /page content -->
+
+</div>
+<!-- /page container -->
+<script>
+	//完成时间
+	laydate.render({
+		elem: '#cre_time'
+		, type: 'datetime'
+		, range: true
+	});
+
+	//根据搜索值导出表格
+	function ExportExcel() {
+		var url = "{:U('export_excel')}";
+		var data = $("#formHandle").serialize();    // 获取整个搜索的条件数据
+		$.ajax({
+			url: url,
+			type: 'post',
+			async: false,
+			data: data,
+			timeout: 120000,
+			dataType: 'json',
+			success: function (data) {
+				if (data.status == 0) {
+					var excelUrl = '/' + data.result;
+					window.open(excelUrl, '_blank').location;   // 在新标签页打开
+				} else {
+					alert(data.msg);
+					return;
+				}
+			}
+		});
+	}
+</script>
+</body>
+</html></html>

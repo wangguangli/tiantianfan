@@ -1,0 +1,1268 @@
+<?php
+
+namespace Admin\Controller;
+
+use Clas\Orderout;
+use Clas\Orderin;
+use Think\Page;
+use Clas\ExpressApi;
+
+class OrderController extends CommonController
+{
+
+	private $_obj;
+
+	public function __construct()
+	{
+		parent::__construct();
+		$this->_obj_out = new Orderout($this->_admin_id);
+		$this->_obj_in = new Orderin($this->_admin_id);
+	}
+
+	/**
+	 * 商城订单（所有）
+	 */
+	public function index()
+	{
+		$where = I();
+		if (!I('order_status'))
+		{
+			$where['order_status'] = -1;
+		}elseif(I('order_status') == -2){
+            $where['order_status'] = 0;
+        }
+		$where['order_type'] = array('in',array(0,5,6));
+		$where['page'] = I('p');
+		$where['admin'] = 1;//后台分页
+		$data = $this->_obj_out->orderList($where);
+		foreach ($data['list'] as $k => $v)
+		{
+			$data['list'][$k]['order_status'] = get_order_status($v['order_status']);
+			$key_last = key($v['goods']);
+			$goods_name = '';
+			foreach ($v['goods'] as $k1 => $v1)
+			{
+				$goods_name = $goods_name . '商品:' . $v1['goods_name'] . ',数量:x' . $v1['goods_num'] . '<br />';
+			}
+			$data['list'][$k]['goods_name'] = $goods_name;
+		}
+		$express_type = get_config('express_type');
+		$this->assign('list', $data['list']);
+		$this->assign('express_type', $express_type);
+		$this->assign('show', $data['page']);
+		$this->display();
+	}
+
+	public function ajax_index()
+	{
+		$date['page'] = I('page');
+		if (!I('order_status'))
+		{
+			$date['order_status'] = -1;
+		}
+		$date['order_type'] = 0;
+		$data = $this->_obj_out->orderList($date);
+		foreach ($data['list'] as $k => $v)
+		{
+			$data['list'][$k]['order_status'] = get_order_status($v['order_status']);
+			$key_last = key($v['goods']);
+			$goods_name = '';
+			foreach ($v['goods'] as $k1 => $v1)
+			{
+				$goods_name = $goods_name . '商品:' . $v1['goods_name'] . ',数量:x' . $v1['goods_num'] . '<br />';
+			}
+			$data['list'][$k]['goods_name'] = $goods_name;
+		}
+		jsonout('订单列表', 0, $data);
+	}
+
+	public function detail()
+	{
+		$order_id = I('id', 0, 'intval');
+		$data = $this->_obj_out->orderDetail($order_id);
+
+		$a = 1;
+		$da = 0;
+		foreach ($data['goods_list'] as $k => $v)
+		{
+			$count = count($v['goods_list']);
+			$a += $count;
+			foreach ($v['goods_list'] as $key => $val)
+			{
+				$da += $val['goods_total'];
+			}
+		}
+
+		$express_list = get_express();
+		$this->assign('a', $a);
+		$this->assign('da', $da);
+		$this->assign('express_list', $express_list);
+		$this->assign('order_goods', $data['goods_list']);
+		$this->assign('order', $data['order']);
+		$this->assign('address', $data['address']);
+		$this->display();
+	}
+
+	public function cancelOrder()
+	{
+		$order_id = I('id', 0, 'intval');
+		$data = $this->_obj_in->cancelOrder($order_id);
+		$this->success('取消成功', U('Order/index'));
+	}
+
+	public function payOrder()
+	{
+		$date['order_id'] = I('id', 0, 'intval');
+		$date['pay_type'] = I('pay_type');
+		$data = $this->_obj_in->payOrder($date);
+		$this->success('支付成功', U('Order/index'));
+	}
+
+	public function getDelivery()
+	{
+		$order_id = I('id', 0, 'intval');
+		$data = $this->_obj_out->orderDetail($order_id);
+		$express_list = get_express();
+		$express_type = get_config('express_type');
+
+		$this->assign('order_goods', $data['goods_list']);
+		$this->assign('express_type', $express_type);
+		$this->assign('order', $data['order']);
+		$this->assign('address', $data['address']);
+		$this->assign('express_list', $express_list);
+		$this->display();
+	}
+
+	/**
+	 * 查询商品打印快递信息
+	 */
+	public function getExpress()
+	{
+		$order_id = I('id', 0, 'intval');
+		$data = $this->_obj_out->orderDetail($order_id);
+		$express_arr[] = $data['order']['order_no'];
+		$express = new ExpressApi();
+		$res = $express->inquire($express_arr);
+		$res = json_decode($res, true);
+		if (!empty($res['success']))
+		{
+			$express_name = $res['rspBeans'][0]['expressCompanyName'];
+			$express_num = $res['rspBeans'][0]['expressNos'][0];
+			$message = $express_name . $express_num;
+		}
+		else
+		{
+			$message = $res['errMsg'];
+		}
+		$this->assign('order_goods', $data['goods_list']);
+		$this->assign('message', $message);
+//        $this->assign('express_type', $express_type);
+		$this->assign('order', $data['order']);
+		$this->assign('address', $data['address']);
+//        $this->assign('express_list', $express_list);
+		$this->display();
+	}
+
+	public function deliveryHandle()
+	{
+		$date = I();
+
+		$express_type = get_config('express_type');
+		if ($express_type == 1)
+		{
+			$data = $this->_obj_in->getDelivery_b($date);
+		}
+		else
+		{
+			$data = $this->_obj_in->getDelivery_a($date);
+		}
+		if ($data == 1)
+		{
+			$this->success("发货提交成功", U('Order/index'));
+		}
+		else
+		{
+			$this->error($data);
+		}
+	}
+
+	//批量发货
+	public function pi_ship()
+	{
+		$pi = I('pi');
+		if (empty($pi))
+		{
+			jsonout('请选择批量发货的订单', 1);
+		}
+		$arr = [];
+		foreach ($pi as $k => $v)
+		{
+			$order = M('order')->field('id,order_status,order_no,province,city,district,address,phone,consignee,user_note,shop_note')->where('id=' . $v)->find();
+			if ($order['order_status'] != 1)
+			{
+				jsonout('选中的批量发货订单中,有不是待发货订单请重新选择', 1);
+			}
+			$order_goods = M('order_goods')->field('id,goods_spec_price_name,order_status,order_id,goods_num,goods_name')->where('order_id=' . $v)->select();
+			foreach ($order_goods as $kk => $vv)
+			{
+				if ($vv['order_status'] != 1)
+				{
+					jsonout('选中的批量发货订单中的子订单,有不是待发货订单请重新选择', 1);
+				}
+			}
+			$order['order_goods'] = $order_goods;
+			$arr[$k] = $order;
+		}
+
+		$express = new  ExpressApi();
+		$res = $express->express($arr);
+		$res = json_decode($res, true);
+		if (!empty($res['success']))
+		{
+			foreach ($pi as $k => $v)
+			{
+				$order = M('order')->where('id=' . $v)->save(array('order_status' => 8));
+
+				$order_goods = M('order_goods')->where('order_id=' . $v)->save(array('order_status' => 8));
+
+			}
+			jsonout("批量发货提交成功", 0, null);
+		}
+		else
+		{
+			jsonout("批量发货快递接口请求失败", 1, null);
+		}
+	}
+	/**
+	 * 单个商品确认收货
+	 */
+	//   public function receive(){
+	// $order_id = I('id', 0, 'intval');
+	// $data = $this->_obj_in -> takeDelivery($order_id);
+	// $this->success('收货成功', U('Order/index'));
+
+	//   }
+
+	// 买单列表
+	public function maidan()
+	{
+		$where['isdel'] = 0;
+		$where['order_type'] = 1;
+		$type = I('cate');
+		$content = I('content');
+		if ($type == 0)
+		{
+			//用户名
+			if (!empty($content))
+			{
+				$phone['phone'] = $content;
+				$user = M('user')->where($phone)->find();
+				if ($user)
+				{
+					$where['user_id'] = $user['id'];
+				}
+			}
+
+		}
+		else
+		{
+			if ($type == 1)
+			{
+				//订单编号
+				if (!empty($content))
+				{
+					$where['order_no'] = array('like', '%' . $content . '%');
+				}
+			}
+		}
+		$count = M("order")->where($where)->count();
+		$Page = new Page($count, 10);
+		$list = M("order")->where($where)->order("id desc")->limit($Page->firstRow . ',' . $Page->listRows)->select();
+		$show = $Page->show();
+		$this->assign('show', $show);
+		$this->assign('list', $list);
+		$this->display();
+	}
+
+	// 报单列表
+	public function baodan()
+	{
+		$type = I('cate');
+		$content = I('content');
+		if ($type == 0)
+		{
+			//用户名
+			if (!empty($content))
+			{
+				$phone['phone'] = $content;
+				$user = M('user')->where($phone)->find();
+				if ($user)
+				{
+					$where['user_id'] = $user['id'];
+				}
+			}
+		}
+		else
+		{
+			if ($type == 1)
+			{
+				//订单编号
+				if (!empty($content))
+				{
+					$where['order_no'] = array('like', '%' . $content . '%');
+				}
+			}
+		}
+		$where['isdel'] = 0;
+		$where['order_type'] = array("in", "2,4");
+		$count = M("order")->where($where)->count();
+		$Page = new Page($count, 10);
+		$list = M("order")->where($where)->order("id desc")->limit($Page->firstRow . ',' . $Page->listRows)->select();
+		$show = $Page->show();
+		$this->assign('show', $show);
+		$this->assign('list', $list);
+		$this->display();
+	}
+
+	// 售后订单
+	public function refunds()
+	{
+		$content = I('content');
+		$type = I('cate');
+		if ($type == 0)
+		{
+			//用户名
+			if (!empty($content))
+			{
+				$phone['phone'] = $content;
+				$user = M('user')->where($phone)->find();
+				if ($user)
+				{
+					$where['user_id'] = $user['id'];
+				}
+			}
+		}
+		else
+		{
+			if ($type == 1)
+			{
+				//商品名
+				if (!empty($content))
+				{
+					$where['goods_name'] = array('like', '%' . $content . '%');
+				}
+			}
+		}
+
+		$refund_no = I('refund_no');
+		if($refund_no){
+		    $where['refund_no'] = array('like','%'.$refund_no.'%');
+        }
+		if(I('refund_status') > 0){
+            $where['refund_status']  = I('refund_status');
+        }
+
+		$where['isdel'] = 0;
+		$where['order_type'] = 0;
+//		$where['order_status'] = array("in", "-2,-3,-4,-6");
+		$count = M("order_refund")->where($where)->count();
+		$Page = new Page($count, 10);
+		$list = M("order_refund")->where($where)->order("id desc")->limit($Page->firstRow . ',' . $Page->listRows)->select();
+		$show = $Page->show();
+		$this->assign('show', $show);
+		$this->assign('list', $list);
+		$this->display();
+	}
+
+	// 退货详情
+	public function refund_detail()
+	{
+		$id = I("id");
+		$where['id'] = $id;
+		$data = M("order_refund")->where($where)->find();
+
+		$refund_address = M('shop_refund_address')->where('shop_id=' . $data['shop_id'])->select();
+		$address = M('user_address')->find($data['user_address_id']);
+		if (!$address)
+		{
+			$address = array();
+		}
+		$address['address'] = get_region_name($address['province']) . get_region_name($address['city']) . get_region_name($address['district']) . $address['address'];
+		$express_list = M('express')->select();
+		if (!$data)
+		{
+			$this->error("没有此售后订单");
+		}
+		if (IS_POST)
+		{
+
+			$model = M();
+			$model->startTrans();
+			$refund_address_id = I('refund_address_id', 0);//退货地址
+			$receiver = I('receiver', '');//收货人
+			$phone = I('phone', 0);//收货人电话
+			$address = I('address', ''); //收货人详细地址
+			$zip_code = I('zip_code', '');//收货人邮编
+			$refund_status = I("refund_status", 0);//操作
+			$shop_express_id = I("shop_express_id", 0);//商家快递公司
+			$shop_tracking_number = I("shop_tracking_number", 0);//商家快递编号`
+			$shop_reason = I("shop_reason", '');//商家操作说明
+			if (empty($refund_status))
+			{
+				$this->error("请选择操作");
+				exit();
+			}
+			if ($refund_status == 3 && empty($shop_reason))
+			{
+				$this->error('请填写拒绝说明');
+				exit();
+			}
+			if ($refund_status == 2)
+			{
+				if (empty($refund_address_id) && $data['refund_type'] != 3)
+				{
+					if (empty($receiver))
+					{
+						$this->error("请选择收货信息或者点击'添加',填写收货人");
+						exit();
+					}
+					if (empty($phone))
+					{
+						$this->error("请选择收货信息或者点击'添加',填写收货人电话");
+						exit();
+					}
+
+					if (empty($address))
+					{
+						$this->error("请选择收货信息或者点击'添加',填写收货人详细地址");
+						exit();
+					}
+
+					$data_address = array(
+						'receiver' => $receiver,
+						'phone' => $phone,
+						'address' => $address,
+						'zip_code' => $zip_code,
+						'cre_time' => time(),
+						'shop_id' => $data['shop_id'],
+					);
+					$refund_address_id = M('shop_refund_address')->add($data_address);
+				}
+			}
+			if ($refund_status == 6)
+			{
+				if (empty($shop_express_id))
+				{
+					$this->error("请选择商家快递公司");
+					exit();
+				}
+				if (empty($shop_tracking_number))
+				{
+					$this->error("请输入商家快递单号");
+				}
+			}
+			$data_up = array(
+				'shop_reason' => $shop_reason,
+				'shop_express_id' => $shop_express_id,
+				'shop_tracking_number' => $shop_tracking_number,
+				'up_time' => time(),
+				'refund_status' => $refund_status,
+				'refund_address_id' => $refund_address_id,
+			);
+			$rs = M("order_refund")->where($where)->save($data_up); //修改退货表
+			$where_og['id'] = $data['order_goods_id'];
+			$order_goods = M('order_goods')->where($where_og)->find();
+			$data_og["order_status"] = '-' . $refund_status;
+			//仅退款 商家拒绝 order以及order_goods 订单改成已支付代发货
+			if ($refund_status == 3)
+			{
+				$data_og["refund_num"] = 0;
+				$data_og["goods_num"] = $order_goods['goods_num'] + $order_goods['refund_num'];
+
+				if ($data['refund_type'] == 3)
+				{
+
+					$data_og["order_status"] = 1;
+					M('order')->where('id=' . $data['order_id'])->save(array('order_status' => 1));
+				}
+			}
+			$rs2 = M("order_goods")->where($where_og)->save($data_og);//修改订单商品表
+			$refund_arr = M('order_refund')->find($id);
+			if ($refund_status == 6)
+			{
+				$refund_arr['shop_express_name'] = get_express($refund_arr['shop_express_id'])['name'];
+			}
+			$rs4 = add_order_return_log($refund_arr, $refund_status);
+			$rs5 = true;
+			if ($refund_status == 8)
+			{
+				//退款操作
+				$is_real_refund = get_config('is_real_refund',true); //是否真实退款 1是 0否
+				if ($is_real_refund > 0)
+				{
+					$rs5 = $this->order_real_refund($id, $refund_status); //退款逻辑
+				}
+			}
+			//添加日子
+			if ($rs !== false && $rs2 !== false && $rs4 !== false && $rs5 !== false)
+			{
+				$model->commit();
+				$this->success("操作完成");
+			}
+			else
+			{
+				$model->rollback();
+				$this->error("操作失败，请重新操作");
+			}
+			exit();
+		}
+		$data['images'] = json_decode($data['images'], true);
+		$this->assign("data", $data);
+		$this->assign("address", $address);
+		$this->assign("refund_address", $refund_address);
+		$this->assign("express_list", $express_list);
+		$this->display();
+	}
+
+	/**
+	 * 订单真实退款逻辑
+	 * @param $id int 退款订单id
+	 * @return bool true/false
+	 * @sunhaiyang
+	 */
+	public function order_real_refund($id, $status)
+	{
+		$refund = M('order_refund')->find($id); //获取退款订单信息
+		if (!$refund)
+		{
+			$this->error('订单不存在，请核实');
+		}
+		$order = M('order')->find($refund['order_id']);
+		switch ($order['payment_type'])
+		{
+			case 'wxpay':
+				$res = $this->wxpay_real_refund($refund);
+				break;
+            case 'wxmini':
+                $res = $this->wxpay_real_refund($refund);
+                break;
+			case 'alipay':
+				$res = $this->alipay_real_refund($refund);
+				break;
+            case 'price':
+                $res = $this->price_real_refund($refund);
+                break;
+            case 'price_pay':
+                $res = $this->price_pay_refund($refund);
+                break;
+
+			default:
+				$res = $this->yepay_real_refund($refund);
+				break;
+		}
+		//判断 如果有优惠群也一起去除
+
+        if($order['is_use_coupon'] > 0){
+            M('order')->where('id='.$order['id'])->setField('is_use_coupon',0);
+            M('order')->where('id='.$order['id'])->setField('user_coupon_id',0);
+            M('coupon_user')->where('id='.$order['user_coupon_id'])->setField('order_id',0);
+            M('coupon_user')->where('id='.$order['user_coupon_id'])->setField('use_time',0);
+            M('coupon_user')->where('id='.$order['user_coupon_id'])->setField('use_date',0);
+        }
+//        //将已返金额扣除  如果是退款无需退换   手动扣除
+//        if($refund['refund_type'] != 3){
+//            if($order['order_type'] == 0){
+//                change_money_log($order['user_id'],1,'money_wait',1,$refund['refund_total'],6,12,'订单退款，待返金额减少',2,1,1,$order['id'],0,0);
+//            }
+//        }
+
+
+		return $res;
+	}
+
+	/**
+	 * 真实微信退款
+	 * @param array $refund 退款订单信息
+	 * @return bool true/false
+	 * sunhaiyang
+	 */
+	public function wxpay_real_refund($refund)
+	{
+		$config = get_config_pay3(3);
+		$refund_amount = $refund['refund_total'] * 100;
+		$log3 = M("pay3_log")->where('status=1 and order_id=' . $refund['order_id'])->find();
+        $order = M('order')->where('id='.$refund['order_id'])->find();
+        if($order['payment_type'] == 'wxmini'){
+            $timeOut = 4;
+        }else if($order['payment_type'] == 'wxmp'){
+            $timeOut = 3;
+        }else{
+            $timeOut = 1;
+        }
+		$href = "./ThinkPHP/Library/Vendor/Wxpay";
+		require_once $href . '/lib/WxPayApi.php';
+		$input = new \WxPayRefund();
+		$data['mch_id'] = $config['mchid'];
+		$input->SetOut_trade_no($log3['serial_no']);
+		$input->SetOut_refund_no(make_order_no());
+		$input->SetTotal_fee($refund_amount);
+		$input->SetRefund_fee($refund_amount);
+		$input->SetOp_user_id($data['mch_id']);
+		$input->SetNotify_url(C("C_HTTP_HOST") . $config['return_url']);
+		$res = \WxPayApi::refund($input,$timeOut*10);
+		if ($res['return_code'] == 'SUCCESS')
+		{
+			return true;
+		}
+		else
+		{
+			return false;
+		}
+	}
+
+	/**
+	 * 真实支付宝退款
+	 * @param array $refund 退款订单信息
+	 * @return bool true/false
+	 * sunhaiyang
+	 */
+	public function alipay_real_refund($refund)
+	{
+		$href = THINK_PATH . "/Library/Vendor/Alipay";
+		require_once $href . '/config.php';
+		require_once $href . '/aop/AopClient.php';
+		require_once $href . '/aop/SignData.php';
+		require_once $href . '/aop/request/AlipayTradeRefundRequest.php';
+		$aop = new \AopClient();
+		$log3 = M("pay3_log")->where('status=1 and order_id=' . $refund['order_id'])->find();
+		$out_trade_no = $log3['serial_no']; //商户退款订单号
+		$refund_amount = $refund['refund_total'];
+		$config = get_config_pay3(2);
+		$aop->gatewayUrl = 'https://openapi.alipay.com/gateway.do';
+		$aop->appId = $config['appid']; //appid
+		$aop->rsaPrivateKey = $config['key1']; //商户私钥
+		$aop->alipayrsaPublicKey = $config['key2']; //支付宝公钥
+		$aop->apiVersion = '1.0';
+		$aop->signType = 'RSA2';
+		$aop->postCharset = 'UTF-8';
+		$aop->format = 'json';
+		$request = new \AlipayTradeRefundRequest();
+		$request->setBizContent(
+			"{" .
+//            "\"trade_no\":\"$trade_no\"," .
+			"\"out_trade_no\":\"$out_trade_no\"," .
+			"\"refund_amount\":$refund_amount," .
+			"\"refund_reason\":\"正常退款\"," .
+			"\"out_request_no\":\"HZ01RF001\"," .
+			"\"operator_id\":\"OP001\"," .
+			"\"store_id\":\"NJ_S_001\"," .
+			"\"terminal_id\":\"NJ_T_001\"" .
+			"  }"
+		);
+		$result = $aop->execute($request);
+
+		$responseNode = str_replace(".", "_", $request->getApiMethodName()) . "_response";
+		$resultCode = $result->$responseNode->code;
+		if (!empty($resultCode) && $resultCode == 10000)
+		{
+			$res = true;
+		}
+		else
+		{
+			$res = false;
+		}
+		return $res;
+	}
+
+	/**
+	 * 真实余额退款
+	 * @param array $refund 退款订单信息
+	 * @return bool true/false
+	 * sunhaiyang
+	 */
+	public function yepay_real_refund($refund)
+	{
+		$refund_total = $refund['refund_total'];
+		$money_field = "money";
+		$type = 1;
+		$deal_type = 12;
+		$utype = 1;
+		$remark = "商城订单退款";
+		$res = change_money_log($refund['user_id'], 1, $money_field, 0, $refund_total, $type, $deal_type, $remark, 1, $utype, 1, $refund['order_id']);
+		return $res;
+	}
+
+    public function price_real_refund($refund)
+    {
+        $refund_total = $refund['refund_total'];
+        $money_field = "price";
+        $type = 18;
+        $deal_type = 12;
+        $utype = 1;
+        $remark = "商城订单退款";
+        $res = change_money_log($refund['user_id'], 1, $money_field, 0, $refund_total, $type, $deal_type, $remark, 1, $utype, 1, $refund['order_id']);
+        return $res;
+    }
+    public function price_pay_refund($refund)
+    {
+        $refund_total = $refund['refund_total'];
+        $money_field = "price_pay";
+        $type = 19;
+        $deal_type = 12;
+        $utype = 1;
+        $remark = "商城订单退款";
+        $res = change_money_log($refund['user_id'], 1, $money_field, 0, $refund_total, $type, $deal_type, $remark, 1, $utype, 1, $refund['order_id']);
+        return $res;
+    }
+
+
+	// 订单删除
+	public function delete()
+	{
+		$id = I("id", 0);
+		$Orderin = new Orderin();
+		$data = $Orderin->deleteOrder($id);
+		if ($data == 1)
+		{
+			$this->success("删除成功");
+		}
+		else
+		{
+			$this->error("操作失败，请重新操作");
+		}
+	}
+
+	// 团购订单
+	public function group()
+	{
+		$where = I();
+        if (!I('order_status'))
+        {
+            $where['order_status'] = -1;
+        }elseif(I('order_status') == -2){
+            $where['order_status'] = 0;
+        }
+		$where['order_type'] = 5;
+		$where['admin'] = 1;//后台分页
+        $where['page'] = I('p');
+		$data = $this->_obj_out->orderList($where);
+		foreach ($data['list'] as $k => $v)
+		{
+			$data['list'][$k]['order_status'] = get_order_status($v['order_status']);
+			$key_last = key($v['goods']);
+			$goods_name = '';
+			foreach ($v['goods'] as $k1 => $v1)
+			{
+				$goods_name = $goods_name . '商品:' . $v1['goods_name'] . ',数量:x' . $v1['goods_num'] . '<br />';
+			}
+			$data['list'][$k]['goods_name'] = $goods_name;
+		}
+		$express_type = get_config('express_type');
+		$this->assign('list', $data['list']);
+		$this->assign('express_type', $express_type);
+		$this->assign('show', $data['page']);
+		$this->display();
+	}
+
+	// 秒杀订单
+	public function hour()
+	{
+		$where = I();
+        if (!I('order_status'))
+        {
+            $where['order_status'] = -1;
+        }elseif(I('order_status') == -2){
+            $where['order_status'] = 0;
+        }
+		$where['order_type'] = 6;
+		$where['admin'] = 1;//后台分页
+        $where['page'] = I('p');
+		$data = $this->_obj_out->orderList($where);
+		foreach ($data['list'] as $k => $v)
+		{
+			$data['list'][$k]['order_status'] = get_order_status($v['order_status']);
+			$key_last = key($v['goods']);
+			$goods_name = '';
+			foreach ($v['goods'] as $k1 => $v1)
+			{
+				$goods_name = $goods_name . '商品:' . $v1['goods_name'] . ',数量:x' . $v1['goods_num'] . '<br />';
+			}
+			$data['list'][$k]['goods_name'] = $goods_name;
+		}
+		$express_type = get_config('express_type');
+		$this->assign('list', $data['list']);
+		$this->assign('express_type', $express_type);
+		$this->assign('show', $data['page']);
+		$this->display();
+	}
+
+	// 限时购订单
+	public function time()
+	{
+		$where = I();
+		if (!I('order_status'))
+		{
+			$where['order_status'] = -1;
+		}
+		$where['order_type'] = 7;
+		$where['admin'] = 1;//后台分页
+		$data = $this->_obj_out->orderList($where);
+		foreach ($data['list'] as $k => $v)
+		{
+			$data['list'][$k]['order_status'] = get_order_status($v['order_status']);
+			$key_last = key($v['goods']);
+			$goods_name = '';
+			foreach ($v['goods'] as $k1 => $v1)
+			{
+				$goods_name = $goods_name . '商品:' . $v1['goods_name'] . ',数量:x' . $v1['goods_num'] . '<br />';
+			}
+			$data['list'][$k]['goods_name'] = $goods_name;
+		}
+		$express_type = get_config('express_type');
+		$this->assign('list', $data['list']);
+		$this->assign('express_type', $express_type);
+		$this->assign('show', $data['page']);
+		$this->display();
+	}
+
+	/**
+	 * 单个商品确认收货
+	 */
+	public function receive()
+	{
+		$order_id = I('id', 0, 'intval');
+		if ($order_id == 0)
+		{
+			$user_id = I('user_id');//用户id
+			$Orderin = new Orderin($user_id);
+			$data = $Orderin->takeDelivery();
+		}
+		else
+		{
+			$data = $this->_obj_in->takeDelivery($order_id);
+		}
+		$this->success('收货成功', U('Order/index'));
+	}
+
+
+	/**
+	 * 已删订单
+	 */
+	public function deleteList()
+	{
+		$where = I();
+		$where['isdel'] = 1;
+		$where['admin'] = 1;//后台分页
+		$data = $this->_obj_out->orderList($where);
+		foreach ($data['list'] as $k => $v)
+		{
+			$data['list'][$k]['order_status'] = get_order_status($v['order_status']);
+			$key_last = key($v['goods']);
+			$goods_name = '';
+			foreach ($v['goods'] as $k1 => $v1)
+			{
+				$goods_name = $goods_name . '商品:' . $v1['goods_name'] . ',数量:x' . $v1['goods_num'] . '<br />';
+			}
+			$data['list'][$k]['goods_name'] = $goods_name;
+		}
+		$express_type = get_config('express_type');
+		$this->assign('list', $data['list']);
+		$this->assign('express_type', $express_type);
+		$this->assign('show', $data['page']);
+		$this->display();
+	}
+
+
+	//订单的导出
+    public function orderDc(){
+        //进行搜索 根据order_id查询order_goods表的数据 在进行导出的操作
+        $order_no = I("order_no", '');
+        $goods_name = I("goods_name", '');
+        $tracking_number = I("tracking_number", '');
+        $content = I("content", '');
+        $payment_type = I("payment_type", '');
+        $order_status = I("order_status", -1);
+
+        $add_time = I("add_time", '');
+        $pay_time = I("pay_time", '');
+        $shipping_time = I("shipping_time", '');
+        $confirm_time = I("confirm_time", '');
+        $trade_no = I("trade_no", '');
+        if ($order_no)
+        {
+            $where['order_no'] = array("like", "%" . $order_no . "%");
+        }
+        if ($goods_name)
+        {
+            $where_og['goods_name'] = array("like", "%" . $goods_name . "%");
+            $ogArr = M('order_goods')->where($where_og)->getField("order_id", true);
+            if ($ogArr)
+            {
+                $where['id'] = array("in", $ogArr);
+            }
+        }
+        if ($tracking_number)
+        {
+            $where_og['tracking_number'] = array("like", "%" . $tracking_number . "%");
+            $ogArr = M('order_goods')->where($where_og)->getField("order_id", true);
+            if ($ogArr)
+            {
+                $where['id'] = array("in", $ogArr);
+            }
+        }
+        if ($content)
+        {
+            if (is_numeric($content) && strlen($content) < 10)
+            {
+                // 小于10位，并且是数字，按用户ID搜索
+                $where_u['id'] = $content;
+                $userArr = M('user')->where($where_u)->getField("id", true);
+                if ($userArr)
+                {
+                    $where['user_id'] = array("in", $userArr);
+                }
+            }
+            else
+            {
+                // 非数字，或长度大于10位，按用户名或手机号搜索
+                $where_u['phone|realname'] = array("like", "%" . $content . "%");
+                $userArr = M('user')->where($where_u)->getField("id", true);
+                if ($userArr)
+                {
+                    $where['user_id'] = array("in", $userArr);
+                }
+            }
+        }
+        if ($payment_type)
+        {
+            $where['payment_type'] = $payment_type;
+        }
+        if ($order_status >= 0 && is_numeric($order_status))
+        {
+            $where['order_status'] = $order_status;
+        }
+        if ($add_time)
+        {
+            $addTimeArr = explode(" - ", $add_time);
+            $addTimeArr[0] = strtotime($addTimeArr[0]);
+            $addTimeArr[1] = strtotime($addTimeArr[1]);
+            $where['add_time'] = array(array("gt", $addTimeArr[0]), array("elt", $addTimeArr[1]));
+        }
+        if ($pay_time)
+        {
+            $addTimeArr = explode(" - ", $pay_time);
+            $addTimeArr[0] = strtotime($addTimeArr[0]);
+            $addTimeArr[1] = strtotime($addTimeArr[1]);
+            $where['pay_time'] = array(array("gt", $addTimeArr[0]), array("elt", $addTimeArr[1]));
+        }
+        if ($shipping_time)
+        {
+            $addTimeArr = explode(" - ", $shipping_time);
+            $addTimeArr[0] = strtotime($addTimeArr[0]);
+            $addTimeArr[1] = strtotime($addTimeArr[1]);
+            $where['shipping_time'] = array(array("gt", $addTimeArr[0]), array("elt", $addTimeArr[1]));
+        }
+        if ($confirm_time)
+        {
+            $addTimeArr = explode(" - ", $confirm_time);
+            $addTimeArr[0] = strtotime($addTimeArr[0]);
+            $addTimeArr[1] = strtotime($addTimeArr[1]);
+            $where['confirm_time'] = array(array("gt", $addTimeArr[0]), array("elt", $addTimeArr[1]));
+        }
+        if ($trade_no)
+        {
+            $where_og['trade_no|serial_no'] = array("like", "%" . $trade_no . "%");
+            $where_og['status'] = 1;
+            $ogArr = M('pay3_log')->where($where_og)->getField("order_id", true);
+            if ($ogArr)
+            {
+                $where['id'] = array("in", $ogArr);
+            }
+        }
+        if($order_status == -2){
+
+            $where['order_status']  = 0;
+        }elseif($order_status > -1){
+            $where['order_status']  = $order_status;
+        }
+        $where['isdel'] = 0;
+        $where['order_type'] = array('in',array(0,5,6));
+        $order = M('order')->where($where)->select();
+        if($order){
+            foreach ($order as $k => $v){
+                $ids[$k] = $v['id'];
+            }
+            //查询order_goods进行导出
+            $xlsName = "Order";
+            $xlsCell = array(
+                '订单id',
+                '订单号',
+                '商品名',
+                '数量',
+                '单价',
+                '总价',
+                '规格',
+                '支付状态',
+                '订单状态',
+                '手机号',
+                '收件人',
+                '用户留言',
+                '生成时间',
+                '支付时间',
+            );
+            $orderWhere['order_id']  = array('in',$ids);
+            $orderList = M('order_goods')->where($orderWhere)->select();
+            $xlsData = array();
+            foreach ($orderList as $k => $v){
+                $xlsData[$k]['order_id'] = $v['order_id'];
+                $xlsData[$k]['order_no'] = $v['order_no'];
+                $xlsData[$k]['goods_name'] = $v['goods_name'];
+                $xlsData[$k]['goods_num'] = $v['goods_num'];
+                $xlsData[$k]['goods_price'] = $v['goods_price'];
+                $xlsData[$k]['goods_total'] = $v['goods_total'];
+                $xlsData[$k]['goods_spec_price_name'] = $v['goods_spec_price_name'];
+                if($v['pay_status'] == 0){
+                    $xlsData[$k]['pay_status'] = '未支付';
+                }else{
+                    $xlsData[$k]['pay_status'] = '已支付';
+                }
+
+                if($v['order_status'] == 0){
+                    $xlsData[$k]['order_status'] = '待支付';
+                }elseif($v['order_status'] == 1){
+                    $xlsData[$k]['order_status'] = '待发货';
+                }elseif($v['order_status'] == 2){
+                    $xlsData[$k]['order_status'] = '待收货';
+                }elseif($v['order_status'] == 3){
+                    $xlsData[$k]['order_status'] = '待评价';
+                }elseif($v['order_status'] == 4){
+                    $xlsData[$k]['order_status'] = '已取消';
+                }elseif($v['order_status'] == 5){
+                    $xlsData[$k]['order_status'] = '已完成';
+                }else{
+                    $xlsData[$k]['order_status'] = '售后';
+                }
+                $userInfo = M('user')->find($v['user_id']);
+                $xlsData[$k]['phone'] = $userInfo['phone'];
+                $xlsData[$k]['name'] = $userInfo['nickname'];
+                $xlsData[$k]['user_note'] = $userInfo['user_note'];
+                $xlsData[$k]['add_time'] = date('Y-m-d H:i:s',$v['add_time']);
+                $xlsData[$k]['pay_time'] = date('Y-m-d H:i:s',$v['pay_time']);
+
+            }
+            $this->exportExcel($xlsCell, $xlsData, $xlsName);
+        }else{
+            jsonout('暂无数据',1,null);
+        }
+
+
+
+    }
+
+    public function exportExcel($title = array(), $data = array(), $fileName = '', $savePath = './upload/export/', $isDown = true)
+    {
+        vendor("PHPExcel.PHPExcel");
+        $obj = new \PHPExcel();
+        //横向单元格标识
+        $cellName = array('A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', 'AA', 'AB', 'AC', 'AD', 'AE', 'AF', 'AG', 'AH', 'AI', 'AJ', 'AK', 'AL', 'AM', 'AN', 'AO', 'AP', 'AQ', 'AR', 'AS', 'AT', 'AU', 'AV', 'AW', 'AX', 'AY', 'AZ');
+        $obj->getActiveSheet(0)->setTitle('导出数据');   //设置sheet名称
+        $_row = 1;   //设置纵向单元格标识
+
+        if ($title) {
+            $_cnt = count($title);
+            $obj->getActiveSheet(0)->mergeCells('A' . $_row . ':' . $cellName[$_cnt - 1] . $_row);   //合并单元格
+            $obj->setActiveSheetIndex(0)->setCellValue('A' . $_row, '数据导出：' . date('Y-m-d H:i:s'));  //设置合并后的单元格内容
+            $_row++;
+            $i = 0;
+            foreach ($title AS $v) {   //设置列标题
+                $obj->setActiveSheetIndex(0)->setCellValue($cellName[$i] . $_row, $v);
+                $obj->getActiveSheet()->getColumnDimension($cellName[$i])->setWidth(20); //设置宽度
+                $i++;
+            }
+            $_row++;
+        }
+        //填写数据
+        if ($data) {
+            $i = 0;
+            foreach ($data AS $_v) {
+                $j = 0;
+                foreach ($_v AS $_cell) {
+                    $obj->getActiveSheet(0)->setCellValue($cellName[$j] . ($i + $_row), $_cell);
+                    $j++;
+                }
+                $i++;
+            }
+        }
+        //文件名处理
+        $time = date('Y-m-d', time());
+        $fileName = $time . "_" . time() . '.xlsx';
+
+        $objWrite = \PHPExcel_IOFactory::createWriter($obj, 'Excel2007');
+        header('pragma:public');
+        header("Content-Disposition:attachment;filename=$fileName");
+        $objWrite->save('php://output');
+        exit;
+
+        $_savePath = $savePath . $fileName;
+        $objWrite->save($_savePath);
+        return;
+    }
+	/**
+	 * Title： 导出表格
+	 * Note：
+	 * User： zd
+	 * Date： 2020/6/20 11:20
+	 */
+	public function export_excel()
+	{
+		$order_no = I("order_no", '');
+		$goods_name = I("goods_name", '');
+		$tracking_number = I("tracking_number", '');
+		$content = I("content", '');
+		$payment_type = I("payment_type", '');
+		$order_status = I("order_status", -1);
+		$add_time = I("add_time", '');
+		$pay_time = I("pay_time", '');
+		$shipping_time = I("shipping_time", '');
+		$confirm_time = I("confirm_time", '');
+		$trade_no = I("trade_no", '');
+
+		if ($order_no)
+		{
+			$where['order_no'] = array("like", "%" . $order_no . "%");
+		}
+		if ($goods_name)
+		{
+			$where_og['goods_name'] = array("like", "%" . $goods_name . "%");
+			$ogArr = M('order_goods')->where($where_og)->getField("order_id", true);
+			if ($ogArr)
+			{
+				$where['id'] = array("in", $ogArr);
+			}
+		}
+		if ($tracking_number)
+		{
+			$where_og['tracking_number'] = array("like", "%" . $tracking_number . "%");
+			$ogArr = M('order_goods')->where($where_og)->getField("order_id", true);
+			if ($ogArr)
+			{
+				$where['id'] = array("in", $ogArr);
+			}
+		}
+		if ($content)
+		{
+			if (is_numeric($content) && strlen($content) < 10)
+			{
+				// 小于10位，并且是数字，按用户ID搜索
+				$where_u['id'] = $content;
+				$userArr = M('user')->where($where_u)->getField("id", true);
+				if ($userArr)
+				{
+					$where['user_id'] = array("in", $userArr);
+				}
+			}
+			else
+			{
+				// 非数字，或长度大于10位，按用户名或手机号搜索
+				$where_u['phone|realname'] = array("like", "%" . $content . "%");
+				$userArr = M('user')->where($where_u)->getField("id", true);
+				if ($userArr)
+				{
+					$where['user_id'] = array("in", $userArr);
+				}
+			}
+		}
+		if ($payment_type)
+		{
+			$where['payment_type'] = $payment_type;
+		}
+		if ($order_status >= 0 && is_numeric($order_status))
+		{
+			$where['order_status'] = $order_status;
+		}
+		if ($add_time)
+		{
+			$addTimeArr = explode(" - ", $add_time);
+			$addTimeArr[0] = strtotime($addTimeArr[0]);
+			$addTimeArr[1] = strtotime($addTimeArr[1]);
+			$where['add_time'] = array(array("gt", $addTimeArr[0]), array("elt", $addTimeArr[1]));
+		}
+		if ($pay_time)
+		{
+			$addTimeArr = explode(" - ", $pay_time);
+			$addTimeArr[0] = strtotime($addTimeArr[0]);
+			$addTimeArr[1] = strtotime($addTimeArr[1]);
+			$where['pay_time'] = array(array("gt", $addTimeArr[0]), array("elt", $addTimeArr[1]));
+		}
+		if ($shipping_time)
+		{
+			$addTimeArr = explode(" - ", $shipping_time);
+			$addTimeArr[0] = strtotime($addTimeArr[0]);
+			$addTimeArr[1] = strtotime($addTimeArr[1]);
+			$where['shipping_time'] = array(array("gt", $addTimeArr[0]), array("elt", $addTimeArr[1]));
+		}
+		if ($confirm_time)
+		{
+			$addTimeArr = explode(" - ", $confirm_time);
+			$addTimeArr[0] = strtotime($addTimeArr[0]);
+			$addTimeArr[1] = strtotime($addTimeArr[1]);
+			$where['confirm_time'] = array(array("gt", $addTimeArr[0]), array("elt", $addTimeArr[1]));
+		}
+		if ($trade_no)
+		{
+			$where_og['trade_no|serial_no'] = array("like", "%" . $trade_no . "%");
+			$where_og['status'] = 1;
+			$ogArr = M('pay3_log')->where($where_og)->getField("order_id", true);
+			if ($ogArr)
+			{
+				$where['id'] = array("in", $ogArr);
+			}
+		}
+		$where['isdel'] = 0;
+		$tempID = 1;        // 导出模板ID
+		$res = exportExcel($where, 'id desc', 0, $tempID, '', 0);
+		if ($res['err'] == 0)
+		{
+			jsonout('数据导出', 0, $res['result']);
+		}
+		else
+		{
+			jsonout($res['msg'], 1);
+		}
+	}
+
+
+	/**
+     * 积分订单
+     * order_type = 11的
+     * @author lty
+     */
+	public function waitOrder(){
+        $where = I();
+        if (!I('order_status'))
+        {
+            $where['order_status'] = -1;
+        }
+        $where['order_type'] = 11;
+        $where['admin'] = 1;//后台分页
+        $where['page'] = I('p');
+        $data = $this->_obj_out->orderList($where);
+        foreach ($data['list'] as $k => $v)
+        {
+            $data['list'][$k]['order_status'] = get_order_status($v['order_status']);
+            $key_last = key($v['goods']);
+            $goods_name = '';
+            foreach ($v['goods'] as $k1 => $v1)
+            {
+                $goods_name = $goods_name . '商品:' . $v1['goods_name'] . ',数量:x' . $v1['goods_num'] . '<br />';
+            }
+            $data['list'][$k]['goods_name'] = $goods_name;
+        }
+        $express_type = get_config('express_type');
+        $this->assign('list', $data['list']);
+        $this->assign('express_type', $express_type);
+        $this->assign('show', $data['page']);
+	    $this->display();
+    }
+
+}

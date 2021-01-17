@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<title>旗下商家</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<link rel="stylesheet" href="__PUBLIC__/mobile/css_v3/mui.min.css">
+		<link rel="stylesheet" href="__PUBLIC__/mobile/css_v3/near.css">
+		<link rel="stylesheet" href="__PUBLIC__/mobile/style/main_style.css">
+		<script src="__PUBLIC__/js/mui.min.js"></script>
+		<script src="__PUBLIC__/js/jquery.min.js"></script>
+		<style type="text/css">
+			.section_near_product .ul_near_product li {
+				border: 0;
+			}
+		</style>
+	</head>
+
+	<body>
+	<if condition="empty($shop_list['result']['shop'])">
+		<div class="empty_data">
+			<div class="empty_data_t0">
+				<img src="__PUBLIC__/mobile/images_v3/empty_cart_img_1.png" class="empty_cart_img_1">
+			</div>
+			<div class="empty_data_t1">暂无数据~</div>
+		</div>
+		<else/>
+		<div class="mui-content" style="background: #fff;">
+			<div class="section_near_product">
+				<ul class="ul_near_product " id="inx_id">
+					<volist name="shop_list.result.shop" id="vo">
+						<li class="busin_li">
+							<a href="javascript:;">
+								<img src="{$vo.thumb}" class="product" />
+
+								<div class="div_product_info">
+									<h2 class="good_name">{$vo.shop_name}</h2>
+									<div class="address_mid">
+										<img class="dizhi" src="__PUBLIC__/mobile/images_v3/dizhi5.png" />
+										<h3 class="address_h3">{$vo.address}</h3>
+									</div>
+
+									<div class="recomment">营业额：<span class="turnover"> <span class="symbol">￥</span>{$vo.shop_total}</span>
+									</div>
+								</div>
+								<div class="clear"></div>
+							</a>
+						</li>
+					</volist>
+				</ul>
+			</div>
+		</div>
+		<div class="load_more_content"></div>
+		<div class="load_more">
+			<if condition="$max_page gt 1">
+				<span class="load_more_red">点击</span>加载更多
+				<else/>
+				数据已全部加载
+			</if>
+		</div>
+	</if>
+
+	</body>
+	<script src="__PUBLIC__/mobile/js/jquery-2.1.4.js"></script>
+	<script type="text/javascript" src="__PUBLIC__/layer/mobile/layer.js"></script>
+	<script type="text/javascript" src="__PUBLIC__/layui/layui.js"></script>
+	<script type="text/javascript">
+		// 加载更多
+		var page = 2; // 当前页码，默认从第2页开始，因为刚进来已经输出一次了
+		var max_page = "{$max_page}"; // 最大页码
+		$(".load_more").on("click", function() {
+			if (page > max_page) {
+				layer.open({
+					type: 2,
+					content: '数据已全部加载',
+					time: 1
+				});
+				$(".load_more").text("数据已全部加载");
+				return;
+			}
+			layer.open({
+				type: 2,
+				content: '加载中'
+			});
+			$(".load_more_content").load("{:U('shops')}", {
+				page:page
+			}, function(response, status) {
+				if (status == "success") {
+					var html = $(".load_more_content").html();
+					$("#inx_id").append(html);
+					$(".load_more_content").html("");
+					page = parseInt(page) + 1; // 在本页自增
+				}
+				layer.closeAll();
+			});
+		});
+	</script>
+
+</html>

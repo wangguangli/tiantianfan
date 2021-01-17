@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>代理商认证</title>
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="stylesheet" href="__PUBLIC__/css/mui.min.css">
+    <link rel="stylesheet" href="__PUBLIC__/css/agency.css">
+    <script src="__PUBLIC__/js/mui.min.js"></script>
+    <script src="__PUBLIC__/js/jquery.min.js"></script>
+    <script src="{:U('Shopcenter/get_city_json')}?.js"></script>
+</head>
+<body style="background: #efeff4;">
+<div class="agency">
+    <div class="agency_images">
+        <header class="mui-bar mui-bar-nav" style="background:rgba(0,0,0,0);box-shadow: none;">
+            <a class="mui-pull-left mui-icon mui_turn" href="javascript:history.back();"><img
+                    src="__PUBLIC__/img/return.png" width="20vw" height="20vw"/></a>
+            <h1 class="mui-title tit_login" style="color: #fff;">代理商认证</h1>
+        </header>
+    </div>
+</div>
+<form action="{:U('Agent/applyagent')}" method ='post'>
+<div class="contacts">
+    <ul>
+        <li>
+            <div class="img_span">
+                <img src="__PUBLIC__/img/agent2.png" width="20" height="21"/>
+                <span>联系人</span>
+            </div>
+            <input type="text" name="realname" id="" value="" placeholder="请输入联系人" class="change"/>
+            <!--<span>1300</span>-->
+        </li>
+        <li>
+            <div class="img_span">
+                <img src="__PUBLIC__/img/agent5.png" width="20" height="21"/>
+                <span>代理区域</span>
+            </div>
+            <div class="name_dd">
+                <ul class="clearfix">
+                    <input type="hidden" name="shop_id" value="0">
+                    <li>
+                        <select name="province_id" id="province">
+                            <option value="0">省份</option>
+                        </select>
+                        <!--    <img src="__PUBLIC__/img/arrows_qq.png"width="20"height="20" class="arrow_name"/>	-->
+                    </li>
+                    <li>
+                        <select name="city_id" id="city" ">
+                        <option value="0">城市</option>
+                        </select>
+                        <!--  <img src="__PUBLIC__/img/arrows_qq.png"width="20"height="20" class="arrow_name"/>-->
+                    </li>
+                    <li>
+                        <select name="district_id" id="district">
+                            <option value="">县区</option>
+
+                        </select>
+                        <!-- <img src="__PUBLIC__/img/arrows_qq.png"width="20"height="20" class="arrow_name"/>-->
+                    </li>
+
+                </ul>
+            </div>
+        </li>
+        <!--<li>-->
+            <!--<div class="img_span">-->
+                <!--<img src="__PUBLIC__/img/agent2.png" width="20" height="21"/>-->
+                <!--<span>详细地址</span>-->
+            <!--</div>-->
+            <!--<input type="text" name="" id="" value=""-->
+                   <!--placeholder="请输入详细地址" class="change"/>-->
+            <!--&lt;!&ndash;<span>1300</span>&ndash;&gt;-->
+        <!--</li>-->
+        <li>
+            <div class="img_span">
+                <img src="__PUBLIC__/img/agent4.png" width="20" height="21"/>
+                <span>手机号</span>
+            </div>
+            <input type="text" name="phone" id="" value="" placeholder="请输入手机号" class="change"/>
+            <!--<span>1300</span>-->
+        </li>
+        <li class="clearfix">
+            <div class="infor_text">
+                <img src="__PUBLIC__/img/information.png" width="20" height="20"/>
+                <span>请选择服务费比例</span>
+            </div>
+            <div class="infor_right" style="position: relative;">
+                <div class="agency_input" id="service">
+                    <div data-value="" id="service">请选择服务费</div>
+                </div>
+                <!--<datalist id="url_list" class="agency_input">
+               <option label="W3School" value="服务费15.00%" />
+               <option label="Google" value="http://www.google.com" />
+               <option label="Microsoft" value="http://www.microsoft.com" />
+             </datalist>-->
+                <div class="agency_select"
+                     style="position: absolute;top: 9vw;right: 5vw;width: 30vw;text-align: right;background: white;z-index: 999;display: none;">
+                </div>
+                <input type="hidden" name="shop_fee_id" value=""/>
+                <img src="__PUBLIC__/img/return_1.png" width="15" height="15"/>
+            </div>
+        </li>
+    </ul>
+</div>
+<!--提交-->
+<input type="submit" value="提交" class="input_change"/>
+<div class="apply_for"><p>申请即视为同意</p><a href="{:U('agent/xieyi')}"><span>《代理商协议》</span></a></div>
+</form>
+<script src="__PUBLIC__/layer/mobile/layer.js"></script>
+<script>
+     var user_id = "{$user_id?$user_id:0}";
+    $('.agency_input').click(function () {
+
+        show_select();
+    })
+    $('.infor_text').click(function () {
+        show_select();
+    })
+
+    function show_select() {
+        $('.agency_select').slideToggle();
+    }
+    //  $('.agency_select p').click(function () {
+    //      var val = $(this).data('data-value');
+    //      console.log(val);
+    //
+    //      $('input[name="shop_fee_id"]').val(val);
+    //      $('.agency_input div').html($(this).html());
+    //      $('.agency_select').slideUp();
+    //  });
+    $(document).on('click','#fw',function () {
+        var val = $(this).data('value');
+
+
+        $('input[name="shop_fee_id"]').val(val);
+        $('.agency_input div').html($(this).html());
+        $('.agency_select').slideUp();
+    })
+    $.ajax({
+        type:'post',
+        dataType:'json',
+        data:{'user_id':user_id},
+        url:"{:U('M/Shop/feeList')}",
+        success:function (data) {
+            if(status==0){var html='';
+                $.each(data.result ,function (index,item) {
+
+                        html += ' <p data-value="'+item.id
+                        +'" style="margin: 0;padding: 0;line-height: 10vw;" id="fw">服务费'+item.percent1+'%</p>'
+
+                })
+                $('.agency_select').append(html);
+            }else{
+                layer.open({
+                    content: data.msg
+                    , skin: 'msg'
+                    , time: 1
+                });
+            }
+        }
+
+    });
+
+    <empty name = "data" >
+    var curr_prov = curr_city = curr_dist = 0;
+    <else/>
+    var curr_prov = {$data.province_id};
+    var curr_city = {$data.city_id};
+    var curr_dist = {$data.district_id};
+    </empty>
+    $(function () {
+    <notempty
+        name = "rel" >
+            $("input[type=submit]").click(function () {
+                var formval = $("form").serialize();
+                $.ajax({
+                    type: 'POST',
+                    data: formval,
+                    url: "{:U('User/edit_address')}",
+                    dataType: 'json',
+                    success: function (args) {
+                        if (args.err == 0) {
+                            var rs = args.result;
+                            //微信不支持
+                            //window.close();
+                            //window.opener.notice(args.result.address_id);
+
+//					window.history.back();
+
+                            if (rs.rel == 'buy') {
+                                location.href = "{:U('Home/order/buy',array('rel'=>'buy'))}";
+                            }
+                            if (rs.rel == 'jihuo') {
+                                location.href = "{:U('Home/order/buy',array('rel'=>'jihuo'))}";
+                            }
+                            if (rs.rel == 'baodan') {
+                                location.href = "{:U('Home/order/buy',array('rel'=>'baodan'))}";
+                            }
+
+                        } else {
+                            layer.open({
+                                content: args.info
+                                ,skin: 'msg'
+                                ,time: 2
+                            });
+                        }
+                    }
+                });
+                return false;
+            });
+    </notempty>
+
+        if (curr_prov) {
+            $("#province").append(get_city_list(0, true));
+
+            $("#city").append(get_city_list(curr_prov, true));
+
+            $("#district").append(get_city_list(curr_city, true));
+        }else{
+            $("#province").append(get_city_list(0));
+
+            $("#city").append('<option value="0">城市</option>');
+
+            $("#district").append('<option value="0">县区</option>');
+        }
+
+        $("#province").change(function () {
+            var v = $(this).val();
+            if (v != 0) {
+                var d = get_city_list(v);
+                $("#city").html('<option value="0">选择市</option>' + d);
+            } else {
+                $("#city").html('<option value="0">选择市</option>');
+            }
+            $("#city").next().html('<option value="0">选择区县</option>');
+        });
+        $("#city").change(function () {
+            var v = $(this).val();
+            if (v != 0) {
+                var d = get_city_list(v);
+                $("#district").html('<option value="0">选择区县</option>' + d);
+            }
+        });
+    });
+
+    function get_city_list(pid, is_sel) {
+        if (!pid) pid = 0;
+        var city = region_list[pid];
+        var html = '';
+        for (var i in city) {
+            var _sel = (is_sel && (i == curr_prov || i == curr_city || i == curr_dist)) ? ' selected="selected" ' : '';
+            html += '<option value="' + i + '"' + _sel + '>' + city[i] + '</option>';
+        }
+        return html;
+    }
+</script>
+</body>
+</html>

@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<title>收货地址</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<link rel="stylesheet" href="__PUBLIC__/mobile/css_v3/mui.min.css">
+		<link rel="stylesheet" href="__PUBLIC__/mobile/style/main_style.css">
+		<link rel="stylesheet" href="__PUBLIC__/mobile/css_v3/location.css">
+		<link rel="stylesheet" href="__PUBLIC__/mobile/css_v3/goods_index.css">
+		<script src="__PUBLIC__/js/mui.min.js"></script>
+		<script src="__PUBLIC__/js/jquery.min.js"></script>
+		<script src="__PUBLIC__/layer/mobile/layer.js"></script>
+	</head>
+
+	<body style="background-color: #f7f8fa;">
+		<if condition="empty($list)">
+			<div class="empty_data">
+				<div class="empty_data_t0">
+					<img src="__PUBLIC__/mobile/images_v3/empty_cart_img_1.png" class="empty_cart_img_1">
+				</div>
+				<div class="empty_data_t1">暂无数据</div>
+			</div>
+			<else/>
+			<div class="mui-content address_cont" id="address">
+				<volist name="list" id="vo">
+
+					 
+					<div class="name_dd" >
+					<!--	<if condition="$cart eq 1">
+						<a	href="{:U('Cart/confirm')}?address_id={$vo.id}">
+							<elseif condition="$cart eq 'undefined'"/>
+							<a	href="{:U('User/edit_location')}?address_id={$vo.id}">
+								<else/>
+								<a	href="{:U('order/refund_express')}?refund_id={$refund_id}&address_id={$vo.id}">
+					</if>-->
+						<a href="javascript:;" onclick="choose_address({$cart},{$vo['id']},{$refund_id})">
+						<div class="name">
+							<div class="name_phone">
+								<h5>{$vo.consignee}</h5>
+								<p>{$vo.phone}</p>
+							</div>
+							<p class="details_dz">
+								<if condition="$vo['is_default'] eq 1">
+									<span class="default" style="font-size: 2.33vw;">默认</span>
+								</if>
+								<span>{$vo.address}</span></p>
+						</div>
+						<img class="xie_img" src="__PUBLIC__/mobile/images_v3/xiezi.png" />
+						</a>
+					</div>
+					 
+				</volist>
+
+			</div>
+		</if>
+
+		<!--添加新地址-->
+		<div class="dingwei">
+
+			<button class="new_address" onclick="addAddress()">添加新地址</button>
+		</div>
+	</body>
+	<script type="text/javascript">
+		var search = location.search;
+
+		function parse(search) {
+			//从第二个字符开始截取   ，获取到第二个开始后面所有的字符
+			var str = search.substring(1);
+			var result = {};
+			//分割字符串  -->产生字符串数组
+			var strs = str.split("&");
+			//遍历数组中的每一个元素
+			strs.forEach(function(v) {
+				//伪代码：v="age=18"
+				var keyvalue = v.split("=");
+				var name = keyvalue[0];
+				var value = keyvalue[1];
+				result[name] = value;
+			})
+			return result;
+		}
+		var r = parse(search);
+		var user_id = r.user_id;
+		var cart = r.cart;
+		var refund_id = r.refund_id;
+		var picksite_id = r.picksite_id;
+		var shipping_type = r.shipping_type;
+		var arr = {
+			user_id: user_id
+		};
+		function addAddress() {
+			location.href = "/M/User/add_location?cart=" + cart + "&user_id=" + user_id+"&shiptype="+shipping_type+"&picksite_id="+picksite_id;
+		}
+		function choose_address(cart_id,address_id,refund_id) {
+			console.log(cart_id)
+			if(cart_id == 1){
+				location.href = "/M/Cart/confirm?address_id=" + address_id+"&shiptype="+shipping_type+"&picksite_id="+picksite_id;
+			}else if(typeof(cart_id) == 'undefined'){
+				layer.open({
+					content: '请选择',
+					btn: ['编辑', '取消', ],
+					skin: 'footer',
+					yes: function(index, data) {
+						location.href = "/M/User/edit_location?address_id=" + address_id;
+					},
+					function(index, data) {}
+				});
+			}else {
+				location.href = "/M/order/refund_express?refund_id="+refund_id+"&address_id="+address_id
+			}
+		}
+	</script>
+
+</html>

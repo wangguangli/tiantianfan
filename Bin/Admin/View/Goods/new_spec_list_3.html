@@ -1,0 +1,26 @@
+<div class="sku_title">
+	<div class="sku_title_left">规格名3：</div>
+	<div class="sku_title_right">
+		<input list="sku_title_3" type="text" name="sku_title_3" class="form-control sku_ipt" placeholder="请选择规格名">
+		<datalist id="sku_title_3">
+			<option value="">请选择规格名</option>
+			<foreach name="list" item="vo">
+				<option value="{$vo['name']}" data-sid="{$vo['id']}">
+			</foreach>
+		</datalist>
+	</div>
+</div>
+<div class="sku_list">
+	<div class="sku_list_left">规格值3：</div>
+	<div class="sku_list_right">
+
+		<input list="sku_list_3" type="text" name="sku_list_3" class="form-control" placeholder="请选择规格值">
+		<datalist id="sku_list_3">
+			<option value="">请选择规格值</option>
+			<foreach name="spec_list" item="v2" key="k2">
+				<option value="{$v2['name']}" data-sid="{$v2['id']}">
+			</foreach>
+		</datalist>
+
+	</div>
+</div>

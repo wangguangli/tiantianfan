@@ -1,0 +1,134 @@
+<!doctype html>
+<html class="pixel-ratio-2 retina ios ios-11 ios-11-0 ios-gt-10 ios-gt-9 ios-gt-8 ios-gt-7 ios-gt-6"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="Generator" content="tpshop v1.1">	
+<meta name="viewport" content="width=device-width">
+<meta http-equiv="keywords" content="">
+<meta name="description" content="">
+<meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+<title>商家中心</title>		
+<link  href="__PUBLIC__/mobile/style/user_index.css" rel="stylesheet" type="text/css">
+<link href="__PUBLIC__/mobile/style/sel.css" rel="stylesheet" type="text/css">
+<script src="__PUBLIC__/layer/mobile/layer.js"></script>	
+</head>
+<body>
+	<div class="wappalls">
+		<div class="sjtop">
+			<img src="__PUBLIC__/mobile/images/touxiang.png">
+			<p>{$data.shop_name}</p>
+		</div>
+		<div class="zicans">
+			<div class="jiyis">
+				<div class="jit-left">
+					<p>交易账户</p>
+					<h1>{$data.shop_money}</h1>
+				</div>
+				<div class="jit-right">
+					<a href="javascript:;">
+						<img src="__PUBLIC__/mobile/images/shopcenter3.png">
+						<span onclick="vtruename();">提现</span>
+					</a>				
+				</div>
+			</div>
+			<hr>
+			<div class="detail">
+				<a href="{:U('moneylist')}">
+					<img src="__PUBLIC__/mobile/images/shopcenter4.png" class="detamg1">
+					<h4>资产明细</h4>
+					<img src="__PUBLIC__/mobile/images/spxq_pintuan_more.png" class="detamg2">
+				</a>				
+			</div>
+		</div>
+		<div class="clear"></div>
+		<div class="zclist">
+			<ul>
+				<li>
+					<a href="javascript:gift()">
+						<p>账户积分</p>
+						<h2>{$data.money_wait}</h2>
+					</a>
+				</li>
+				<li>
+					<a href="javascript:expend()">
+						<p>账户余额</p>
+						<h2>{$data.money}</h2>
+					</a>
+				</li>
+				<li>
+					<a href="javascript:withdraw()">
+						<p>已提现</p>
+						<h2>{$data.tx_money}</h2>
+					</a>
+				</li>
+			</ul>
+		</div>
+		<div class="guanlis">
+			<h2>管理工具</h2>
+			<hr>
+			<ul>
+				<li>
+					<a href="{:U('Shopcenter/orders')}">
+						<img src="__PUBLIC__/mobile/images/shopcenter10.png" class="gulimg1">
+						<p>订单信息</p>
+						<img src="__PUBLIC__/mobile/images/spxq_pintuan_more.png" class="gulimg2">
+					</a>
+				</li>
+				<li>
+					<a href="{:U('Shopcenter/shop')}">
+						<img src="__PUBLIC__/mobile/images/shopcenter7.png" class="gulimg1">
+						<p>店铺信息</p>
+						<img src="__PUBLIC__/mobile/images/spxq_pintuan_more.png" class="gulimg2">
+					</a>
+				</li>
+				<li>
+					<a href="{:U('baodan')}">
+						<img src="__PUBLIC__/mobile/images/shopcenter8.png" class="gulimg1">
+						<p>报单中心</p>
+						<img src="__PUBLIC__/mobile/images/spxq_pintuan_more.png" class="gulimg2">
+					</a>
+				</li>
+				<li>
+					<a href="{:U('code')}">
+						<img src="__PUBLIC__/mobile/images/shopcenter9.png" class="gulimg1">
+						<p>收款二维码</p>
+						<img src="__PUBLIC__/mobile/images/spxq_pintuan_more.png" class="gulimg2">
+					</a>
+				</li>
+				<li>
+					<a href="{:U('swap')}">
+						<img src="__PUBLIC__/mobile/images/shop_center_2_1.png" class="gulimg1">
+						<p>额度转换</p>
+						<img src="__PUBLIC__/mobile/images/spxq_pintuan_more.png" class="gulimg2">
+					</a>
+				</li>
+			</ul>
+		</div>
+	</div>
+	<script>
+		function gift() {
+			location.href = "{:U('Shopcenter/moneylist')}?type=1";
+		}function expend() {
+			location.href = "{:U('Shopcenter/moneylist')}?type=2";
+		}function withdraw() {
+			location.href = "{:U('Shopcenter/moneylist')}?type=3";
+		}
+		function vtruename() {
+			var realname = "{$user.realname}";
+			var id_card = "{$user.id_card}";
+			var bank_no = "{$user.bank_no}";
+			if (realname && id_card && bank_no) {
+				location.href="{:U('moneyout')}";
+			} else {
+				layer.open({
+	                content: '申请提现，请先实名认证',
+	                btn: ['去认证', '取消'],
+	                yes: function (index) {
+	                    layer.close(index);
+	                    location.href = "{:U('User/rep_account')}";
+	                }
+	            });
+	            return;
+			}
+		}
+	</script>
+</body>
+</html>

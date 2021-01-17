@@ -1,0 +1,62 @@
+<volist name="list" id="vo">
+	<div class="manage_list">
+		<img class="product_img" src="{$vo.thumb}" />
+		<div class="manage_list_lr">
+			<div class="list_lr_h2">{$vo.name}</div>
+			<div class="inventory">
+				<span class="inv01">库存：{$vo.store_count} </span>
+				<span class="inv02">销量：{$vo.sell_count}</span>
+			</div>
+			<div class="shelves">
+				<div class="number">
+					￥<span class="size">{$vo.price}</span>
+				</div>
+				<if condition="$vo['is_on_sale'] eq 1">
+					<button class="button" data-goods_id="{$vo.id}"  data-in="0">上架</button>
+					<else/>
+					<button class="button" data-goods_id="{$vo.id}"  data-in="1">下架</button>
+				</if>
+
+			</div>
+		</div>
+	</div>
+</volist>
+<script>
+	$('.button').click(function () {
+		var that = $(this);
+		var goods_id = that.attr('data-goods_id');
+		var is_on_sale = that.attr('data-in');
+		console.log(is_on_sale)
+		$.ajax({
+			url:'/Api/Goodsin/goods_is_on_sale',
+			data:{
+				goods_id:goods_id,
+				is_on_sale:is_on_sale
+			},
+			dataType:'json',
+			success:function (res) {
+				if(res.status == 0){
+					if(is_on_sale == 0){
+						that.attr('data-in',1);
+						that.html('下架');
+					}else {
+						that.attr('data-in',0);
+						that.html('上架');
+					}
+					layer.open({
+						content: '操作成功'
+						, skin: 'msg'
+						, time: 2
+					});
+
+				}else {
+					layer.open({
+						content: res.msg
+						, skin: 'msg'
+						, time: 2
+					});
+				}
+			}
+		})
+	})
+</script>

@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!--<meta name="viewport" content="width=device-width, initial-scale=1">-->
+    <title>{:GC('web_title')}管理后台</title>
+    <include file="Public/asset_top_page"/>
+</head>
+<body>
+<!-- header -->
+<include file="Public/header"/>
+<!-- /header -->
+<!-- Page container -->
+<div class="page-container">
+    <!-- Page content -->
+    <div class="page-content">
+        <!-- main sidebar -->
+        <include file="Public/left"/>
+        <!-- /main sidebar -->
+
+        <!-- Main content -->
+        <div class="content-wrapper">
+
+            <!-- Content area -->
+            <div class="content" style="padding-top: 10px;">
+                <!-- Pagination types -->
+                <div class="v-container">
+                    <div class="alert alert-tips alert-dismissible" role="alert">
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
+                        本页省、市、区/县、街道管理(点击后方按钮操作即可)</div>
+                    <!-- page -->
+                    <form class="form-horizontal pt-15" method="post">
+                        <div class="form-group">
+                            <label class="col-xs-2 control-label text-right">省</label>
+                            <div class="col-xs-2" style="margin:0; padding:0">
+                                <select name="province_id" id="province" onChange="get_city(this,this.options[this.options.selectedIndex].text)" class="form-control">
+                                    <option value="0">请选择省</option>
+                                    <foreach name="region" item="vo" >
+                                        <option value="{$vo['id']}" <if condition="$data['province_id'] eq $vo['id']"> selected </if> >{$vo.name}</option>
+                                    </foreach>
+                                </select>
+                            </div>
+                            <label class="col-xs-8">
+                                <a title="添加" href="{:U('Marketing/region_add')}" class="layui-btn layui-btn-sm layui-btn-normal btn_detail" id="add">添加省</a>
+                                <a title="详情" href="#" class="layui-btn layui-btn-sm layui-btn-normal btn_detail" id="upd">详情</a>
+                                <a title="删除用户" href="#" class="layui-btn layui-btn-sm layui-btn-danger btn_detail" id="del" onclick="return confirm('确定要删除吗?');">删除</a>
+                            </label>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-xs-2 control-label text-right">市</label>
+                            <div class="col-xs-2" style="margin:0; padding:0">
+                                <select class="form-control" name="city_id" id="city" onChange="get_area(this,this.options[this.options.selectedIndex].text)">
+                                    <option  value="0">请选择</option>
+                                    <volist name="city" id="p">
+                                        <option value="{$p.id}" <if condition="$data['city_id'] eq $p['id']"> selected </if>>{$p.name}</option>
+                                    </volist>
+                                </select>
+                            </div>
+                            <label class="col-xs-8">
+                                <a title="添加" href="#" class="layui-btn layui-btn-sm layui-btn-normal btn_detail" id="add1">添加市</a>
+                                <a title="详情" href="#" class="layui-btn layui-btn-sm layui-btn-normal btn_detail" id="upd1">详情</a>
+                                <a title="删除用户" href="#" class="layui-btn layui-btn-sm layui-btn-danger btn_detail" id="del1" onclick="return confirm('确定要删除吗?');">删除</a>
+                            </label>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-xs-2 control-label text-right">区/县</label>
+                            <div class="col-xs-2" style="margin:0; padding:0">
+                                <select class="form-control" name="district_id" id="district" onChange="get_street(this,this.options[this.options.selectedIndex].text)">
+                                    <option  value="0">请选择</option>
+                                    <volist name="district" id="p">
+                                        <option value="{$p.id}" <if condition="$data['district_id'] eq $p['id']"> selected </if>>{$p.name}</option>
+                                    </volist>
+                                </select>
+                                <!--                                        <span style="color:#f00;">选（哪个等级的代理商，就选择哪个地区，不要继续向下择）</span>-->
+                            </div>
+                            <label class="col-xs-8">
+                                <a title="添加" href="#" class="layui-btn layui-btn-sm layui-btn-normal btn_detail" id="add2">添加区/县</a>
+                                <a title="详情" href="#" class="layui-btn layui-btn-sm layui-btn-normal btn_detail" id="upd2">详情</a>
+                                <a title="删除用户" href="#" class="layui-btn layui-btn-sm layui-btn-danger btn_detail"  id="del2" onclick="return confirm('确定要删除吗?');">删除</a>
+                            </label>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-xs-2 control-label text-right">街道</label>
+                            <div class="col-xs-2" style="margin:0; padding:0">
+                                <select class="form-control" name="district_id" id="street" onChange="get_add(this,this.options[this.options.selectedIndex].text)">
+                                    <option  value="0">请选择</option>
+                                    <volist name="district" id="p">
+                                        <option value="{$p.id}" <if condition="$data['district_id'] eq $p['id']"> selected </if>>{$p.name}</option>
+                                    </volist>
+                                </select>
+                            </div>
+                            <label class="col-xs-8">
+                                <a title="添加街道" href="#" class="layui-btn layui-btn-sm layui-btn-normal btn_detail" id="add3">添加街道</a>
+                                <a title="详情" href="#" class="layui-btn layui-btn-sm layui-btn-normal btn_detail" id="upd3">详情</a>
+                                <a title="删除用户" href="#" class="layui-btn layui-btn-sm layui-btn-danger btn_detail" id="del3" onclick="return confirm('确定要删除吗?');">删除</a>
+                            </label>
+                        </div>
+
+
+
+                    </form>
+
+                    <!-- page end -->
+
+                    <!-- Footer -->
+                    <include file="Public/footer" />
+                    <!-- /footer -->
+
+                </div>
+                <!-- /content area -->
+
+            </div>
+            <!-- /main content -->
+
+        </div>
+        <!-- /page content -->
+
+    </div>
+    <!-- /page container -->
+
+    <!-- 上传图片 -->
+    <script>
+
+
+        /**
+         * 获取城市
+         * @param t  省份select对象
+         */
+        function get_city(t,m){
+            var parent_id = $(t).val();
+            if(!parent_id > 0){
+                return;
+            }
+
+            // var url = '/index.php?m=Admin&c=Api&a=getRegion&level=2&parent_id='+ parent_id;
+            var url = '/index.php/Admin/Marketing/region';
+            $.ajax({
+                type : "post",
+                url  : url,
+                data:{
+                    'id':parent_id,
+                    'type':1
+                },
+                dataTypes:"json",
+                error: function(request) {
+                    alert("服务器繁忙, 请联系管理员!");
+                    return;
+                },
+
+                success: function(v) {
+
+
+                    var v = eval('(' + v + ')');
+                    v = '<option value="0">选择城市</option>'+ v.result;
+                    $('#city').empty().html(v);
+                    if(parent_id>0){
+
+                        var addUrl = '/index.php/Admin/Marketing/region_add?id='+parent_id
+                        var updUrl = '/index.php/Admin/Marketing/region_upd?id='+parent_id
+                        var delUrl = '/index.php/Admin/Marketing/region_del?id='+parent_id
+                        $('#add1').attr('href',addUrl);
+                        $('#upd').attr('href',updUrl);
+                        $('#del').attr('href',delUrl);
+
+                    }
+                }
+            });
+        }
+
+        /**
+         * 获取地区
+         * @param t  城市select对象
+         */
+        function get_area(t,m){
+            var parent_id = $(t).val();
+            if(!parent_id > 0){
+                return;
+            }
+            var url = '/index.php/Admin/Marketing/region';
+            $.ajax({
+                type : "POST",
+                url  : url,
+                data:{
+                    'id':parent_id,
+                    'type':1
+                },
+                dataTypes:"json",
+                error: function(request) {
+                    alert("服务器繁忙, 请联系管理员!");
+                    return;
+                },
+                success: function(v) {
+                    var v = eval('(' + v + ')');
+                    v = '<option value="0">选择区域</option>'+ v.result;
+                    $('#district').empty().html(v);
+                    if(parent_id>0) {
+                        var addUrl = '/index.php/Admin/Marketing/region_add?id=' + parent_id
+                        var updUrl = '/index.php/Admin/Marketing/region_upd?id=' + parent_id
+                        var delUrl = '/index.php/Admin/Marketing/region_del?id=' + parent_id
+                        $('#add2').attr('href', addUrl);
+                        $('#upd1').attr('href', updUrl);
+                        $('#del1').attr('href', delUrl);
+                    }
+                }
+            });
+        }
+
+
+        /**
+         * 获取地区
+         * @param t  获取街道
+         */
+        function get_street(t,m){
+            var parent_id = $(t).val();
+            if(!parent_id > 0){
+                return;
+            }
+            var url = '/index.php/Admin/Marketing/region';
+            $.ajax({
+                type : "POST",
+                url  : url,
+                data:{
+                    'id':parent_id,
+                    'type':1
+                },
+                dataTypes:"json",
+                error: function(request) {
+                    alert("服务器繁忙, 请联系管理员!");
+                    return;
+                },
+                success: function(v) {
+                    var v = eval('(' + v + ')');
+                    v = '<option value="0">选择街道</option>'+ v.result;
+                    $('#street').empty().html(v);
+                    if(parent_id>0) {
+                        var addUrl = '/index.php/Admin/Marketing/region_add?id=' + parent_id
+                        var updUrl = '/index.php/Admin/Marketing/region_upd?id=' + parent_id
+                        var delUrl = '/index.php/Admin/Marketing/region_del?id=' + parent_id
+                        $('#add3').attr('href', addUrl);
+                        $('#upd2').attr('href', updUrl);
+                        $('#del2').attr('href', delUrl);
+                    }
+                }
+            });
+        }
+
+        function get_add(t,m){
+            var parent_id = $(t).val();
+            if(!parent_id > 0){
+                return;
+            }
+            if(parent_id>0) {
+                var updUrl = '/index.php/Admin/Marketing/region_upd?id=' + parent_id
+                var delUrl = '/index.php/Admin/Marketing/region_del?id=' + parent_id
+                $('#upd3').attr('href', updUrl);
+                $('#del3').attr('href', delUrl);
+            }
+        }
+    </script>
+    <!-- 上传图片 -->
+
+</body>
+</html></html>

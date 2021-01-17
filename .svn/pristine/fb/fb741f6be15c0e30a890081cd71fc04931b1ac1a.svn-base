@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>商品管理</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="Keywords" content="">
+    <meta name="description" content="">
+    <!-- UC强制全屏 -->
+    <meta name="full-screen" content="yes">
+    <!-- QQ强制全屏 -->
+    <meta name="x5-fullscreen" content="true">
+    <link rel="stylesheet" href="__PUBLIC__/mobile/css_v3/addItem.css">
+    <!--上拉加载-->
+</head>
+<body style="background-color: #f7f8fa;">
+<div class="h_vh">
+    <div class="h_goods">
+        <div class="h_ridge">
+            <div class="h_red">
+                <span class="h_hui">红色</span><span class="h_hui">6GB+128GB</span>
+            </div>
+            <ul class="h_tiaoMu">
+                <li>
+                    <p>售后</p>
+                    <input type="text">
+                </li>
+                <li>
+                    <p>成本价</p>
+                    <input type="text">
+                </li>
+                <li>
+                    <p>库存</p>
+                    <input type="text">
+                </li>
+                <li>
+                    <p>重量(g)</p>
+                    <input type="text">
+                </li>
+            </ul>
+            <div class="h_upImg">
+                <span>规格图片</span>
+                <img src="__PUBLIC__/mobile/images_v3/h_ic_h.png" alt="">
+                <p>上传</p>
+            </div>
+        </div>
+        <div class="h_ridge">
+            <div class="h_red">
+                <span class="h_hui">红色</span><span class="h_hui">6GB+128GB</span>
+            </div>
+            <ul class="h_tiaoMu">
+                <li>
+                    <p>售后</p>
+                    <input type="text">
+                </li>
+                <li>
+                    <p>成本价</p>
+                    <input type="text">
+                </li>
+                <li>
+                    <p>库存</p>
+                    <input type="text">
+                </li>
+                <li>
+                    <p>重量(g)</p>
+                    <input type="text">
+                </li>
+            </ul>
+            <div class="h_upImg">
+                <span>规格图片</span>
+                <img src="__PUBLIC__/mobile/images_v3/h_ic_h.png" alt="">
+                <p>上传</p>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="nextStep">
+    <a class="nextStepBtn_02" href="javascript:;">批量设置</a>
+    <a class="nextStepBtn_03" href="">下一步</a>
+</div>
+<!--弹窗-->
+<div class="f_window">
+    <div class="f_wind_cont">
+        <div class="f_wind_bj">
+            <!--商品规格-->
+            <div class="f_wind_g">
+                商品规格
+            </div>
+            <!--中间部分-->
+            <div class="f_wind_mid">
+                <div class="f_wind_list">
+                    <span class="price">售价：</span>
+                    <input class="put" type="text" />
+                    <button class="but">确定</button>
+                </div>
+                <div class="f_wind_list">
+                    <span class="price">成本价：</span>
+                    <input class="put" type="text" />
+                    <button class="but">确定</button>
+                </div>
+                <div class="f_wind_list">
+                    <span class="price">库存：</span>
+                    <input class="put" type="text" />
+                    <button class="but">确定</button>
+                </div>
+                <div class="f_wind_list">
+                    <span class="price">总量：</span>
+                    <input class="put" type="text" />
+                    <button class="but">确定</button>
+                </div>
+                <!--规格图片-->
+                <div class="f_wind_list">
+                    <span class="price">规格图片：</span>
+                    <img class="f_wind_img" src="/Public/mobile/images_v3/h_ic_h.png" alt="" />
+                    <p class="f_wind_img_p">上传</p>
+                    <button class="but">确定</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <!--关闭按钮-->
+    <img class="f_guan_img" src="/Public/mobile/images_v3/f_tc_gb.png" alt="" />
+</div>
+<script src="__PUBLIC__/mobile/js/jquery-2.1.4.js"></script>
+<script type="text/javascript">
+    //点击产品弹窗
+    $(".f_guan_img,.nextStepBtn_02").click(function() {
+        $(".f_window").toggle();
+    });
+</script>
+</body>
+</html>

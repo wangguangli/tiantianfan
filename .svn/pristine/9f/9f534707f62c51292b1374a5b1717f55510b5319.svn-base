@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>代理中心</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="stylesheet" href="__PUBLIC__/mobile/style/main_style.css">
+    <link rel="stylesheet" href="__PUBLIC__/css/agent.css">
+    <script src="__PUBLIC__/js/jquery.min.js"></script>
+</head>
+	<body>
+		<div class="agent">
+			<a href="javascript:history.back();">
+			   <img src="__PUBLIC__/img/ewm-left.png" style="width: 7vw;height: 7vw;" class="agent_left"/>
+			</a>代理中心
+		</div>
+		<div class="info">
+			<div class="info-title">
+				<img src="__PUBLIC__/img/recommend.png" style="width: 17vw;height: 17vw;border-radius: 50%;"/>
+				<div class="title_right">
+					<h6>王艳的小店</h6>
+					<p>普通代理</p>
+				</div>
+			</div>
+			<div class="info-content">
+				<div class="info-left">
+					<h6>可提现佣金</h6>
+					<p>0.00元</p>
+				</div>
+				<div class="info_right">提现</div>
+				<div class="clear"></div>
+			</div>
+		</div>
+		<!--已提现佣金-->
+		<div class="txyj_age">
+			<a href="{:U('Agent/js_money')}">
+				<div class="text_more" style="border-right: 1px solid #eee;">
+					<p class="txt_money" style="color:#22af19;margin-bottom: 8px;">已提现佣金</p>
+					<p class="qq_money">0.00元</p>
+				</div>
+			</a>
+			<div class="text_more">
+				<p class="txt_money" style="color:#ff8f17;margin-bottom: 8px;">已提现佣金</p>
+				<p class="qq_money">0.00元</p>
+			</div>
+		</div>
+		<!--已结算佣金-->
+		<ul class="js_money">
+			<li>
+				<img src="__PUBLIC__/img/img-share-price.png" style="width:8vw;height:8vw;"/>
+				<p class="money_yjs">已结算佣金</p>
+				<p><span style="color: #ff4544;">0.00</span>元</p>
+			</li>
+			<a href="{:U('Agent/fx_order')}">
+				<li>					
+					<img src="__PUBLIC__/img/img-share-order.png" style="width:8vw;height:8vw;"/>
+					<p class="money_yjs">分销订单</p>
+					<p style="color: #333;"><span style="color: #ff4544;">0</span>元</p>						
+				</li>
+			</a>
+			<a href="{:U('Agent/my_team')}">
+				<li>
+					<img src="__PUBLIC__/img/img-share-team.png" style="width:8vw;height:8vw;"/>
+					<p class="money_yjs">我的团队</p>
+					<p style="color: #333;"><span style="color: #ff4544;">0</span>人</p>
+				</li>
+			</a>
+			<a href="{:U('Agent/tg_code')}">
+				<li>
+					<img src="__PUBLIC__/img/img-share-qrcode.png" style="width:8vw;height:8vw;"/>
+					<p class="money_yjs">推广二维码</p>			
+				</li>
+				</a>
+			<div class="clear"></div>
+		</ul>
+	</body>
+</html>

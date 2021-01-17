@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<title>店铺热榜</title>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+		<meta name="Keywords" content="">
+		<meta name="description" content="">
+		<!-- UC强制全屏 -->
+		<meta name="full-screen" content="yes">
+		<!-- QQ强制全屏 -->
+		<meta name="x5-fullscreen" content="true">
+		<link rel="stylesheet" href="__PUBLIC__/mobile/style/jquery-weui.min.css">
+		<link rel="stylesheet" href="__PUBLIC__/mobile/css_v3/weui.min.css">
+		<link rel="stylesheet" href="__PUBLIC__/mobile/style/main_style.css">
+		<link rel="stylesheet" href="__PUBLIC__/mobile/css_v3/hot_list.css">
+		<link href="__PUBLIC__/css/footer.css" rel="stylesheet" type="text/css" />
+		<!--上拉加载-->
+		<link rel="stylesheet" href="__PUBLIC__/mobile/style/dropload.css">
+		<script type="text/javascript" src="__PUBLIC__/layer/mobile/layer.js"></script>
+		 
+	</head>
+   <body ontouchstart style="background-color: #f7f8fa;height: auto;">
+   	<div class="header_title">
+		<a href="javascript:history.back(-1)">
+			<img src="/Public/mobile/images_v3/f_fanhui.png" alt="" />
+		</a>
+   		 <h1>店铺热榜</h1>
+   	</div>
+	<div class="header">
+		<div class="header_top">
+			 <h3 class="head_h3">店铺商品热榜</h3>
+	    <div class="head_tit">店铺优质商品  一磅打尽</div>
+		</div>
+	    
+	 
+	<!--列表-->
+	<div class="product_cont">
+		<volist name="list" id="vo" key="key">
+			<a  href="{:U('Goods/detail', array('id'=>$vo['id']))}">
+				<div class="pr_list">
+					<div class="pr_list_lf">
+						<if condition="$key lt 4">
+							<span class="digital di{$key}">{$key}</span>
+							<else/>
+							<span class="digital di4">{$key}</span>
+						</if>
+
+						<img class="list_img" src="{$vo.thumb}" alt="" />
+					</div>
+
+					<div class="list_lr">
+						<h2>{$vo.name}</h2>
+						<h2>已售:{$vo.sell_count}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;评论:{$vo.common_count}</h2>
+						<span class="m_icon">￥<span class="money">{$vo.price}</span></span>
+					</div>
+				</div>
+			</a>
+
+		</volist>
+
+	</div>
+	
+ </div>
+		 
+			<include file="Public/tabbar" />
+			<script src="__PUBLIC__/mobile/js/vue.min.js"></script>
+			<script src="__PUBLIC__/mobile/js/jquery-2.1.4.js"></script>
+			<script src="__PUBLIC__/mobile/js/jquery-weui.min.js"></script>
+			<script src="__PUBLIC__/mobile/js/swiper.min.js"></script>
+			<script src="__PUBLIC__/mobile/js/dropload.min.js"></script>
+ 
+	</body>
+
+</html>

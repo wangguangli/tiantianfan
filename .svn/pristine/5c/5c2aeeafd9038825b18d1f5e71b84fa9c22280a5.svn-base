@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!--<meta name="viewport" content="width=device-width, initial-scale=1">-->
+    <title>{:GC('web_title')}管理后台-提现记录</title>
+    <include file="Public/asset_top_page"/>
+</head>
+
+<body>
+<!-- header -->
+<include file="Public/header"/>
+<!-- /header -->
+<!-- Page container -->
+<div class="page-container">
+    <!-- Page content -->
+    <div class="page-content">
+        <!-- main sidebar -->
+        <include file="Public/left"/>
+        <!-- /main sidebar -->
+
+        <!-- Main content -->
+        <div class="content-wrapper">
+
+            <!-- Content area -->
+            <div class="content" style="padding-top: 10px;">
+                <!-- Pagination types -->
+                <div class="v-container">
+                    <div class="alert alert-tips alert-dismissible" role="alert">
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span
+                                aria-hidden="true">×</span></button>
+                        本页经营概况
+                    </div>
+
+                    <div class="panel panel-flat">
+                        <div class="panel-heading">
+
+                            <form class="v-filter-container" action="{:U('Account/commodityanalysis')}" method="POST" onsubmit="return sub()">
+
+                                <div class="filter-fields-wrap">
+                                    <div class="filter-item clearfix">
+                                        <div class="filter-item__field">
+
+                                            <input type="hidden" name="ischeck" value="{$_REQUEST['ischeck']}">
+
+                                            <div class="v__control-group">
+                                                <label class="v__control-label">商品名称</label>
+                                                <div class="v__controls">
+                                                    <input type="text" id="name" name="name" value="{$_REQUEST['name']}" class="v__control_input" placeholder="请输入商品名称" autocomplete="off">
+
+                                                </div>
+                                            </div>
+                                            <div class="v__control-group">
+                                                <label class="v__control-label">店铺类型</label>
+                                                <div class="v__controls">
+                                                    <select name="cate" class="v__control_input" id="type" id="level">
+                                                        <option value="0" selected="" >全部</option>
+                                                        <option value="1"  >平台</option>
+                                                        <option value="2" >商家</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+
+
+                                            <div class="v__control-group">
+                                                <label class="v__control-label">下单时间</label>
+                                                <div class="v__controls">
+                                                    <input type="text" id="startTime" name="startTime" value="{$_REQUEST['startTime']}" class="v__control_input" placeholder="请输入开始时间" autocomplete="off">
+                                                </div>
+                                            </div>
+
+
+                                            <div class="v__control-group">
+                                                <label class="v__control-label">排序方式</label>
+                                                <div class="v__controls">
+                                                    <input type="radio" name="pai1"  id="pai1" value="1" style="width: 16px;height: 16px;float:left;margin-top:8px" class="v__control_input" placeholder="请输入商品名称" autocomplete="off">
+                                                    <span style="float:left;font-size: 16px;margin-left: 2px;margin-top:4px">按销量</span>
+                                                    <input type="radio" name="pai2" id="pai2" value="2" style="width: 16px;height: 16px;float:left;margin-left: 13px;margin-top:8px" class="v__control_input" placeholder="请输入商品名称" autocomplete="off">
+                                                    <span style="float:left;font-size: 16px;margin-left: 2px;margin-top:4px">按销售额</span>
+                                                </div>
+                                            </div>
+
+                                            <div class="filter-item clearfix">
+                                                <div class="filter-item__field">
+                                                    <div class="v__control-group">
+                                                        <label class="v__control-label"></label>
+                                                        <div class="v__controls">
+
+                                                            <!--													<a class="btn btn-primary search">搜索</a>-->
+                                                            <input type="submit" value="搜索" class="btn btn-primary search" style="width:100px;height: 35px;">
+                                                            <a class="btn btn-success ml-15 dataExcel" style="display: none;">导出订单</a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+
+                            <!--搜索框-->
+                            <div class="heading-elements">
+
+                            </div>
+                        </div>
+                        <div class="dataTables_wrapper no-footer mini-space" style="border:none;">
+                            <div class="alert alert-tips alert-dismissible" role="alert" style="border:none;background-color:#D9EDF7 ">
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close"></button>
+                                <style>
+                                    .table{
+                                        width: 100%;
+                                        height: 100%;
+
+                                    }
+                                    .th{
+                                        text-align: center;
+                                        width: 33.3%;
+
+                                    }
+                                    .td{
+
+                                        text-align: center;
+
+                                    }
+                                </style>
+                                <table class="table" >
+                                    <tr >
+                                        <th class="th" style="border:none; padding: 0px;">总交易额</th>
+                                        <th class="th" style="border:none; padding: 0px;">总销量</th>
+                                        <th class="th" style="border:none; padding: 0px;">商品总数</th>
+                                    </tr>
+                                    <tr>
+                                        <td class="td" style="border:none; padding: 0px;">{$order_money}</td>
+                                        <td class="td" style="border:none; padding: 0px;">{$sell_count}</td>
+                                        <td class="td" style="border:none; padding: 0px;">{$count}</td>
+                                    </tr>
+                                </table>
+                            </div>
+                            <div class="flip-scroll">
+                                <table class="table table-bordered table-hover" style="border-top:1px solid #ddd;">
+                                    <thead class="">
+                                    <tr style="border:1px solid #ddd;">
+                                        <th class="text-center">排行</th>
+                                        <th class="text-center">销量</th>
+                                        <th class="text-center">销售额</th>
+                                        <th class="text-center">商品名称</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <volist name="goods" id="i">
+                                        <tr style="border:1px solid #ddd;">
+                                            <td align="center" style="width: 17%">
+                                           
+                                                      {$i.paim}
+
+
+                                            </td>
+                                            <td align="center" style="width: 17%">{$i.goods_num}</td>
+                                            <td align="center" style="width: 17%">{$i.goods_tital}</td>
+                                                </td>
+                                            <td align="center" style="text-align: left;width: 49%">
+                                                <img src="{$i.goods_thumb}" alt="" style="width: 40px;height: 40px">
+                                                {$i.goods_name}
+                                            </td>
+                                        </tr>
+                                    </volist>
+                                    </tbody>
+                                </table>
+                            </div>
+
+
+                        </div>
+                        <!-- /pagination types -->
+                    </div>
+                </div>
+                <!--end-->
+                <!-- Footer -->
+                <include file="Public/footer"/>
+                <!-- /footer -->
+            </div>
+            <!-- /content area -->
+        </div>
+        <!-- /main content -->
+
+    </div>
+    <!-- /page content -->
+
+</div>
+<!-- /page container -->
+
+
+<script>
+    layui.use('laydate',function () {
+            var laydate = layui.laydate;
+            laydate.render({
+                elem:'#startTime',
+                type:'datetime',
+                range: true
+            })
+        }
+    );
+
+
+    $('#pai1').click(function(){
+        $('#pai1').attr('checked','checked');
+        $('#pai2').removeAttr('checked')
+    });
+    $('#pai2').click(function(){
+        $('#pai2').attr('checked','checked');
+        $('#pai1').removeAttr('checked')
+    });
+</script>
+
+
+</body>
+</html>

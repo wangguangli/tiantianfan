@@ -1,0 +1,13 @@
+.bottom-line{border-bottom:1px solid #ddd; margin-bottom:30px}
+
+/*订单页面的分页*/
+.page span.current {
+	float: left;
+	padding: 0 5px;
+	height: 25px;
+	display: table;
+	border: 1px solid #eee;
+	line-height: 25px;
+	text-align: center;
+	margin: 5px;
+}

@@ -1,0 +1,44 @@
+<volist id="vo" name="list">
+	<div class="manage_list order_li">
+
+		<div class="xmname">
+			{$vo.order_no}
+			<span>{$vo.order_status_str}({$vo.shipping_type_name})</span>
+		</div>
+
+		<!--//多个-->
+		<if condition="$vo['goods_count'] gt 1">
+			<div class="goods-li">
+				<volist id="vo1" name="vo['goods']">
+					<img src="{$vo1.goods_thumb}">
+				</volist>
+			</div>
+			<else/>
+			<!--单个-->
+
+			<volist id="vo1" name="vo.goods">
+				<div class="goods-li">
+					<img src="{$vo1.goods_thumb}">
+					<div class="goods-title">
+						<div class="z_gt_1">{$vo1.goods_name}</div>
+						<div class="z_gt_2">{$vo1.goods_spec_price_name}</div>
+					</div>
+				</div>
+			</volist>
+
+		</if>
+
+		<div class="price-div">
+			共{$vo.goods_count}件商品 应付<span>￥{$vo.total_commodity_price}</span>
+		</div>
+		<div class="but-div">
+			<if condition="$vo['order_status'] eq 1">
+				<if condition="$vo.shipping_type eq 2">
+					<a class="but-wul" href="{:U('Shopcenter/order_detail')}?order_goods_id={$vo.id}">查看详情</a>
+					<else/>
+					<a class="but-wul" href="{:U('Shopcenter/delivery')}?order_goods_id={$vo.id}">去发货</a>
+				</if>
+			</if>
+		</div>
+	</div>
+</volist>

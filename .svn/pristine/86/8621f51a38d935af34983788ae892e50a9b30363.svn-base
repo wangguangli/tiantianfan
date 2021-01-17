@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<title>我的收藏</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<!--<link rel="stylesheet" href="__PUBLIC__/css/mui.min.css">
+    <link rel="stylesheet" href="__PUBLIC__/css/collect.css">-->
+
+		<link rel="stylesheet" href="__PUBLIC__/mobile/css_v3/mui.min.css">
+		<link rel="stylesheet" href="__PUBLIC__/mobile/css_v3/collect.css">
+		<link rel="stylesheet" href="__PUBLIC__/mobile/style/main_style.css">
+		<link rel="stylesheet" href="__PUBLIC__/css/property.css">
+
+		<script src="__PUBLIC__/js/mui.min.js"></script>
+		<script src="__PUBLIC__/js/jquery.min.js"></script>
+		<script type="text/javascript" src="__PUBLIC__/layer/mobile/layer.js"></script>
+	</head>
+
+	<header class="mui-bar mui-bar-nav" style="background: #FE274E;">
+		<span onclick="back()"><a class="mui-pull-left mui-icon mui_turn"><img src="__PUBLIC__/img/return.png" width="20vw"height="20vw"/></a></span>
+		<h1 class="mui-title tit_login" style="color: #fff;">我的收藏</h1>
+	</header>
+	<!--导航-->
+	<div class="goods_nav" style="display: none;">
+		<a href="{:U('User/collect','type=1')}">
+			<div <if condition="$type eq 1">class="nav_title f_active"
+				<else/>class="nav_title"</if> onclick=''> 收藏商品
+				<if condition="$type eq 1">
+					<span class="active_span"></span>
+				</if>
+			</div>
+		</a>
+		<a href="{:U('User/collect','type=2')}">
+			<div <if condition="$type eq 2">class="nav_title f_active"
+				<else/>class="nav_title"</if>> 收藏店铺
+				<if condition="$type eq 2">
+					<span class="active_span"></span>
+				</if>
+			</div>
+		</a>
+
+	</div>
+	<if condition="empty($list)">
+		<div class="empty_data">
+			<div class="empty_data_t0">
+				<img src="__PUBLIC__/mobile/images_v3/empty_cart_img_1.png" class="empty_cart_img_1">
+			</div>
+			<div class="empty_data_t1">暂无数据</div>
+		</div>
+		<else/>
+		<if condition="$type==1">
+			<div class="goods-list">
+				<ul id="goods_list">
+					<volist name="list" id="vo">
+						<li>
+							<div class="proshow">
+								<a href="{:U('Goods/detail','id='.$vo['id'])}">
+									<img class="product_img" src="{$vo.thumb}" />
+									<div class="pro-info">
+										<p>{$vo.name}</p>
+										<div class="buy_cont">
+											<span class="price"><span class="symbol">￥</span>{$vo.price}</span>
+											<img class="gwc" src="__PUBLIC__/mobile/images_v3/f_dm26.png" />
+										</div>
+
+									</div>
+								</a>
+							</div>
+						</li>
+					</volist>
+
+				</ul>
+			</div>
+		</if>
+
+		<!--收藏店铺-->
+		<if condition="$type==2">
+			<div class="the_store">
+				<volist name="list" id="vo">
+					<div class="sto_list">
+						<a href="{:U('Shop/shopdetail')}?shop_id={$vo.id}">
+							<img class="sto_img" src="{$vo.thumb}" />
+							<div class="sto_list_lr">
+								<div class="lr_top">
+									<h2 class="title">{$vo.shop_name}</h2>
+
+								</div>
+								<!--地址-->
+								<div class="lr_mid">
+									<img class="lr_mid_img" src="__PUBLIC__/mobile/images_v3/f_dpdz.png" />
+
+									<p class="address">{$vo.address}</p>
+								</div>
+								<!--距离-->
+								<div class="lr_bot">
+									<div class="drink">{$vo.industry_name}</div>
+								</div>
+
+							</div>
+						</a>
+					</div>
+				</volist>
+
+			</div>
+		</if>
+		<div class="load_more_content"></div>
+		<div class="load_more">
+			<span class="load_more_red">点击</span>加载更多
+		</div>
+	</if>
+
+	<!--<if condition="$count lt 1">
+		<div class="nextpage">
+			<div class="line"></div>
+			<span>暂无数据</span>
+			<div class="line"></div>
+		</div>
+	</if>-->
+
+	</body>
+	<script>
+		// 加载更多
+		var page = 2; // 当前页码，默认从第2页开始，因为刚进来已经输出一次了
+		var max_page = "{$maxPage}"; // 最大页码
+		var type = "{$type}"; // 最大页码
+		$(".load_more").on("click", function() {
+			if (page > max_page) {
+				layer.open({
+					type: 2,
+					content: '数据已全部加载',
+					time: 1
+				});
+				$(".load_more").text("数据已全部加载");
+				return;
+			}
+			layer.open({
+				type: 2,
+				content: '加载中'
+			});
+			$(".load_more_content").load("{:U('collect')}", {
+				page: page,
+				type: type
+			}, function(response, status) {
+				if (status == "success") {
+					var html = $(".load_more_content").html();
+					if (type == 1) {
+						$("#goods_list").append(html);
+					} else {
+						$(".the_store").append(html);
+					}
+					$(".load_more_content").html("");
+					page = parseInt(page) + 1; // 在本页自增
+				}
+				layer.closeAll();
+			});
+		});
+	</script>
+	<script type="text/javascript">
+		//返回首页
+		function back() {
+			location.href = "{:U('User/index')}";
+		}
+	</script>
+
+</html>

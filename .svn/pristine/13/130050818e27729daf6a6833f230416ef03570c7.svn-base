@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>订单发货</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="Keywords" content="">
+    <meta name="description" content="">
+    <!-- UC强制全屏 -->
+    <meta name="full-screen" content="yes">
+    <!-- QQ强制全屏 -->
+    <meta name="x5-fullscreen" content="true">
+    <link rel="stylesheet" href="__PUBLIC__/mobile/style/jquery-weui.min.css">
+    <link rel="stylesheet" href="__PUBLIC__/mobile/css_v3/weui.min.css">
+    <link rel="stylesheet" href="__PUBLIC__/mobile/style/main_style.css">
+    <link rel="stylesheet" href="__PUBLIC__/mobile/css_v3/delivery.css">
+    <!--上拉加载-->
+    <link rel="stylesheet" href="__PUBLIC__/mobile/style/dropload.css">
+    <script type="text/javascript" src="__PUBLIC__/layer/mobile/layer.js"></script>
+
+</head>
+
+<body style="background-color: #f7f8fa;">
+<div class="order_details">
+    <div class="details_top">
+        <img class="deta_img" src="__PUBLIC__/mobile/images_v3/xq_dizhi.png"/>
+        <div class="add_title">{$order.address}</div>
+    </div>
+    <!--姓名 电话部分-->
+    <div class="contact">
+        <div class="contact_name" style="border-right:1px solid #dddddd;">
+            <img class="deta_img" src="__PUBLIC__/mobile/images_v3/xq_geren.png"/>
+            <span class="text">{$order.consignee}</span>
+        </div>
+        <div class="contact_name" style="display: flex;justify-content: flex-end;">
+            <img class="deta_img" src="__PUBLIC__/mobile/images_v3/xq_dianhua.png"/>
+            <span class="text">{$order.phone}</span>
+        </div>
+
+    </div>
+    <div style="font-size: 3.7vw;border-top: 1px solid #f2f2f2;padding-top: 3vw;margin-top:3vw;display: flex;justify-content: space-between;">
+      <p>用户留言：</p><p style="color: #999;flex: 1;text-align: left">{$order_goods[0]['user_note']}</p>
+    </div>
+</div>
+
+<!--快递公司逐个发货-->
+<!--		<div class="choose_container">-->
+<!--			<div class="choose_cont">-->
+<!--				<div class="ch_list">-->
+<!--					<div class="ch_list_left">-->
+<!--						<img class="choose_img" src="__PUBLIC__/mobile/images_v3/xq_liwu.png" />-->
+<!--						<select class="hyfls" name='express_id' id="express_id">-->
+<!--							<option value="0">请选择快递公司</option>-->
+<!--							<volist name="express" id="vo">-->
+<!--								<option value="{$vo.id}" <if condition="$order_goods['express_id'] eq $vo['id']">selected</if> >{$vo.name}</option>-->
+<!--							</volist>-->
+<!--						</select>-->
+<!--					</div>-->
+<!--				</div>-->
+<!--				<div class="choose_list">-->
+<!--					<img class="choose_img" src="__PUBLIC__/mobile/images_v3/xq_dingdan.png" />-->
+<!--					<input class="input" id="express_num" type="text" placeholder="请输入快递单号" />-->
+<!--				</div>-->
+<!--				<div class="choose_line"></div>-->
+<!--			</div>-->
+<!--			&lt;!&ndash;产品部分&ndash;&gt;-->
+<!--			<div class="product_cont">-->
+<!--				<img class="product_img" src="{$order_goods.goods_thumb}" />-->
+<!--				<div class="pro_middle">-->
+<!--					<div class="mid_title">{$order_goods.goods_name}</div>-->
+<!--					<div class="speci_number">-->
+<!--						<span class="introduce">{$order_goods.goods_spec_price_name}</span>-->
+<!--						<span class="number">x{$order_goods.goods_num}</span>-->
+<!--					</div>-->
+<!--					&lt;!&ndash;价格&ndash;&gt;-->
+<!--					<div class="price_bot">-->
+<!--						<span class="Conform">￥</span>-->
+<!--						<span class="price">{$order_goods.goods_actual_total}</span>-->
+<!--					</div>-->
+<!--				</div>-->
+<!--			</div>-->
+<!--		</div>-->
+<div class="change_shipping">
+    <div class="btn_ship btn_ship_active" id="btn_ship1" onclick="change_shipping(1)">逐个发货</div>
+    <div class="btn_ship " id="btn_ship2" onclick="change_shipping(2)">合并发货</div>
+</div>
+<!--逐个发货-->
+<div class="h_single">
+    <volist name="order_goods" id="vo1">
+        <div class="choose_container">
+            <div class="choose_cont" data-id="{$vo1.id}">
+                <div class="choose_list">
+                    <img class="choose_img" src="__PUBLIC__/mobile/images_v3/xq_liwu.png"/>
+                    <select class="hyfls" name='express_id'>
+                        <option value="0">请选择快递公司</option>
+                        <volist name="express" id="vo">
+                            <option value="{$vo.id}"
+                            <if condition="$order_goods['express_id'] eq $vo['id']">selected</if>
+                            >{$vo.name}</option>
+                        </volist>
+                    </select>
+                </div>
+                <div class="choose_list">
+                    <img class="choose_img" src="__PUBLIC__/mobile/images_v3/xq_dingdan.png"/>
+                    <input class="input" name="express_num" type="text" placeholder="请输入快递单号"/>
+                </div>
+                <i class="h_xian"></i>
+            </div>
+            <div class="product_cont">
+                <img class="product_img" src="{$vo1.goods_thumb}"/>
+                <div class="pro_middle">
+                    <div class="mid_title">{$vo1.goods_name}</div>
+                    <div class="speci_number">
+                        <span class="introduce">{$vo1.goods_spec_price_name}</span>
+                        <span class="number">x{$vo1.goods_num}</span>
+                    </div>
+                    <!--价格-->
+                    <div class="price_bot">
+                        <span class="Conform">￥</span>
+                        <span class="price">{$vo1.goods_actual_total}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </volist>
+
+</div>
+<!--//合并发货-->
+<div class="h_multiple">
+    <div class="choose_container">
+        <div class="choose_cont">
+            <div class="choose_list">
+                <img class="choose_img" src="__PUBLIC__/mobile/images_v3/xq_liwu.png"/>
+                <select class="hyfls" name='express_id' id="express_id">
+                    <option value="0">请选择快递公司</option>
+                    <volist name="express" id="vo">
+                        <option value="{$vo.id}"
+                        <if condition="$order_goods['express_id'] eq $vo['id']">selected</if>
+                        >{$vo.name}</option>
+                    </volist>
+                </select>
+            </div>
+            <div class="choose_list">
+                <img class="choose_img" src="__PUBLIC__/mobile/images_v3/xq_dingdan.png"/>
+                <input class="input" id="express_num" name="express_num" type="text" placeholder="请输入快递单号"/>
+            </div>
+            <i class="h_xian"></i>
+        </div>
+        <volist id="vo2" name="order_goods">
+            <div class="product_cont">
+                <img class="product_img" src="{$vo2.goods_thumb}"/>
+                <div class="pro_middle">
+                    <div class="mid_title">{$vo2.goods_name}</div>
+                    <div class="speci_number">
+                        <span class="introduce">{$vo2.goods_spec_price_name}</span>
+                        <span class="number">x{$vo2.goods_num}</span>
+                    </div>
+                    <!--价格-->
+                    <div class="price_bot">
+                        <span class="Conform">￥</span>
+                        <span class="price">{$vo2.goods_actual_total}</span>
+                    </div>
+                </div>
+            </div>
+        </volist>
+
+
+    </div>
+</div>
+
+<!--按钮-->
+<button class="confirm_button" onclick="to_expree()">确认发货</button>
+
+<script src="__PUBLIC__/mobile/js/vue.min.js"></script>
+<script src="__PUBLIC__/mobile/js/jquery-2.1.4.js"></script>
+<script src="__PUBLIC__/mobile/js/jquery-weui.min.js"></script>
+<script src="__PUBLIC__/mobile/js/swiper.min.js"></script>
+<script src="__PUBLIC__/mobile/js/dropload.min.js"></script>
+<script>
+    var TYPR = 1;
+    function to_expree() {
+        var arr = [];
+        if(TYPR == 1){
+            $('.h_single .choose_cont').each(function () {
+                console.log($(this)[0])
+                arr.push({
+                    express_id:$(this).find('[name = "express_id"]').val(),
+                    express_num:$(this).find('[name = "express_num"]').val(),
+                    id:$(this).attr('data-id'),
+                })
+            })
+            var data = {
+                arr:arr,
+                type:1
+            };
+            console.log(data)
+        }else if(TYPR == 2){
+            var express_id = $('#express_id').val();
+            var express_num = $('#express_num').val();
+            var data = {
+                    order_id: '{$order.id}',
+                    shop_id: '{$shop_id}',
+                    tracking_number: express_num,
+                    express_id: express_id,
+                    type:2
+                }
+        }
+        if (express_id == 0) {
+            layer.open({
+                content: '请选择快递公司'
+                , skin: 'msg'
+                , time: 2
+            });
+            return false;
+        }
+        if (express_num == '') {
+            layer.open({
+                content: '请输入快递单号'
+                , skin: 'msg'
+                , time: 2
+            });
+            return false;
+        }
+        console.log(data);
+        $.ajax({
+            url: "/Api/Orderin/shop_getDelivery",
+            data: data,
+            dataType: 'json',
+            success: function (res) {
+                if (res.status == 0) {
+                    layer.open({
+                        content: '发货成功'
+                        , skin: 'msg'
+                        , time: 2
+                    });
+                    setTimeout(function () {
+                        window.location.href = "{:U('Shopcenter/orders')}"
+                    }, 2000)
+                } else {
+                    layer.open({
+                        content: res.result
+                        , skin: 'msg'
+                        , time: 2
+                    });
+                }
+            }
+        })
+    }
+    //切换类型
+    function change_shipping(type) {
+        TYPR = type;
+        if (TYPR == 1) {
+            $('.h_single').show()
+            $('.h_multiple').hide()
+            $("#btn_ship2").removeClass('btn_ship_active');
+            $("#btn_ship1").addClass('btn_ship_active')
+        } else if (TYPR == 2) {
+            $('.h_multiple').show()
+            $('.h_single').hide()
+            $("#btn_ship1").removeClass('btn_ship_active');
+            $("#btn_ship2").addClass('btn_ship_active')
+        }
+    }
+</script>
+</body>
+
+</html>

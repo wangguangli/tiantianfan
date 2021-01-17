@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<title>{:GC('web_title')}</title>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+		<meta name="Keywords" content="">
+		<meta name="description" content="">
+		<!-- UC强制全屏 -->
+		<meta name="full-screen" content="yes">
+		<!-- QQ强制全屏 -->
+		<meta name="x5-fullscreen" content="true">
+		<link rel="stylesheet" href="__PUBLIC__/mobile/style/main_style.css">
+		<link rel="stylesheet" href="__PUBLIC__/mobile/css_v3/levelup.css">
+		<link rel="stylesheet" href="__PUBLIC__/layui/css/layui.css">
+		<script type="text/javascript" src="__PUBLIC__/layui/layui.js"></script>
+	</head>
+
+	<body>
+		<!--普通会员-->
+		<div class="level_main level_header">
+			<div class="header_view">
+				<div class="level_li">
+					<span class="span_one">v1</span>
+					<span class="span_tow">普通会员</span>
+					<span class="span_three">
+					<a href=""><i class="iconfont">&#xe747;</i> 会员说明</a>
+				</span>
+				</div>
+				<div class="level_p">会员专属福利、保障、服务</div>
+			</div>
+		</div>
+		<div class="level_main sjbg">
+			<!--Lv2会员尊享权益-->
+			<div class="level_name">Lv2会员尊享权益</div>
+			<div class="levle_speed">
+				<div class="speed_cont">
+					<span class="Lv2">Lv2</span>
+					<img src="__PUBLIC__/mobile/images_v3/speed3.png" class="speed_icon">
+				</div>
+				<div class="speed_div">
+					VIP会员
+					<div class="speed_li">
+						<div class="layui-progress" lay-showpercent="true">
+							<div class="layui-progress-bar" lay-percent="20%"></div>
+						</div>
+					</div>
+				</div>
+				<div class="speed_but">立即升级</div>
+			</div>
+			<div class="speed_fl">
+				<ul>
+					<li>
+						<a href="">
+							<img src="__PUBLIC__/mobile/images_v3/speed_icon1.png" class="speed_icon">
+							<div>
+								福利中心
+								<p>每月福利</p>
+							</div>
+						</a>
+					</li>
+					<li>
+						<a href="">
+							<img src="__PUBLIC__/mobile/images_v3/speed_icon2.png" class="speed_icon">
+							<div>
+								奖励特权
+								<p>限额10000元</p>
+							</div>
+						</a>
+					</li>
+					<li>
+						<a href="">
+							<img src="__PUBLIC__/mobile/images_v3/speed_icon3.png" class="speed_icon">
+							<div>
+								生日礼包
+								<p>专属红包</p>
+							</div>
+						</a>
+					</li>
+					<li>
+						<a href="">
+							<img src="__PUBLIC__/mobile/images_v3/speed_icon4.png" class="speed_icon">
+							<div>
+								升空特权
+								<p>优先升空权利</p>
+							</div>
+						</a>
+					</li>
+				</ul>
+			</div>
+			<!--Lv3会员尊享权益-->
+			<div class="level_name">Lv3会员尊享权益</div>
+			<div class="levle_speed">
+				<div class="speed_cont">
+					<span class="Lv2">Lv3</span>
+					<img src="__PUBLIC__/mobile/images_v3/speed3.png" class="speed_icon">
+				</div>
+				<div class="speed_div">
+					VIP会员
+					<div class="speed_li">
+						<div class="layui-progress" lay-showpercent="true">
+							<div class="layui-progress-bar" lay-percent="20%"></div>
+						</div>
+					</div>
+				</div>
+				<div class="speed_but">立即升级</div>
+			</div>
+			<div class="speed_fl">
+				<ul>
+					<li>
+						<a href="">
+							<img src="__PUBLIC__/mobile/images_v3/speed_icon5.png" class="speed_icon">
+							<div>
+								福利中心
+								<p>每月福利</p>
+							</div>
+						</a>
+					</li>
+					<li>
+						<a href="">
+							<img src="__PUBLIC__/mobile/images_v3/speed_icon6.png" class="speed_icon">
+							<div>
+								奖励特权
+								<p>限额10000元</p>
+							</div>
+						</a>
+					</li>
+					<li>
+						<a href="">
+							<img src="__PUBLIC__/mobile/images_v3/speed_icon7.png" class="speed_icon">
+							<div>
+								生日礼包
+								<p>专属红包</p>
+							</div>
+						</a>
+					</li>
+					<li>
+						<a href="">
+							<img src="__PUBLIC__/mobile/images_v3/speed_icon8.png" class="speed_icon">
+							<div>
+								升空特权
+								<p>优先升空权利</p>
+							</div>
+						</a>
+					</li>
+				</ul>
+			</div>
+		</div>
+		<script type="text/javascript" src="__PUBLIC__/layer/mobile/layer.js"></script>
+		<script type="text/javascript" src="__PUBLIC__/mobile/js/jquery-2.1.4.js"></script>
+		<script>
+			//注意进度条依赖 element 模块，否则无法进行正常渲染和功能性操作
+			layui.use('element', function() {
+				var element = layui.element;
+			});
+		</script>
+	</body>
+
+</html>

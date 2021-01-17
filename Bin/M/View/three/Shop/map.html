@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>商家地址</title>
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+  
+    <link rel="stylesheet" href="__PUBLIC__/mobile/css_v3/mui.min.css">
+     <link rel="stylesheet" href="__PUBLIC__/mobile/css_v3/chant_detail.css">
+     <link rel="stylesheet" href="__PUBLIC__/mobile/style/main_style.css">
+    
+    <script src="__PUBLIC__/js/mui.min.js"></script>
+    <script src="__PUBLIC__/js/jquery.min.js"></script>
+    <script type='text/javascript'src="https://webapi.amap.com/maps?v=1.4.14&key=41c11c3ad52409c170a7b014990285a1"></script>
+    <style type="text/css">
+        #container {width: 100%;min-height: 700px;}		
+    </style>
+</head>
+<body style="background: #fff;">
+<!--<header class="mui-bar mui-bar-nav" style="background: #FE274E;">
+    <a class="mui-pull-left mui-icon mui_turn" href="javascript:history.back()"><img src="__PUBLIC__/img/return.png" width="20vw" height="20vw"/></a>
+    <h1 class="mui-title tit_login" style="color: #fff;">商家地址</h1>
+</header>-->
+<div id="container"></div>
+
+<div class="address">
+
+</div>
+
+<script type="text/javascript">
+
+    var id = getParam('shop_id');
+
+    //获取url参数的值  输入参数  值得键名
+    function getParam(paramName) {
+        paramValue = "", isFound = !1;
+        if (this.location.search.indexOf("?") == 0 && this.location.search.indexOf("=") > 1) {
+            arrSource = unescape(this.location.search).substring(1, this.location.search.length).split("&"), i = 0;
+            while (i < arrSource.length && !isFound) arrSource[i].indexOf("=") > 0 && arrSource[i].split("=")[0].toLowerCase() == paramName.toLowerCase() && (paramValue = arrSource[i].split("=")[1], isFound = !0), i++
+        }
+        return paramValue == "" && (paramValue = null), paramValue
+    }
+
+    var longitude = '';
+    var latitude = '';
+    $.ajax({
+        type: 'post',
+        dataType: 'json',
+        url: "{:U('Api/Shopout/shopDetail')}",
+        data: {'shop_id': id},
+        success: function (data) {
+            if (data.status == 0) {
+                html = '';
+                longitude = data.result.shop.longitude;
+
+                latitude = data.result.shop.latitude;
+                var map = new AMap.Map('container', {
+                    center: [longitude, latitude],
+                    zoom: 16
+                });
+                var marker = new AMap.Marker({
+                    position: new AMap.LngLat(longitude, latitude),   // 经纬度对象，也可以是经纬度构成的一维数组[116.39, 39.9]
+                });
+                // 将创建的点标记添加到已有的地图实例：
+                map.add(marker);
+                html += '<div class="address_pro">' +
+                    ' <h5>' + data.result.shop.contact_person
+                    + '</h5>' +
+                    ' <p>'+data.result.shop.address+'</p>' +
+                    ' <div class="add_nav" onclick="map()"><img src="__PUBLIC__/img/navigation.png" width="100%"height="100%"/></div>' +
+                    ' <div class="over" onclick ="map()">到这里去</div>' +
+                    ' </div>'
+                $('.address').html(html);
+            } else {
+            }
+        }
+    })
+    // $('#aaa').click(function () {
+    //     var gaodeLoc = [longitude, latitude];
+    //     var marker = new AMap.Marker({
+    //         position: gaodeLoc
+    //     });
+    //     marker.markOnAMAP({
+    //         position: marker.getPosition(),
+    //
+    //     });
+    //
+    // })
+    function map() {
+        var gaodeLoc = [longitude, latitude];
+        var marker = new AMap.Marker({
+            position: gaodeLoc
+        });
+        marker.markOnAMAP({
+            position: marker.getPosition(),
+
+        });
+
+    }
+
+</script>
+</body>
+</html>

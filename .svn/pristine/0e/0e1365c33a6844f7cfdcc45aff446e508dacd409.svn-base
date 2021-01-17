@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<!--<meta name="viewport" content="width=device-width, initial-scale=1">-->
+	<title>订单详情</title>
+	<include file="Public/asset_top_page"/>
+
+</head>
+
+<body>
+
+<!-- header -->
+<include file="Public/header"/>
+<!-- /header -->
+
+<!-- Page container -->
+<div class="page-container">
+
+	<!-- Page content -->
+	<div class="page-content">
+		<!-- main sidebar -->
+		<include file="Public/left"/>
+		<!-- /main sidebar -->
+
+		<div class="content-wrapper">
+			<!-- Main content -->
+			<!--<div class="container-fluid">-->
+			<div class="content" style="padding-top: 10px;">
+				<form id="delivery-form" action="" method="post">
+					<!--新订单列表 基本信息-->
+					<div class="panel panel-default">
+						<div class="panel-heading">
+							<h3 class="panel-title text-center">快递打印信息</h3>
+						</div>
+						<div class="panel-body">
+							<table class="table table-bordered">
+								<tbody>
+
+								<tr>
+									<td class="text-right">订单号:</td>
+									<td class="text-center">{$order.order_no}</td>
+									<td class="text-right">下单时间:</td>
+									<td class="text-center">{$order.add_time|date='Y-m-d H:i',###}</td>
+								</tr>
+
+								</tbody>
+							</table>
+
+						</div>
+					</div>
+					<!--新订单列表 商品信息-->
+					<div class="panel panel-default">
+						<div class="panel-heading">
+							<h3 class="panel-title text-center">商品信息</h3>
+						</div>
+						<div class="panel-body">
+							<table class="table table-bordered">
+								<volist name="order_goods" id="goods">
+									<thead>
+									<tr>
+										<td class="text-left">商品</td>
+										<td class="text-left">属性</td>
+										<td class="text-left">购买数量</td>
+										<td class="text-left">商品单价</td>
+
+									</tr>
+									</thead>
+									<tbody>
+									<volist name="goods.goods_list" id="good">
+										<tr>
+											<td class="text-left">{$good.goods_name}</td>
+											<td class="text-left">{$good.spec_key_name}</td>
+											<td class="text-left">{$good.goods_num}</td>
+											<td class="text-right">{$good.goods_price}</td>
+
+										</tr>
+									</volist>
+								</volist>
+								</tbody>
+							</table>
+						</div>
+					</div>
+					<!--发货状态下课修改订单号-->
+					<!--发货状态下课修改订单号-->
+					<if condition="$order['shipping_status'] neq 1">
+						<!--新订单列表 操作信息-->
+						<div class="panel panel-default">
+							<div class="panel-heading">
+								<h3 class="panel-title text-center">快递打印信息</h3>
+							</div>
+							<div class="panel-body">
+								<table class="table table-bordered">
+									<tbody>
+									<tr>
+										<td class="text-right col-sm-2 margin">快递打印信息</td>
+										<td colspan="3">
+											{$message}
+										</td>
+									</tr>
+
+									</tbody>
+								</table>
+							</div>
+						</div>
+					</if>
+				</form>
+			</div>
+		</div>
+
+		<!-- Footer -->
+		<include file="Public/footer"/>
+		<!-- /footer -->
+
+	</div>
+	<!-- /content area -->
+
+</div>
+<!-- /main content -->
+
+</body>
+</html>

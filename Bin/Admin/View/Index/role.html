@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<!--<meta name="viewport" content="width=device-width, initial-scale=1">-->
+	<title>{:GC('web_title')}管理后台-行业设置</title>
+	<include file="Public/asset_top_page"/>
+	<style>
+
+		table{
+			border-bottom: 1px solid #ddd
+		}
+
+
+	</style>
+</head>
+<body>
+<!-- header -->
+<include file="Public/header"/>
+<!-- /header -->
+<!-- Page container -->
+<div class="page-container">
+	<!-- Page content -->
+	<div class="page-content">
+		<!-- main sidebar -->
+		<include file="Public/left"/>
+		<!-- /main sidebar -->
+
+		<!-- Main content -->
+		<div class="content-wrapper">
+
+			<!-- Content area -->
+			<div class="content" style="padding-top: 10px;">
+				<!-- Pagination types -->
+				<div class="v-container">
+					<div class="alert alert-tips alert-dismissible" role="alert">
+						<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
+						本页角色管理</div>
+
+					<div class="panel panel-flat">
+						<div class="panel-heading">
+
+							<form class="v-filter-container" action="{:U('User/index')}" method="get">
+
+								<div class="filter-fields-wrap">
+									<div class="filter-item clearfix">
+										<div class="filter-item__field">
+											<div class="v__control-group padd_left_11">
+
+												<div class="v__controls">
+													<!--													<a class="btn btn-primary search">搜索</a>-->
+													<a href="{:U('Index/role_info')}"><input type="button" value="添加" class="btn btn-primary search" style="width:100px;height: 35px;"></a>
+													<a class="btn btn-success ml-15 dataExcel" style="display: none;">导出订单</a>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</form>
+							<!--搜索框-->
+							<div class="heading-elements">
+
+							</div>
+						</div>
+
+
+						<div class="dataTables_wrapper no-footer">
+							<table class="table datatable-tools-basic basic_table">
+								<thead>
+								<tr>
+									<th style="width: 1px;"></th>
+									<th class="">ID</th>
+									<th class="">角色名称</th>
+									<th class="">描述</th>
+									<th class="text-center">操作</th>
+								</tr>
+								</thead>
+
+								<foreach name="list" item="vo" key="k" >
+									<if condition="$vo['role_id'] gt 1">
+									<tr class="tt_color" style="">
+										<td style="width: 1px;">
+										</td>
+
+
+										<td class="">{$vo.role_id}</td>
+
+										<td class="">
+											<div class="ed_stand">
+												<p>{$vo.role_name}</p>
+											</div>
+										</td>
+
+
+										<td class="">
+											<div class="ed_stand">
+												<p>{$vo.role_desc}</p>
+											</div>
+										</td>
+
+										<td class="text-center col-xs-2">
+											<div class="tt_stand">
+												<a title="查看详情" href="{:U('role_info',array('role_id'=>$vo['role_id']))}" class="layui-btn layui-btn-sm layui-btn-normal btn_detail">详情</a>
+												<a title="删除订单" href="javascript:void(0)" class="layui-btn layui-btn-sm layui-btn-danger btn_detail" data-url="{:U('roleDel')}" data-id="{$vo.role_id}" onclick="delfun(this)">删除</a>
+											</div>
+										</td>
+									</tr>
+									</if>
+								</foreach>
+							</table>
+							<!-- 分页 -->
+
+
+
+						</div>
+						<!-- /pagination types -->
+
+					</div>
+					<!-- Footer -->
+					<include file="Public/footer"/>
+					<!-- /footer -->
+
+				</div>
+				<!-- /content area -->
+
+			</div>
+			<!-- /main content -->
+
+		</div>
+		<!-- /page content -->
+
+	</div>
+	<!-- /page container -->
+	<script>
+		function delfun(obj){
+			if(confirm('确认删除')){
+				$.ajax({
+					type : 'post',
+					url : $(obj).attr('data-url'),
+					data : {act:'del',role_id:$(obj).attr('data-id')},
+					dataType : 'json',
+					success : function(data){
+						if(data==1){
+							$(obj).parent().parent().remove();
+						}else{
+							layer.alert(data, {icon: 2});   //alert('用户名或密码不能为空');// alert(data);
+						}
+					}
+				})
+			}
+			return false;
+		}
+	</script>
+</body>
+</html>

@@ -1,0 +1,63 @@
+/*********初始化样式************/
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video { margin: 0;padding: 0;border: 0;font-size: 100%; vertical-align: baseline;box-sizing: border-box;text-decoration: none;list-style: none;-webkit-tap-highlight-color: rgba(0,0,0,0); -webkit-tap-highlight-color: transparent;   }
+input{-webkit-user-select:auto;}input[type=button], input[type=submit], input[type=file], button { cursor: pointer; -webkit-appearance: none; } 
+small { font-size: 12px; } /* 小于 12px 的中文很难阅读，让 small 正常化 */
+.clear{clear: both;}.fl{float:left}.fr{float:right}.tal{text-align: left;}.tac{text-align: center;}.tar{text-align: right;}
+/*********END************/
+/*************************个人中心样式********************************/
+.user_header {width: 100%;height:40vw;background: url(/Public/mobile/images_v2/gr1.png) no-repeat center center;position: relative;}
+
+/*最上面的三个图标*/
+ .user_info{overflow: hidden;width: 100%;background-color: #FF2857;padding: 4vw 0 4vw 0;}
+ .user_info .scan_shao{width: 14vw;margin: 0 auto;text-align: center;float: right;}
+ .user_info .scan_shao img{width: 6.1vw;height: 6.1vw;display: inline-block;}
+ .user_info .scan_shao p{font-size: 3vw;color: #fff;}
+/*头像部分*/
+.portrait_cont{overflow: hidden;width: 100%;padding-left: 1.8vw; padding-right: 1vw;}
+.portrait_cont .head_img{width: 14.6vw; height: 14.6vw;border: 3px solid #fff;float: left;border-radius:50%;margin: 0 4.5vw 3vw 3vw; }
+.portrait_cont .user_text{width: 50vw; float: left;margin-top: 1vw;}
+.portrait_cont .user_text h2{font-family:PingFangSC-Medium,PingFang SC;font-size: 5vw;color: #fff;}
+.user_text .members{overflow: hidden;}
+.user_text .members .rank{width: 2.6vw;height: 2.6vw;float: left;margin-top: 1.2vw;margin-right: 0.5vw;}
+.user_text .members span.gao{font-size: 3vw;color: #FFF100;}
+.pr_code{width: 10vw;float: right;margin-right: 2vw;}
+.pr_code .ma{width: 5.3vw;height: 5.3vw;display: block;margin: 0 auto;}
+.pr_code p{font-size: 3vw;color: #fff;margin: 0 auto;margin-top: 1.3vw;}
+/*余额部分*/
+.balance_cont{overflow: hidden;display: flex;justify-content: space-between;align-items: center;margin-top: 3vw;}
+.balance_cont li{width: 25%;text-align: center;}
+.balance_cont li a{color: #fff;}
+.balance_cont li a span{display: block;font-size: 3.5vw;}
+.balance_cont li a .ba_2{margin-top: 0.6vw;}
+/*我的订单*/
+.order_cont{overflow: hidden;width:93vw;height: 31vw;background:rgba(255,255,255,1);border-radius:4vw;margin: 0 auto;margin-top: 3.6vw;}
+.order_cont_top{overflow: hidden;border-bottom:1px solid #eee;padding: 2vw  4vw 3.5vw 4vw;}
+.order_cont_top h3{font-size: 3.7vw;font-weight: bold;float: left;margin-top: 1.5vw;}
+.order_cont_top .ord_can{width: 30%;float: right;}
+.order_cont_top .ord_can span{font-size: 3vw;color: #999;float: right;margin-top: 1.8vw;}
+.ord_can a{color: #999;}
+.order_cont_top .ord_can .dan{width: 5vw;margin-top: 0.6vw;float: right;}
+.order_cont_bot{overflow: hidden;display: flex;justify-content: space-around;align-items: center;margin-top: 3vw;}
+.order_cont_bot li{width: 20%;}
+.order_cont_bot li img{display: block;margin: 0 auto; width: 6.4vw; height: auto;}
+.order_cont_bot li span{font-size: 3vw;color: #666;display: block;margin-top: 2vw;text-align: center;}
+/*列表部分*/
+.dist_cont{width:93.6vw;overflow: hidden;background:#fff;border-radius:4vw;padding: 4.3vw 5.3vw;margin: 0 auto;margin-top: 27vw;}
+.dist_list{margin-bottom: 8vw;overflow: hidden;}
+.dist_list .list_lf{width: 50%;float: left;}
+.dist_list .list_lf .fen{width: 6.4vw;float: left;margin-right: 2.6vw;}
+.dist_list .list_lf h2{font-size:4vw;font-family:PingFangSC-Regular,PingFang SC;font-weight:400;color:#333;}
+.list_lr .fh{width: 6.4vw;float: right;}
+ 

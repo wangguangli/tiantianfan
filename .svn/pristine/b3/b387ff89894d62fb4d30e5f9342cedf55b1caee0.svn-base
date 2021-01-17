@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!--<meta name="viewport" content="width=device-width, initial-scale=1">-->
+    <title>{:GC('web_title')}管理后台-分类列表</title>
+    <include file="Public/asset_top_page"/>
+    <style>
+        table{
+            border: 1px solid #ddd
+        }
+
+
+        td{
+            border:1px solid #ddd;
+            width: 33.3%;
+            height: 200px;
+        }
+
+        td div{
+
+           text-align: center;
+
+
+        }
+        td div p{
+            font-size:50px;
+        }
+        td div span {
+            font-size:20px;
+        }
+    </style>
+</head>
+
+<body>
+<!-- header -->
+<include file="Public/header"/>
+<!-- /header -->
+<!-- Page container -->
+<div class="page-container">
+    <!-- Page content -->
+    <div class="page-content">
+        <!-- main sidebar -->
+        <include file="Public/left"/>
+        <!-- /main sidebar -->
+
+        <!-- Main content -->
+        <div class="content-wrapper">
+
+            <!-- Content area -->
+            <div class="content" style="padding-top: 10px;">
+                <!-- Pagination types -->
+                <div class="v-container">
+                    <div class="alert alert-tips alert-dismissible" role="alert">
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span
+                                aria-hidden="true">×</span></button>
+                        本页分类列表
+                    </div>
+
+                    <div class="panel panel-flat">
+                        <div class="panel-heading">
+                            <form class="v-filter-container" action="" method="POST" onsubmit="return sub()">
+
+                                <div class="filter-fields-wrap">
+                                    <div class="filter-item clearfix">
+                                        <div class="filter-item__field">
+
+
+
+
+
+
+
+                                            <div class="v__control-group">
+                                                <label class="v__control-label"></label>
+                                                <div class="v__controls">
+                                                    <input type="text" id="startTime" name="startTime" value="{$_REQUEST['startTime']}" class="v__control_input" placeholder="请输入开始时间" autocomplete="off">
+                                                </div>
+                                            </div>
+
+                                            <div class="v__control-group">
+                                                <label class="v__control-label"></label>
+                                                <div class="v__controls">
+                                                    <input type="text" id="endTime" name="endTime" value="{$_REQUEST['endTime']}" class="v__control_input" placeholder="请输入结束时间" autocomplete="off">
+                                                </div>
+                                            </div>
+
+
+                                                <div class="v__control-group">
+                                                    <label class="v__control-label"></label>
+                                                    <div class="v__controls">
+                                                        <!--													<a class="btn btn-primary search">搜索</a>-->
+                                                        <input type="submit" value="搜索" class="btn btn-primary search" style="width:100px;height: 35px;">
+                                                        <a class="btn btn-success ml-15 dataExcel" style="display: none;">导出订单</a>
+                                                    </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+
+                            <!--搜索框-->
+                            <div class="heading-elements">
+
+                            </div>
+                        </div>
+                        <div class="dataTables_wrapper no-footer mini-space">
+                            <table class="table datatable-tools-basic basic_table">
+
+                                <tr>
+                                    <td>
+                                        <div>
+                                        <p>{$data['z_money']?$data['z_money']:0}</p>
+                                        <span>平台成交额</span>
+                                        </div>
+
+                                    </td>
+                                    <td>
+                                        <div>
+                                        <p>{$data['s_money']?$data['s_money']:0}</p>
+                                        <span>商家成交额</span>
+                                    </div>
+                                    </td>
+                                    <td>
+                                        <div>
+                                            <p>{$data['z_money']?$data['z_money']:0}</p>
+                                            <span>自营成交额</span>
+                                        </div>
+
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div>
+                                            <p>{$data['z_yh_money']?$data['z_yh_money']:0}</p>
+                                            <span>总优惠金额</span>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div>
+                                            <p>{$data['w_money']?$data['w_money']:0}</p>
+                                            <span>微信入账</span>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div>
+                                            <p>{$data['zf_money']?$data['zf_money']:0}</p>
+                                            <span>支付宝入账</span>
+                                        </div>
+                                    </td>
+                                </tr>
+
+
+                                <tr>
+                                    <td>
+                                        <div>
+                                            <p>{$data['ye_money']?$data['ye_money']:0}</p>
+                                            <span>余额入账</span>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div>
+                                            <p>{$data['z_tx_money']?$data['z_tx_money']:0}</p>
+                                            <span>提现总额</span>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div>
+                                            <p>{$data['z_tx_sxf']?$data['z_tx_sxf']:0}</p>
+                                            <span>提现总手续费</span>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div>
+                                            <p>{$data['yh_tx_money']?$data['yh_tx_money']:0}</p>
+                                            <span>用户提现</span>
+                                        </div>
+                                    </td>
+                                <td>
+                                    <div>
+                                        <p>{$data['yh_tx_sxf']?$data['yh_tx_sxf']:0}</p>
+                                        <span>用户提现总手续费</span>
+                                    </div>
+                                </td>
+                                    <td>
+                                        <div>
+                                            <p>{$data['sj_tx_money']?$data['sj_tx_money']:0}</p>
+                                            <span>商家提现</span>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div>
+                                            <p>{$data['sj_tx_sxf']?$data['sj_tx_sxf']:0}</p>
+                                            <span>商家提现总手续费</span>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div>
+                                            <p>{$data['dl_tx_money']?$data['dl_tx_money']:0}</p>
+                                            <span>代理提现</span>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div>
+                                            <p>{$data['dl_tx_sxf']?$data['dl_tx_sxf']:0}</p>
+                                            <span>代理提现总手续费</span>
+                                        </div>
+                                    </td>
+
+
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div>
+                                            <p>{$data['up_money']?$data['up_money']:0}</p>
+                                            <span>余额调整-增加</span>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div>
+                                            <p>{$data['de_money']?$data['de_money']:0}</p>
+                                            <span>余额调整-减少</span>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </table>
+
+                        </div>
+                        <!-- /pagination types -->
+                    </div>
+                </div>
+                <!--end-->
+                <!-- Footer -->
+                <include file="Public/footer"/>
+                <!-- /footer -->
+            </div>
+            <!-- /content area -->
+        </div>
+        <!-- /main content -->
+
+    </div>
+    <!-- /page content -->
+
+</div>
+<!-- /page container -->
+
+<script>
+    layui.use('laydate',function () {
+            var laydate = layui.laydate;
+            laydate.render({
+                elem:'#startTime'
+            })
+            laydate.render({
+                elem:'#endTime'
+            })
+        }
+    );
+    //判断数据
+    function sub(){
+
+        var sTime = $('#startTime').val();
+        var eTime = $('#endTime').val();
+        if(sTime && !eTime){
+
+            alert('开始/结束时间必须都有');
+            return false;
+
+        }
+        if(!sTime && eTime){
+
+            alert('开始/结束时间必须都有');
+            return false;
+
+        }
+        if(!sTime && !eTime){
+            alert('开始/结束时间必须都有');
+            return false;
+        }else{
+            return true;
+        }
+
+    }
+</script>
+
+
+</body>
+</html>

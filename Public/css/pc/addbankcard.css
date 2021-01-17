@@ -1,0 +1,250 @@
+body,
+dl,
+dd,
+ul,
+ol,
+li,
+h1,
+h2,
+h3,
+h4,
+form,
+fieldset,
+input,
+textarea,
+p,
+th,
+td {
+	margin: 0;
+	padding: 0;
+}
+
+body,
+button,
+input,
+select,
+textarea {
+	margin: 0;
+	padding: 0;
+	font-size: 1rem;
+	font-family: "microsoft yahei", Arial, Helvetica, sans-serif;
+}
+
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+	line-height: 1.5;
+}
+
+img {
+	border: 0;
+}
+
+* {
+	padding: 0;
+	margin: 0;
+}
+
+ol,
+ul,
+li {
+	list-style: none;
+}
+
+caption,
+th {
+	text-align: left;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+	font-size: 100%;
+	font-weight: normal;
+}
+
+
+/*html5*/
+
+article,
+aside,
+dialog,
+footer,
+header,
+section,
+footer,
+nav,
+figure,
+menu {
+	display: block;
+}
+
+input,
+textarea,
+button,
+select {
+	outline: none;
+}
+
+textarea {
+	resize: none;
+}
+
+i,
+em,
+cite {
+	font-style: normal;
+}
+
+a {
+	text-decoration: none;
+	color: #333;
+}
+
+.hide {
+	display: none;
+}
+
+* {
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+}
+
+*:before,
+*:after {
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+}
+
+.iconfont {
+	font-family: "iconfont";
+	font-style: normal;
+	-webkit-font-smoothing: antialiased;
+	-webkit-text-stroke-width: 0.2px;
+}
+
+
+/*更换绑定手机--1 有黑色背景*/
+
+.transparent_bj {
+	width: 100%;
+	background: rgba(0, 0, 0, 0.2);
+	padding-top: 100px;
+	padding-bottom: 140px;
+	height: 900px;
+}
+
+.transparent_bj .transparent_cont {
+	width: 770px;
+	background-color: #fff;
+	margin: 0 auto;
+	height: auto;
+	padding-bottom: 70px;
+	position: relative;
+	border-radius:6px ;
+}
+
+
+/*添加银行卡*/
+
+.Add_bank_card {
+	width: 100%;
+	height: 39px;
+	line-height: 39px;
+	background: #f5f5f5;
+	font-size: 15px;
+	color: #333;
+	padding: 0 20px;
+	border-radius:6px 6px 0 0;
+	margin-bottom: 7px;
+}
+
+
+/*关闭*/
+
+.transparent_cont .shut_down {
+	width: 31px;
+	height: 31px;
+	position: absolute;
+	top: 4px;
+	right: 14px;
+}
+
+.transparent_cont .shut_down img {
+	width: 100%;
+	height: 100%;
+}
+
+
+/*内容*/
+
+.head_portrait {
+	width: 100%;
+	overflow: hidden;
+}
+
+.cont_list {
+	width: 424px;
+	text-align: right;
+	margin-top: 12px;
+}
+
+.head_portrait .cont_list span {
+	font-size: 14px;
+	color: #999;
+}
+
+.head_portrait .cont_list input {
+	border: 1px solid #ddd;
+	padding: 0 14px;
+	height: 33px;
+	margin-top: 14px;
+	width: 315px;
+	margin-left: 3px;
+	font-size: 14px;
+}
+ 
+.head_portrait button {
+	border: 1px solid #e4393c;
+	height: 42px;
+	font-size: 15px;
+	text-align: center;
+	color: #fff;
+	width: 343px;
+	border-radius: 3px;
+	background-color: #e4393c;
+	margin-top: 44px;
+	margin-left: 109px;
+}
+
+select {
+	width: 316px;
+	height: 34px;
+	margin: 10px 0 0 10px;
+	padding-left: 10px;
+	border: 1px solid #ddd;
+	font-size: 14px;
+	color: #ddd;
+}
+input::-webkit-input-placeholder {
+	color: #ddd;
+}
+
+input::-moz-placeholder {
+	/* Mozilla Firefox 19+ */
+	color: #ddd;
+}
+
+input:-moz-placeholder {
+	/* Mozilla Firefox 4 to 18 */
+	color: #ddd;
+}
+
+input:-ms-input-placeholder {
+	/* Internet Explorer 10-11 */
+	color: #ddd;
+}

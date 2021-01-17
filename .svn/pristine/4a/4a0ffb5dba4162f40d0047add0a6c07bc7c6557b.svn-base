@@ -1,0 +1,828 @@
+<?php
+
+namespace Api\Controller;
+
+use Clas\Orderin;
+
+/**
+ * 所有订单类信息操作模块
+ * 说明：开发过程中，因多人开发，导致多信息无法同步，故此说明
+ * 本文第三行use Think\Controller;按理说应该继承CommonController类，但是估计无法同步，故在这里先这样处理
+ * 但其实有很多验证信息需放在统一CommonController类中，请以$this->记录
+ */
+class OrderinController extends CommonController
+{
+
+	/**
+	 * 选择支付方式
+	 * @param json      参照Orderout单元测试数据传来的数据格式 or
+	 * @param array     参照Orderout单元测试数据传来的数据格式
+	 * @return  array
+	 * @author  史超
+	 * 说明：立即支付选择支付方式
+	 */
+	public function makeOrder()
+	{
+		$Orderin = new Orderin($this->user_id);
+		$data = $Orderin->makeOrder();
+		if (is_array($data))
+		{
+			jsonout('选择支付方式', 0, $data);
+		}
+		jsonout($data, 1);
+	}
+
+	/**
+	 * 支付
+	 * @param user_id      用户ID
+	 * @param order_id     订单ID
+	 * @param pay_type     支付方式
+	 * @param pay_password     支付密码
+	 * @return  array
+	 * @author  史超
+	 * 说明：支付订单    支付方式 yepay(余额),wxpay(微信),alipay(支付宝)
+	 */
+	public function payOrder($param = '')
+	{
+		if ($param)
+		{
+			$pos = stripos($param, "___");
+			if ($pos !== false)
+			{
+				$pos_arr = explode('___', $param);
+				$param = array();   // 重置数据
+				$param['order_id'] = $pos_arr[0];
+				$param['pay_type'] = $pos_arr[1];
+			}
+		}
+		$Orderin = new Orderin($this->user_id);
+
+		$data = $Orderin->payOrder($param);
+		if ($data[0] < 1)
+		{
+			// 成功 _ 正常
+			$pay_type = I("pay_type");
+			if ($pay_type == "yepay" || $pay_type == 'price')
+			{
+				$notice = array('notice' => '账户支付成功');
+				jsonout('支付成功', 0, $notice);
+			}
+			elseif ($pay_type == "wxpay" || $pay_type == "xcxpay")
+			{
+				// 微信支付
+				$notice = array('notice' => '拉起APP进行支付', 'wx_url' => $data[1]);
+				jsonout('进行APP支付', 0, $notice);
+			}
+			elseif ($pay_type == "wxmp")
+			{
+				// 微信公众号支付
+				jsonout('进行微信支付', 0, $data[1]);
+			}
+			elseif ($pay_type == "alipay")
+			{
+				// 支付宝支付
+				$notice = array('notice' => '拉起APP进行支付', 'ali_url' => $data[1]);
+				jsonout('进行APP支付', 0, $notice);
+			}
+			elseif ($pay_type == "aliwap")
+			{
+				// 支付宝wap支付
+				return $data[1];
+			}
+			elseif ($pay_type == "wait_pay")
+			{
+				// 积分支付
+				$notice = array('notice' => '账户支付成功');
+				jsonout('支付成功', 0, $notice);
+			}
+			else
+			{
+				jsonout('请选择正确的支付方式', 1);
+			}
+		}
+		else
+		{
+			jsonout($data[1], 1);
+		}
+	}
+
+
+	/**
+	 * 发货
+	 * @param user_id      用户ID
+	 * @param order_id     订单ID
+	 * @param tracking_number     快递单号
+	 * @param express_id     快递公司id
+	 * @param goods_id     商品ID
+	 * @param force_type     1只发已支付订单2未支付订单修改为已支付发货（默认1）
+	 * @return  array
+	 * @author  史超
+	 * 说明：发货订单
+	 */
+	public function getDelivery()
+	{
+		$Orderin = new Orderin($this->user_id);
+		$data = $Orderin->getDelivery_a();
+		if ($data == 1)
+		{
+			jsonout('发货结果', 0, '发货成功');
+		}
+		else
+		{
+			jsonout('发货结果', 1, $data);
+		}
+	}
+
+	/**
+	 * 收货
+	 * @param user_id      用户ID
+	 * @param order_id     订单ID
+	 * @param goods_id     商品ID
+	 * @return  array
+	 * @author  史超
+	 * 说明：订单收货
+	 */
+	public function takeDelivery()
+	{
+		$Orderin = new Orderin($this->user_id);
+		$data = $Orderin->takeDelivery();
+		if ($data == 1)
+		{
+			jsonout('收货结果', 0, '收货成功');
+		}
+		else
+		{
+			jsonout('收货结果', 1, $data);
+		}
+	}
+
+	/**
+	 * 评价订单商品
+	 * @param user_id      用户ID
+	 * @param order_id     订单ID
+	 * @param goods_id     商品ID
+	 * @param evaluation_content     评价内容
+	 * @param service_attitude     0-5
+	 * @param commodity_quality     0-5
+	 * @return  array
+	 * @author  史超
+	 * 说明：评价订单商品
+	 */
+	public function getEvaluate()
+	{
+		$Orderin = new Orderin($this->user_id);
+		$data = $Orderin->getEvaluate();
+		if ($data == 1)
+		{
+			jsonout('评价结果', 0, '评价成功');
+		}
+		else
+		{
+			jsonout('评价结果', 1, $data);
+		}
+	}
+
+	/**
+	 * 删除订单
+	 * @param order_id     订单ID
+	 * @return  array
+	 * @author  史超
+	 * 说明：评价订单商品
+	 */
+	public function deleteOrder()
+	{
+		$Orderin = new Orderin($this->user_id);
+		$data = $Orderin->deleteOrder();
+		if ($data == 1)
+		{
+			jsonout('删除结果', 0, '删除成功');
+		}
+		else
+		{
+			jsonout('删除结果', 1, $data);
+		}
+	}
+
+	/**
+	 * 取消订单
+	 * @param order_id     订单ID
+	 * @return  array
+	 * @author  史超
+	 * 说明：取消订单
+	 */
+	public function cancelOrder()
+	{
+		$Orderin = new Orderin($this->user_id);
+		$data = $Orderin->cancelOrder();
+		if ($data == 1)
+		{
+			jsonout('取消结果', 0, '取消成功');
+		}
+		else
+		{
+			jsonout('取消结果', 1, $data);
+		}
+	}
+
+	/**
+	 * 加入购物车
+	 * @return  array
+	 * @author  史超
+	 * 说明：加入购物车
+	 */
+	public function makeCart()
+	{
+		$goods = I("goods");
+		$goods = htmlspecialchars_decode($goods);
+		$goods = json_decode($goods, true);
+		$Orderin = new Orderin($this->user_id);
+		$data = $Orderin->makeCart();
+
+		if ($data == 1)
+		{
+			jsonout('操作购物车', 0, '操作成功');
+		}
+		else
+		{
+			jsonout('操作购物车', 1, $data);
+		}
+	}
+
+	/**
+	 * 申请售后
+	 * @return  array
+	 * @author  靳士宝
+	 * 说明：申请售后
+	 */
+	public function refundOrder()
+	{
+		$Orderin = new Orderin($this->user_id);
+		$data = $Orderin->refundOrder();
+		if ((is_numeric($data) && $data > 0) || $data['status'] == 0)
+		{
+			jsonout('申请结果', 0, '申请成功');
+		}
+		else
+		{
+			if (is_array($data))
+			{
+				jsonout('申请结果', 1, $data['msg']);
+			}
+			else
+			{
+				jsonout('申请结果', 1, "申请失败，请重新操作或联系客服");
+			}
+		}
+	}
+
+
+	/**
+	 * 用户买单（二维码买单和APP商家界面买单）
+	 * @param string $user_id 买单用户UID
+	 * @param string $shop_id 商家ID
+	 * @param string $money 交易金额
+	 * @param string $pay_type 支付方式，alipay，wxpay，yepay
+	 * @param string $type 来源，1商家界面，2二维码
+	 * @return  json
+	 * @zd
+	 * 说明：如果是类似余额账户支付，直接输出成功/失败提示
+	 *        如果是微信/支付宝，在输出提示的同时，要输出支付数据，以便拉起APP
+	 */
+	public function maidan()
+	{
+		$user_id = I("user_id", 0);
+		$shop_id = I("shop_id", 0);
+		$money = I("money", 0);
+		$pay_type = I("pay_type", '');
+		$type = I("type", 1);
+
+		if (!$user_id || !$shop_id)
+		{
+			jsonout('请重新登录后消费', 1);
+		}
+		if (!$money || $money <= 0)
+		{
+			jsonout('消费金额必须大于0', 1);
+		}
+		if (!$pay_type)
+		{
+			jsonout('请选择正确的支付方式', 1);
+		}
+
+		// jsonout('正确接收参数', 0);
+
+		$order_no = make_order_no();
+		$data["order_no"] = $order_no;
+		$data["user_id"] = $user_id;
+		$data["total_commodity_price"] = $money;
+		$data["payment_type"] = $pay_type;
+		$data["shipping_type"] = 0;
+		$data["add_time"] = time();
+		$data["ip"] = get_client_ip();
+		$data["order_type"] = 1;    // 用户买单
+		$data["shop_id"] = $shop_id;
+		$order_id = M("order")->add($data);
+		if (!$order_id)
+		{
+			jsonout('订单创建失败，请重新买单', 1);
+		}
+
+		// 开始支付
+		$payData['order_id'] = $order_id;
+		$payData['pay_type'] = $pay_type;
+
+		$Orderin = new Orderin($user_id);
+		$data = $Orderin->payOrder($payData);
+		if ($data[0] < 1)
+		{
+			// 成功 _ 正常
+			$pay_type = I("pay_type");
+			if ($pay_type == "yepay")
+			{
+				$notice = array('notice' => '账户支付成功');
+				jsonout('支付成功', 0, $notice);
+			}
+			elseif ($pay_type == "wxpay" || $pay_type == "xcxpay")
+			{
+				// 微信支付
+				$notice = array('notice' => '拉起APP进行支付', 'wx_url' => $data[1]);
+				jsonout('进行APP支付', 0, $notice);
+			}
+			elseif ($pay_type == "alipay")
+			{
+				// 支付宝支付
+				$notice = array('notice' => '拉起APP进行支付', 'ali_url' => $data[1]);
+				jsonout('进行APP支付', 0, $notice);
+			}
+			else
+			{
+				jsonout('请选择正确的支付方式', 1);
+			}
+		}
+		else
+		{
+			jsonout($data[1], 1);
+		}
+
+	}
+
+	/**
+	 * 商家报单/代理报单
+	 * @param string $phone 买单用户手机
+	 * @param string $shop_id 商家UID/代理UID
+	 * @param string $money 用户消费金额
+	 * @param string $pay_type 支付方式，alipay，wxpay，yepay
+	 * @param string $type 来源，1商家，2代理
+	 * @return  json
+	 * @zd
+	 * 说明：如果是类似余额账户支付，直接输出成功/失败提示
+	 *        如果是微信/支付宝，在输出提示的同时，要输出支付数据，以便拉起APP
+	 */
+	public function baodan()
+	{
+		$order_id = I("order_id", 0, 'intval');
+		if (!$order_id)
+		{
+			$phone = I("phone", 0);
+			$shop_id = I("shop_id", 0);
+			$money = I("money", 0);
+			$pay_type = I("pay_type", '');
+			$type = I("type", 1);
+
+			if (!$phone || !$shop_id)
+			{
+				jsonout('缺少主要参数', 1);
+			}
+			if (!$money || $money <= 0)
+			{
+				jsonout('消费金额必须大于0', 1);
+			}
+			if (!$pay_type)
+			{
+				jsonout('请选择正确的支付方式', 1);
+			}
+
+			$where_u['phone'] = $phone;
+			$userInfo = get_user_info($where_u);
+			if (!$userInfo || $userInfo['status'] != 1)
+			{
+				jsonout('用户账号异常，请联系客服', 1);
+			}
+
+			// 商家报单/代理报单时，根据商家/代理的服务费比例*消费金额 == 支付金额
+			if ($type < 1 || $type > 2)
+			{
+				jsonout('操作有误，请重新登录', 1);
+			}
+			if ($type == 2)
+			{
+				// 代理UID
+				$user_id = get_user_field($shop_id, "user_id", 0, 3);
+			}
+			else
+			{
+				// 商家UID
+				$user_id = get_user_field($shop_id, "user_id", 0, 2);
+			}
+			if ($userInfo['id'] == $user_id)
+			{
+				jsonout('不可给自己报单', 1);
+			}
+
+			if ($type == 1)
+			{
+				$utype = 2;
+				$order_type = 2;
+			}
+			elseif ($type == 2)
+			{
+				$utype = 3;
+				$order_type = 4;
+			}
+			$where_sd["id"] = $shop_id;
+			$info = get_user_info($where_sd, '', '', $utype);
+			if (!$info || $info['status'] != 1)
+			{
+				jsonout('本账号异常，请联系客服', 1);
+			}
+
+			if (!$info['shop_fee_id'])
+			{
+				jsonout('服务费比例异常，请联系客服', 1);
+			}
+			$feeInfo = get_config_shop_fee($info['shop_fee_id']);
+			if (!$feeInfo)
+			{
+				jsonout('服务费比例异常，请联系客服', 1);
+			}
+
+			$total_commodity_price = round($feeInfo['percent1'] / 100 * $money, 2);
+			if ($total_commodity_price <= 0)
+			{
+				jsonout('上交服务费太低，不可报单', 1);
+			}
+
+			$order_no = make_order_no();
+			$data["order_no"] = $order_no;
+			$data["user_id"] = $userInfo['id'];
+			$data["total_commodity_price"] = $total_commodity_price;
+			$data["shop_note"] = $money;    // （在报单时，此值表示用户消费总额）
+			$data["payment_type"] = $pay_type;
+			$data["shipping_type"] = 0;
+			$data["add_time"] = time();
+			$data["ip"] = get_client_ip();
+			$data["order_type"] = $order_type;
+			$data["shop_id"] = $shop_id;
+			$order_id = M("order")->add($data);
+			if (!$order_id)
+			{
+				jsonout('订单创建失败，请重新买单', 1);
+			}
+		}
+
+		// 开始支付
+		$payData['order_id'] = $order_id;
+		$payData['pay_type'] = $pay_type;
+
+		$Orderin = new Orderin($user_id);
+		$data = $Orderin->payOrder($payData);
+		if ($data[0] < 1)
+		{
+			// 成功 _ 正常
+			$pay_type = I("pay_type");
+			if ($pay_type == "yepay")
+			{
+				$notice = array('notice' => '账户支付成功');
+				jsonout('支付成功', 0, $notice);
+			}
+			elseif ($pay_type == "wxpay" || $pay_type == "xcxpay")
+			{
+				// 微信支付
+				$notice = array('notice' => '拉起APP进行支付', 'wx_url' => $data[1]);
+				jsonout('进行APP支付', 0, $notice);
+			}
+			elseif ($pay_type == "alipay")
+			{
+				// 支付宝支付
+				$notice = array('notice' => '拉起APP进行支付', 'ali_url' => $data[1]);
+				jsonout('进行APP支付', 0, $notice);
+			}
+			elseif ($pay_type == "wxmp")
+			{
+				// 支付宝支付
+
+				$notice = array('notice' => '拉起微信进行支付', 'wx_url' => $data[1]);
+				jsonout('进行微信支付', 0, $notice);
+			}
+			elseif ($pay_type == "aliwap")
+			{
+				// 支付宝支付
+				//$notice = array('notice'=> '拉起支付宝进行支付', 'ali_url'=>$data[1] );
+				//jsonout('进行微信支付', 0, $notice);
+				var_dump($data[1]);
+			}
+			else
+			{
+				jsonout('请选择正确的支付方式', 1);
+			}
+		}
+		else
+		{
+			jsonout($data[1], 1);
+		}
+	}
+
+	/**
+	 * 售后订单提交信息
+	 * @param int $refund_id 售后订单ID
+	 * @return  json
+	 * @zd
+	 */
+	public function refundAddInfo()
+	{
+		$refund_id = I("refund_id", 0);
+		$user_address_id = I("user_address_id", 0);             // 换货时，用户收货地址
+		$user_express = I("user_express", 0);                   // 用户发货公司名称
+		$user_tracking_number = I("user_tracking_number", 0);   // 用户发货快递单号
+		if (!$refund_id)
+		{
+			jsonout("请传入售后订单ID");
+		}
+		$refundInfo = M("order_refund")->where("id=" . $refund_id)->field("id,refund_status,refund_type,order_id,order_goods_id")->find();
+		if ($refundInfo['refund_status'] != 2)
+		{
+			jsonout("当前售后状态不允许有此操作");
+		}
+		if (!$user_express)
+		{
+			jsonout("请填写完整快递公司");
+		}
+		if (!$user_tracking_number)
+		{
+			jsonout("请填写快递单号");
+		}
+		if (!$user_address_id && $refundInfo['refund_type'] == 2)
+		{
+			jsonout("请选择收货地址");
+		}
+
+		$data['refund_status'] = 4;
+		$data['user_express'] = $user_express;
+		$data['user_tracking_number'] = $user_tracking_number;
+		if ($refundInfo['refund_type'] == 2)
+		{
+			$data['user_address_id'] = $user_address_id;
+		}
+		$rs = M("order_refund")->where("id=" . $refund_id)->save($data);
+		if ($rs !== false)
+		{
+			$data_log['user_express'] = $user_express;
+			$data_log['user_tracking_number'] = $user_tracking_number;
+			$data_log['refund_type'] = $refundInfo['refund_type'];
+			$data_log['order_id'] = $refundInfo['order_id'];
+			$data_log['order_goods_id'] = $refundInfo['order_goods_id'];
+			$data_log['id'] = $refundInfo['id'];
+			add_order_return_log($data_log, 4);
+			jsonout("信息提交成功，请等待后续客服审核操作", 0);
+		}
+		else
+		{
+			jsonout("信息提交失败，请重新提交");
+		}
+	}
+
+	/**
+	 * 售后订单 用户确认收货
+	 * @param int $refund_id 售后订单ID
+	 * @return  json
+	 * @zd
+	 */
+	public function refundGoodsConfirm()
+	{
+		$refund_id = I("refund_id", 0);
+		if (!$refund_id)
+		{
+			jsonout("请传入售后订单ID");
+		}
+		$refundInfo = M("order_refund")->where("id=" . $refund_id)->find();
+		if ($refundInfo['refund_type'] != 2)
+		{
+			jsonout("当前订单不允许有此操作");
+		}
+		if ($refundInfo['refund_status'] != 6)
+		{
+			jsonout("当前状态不允许有此操作");
+		}
+		$data['refund_status'] = 7;
+		$data['up_time'] = time();
+		$rs = M("order_refund")->where("id=" . $refund_id)->save($data);
+		if ($rs !== false)
+		{
+			$refundData['refund_type'] = 2;
+			$refundData['order_id'] = $refundInfo['order_id'];
+			$refundData['order_goods_id'] = $refundInfo['order_goods_id'];
+			$refundData['id'] = $refund_id;
+			add_order_return_log($refundData, 7);
+			jsonout("收货成功", 0);
+		}
+		else
+		{
+			jsonout("收货失败，请重新操作");
+		}
+
+
+	}
+
+	/**
+	 * 购物车删除单个商品
+	 * @param user_id goods_id
+	 * return true/false
+	 * sunhaiyang
+	 */
+	public function one_cart_delete()
+	{
+		$Orderin = new Orderin($this->user_id);
+		$res = $Orderin->one_cart_delete();
+		if ($res)
+		{
+			jsonout('操作完成', 0, true);
+		}
+		else
+		{
+			jsonout($res[0], 1);
+		}
+	}
+
+	public function check_pwd_score()
+	{
+		$orderin = new Orderin();
+		$re = $orderin->check_pwd_score();
+		if (is_numeric($re))
+		{
+			jsonout('操作成功', 0);
+		}
+		else
+		{
+			jsonout($re, 1);
+		}
+	}
+
+	/**
+	 * @return mixed
+	 * Notes:积分商品支付运费（当运费支付为现金时）
+	 * User: WangSong
+	 * Date: 2020/9/8
+	 * Time: 9:02
+	 */
+	public function payOrder1()
+	{
+		$Orderin = new Orderin($this->user_id);
+		$data = $Orderin->payOrder1();
+		if ($data[0] < 1)
+		{
+			// 成功 _ 正常
+			$pay_type = I("pay_type");
+			if ($pay_type == "yepay")
+			{
+				$notice = array('notice' => '账户支付成功');
+				jsonout('支付成功', 0, $notice);
+			}
+			elseif ($pay_type == "wxpay" || $pay_type == "xcxpay")
+			{
+				// 微信支付
+				$notice = array('notice' => '拉起APP进行支付', 'wx_url' => $data[1]);
+				jsonout('进行APP支付', 0, $notice);
+			}
+			elseif ($pay_type == "wxmp")
+			{
+				// 微信支付
+				jsonout('进行微信支付', 0, $data[1]);
+			}
+			elseif ($pay_type == "alipay")
+			{
+				// 支付宝支付
+				$notice = array('notice' => '拉起APP进行支付', 'ali_url' => $data[1]);
+				jsonout('进行APP支付', 0, $notice);
+			}
+			elseif ($pay_type == "aliwap")
+			{
+				// 支付宝wap支付
+				return $data[1];
+			}
+			elseif ($pay_type == "wait_pay")
+			{
+				// 积分支付
+				$notice = array('notice' => '账户支付成功');
+				jsonout('支付成功', 0, $notice);
+			}
+			else
+			{
+				jsonout('请选择正确的支付方式', 1);
+			}
+		}
+		else
+		{
+			jsonout($data[1], 1);
+		}
+	}
+
+	public function shop_getDelivery()
+	{
+		$orderin = new Orderin();
+		$re = $orderin->shop_getDelivery();
+		if (is_numeric($re))
+		{
+			jsonout('操作成功', 0);
+		}
+		else
+		{
+			jsonout($re, 1, $re);
+		}
+
+	}
+
+	/**
+	 * Notes:根据物流单号进行确认收货
+	 * User: WangSong
+	 * Date: 2020/9/24
+	 * Time: 8:52
+	 */
+	public function takeNumDelivery()
+	{
+		$Orderin = new Orderin($this->user_id);
+		$data = $Orderin->takeNumDelivery();
+		if ($data == 1)
+		{
+			jsonout('收货结果', 0, '收货成功');
+		}
+		else
+		{
+			jsonout('收货结果', 1, $data);
+		}
+	}
+
+
+	/**
+	 * Title：生成VIP订单
+	 * Note： 生成成功之后，要请求支付
+	 * User： zd
+	 * Date： 2020-10-23
+	 */
+	public function makeVipOrder()
+	{
+		$user_id = I("user_id", 0);     // 用户ID
+		$level_id = I("level_id", 0);   // 等级ID
+		$pay_type = I("pay_type", 0);   // 支付方式
+		$pay_password = I("pay_password", 0);   // 支付密码
+		if (!$user_id)
+		{
+			jsonout("请登录后升级");
+		}
+		if (!$level_id)
+		{
+			jsonout("请选择合适的等级");
+		}
+		if (!$pay_type)
+		{
+			jsonout("请选择支付方式");
+		}
+		// 对用户和等级处理
+		$levelInfo = get_config_user_level($level_id, 1);
+		if (!$levelInfo || $levelInfo['is_del'] == 1 || $levelInfo['status'] != 1)
+		{
+			jsonout("等级不存在或未开启，请选择其他等级");
+		}
+		$where_u['id'] = $user_id;
+		$userInfo = get_user_info($where_u);
+		if (!$userInfo || $userInfo['is_del'] == 1 || $userInfo['status'] != 1)
+		{
+			jsonout("没有此用户或用户状态异常");
+		}
+		if ($userInfo['level'] >= $levelInfo['level_ranking'])
+		{
+			jsonout("用户等级大于当前等级，请选择更高等级");
+		}
+
+		$data['order_no'] = make_order_no();
+		$data['user_id'] = $user_id;
+		$data['total_commodity_price'] = $levelInfo['up_level_money'];
+		$data['actual_order_total'] = $levelInfo['up_level_money'];
+		$data['shipping_type'] = 0;
+		$data['order_status'] = 0;
+		$data['pay_status'] = 0;
+		$data['add_time'] = time();
+		$data['ip'] = get_client_ip();
+		$data['order_type'] = 10;
+		$data['level_ranking'] = $levelInfo['level_ranking'];
+		$order_id = M("order")->add($data);
+		if (!$order_id)
+		{
+			jsonout("升级失败，请重新操作");
+		}
+		$param['zh'] = $order_id."___".$pay_type;
+		$res = R('Orderin/payOrder', $param);
+		jsonout($res['msg'], $res['status'], $res['result']);
+	}
+
+}
+

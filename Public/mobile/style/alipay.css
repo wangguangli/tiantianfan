@@ -1,0 +1,97 @@
+/* 支付宝在浏览器中支付 */   
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video,nobr {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline;
+  box-sizing: border-box;
+  text-decoration: none;
+  list-style: none;
+  -webkit-tap-highlight-color: rgba(0,0,0,0);
+  -webkit-tap-highlight-color: transparent;
+  
+}
+input,button{
+  -webkit-user-select:auto;
+  cursor: pointer; 
+  outline: 0;
+} 
+small{ font-size: 12px; }
+a{text-decoration: none;color: black}
+a:hover{color: black}
+ul{list-style: none}
+.fl{float:left}
+.fr{float:right}
+.clear{clear:both}
+.tal{text-align: left;}
+.tac{text-align: center;}
+.tar{text-align: right;}
+.hidden{display: none;}
+/*start*/
+body{
+  background: #f0eff5;
+  padding-top: 12vw;
+}
+.header h2{
+  font-size: 5vw;
+  font-weight: 600;
+  letter-spacing: 1px;
+  margin-bottom: 3vw;
+}
+.header h5{
+  font-size: 4vw;
+  color: #99999b;
+  margin-top: 2vw;
+}
+.liucheng {
+  padding-top: 15vw;
+}
+.liucheng li{
+  margin-top: 4vw;
+}
+.liucheng img{
+   width: 8vw;
+   height: 8vw
+}
+.liucheng li img,p{
+  float: left;
+}
+.liucheng li p{
+  margin:1.5vw 0 0 3vw;
+  font-size: 4vw;
+}
+.footer{
+  margin-top: 20vw;
+  text-align:center;
+}
+.footer ul,.footer li{
+	width:100%;
+}
+.footer img{
+  height: 26vw;
+  margin-right: 8vw;
+}
+.liucheng{
+  background:url(../images/arrow.png) no-repeat 48vw -1vw;
+  background-size: 28vw 30vw;
+}
+.header{
+	padding-left:15vw;
+}
+.content{
+	padding-left:15vw;
+}

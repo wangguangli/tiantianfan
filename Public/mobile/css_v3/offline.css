@@ -1,0 +1,12 @@
+ .off_container{width: 100%;padding: 3.33vw 3.7vw;margin-bottom: 3vw;}
+ .off_cont_list{width: 100%;background-color: #fff;border-radius: 2.78vw;padding: 1.5vw 3.06vw 2.69vw 3.06vw;margin-bottom: 3.33vw;}
+ .cont_list_h2{font-size: 4.44vw;color: #333333;padding-bottom: 3.06vw;margin-left: 1.5vw;border-bottom:1px solid #ddd;}
+ .cont_list_bot{overflow: hidden;margin-top: 2.13vw;}
+ .ist_bot_img{width: 12.96vw;height: 12.96vw;border-radius:1vw ;margin-right: 2.96vw;float: left;}
+ .list_bot_lr{display: flex;justify-content: space-between;align-items: center;}
+ .address_cont{width: 89%;}
+ .address{font-size: 3.52vw;height: 6vw;color: #333333;overflow: hidden;font-weight: normal;margin-top: 0.2vw;}
+ .business_time{font-size: 3.33vw;color: #999999;height: 6vw;overflow: hidden;word-break:break-all;}
+ .address_dh{width: 7vw;display: flex;align-items: center;justify-content: space-between;}
+ .address_dh .line{border-left: 1px solid #ddd;width: 0.09vw;height: 6.48vw;display: block;}
+ .phone{width: 3.98vw;height: 4.63vw;}

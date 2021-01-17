@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<!--<meta name="viewport" content="width=device-width, initial-scale=1">-->
+	<title>{:GC('web_title')}管理后台-快递设置</title>
+	<include file="Public/asset_top_page"/>
+
+</head>
+<body>
+<!-- header -->
+<include file="Public/header"/>
+<!-- /header -->
+<!-- Page container -->
+<div class="page-container">
+	<!-- Page content -->
+	<div class="page-content">
+		<!-- main sidebar -->
+		<include file="Public/left"/>
+		<!-- /main sidebar -->
+
+		<!-- Main content -->
+		<div class="content-wrapper">
+
+			<!-- Content area -->
+			<div class="content" style="padding-top: 10px;">
+				<!-- Pagination types -->
+				<div class="v-container">
+					<div class="alert alert-tips alert-dismissible" role="alert">
+						<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
+						第三方打印快递设置</div>
+
+					<div class="panel panel-flat">
+						<div class="panel-heading">
+
+
+							<!--搜索框-->
+							<div class="heading-elements">
+
+							</div>
+						</div>
+
+
+						<div class="dataTables_wrapper no-footer">
+							<table class="table datatable-tools-basic basic_table">
+								<thead>
+								<tr>
+									<th style="width: 1px;"></th>
+									<th>快递服务名称</th>
+									<th>状态</th>
+									<th class="text-center">最后更新时间</th>
+
+								</tr>
+								</thead>
+
+								<volist name="list" id="vo">
+									<tr class="tt_color">
+										<td style="width: 1px;">
+										</td>
+
+										<td class="" ><a href="{:U('index/express_detail')}?id={$vo.id}" style="color: #0b76cc">{$vo.name}</a></td>
+
+
+
+										<td class="">
+											<div class="ed_stand">
+												<p>
+													<if condition="$vo['is_start'] == 1">
+													<a href="{:U('index/express_upd')}?id={$vo.id}&is_start={$vo.is_start}"><font style="color:red">[关闭]</font></a>
+													<else/>
+													<a href="{:U('index/express_upd')}?id={$vo.id}&is_start={$vo.is_start}"><font style="color:green">[开启]</font></a>
+													</if>
+												</p>
+											</div>
+										</td>
+										<td class="text-center">
+											<div class="ed_stand">
+												<p>{$vo.edittime|get_time}</p>
+											</div>
+										</td>
+
+
+
+
+									</tr>
+
+								</volist>
+							</table>
+
+							<!-- 分页 -->
+						</div>
+						<!-- /pagination types -->
+
+					</div>
+					<!-- Footer -->
+					<include file="Public/footer" />
+					<!-- /footer -->
+
+				</div>
+				<!-- /content area -->
+
+			</div>
+			<!-- /main content -->
+
+		</div>
+		<!-- /page content -->
+
+	</div>
+	<!-- /page container -->
+
+</body>
+</html></html>

@@ -1,0 +1,158 @@
+/**页面样式 **/
+
+body {
+	background: #f7f8fa!important;
+}
+/*导航*/
+ 
+.goods_nav {
+	width: 100%;
+	background-color: #fff;
+	border-radius: 0 0 3.7vw 3.7vw;
+}
+
+.goods_nav_kuan {
+	width: 83%;
+	font-size: 3.7vw;
+	color: #333333;
+	display: flex;
+	align-items: center;
+	justify-content: space-around;
+	margin: 0 auto;
+	padding-top: 3.5vw;
+	padding-bottom: 3.7vw;
+}
+
+.nav_title {
+	width: 19vw;
+	text-align: center;
+}
+
+.f_active {
+	font-weight: bold;
+}
+
+.f_active .active_span {
+	width: 7.04vw;
+	border-bottom: 2px solid #fe4543;
+	display: block;
+	margin: 0 auto;
+	margin-top: 1vw;
+	border-radius: 0.37vw;
+}
+
+.goods-list {
+	width: 100%;
+	padding: 0 1.5vw;
+	display: table;
+	margin-top: 1.37vw;
+}
+
+.goods-list ul {
+	margin: 0;
+	padding: 0
+}
+
+.goods-list ul li {
+	width: 50%;
+	padding: 1.5vw 1.5vw 2vw 1.5vw;
+	float: left
+}
+
+.goods-list ul li .proshow {
+	width: 100%;
+	background: #fff;
+	border-radius: 2.78vw;
+}
+
+.goods-list ul li .proshow .product_img {
+	width: 45vw;
+	height: 45vw;
+	border-top-left-radius: 2.78vw;
+	border-top-right-radius: 2.78vw;
+}
+
+.goods-list ul li .proshow .pro-info {
+	padding: 1.22vw 2vw 3.89vw 2vw;
+	display: block;
+	margin: 0 auto;
+}
+
+.cakes_tit {
+	width: 100%;
+	overflow: hidden;
+	height: 10vw;
+	font-size: 3.52vw;
+	/*line-height: 5.56vw;*/
+	color: #333333;
+}
+
+.cakes_tit .cakes {
+	padding: 0 1.5vw;
+	background-color: #fe4543;
+	border-radius: 3vw;
+	font-size: 2.59vw;
+	color: #ffffff;
+	text-align: center;
+	display: inline-block;
+	/*line-height: 4.5vw;*/
+	/*margin-right: 1vw;*/
+}
+
+.buy_cont {
+	overflow: hidden;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	margin-top: 2.87vw;
+}
+
+.buy_cont .price {
+	color: #fe4543;
+	font-size: 3.89vw;
+	font-weight: bold;
+}
+
+.price .symbol {
+	font-size: 3.15vw;
+}
+
+.buy_cont .gwc {
+	width: 6.02vw;
+	height: 6.02vw;
+	border-radius: 50%;
+}
+
+.nextpage {
+	width: 100%;
+	padding: 3vw;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	font-size: 3.4vw;
+	color: #555
+}
+
+.nextpage .line {
+	width: 38%;
+	height: 1px;
+	background: #737373
+}
+.empty_data{
+	width: 90vw;
+	margin: 0 auto;
+	padding-top: 30vw;
+}
+.empty_cart_img_1{
+	width: 72.87vw;
+	height: 45.37vw;
+	margin: 0 auto;
+	display: block;
+}
+.empty_data_t1{
+	width: 100%;
+	text-align: center;
+	font-size: 3.89vw;
+	color: #a1adbd;
+	padding-top: 2vw;
+}

@@ -1,0 +1,17 @@
+.down_list{width: 750px; display:table;}
+.down_list ul{margin:0; padding:0}
+.down_list ul li{width:187px; float:left; padding:0 10px 20px 10px; list-style:none}
+.down_list ul li .img_div{width:100%; height:200px; position:relative; border:1px solid #ddd; overflow: hidden; margin: 0; background-position: center; background-repeat: no-repeat; background-size: cover; background:url(../../images/icon_up.png) no-repeat center center; background-size:100px 100px }
+.storeimages{opacity: 0; filter: alpha(opacity=0); width:100%; height: 250px; z-index: 99; position: absolute; left: 0; top: 0;}
+.cc_input{width:100%; padding-top:10px;}
+.cc_input .in_div{width:100%; display:flex; align-items:center; justify-content:space-between}
+.cc_input .in_div input{width:48% !important;}
+.set_bg{background:#fff; box-shadow:0 0 10px #555; position:absolute; left:50%; top:50px; border-radius:5px; z-index:1000; display:none}
+.set_bg .bg_img_div{position:relative}
+.set_bg .bg_img{border-radius:5px 5px 0 0;}
+.set_bg .ewm_img{width:250px; height:250px; display:none; position:absolute; z-index:1010; left:0; bottom:0px}
+.set_width{width:100%; padding:20px 20px 0 20px}
+.set_width .cc_input{display:flex; align-items:center; margin-bottom:20px }
+.set_width .cc_input .in_div{width:80%;}
+.set_width .cc_input .in_div input{font-size: 14px; color: #454545; border: 1px solid #CCC; padding: 10px; margin-right: -5px; border-radius: 2px; height: 35px;}
+.set_width .cc_input input[type="button"]{background: #1e8fc9; height: 29px; line-height: 29px; border-style: none; border-radius: 3px; color: #fff; padding: 0px 25px; margin-left: 300px; cursor: pointer;}

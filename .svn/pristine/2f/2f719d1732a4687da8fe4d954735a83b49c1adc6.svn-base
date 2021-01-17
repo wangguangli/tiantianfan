@@ -1,0 +1,86 @@
+<?php
+
+/**
+ * Created by PhpStorm.
+ * User: Administrator
+ * Date: 2020/8/25
+ * Time: 10:13
+ * @param  $dirName 文件夹路劲
+ * 删除文件夹
+ */
+function  removeDir($dirName)
+{
+    if (!is_dir($dirName)) {
+        return false;
+    }
+    $handle = @opendir($dirName);
+    while (($file = @readdir($handle)) !== false) {
+        //判断是不是文件 .表示当前文件夹 ..表示上级文件夹 =2
+        if ($file != '.' && $file != '..') {
+            $dir = $dirName . '/' . $file;
+            is_dir($dir) ? removeDir($dir) : @unlink($dir);
+        }
+    }
+    closedir($handle);
+    @rmdir($dirName);
+}
+
+
+/**
+ * @Title:记录待返积分 以及奖金池
+ * @Param: order_id int 订单id
+ * @Date:2020/10/27
+ * @Time:11:20
+ * @Author:lty
+ */
+function order_type0($order_id){
+    $orderInfo = M('order')->find($order_id);
+    $userInfo = M('user')->find($orderInfo['user_id']);
+    //根据商品返还
+    $orderGoods = M('order_goods')->where('order_id='.$order_id)->select();
+
+    $where['name'] = 'all_money';
+    foreach ($orderGoods as $k => $v){
+        //每个商品比例不一样
+        $goodsInfo = M('goods')->find($v['goods_id']);
+        $money_wait = $goodsInfo['service_fee_bfb'] * 0.01 * $v['goods_total'];//待返积分
+        $money_all = $goodsInfo['still_fee_bfb'] * 0.01 * $v['goods_total'];//奖金池金额
+        change_money_log($orderInfo['user_id'],1,'money_wait',$userInfo['money_wait'],$money_wait,6,2,'购买商品'.$v['goods_name'].'的待返积分',1,1,1,$orderInfo['id'],$orderInfo['user_id'],0);
+        //奖金池增加 也要记录在account_log表里面
+        $all_money = get_config('all_money',true);//当前奖金池金额
+        $account_log = array(
+            'user_id' => 0,
+            'user_amount' => $all_money,
+            'amount' => $money_all,
+            'type' => 17,
+            'deal_type' => 2,
+            'remark' => '用户'.$userInfo['phone'].'购买商品'.$v['goods_name'].'产生奖金池金额',
+            'order_id' => $order_id,
+            'other_user_id' => $orderInfo['user_id'],
+            'utype' => 4,
+            'op_type' => 1,
+            'cre_time' => time(),
+            'cre_date' => date('Y-m-d H:i:s',time()),
+            'ip' => get_client_ip(),
+        );
+        M('account_log')->add($account_log);
+        M('config')->where($where)->setInc('val',$all_money);
+    }
+    $userInfo = M('user')->find($orderInfo['user_id']);
+    $unit = get_config_project('unit_price');
+    $number = floor($userInfo['money_wait']/$unit);
+    //如果大于1 就说明有条件了
+    M('user')->where('id='.$orderInfo['user_id'])->setField('ipo',$number);//现在的股数
+    if($number > 0){
+        M('user')->where('id='.$orderInfo['user_id'])->setField('is_ipo',1);//有分红的权限了
+    }
+
+    //给上级返利
+    if($userInfo['first_leader']){
+        $top = M('user')->find($userInfo['first_leader']);
+        $data = get_config_user_level($top['level']);
+        $rebate = $data['recommend_first_money'];
+        $first_money =$rebate * 0.01 * $orderInfo['total_commodity_price'];
+        change_money_log($top['id'],1,'money',$top['money'],$first_money,1,17,'购买商品'.$v['goods_name'].'的一级分销',1,1,1,$orderInfo['id'],$orderInfo['user_id'],0);
+    }
+}

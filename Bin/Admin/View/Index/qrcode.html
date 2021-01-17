@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<!--<meta name="viewport" content="width=device-width, initial-scale=1">-->
+	<title>{:GC('web_title')}管理后台-推广二维码设置</title>
+	<include file="Public/asset_top_page"/>
+</head>
+<body>
+<!-- header -->
+<include file="Public/header"/>
+<!-- /header -->
+<!-- Page container -->
+<div class="page-container">
+	<!-- Page content -->
+	<div class="page-content">
+		<!-- main sidebar -->
+		<include file="Public/left"/>
+		<!-- /main sidebar -->
+
+		<!-- Main content -->
+		<div class="content-wrapper">
+
+			<!-- Content area -->
+			<div class="content" style="padding-top: 10px;" id="ajax_list">
+				<!-- Pagination types -->
+				<div class="v-container">
+					<div class="alert alert-tips alert-dismissible" role="alert">
+						<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span
+								aria-hidden="true">×</span></button>
+						本页推广二维码设置
+					</div>
+
+					<!-- page -->
+					<form class="form-horizontal pt-15" method="post" action=""  enctype="multipart/form-data" accept-charset="utf-8">
+
+						<volist name="config" id="i">
+						<div class="form-group">
+							<label class="col-xs-2 control-label text-right">{$i.text}</label>
+							<neq name="i.type" value="file">
+								<div class="col-xs-5">
+									<input type="text" class="form-control" id="{$i.name}" name="ratio[{$i.id}]"  readonly="readonly" value="{$i.val}"  required>
+								</div>
+<!--								<input class="form-control" type="text" readonly value="{$i.val}" id="{$i.name}"  name="ratio[{$i.id}]" />-->
+								<else />
+								<div class="col-xs-6 control-label">
+									<div class="placeholder">
+										<img src="{$i.val}" class="img_headimgurl">
+									</div>
+									<button type="button" class="layui-btn layui-btn-sm" id="upimg">
+										<i class="layui-icon">&#xe67c;</i>上传图片
+									</button>
+
+									<input type="hidden" id="tuiguang_haibao"  id="{$i.name}" value="{$i.val}" name="ratio[{$i.id}]" />
+
+								</div>
+
+							</neq><span style="color: #ff0000;">{$i.remark}</span>
+						</div>
+						<input type="hidden" name="type[{$i.id}]" value="{$i.type}" />
+						</volist>
+
+
+						<div class="form-group">
+							<label class="col-xs-2 control-label"></label>
+							<div class="col-xs-8">
+								<button class="layui-btn layui-btn-sm layui-btn-normal" type="submit" onclick="formSubmit()">提交</button>
+								<a href="javascript:history.go(-1);" class="layui-btn layui-btn-sm layui-btn-primary">返回</a>
+							</div>
+						</div>
+					</form>
+
+					<!-- page end -->
+
+					<!-- Footer -->
+					<include file="Public/footer" />
+					<!-- /footer -->
+
+				</div>
+				<!-- /content area -->
+
+			</div>
+			<!-- /main content -->
+
+		</div>
+		<!-- /page content -->
+
+	</div>
+	<!-- /page container -->
+
+	<!-- 上传图片 -->
+	<div class="set_bg">
+		<div class="bg_img_div">
+			<img src="" id="imgsUrl" class="bg_img"/>
+			<img src="__PUBLIC__/images/rs_erweim.jpg" class="ewm_img"/>
+		</div>
+		<div class="set_width">
+			<div class="cc_input">
+				宽高设置&nbsp;&nbsp;&nbsp;&nbsp;
+				<div class="in_div">
+					<input name="imgwidth" value="" type="number" placeholder="二维码宽">
+					<input name="imgheight" value="" type="number" placeholder="二维码高">
+				</div>
+			</div>
+			<div class="cc_input">
+				位置设置&nbsp;&nbsp;&nbsp;&nbsp;
+				<div class="in_div">
+					<input name="longtop" value="" type="number" placeholder="头部距离">
+					<input name="longleft" value="" type="number" placeholder="左边距离">
+				</div>
+			</div>
+			<div class="cc_input" id="tjsub">
+				<input type="button" value="确定" onclick="setTf()">
+			</div>
+		</div>
+	</div>
+
+	<script>
+		layui.use('upload', function(){
+			var upload = layui.upload;
+
+			//执行实例
+			var uploadInst = upload.render({
+				elem: '#upimg' 							//绑定元素
+				,url: '/index.php/Admin/Common/uploadsbg' 	//上传接口
+				,data:{handlename:"headimg"}			// 接口接收值
+				,field:"headimg"						// input name，与接口接收值 一致
+				,done: function(res)
+				{
+					//上传完毕回调-不一定成功，需要判断
+					console.log(res);
+					if (res.status > 0)
+					{
+						// 异常提示
+						layer.alert(res.result);
+					}
+					else
+					{
+						var result = res.result;
+						$("#tuiguang_haibao").val(result.imageurl);
+
+						$(".img_headimgurl").attr("src",result.imageurl);
+						setWh_div(result.imgwidth,result.imgheight,result.imageurl);//图片的宽和高
+					}
+				}
+				,error: function(e)
+				{
+					//请求异常回调
+					console.log(e);
+				}
+			});
+		});
+
+		function setWh_div(width,height,imgurl){
+			$("#imgsUrl").attr("src",imgurl);
+			$("#imgsUrl").css("width",width);
+			$("#imgsUrl").css("height",height);
+			$(".set_bg").css('display','block');
+			$(".set_bg").css("width",width);
+			$(".set_bg").css("margin-left", -width/2);
+		}
+		$("input[name='imgwidth']").on("input",function(e){
+			var vWidth = e.delegateTarget.value;
+			$('.ewm_img').css('display','block');
+			$('.ewm_img').css('width',vWidth+'px');
+		});
+		$("input[name='imgheight']").on("input",function(e){
+			var vheight = e.delegateTarget.value;
+			$('.ewm_img').css('display','block');
+			$('.ewm_img').css('height',vheight+'px');
+		});
+		$("input[name='longtop']").on("input",function(e){
+			var vtop = e.delegateTarget.value;
+			$('.ewm_img').css('display','block');
+			$('.ewm_img').css('top',vtop+'px');
+		});
+		$("input[name='longleft']").on("input",function(e){
+			var vleft = e.delegateTarget.value;
+			$('.ewm_img').css('display','block');
+			$('.ewm_img').css('left',vleft+'px');
+		});
+
+
+		function setTf(){
+			var imgwidth = $("input[name='imgwidth']").val();
+			var imgheight = $("input[name='imgheight']").val();
+			var longtop = $("input[name='longtop']").val();
+			var longleft = $("input[name='longleft']").val();
+
+			if(imgwidth =="" || imgheight =="" || longtop =="" || longleft ==""){
+				alert("信息输入完整在提交");return;
+			}
+			$('#ajax_list').each(function(){
+				var index = $(this).index();
+				$(this).find('#ewm_width').val(imgwidth);
+				$(this).find('#ewm_height').val(imgheight);
+				$(this).find('#ewm_left').val(longleft);
+				$(this).find('#ewm_top').val(longtop);
+			})
+			$('.set_bg').css('display','none');
+
+		}
+	</script>
+	<!-- 上传图片 -->
+
+</body>
+</html>

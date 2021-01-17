@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<title>我的资产</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<link rel="stylesheet" href="__PUBLIC__/mobile/css_v3/mui.min.css">
+		<link rel="stylesheet" href="__PUBLIC__/mobile/css_v3/property.css">
+		<link rel="stylesheet" href="__PUBLIC__/mobile/style/main_style.css">
+		<script src="__PUBLIC__/js/mui.min.js"></script>
+		<script src="__PUBLIC__/js/jquery.min.js"></script>
+		<link rel="stylesheet" href="__PUBLIC__/mobile/style/dropload.css">
+		<script type="text/javascript" src="__PUBLIC__/layer/mobile/layer.js"></script>
+	</head>
+
+	<body>
+		<!--导航-->
+		<div class="goods_nav">
+
+<!-- 当是-1的时候修改为佣金明细-->
+            <if condition="$type eq -1">
+                <div class="goods_nav_kuan">
+                    <a href="{:U('User/accountDetail','type=1')}" style="color: black;">
+                        <div class="nav_title  f_active ">
+                            佣金明细
+                            <span class="active_span"></span>
+                        </div>
+                    </a>
+                </div>
+                <else />
+
+                <div class="goods_nav_kuan">
+                    <a href="{:U('User/accountDetail','type=1')}" style="color: black;">
+                        <div class="nav_title <if condition="$type eq 1"> f_active </if>">
+                            余额明细
+                            <if condition="$type eq 1">
+                                <span class="active_span"></span>
+                            </if>
+                        </div>
+                    </a>
+                    <a href="{:U('User/accountDetail','type=16')}" style="color: black;">
+                        <div class="nav_title <if condition="$type eq 16"> f_active </if>">
+                            积分明细
+                            <if condition="$type eq 16">
+                                <span class="active_span"></span>
+                            </if>
+                        </div>
+                    </a>
+                </div>
+            </if>
+
+		<if condition="empty($list)">
+			<div class="empty_data">
+				<div class="empty_data_t0">
+					<img src="__PUBLIC__/mobile/images_v3/empty_cart_img_1.png" class="empty_cart_img_1">
+				</div>
+				<div class="empty_data_t1">暂无数据</div>
+			</div>
+			<else/>
+				<div class="mui-content  detail_rq">
+
+					<div class="expense">
+						<ul id="account">
+							<volist name="list" id="vo">
+								<li class="clearfix">
+									<div class="clearfix_top">
+										<div class="time_ex">{$vo.remark}</div>
+										<p class="qian <if condition="$vo['op_type'] eq 1"> qi_red <else />qi_green </if>" >{$vo.amount}</p>
+										</div>
+									<div class="acc_time">{$vo.cre_date}</div>
+								</li>
+
+							</volist>
+							</ul>
+							</div>
+
+					<div class="load_more_content"></div>
+		<div class="load_more">
+			<if condition="$page gt $max_page">
+				数据已全部加载
+				<else/>
+				<span class="load_more_red">点击</span>加载更多
+			</if>
+
+		</div>
+
+				</div>
+		</if>
+
+	</body>
+	<script src="__PUBLIC__/mobile/js/swiper.min.js"></script>
+	<script src="__PUBLIC__/mobile/js/dropload.min.js"></script>
+	<script>
+		function back() {
+			location.href = "{:U('User/index')}";
+		}
+		// 加载更多
+		var page = 2; // 当前页码，默认从第2页开始，因为刚进来已经输出一次了
+		var max_page = "{$max_page}"; // 最大页码
+		var type = "{$type}"; // 当前类型
+		$(".load_more").on("click", function() {
+			if (page > max_page) {
+				layer.open({
+					type: 2,
+					content: '数据已全部加载',
+					time: 1
+				});
+				$(".load_more").text("数据已全部加载");
+				return;
+			}
+			layer.open({
+				type: 2,
+				content: '加载中'
+			});
+			$(".load_more_content").load("{:U('accountDetail')}", {
+				page: page,
+				type: type
+			}, function(response, status) {
+				if (status == "success") {
+					var html = $(".load_more_content").html();
+					$("#account").append(html);
+					$(".load_more_content").html("");
+					page = parseInt(page) + 1; // 在本页自增
+				}
+				layer.closeAll();
+			});
+		});
+		//上拉加载
+		/*$(function(){
+        // 页数
+        var page = 0;
+        // dropload
+        $('.inx-like').dropload({
+            scrollArea : window,
+            loadDownFn : function(me){
+                page++;   // 拼接HTML
+                var html = '';
+                $.ajax({
+                    type: 'GET',
+                    url:"{:U('Api/Userout/accountLog')}?page="+page+"&user_id="+{$user_id}+"&type="+{$type},
+                    dataType: 'json',
+                    success:function(data){
+                        console.log(data);
+                        if (data.status == 1)
+                        {
+                            // $(".dropload-down").remove();
+                            me.resetload();
+                            return;
+                        }
+
+                        var arrLen = data.result.list.length;
+                        if(arrLen > 0){
+                            $.each(data.result.list,function(index,item) {
+                                console.log(1212)
+                                html+='<li class="clearfix">';
+
+                                html+='<div class="time_ex">'+item.remark+'</div>';
+                                html+=' <div class="time_right">';
+                                html+='<p >'+item.amount+'</p>';
+                                html+='<span >'+item.cre_date+'</span>';
+//									    html+='<div><span class="discount_span"></span><span class="discount">'+item.price+'</span></div></div>';
+                                html+='</div>';
+
+                                html+='</li>';
+                            });
+
+                            // 如果没有数据
+                        }else{
+                            me.lock(); // 锁定
+                            me.noData(); // 无数据
+                        }
+                        // 为了测试，延迟1秒加载
+                        setTimeout(function(){
+                             //console.log(html) // 插入数据到页面，放到最后面
+                            $('#account').append(html); // 每次数据插入，必须重置
+                            me.resetload();
+                        }, 8);
+                    },
+                    error: function(xhr, type){
+                        alert('Ajax error!');  // 即使加载出错，也得重置
+                        me.resetload();
+                    }
+                });
+            }
+        });
+    });*/
+	</script>
+
+</html>

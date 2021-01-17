@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>{:GC('web_title')}-商城首页</title>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+		<meta name="Keywords" content="">
+		<meta name="description" content="">
+		   <!-- UC强制全屏 -->
+		<meta name="full-screen" content="yes">
+		<!-- QQ强制全屏 -->
+		<meta name="x5-fullscreen" content="true">
+		<link rel="stylesheet" href="__PUBLIC__/mobile/style/jquery-weui.min.css">
+		<link rel="stylesheet" href="__PUBLIC__/mobile/style/weui.min.css">
+		<link rel="stylesheet" href="__PUBLIC__/mobile/style/main_style.css">
+		<link rel="stylesheet" href="__PUBLIC__/mobile/style/index.css">		
+		<link href="__PUBLIC__/css/footer.css" rel="stylesheet" type="text/css" />
+		<!--上拉加载-->
+		<link rel="stylesheet" href="__PUBLIC__/mobile/style/dropload.css">	
+		<script type="text/javascript" src="__PUBLIC__/layer/mobile/layer.js"></script>
+	</head>
+	<body ontouchstart>
+		<div id="index">
+			<header>
+				<a href="{:U('goods/goodssearch')}"><i class="iconfont select" id="searchShow">&#xe631;</i></a>
+				{:GC('web_title')}
+				<a href="{:U('Cart/index')}" class="iconfont gcar">&#xe65d;</a>
+		
+			</header>
+			<!--banner轮播图模块-->
+			<style type="text/css">
+				.inx-banner .swiper-slide a,.inx-banner .swiper-slide a img{
+					height: 100%;
+				}
+			</style>
+			<div class="inx-banner">
+				<div class="swiper-container" style="height: 200px">
+					<div class="swiper-wrapper">
+						<volist name="banner" id="vo">
+							<div class="swiper-slide" >
+								<if condition="$vo['module']=='goods'">
+									<a href="{:U('goods/detail','id='.$vo['link'])}"><img src="{$vo.photo}" /></a>
+								<elseif condition="$vo['module']=='shop'"/>
+									<a href="{:U('shop/index','shop_id='.$vo['link'])}"><img src="{$vo.photo}" /></a>
+								<elseif condition="$vo['module']==category" />
+									<a href="{:U('Goods/index','id='.$vo['link'])}"><img src="{$vo.photo}" /></a>
+								<elseif condition="$vo['module']=='article'" />
+									<a href="{:U('index/messageInfo','id='.$vo['link'])}"><img src="{$vo.photo}" /></a>
+								<elseif condition="$vo['module']=='link'" />
+									<a href="{$vo['link']}"><img src="{$vo.photo}" /></a>
+								<elseif condition="$vo['module']=='false'"/>
+									<a href="{$vo['link']}"><img src="{$vo.photo}" /></a>
+								<elseif condition="$vo['module']==''"/>
+									<img src="{$vo.photo}" />
+								</if>
+							</div>
+						</volist>
+					</div>
+					<div class="swiper-pagination"></div>
+				</div>
+			</div>
+			<!--商品分类模块-->
+			<div class="swiper-containers">
+				<div class="swiper-wrapper">
+					<volist name="category" id="vo">
+					<div class="swiper-slide imgnav"   >
+						<a href="{:U('Goods/index','cat_id='.$vo['id'])}">
+							<img src="{$vo.img}"  />
+							<p>{$vo.name}</p>
+						</a>
+					</div>
+					</volist>
+				</div>
+			</div>
+			<!--小站快报渲染模块-->
+			<div class="inx-art-div">
+				<div class="inx-article">	
+					<span style="position: absolute;top: 2vw;color: #FD2429;font-size: 3vw;">HOT</span>
+					<ul class="marquee" style="margin-left: 10vw;">
+						<volist name="news" id="vo">
+						<li class="notice-li"  v-for="v in news">
+							<a href="{:U('index/messageInfo','id='.$vo['id'])}" >{$vo.title}</a>
+						</li>
+						</volist>						
+					</ul>					
+				</div>
+				<a href="{:U('index/saveAllMessage','type=1')}"><div class="ar_more"><span class="dd_more">更多</span></div></a>
+			</div>	
+			<!--背景图-->
+			<a href="#"><div class="ban_va"><img src="__PUBLIC__/img/back_pp@2x.png" width="100%"/></div></a>														
+			<div class="titlebg"><img src="__PUBLIC__/img/recommend.png" style="height: 12vw;"/></div>
+			<div class="inx-jp">
+				<ul class="clearfix">
+				  <li>
+					<div class="popu">
+						<h6>{$ad31.title}</h6>
+						<div class="popu_img"><img src="{$ad31.photo}" width="100%"/></div>
+					</div>
+				  </li> 
+				  <li>
+					 <div class="sole">
+						<h6>{$ad32.title}</h6>
+						<div class="pop_img"><img src="{$ad32.photo}" width="100%"/></div>
+					 </div>	
+					 <div class="new_pro clearfix">
+						<div class="new_left">
+							<h6>{$ad33.title}</h6>
+							<div class="pp_img"><img src="{$ad33.photo}" width="100%"/></div>
+						</div>
+						<div class="new_right">
+							<h6>{$ad34.title}</h6>
+							<div class="pp_img"><img src="{$ad34.photo}" width="100%"/></div>
+						</div>			  	 						  	 	
+					 </div>
+					 
+				  </li>
+				</ul>
+			</div>
+			<div class="titlebg"><img src="__PUBLIC__/img/optimization.png" style="height: 10vw;"/></div>
+			<!--猜你喜欢模块-->
+			<div class="inx-like">
+				<ul id="inx_id" class="clearfix"></ul>					
+			</div>
+			<!--end-->
+		</div>
+		<include file="Public/tabbar"/>
+		<script src="__PUBLIC__/mobile/js/vue.min.js"></script>
+		<script src="__PUBLIC__/mobile/js/jquery-2.1.4.js"></script>
+		<script src="__PUBLIC__/mobile/js/jquery-weui.min.js"></script>
+		<script src="__PUBLIC__/mobile/js/swiper.min.js"></script>
+		<script src="__PUBLIC__/mobile/js/dropload.min.js"></script>
+		<script type="text/javascript">
+			var swiper = new Swiper('.swiper-containers', {
+				pagination: '.swiper-pagination',
+				slidesPerView: 4,
+				slidesPerColumn: 2,
+				paginationClickable: true,
+				spaceBetween: 30
+			});
+			$(".swiper-container").swiper({
+				loop: true,
+				autoplay: 3000
+			});
+			$("#searchShow").click(function(){
+				$(".select-div").show();
+			});
+			$("#searcCancel").click(function(){
+				$(".select-div").hide();
+			});
+			var num = $('.inx-article').find('li').length;
+			if(num > 1){
+				var time=setInterval('time_play(".inx-article")',3500);
+				$('.gg_more a').mousemove(function(){
+					clearInterval(time);
+				}).mouseout(function(){
+					time = setInterval('timer(".inx-article")',3500);
+				}); 
+			}
+			function time_play(opj){
+				$(opj).find(".marquee").animate({
+					marginTop : "-8.5vw"  
+					},500,function(){  
+					$(this).css({marginTop : "0"}).find("li:first").appendTo(this);  
+				})  
+			} 
+			//上拉加载
+			   $(function(){
+				// 页数
+				var page = 0;   
+				// dropload
+				$('.inx-like').dropload({
+					scrollArea : window,
+					loadDownFn : function(me){
+						page++;   // 拼接HTML			            
+						var html = '';
+						$.ajax({
+							type: 'GET',
+							url:"{:U('index/goodsListIndex')}?page="+page,
+							dataType: 'json',
+							success:function(data){
+
+								console.log(data)
+								if (data.status == 1)
+								{
+									// $(".dropload-down").remove();
+									me.resetload();
+									return;
+								}
+
+								var arrLen = data.result.length;
+								if(arrLen > 0){
+									$.each(data.result,function(index,item) {
+										html+='<li><div class="proshow">';
+										html+='<a href="{:U(\'Goods/detail\')}?id='+item.id+'">'; 
+										html+='<img src="'+item.thumb +'"/><div class="pro-info">';	
+										html+='<p>'+item.name+'</p>';	
+										html+='<span class="price">'+item.price+'</span></div></a></div></li>';								
+									});
+
+								// 如果没有数据
+								}else{			                       
+									me.lock(); // 锁定
+									me.noData(); // 无数据
+																	}
+								// 为了测试，延迟1秒加载
+								setTimeout(function(){			                        
+								   // console.log(html) // 插入数据到页面，放到最后面
+									$('#inx_id').append(html); // 每次数据插入，必须重置			                       
+									me.resetload();
+								}, 8);
+							},
+							error: function(xhr, type){
+								arrLenalert('Ajax error!');  // 即使加载出错，也得重置			                  
+								me.resetload();
+							}
+						});
+					}
+				});
+			});
+			
+	  </script>
+   </body>
+</html>

@@ -1,0 +1,15 @@
+ 
+/*清理浮动的方法*/
+.clearfix:after {content: " ";display: block;clear: both;height: 0;}
+.clearfix {zoom: 1;}
+/*******************************************************消息中心****************************************************/
+.com_intr{padding: 3vw 2.5vw;background: #fff;}
+.com_intr h6{color: #333;font-size: 3.52vw;}
+.com_intr p{padding-top: 1vw;font-size:3.33vw;color: #999;}
+/*********************************************************资讯详情***********************************************************/
+.con_su{padding: 3vw 0.5vw;padding-bottom:0;text-align: center;border-bottom: 1px solid #ddd;}
+.con_su h5{color: #333;font-size: 4vw;letter-spacing: 1px;}    
+.con_su p{font-size: 3.33vw;}
+.con_list{padding: 2.5vw;}
+.con_list p{word-break: break-all;}
+.gg_intr{word-break: break-all;padding: 2.5vw;color: #333;font-size: 3.7vw;}

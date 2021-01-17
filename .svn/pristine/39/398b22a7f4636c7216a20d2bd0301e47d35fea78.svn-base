@@ -1,0 +1,26 @@
+<volist name="goods" id="vo">
+	<li>
+		<div class="proshow">
+			<a href="{:U('Goods/detail', array('id'=>$vo['id']))}">
+				<img class="product_img" src="{$vo.thumb}" />
+				<div class="pro-info">
+					<p class="cakes_tit">
+						<span class="cakes">热销</span>
+						{$vo.name}
+					</p>
+					<div class="buy_cont">
+						<span class="price"><span class="symbol">￥</span>{$vo.price}</span>
+						<img class="gwc" src="__PUBLIC__/mobile/images_v3/f_dm26.png" />
+					</div>
+
+					<div class="pro-info-tootm1">
+						<div class="">
+							<span>已售:{$vo.sell_count}</span>
+							<span style="margin-left: 12vw;">评论:{$vo.common_count}</span>
+						</div>
+					</div>
+				</div>
+			</a>
+		</div>
+	</li>
+</volist>

@@ -1,0 +1,732 @@
+[ 2021-01-12T16:10:02+08:00 ] 172.17.0.1 /index.php
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000015s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000336s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000441s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000501s ]
+SQL: SHOW COLUMNS FROM `sns_article_category` [ RunTime:0.0045s ]
+SQL: SELECT * FROM `sns_article_category` WHERE ( is_pc_show=1 )  [ RunTime:0.0006s ]
+SQL: SHOW COLUMNS FROM `sns_article` [ RunTime:0.0022s ]
+SQL: SELECT `id`,`title` FROM `sns_article` WHERE ( cat_id=8 )  [ RunTime:0.0006s ]
+SQL: SELECT `id`,`title` FROM `sns_article` WHERE ( cat_id=9 )  [ RunTime:0.0006s ]
+SQL: SELECT `id`,`title` FROM `sns_article` WHERE ( cat_id=10 )  [ RunTime:0.0007s ]
+SQL: SELECT `id`,`title` FROM `sns_article` WHERE ( cat_id=11 )  [ RunTime:0.0006s ]
+SQL: SELECT `id`,`title` FROM `sns_article` WHERE ( cat_id=12 )  [ RunTime:0.0004s ]
+SQL: SELECT `id`,`title` FROM `sns_article` WHERE ( cat_id=13 )  [ RunTime:0.0006s ]
+NOTIC: [8] Undefined index: page /var/www/html/tiantianfan/Bin/Clas/Ad.class.php 第 43 行.
+SQL: SHOW COLUMNS FROM `sns_ad` [ RunTime:0.0023s ]
+SQL: SELECT * FROM `sns_ad` WHERE `position` = 'goods_top_banner' ORDER BY sort desc,id desc LIMIT 5   [ RunTime:0.0007s ]
+SQL: SHOW COLUMNS FROM `sns_goods_category` [ RunTime:0.0013s ]
+SQL: SELECT `id`,`name`,`pid`,`img` FROM `sns_goods_category` WHERE ( pid=0 )  [ RunTime:0.0006s ]
+NOTIC: [2] Missing argument 1 for Clas\Article::__construct(), called in /var/www/html/tiantianfan/Bin/M/Controller/IndexController.class.php on line 50 and defined /var/www/html/tiantianfan/Bin/Clas/Article.class.php 第 13 行.
+NOTIC: [2] Missing argument 2 for Clas\Article::__construct(), called in /var/www/html/tiantianfan/Bin/M/Controller/IndexController.class.php on line 50 and defined /var/www/html/tiantianfan/Bin/Clas/Article.class.php 第 13 行.
+NOTIC: [8] Undefined variable: user_id /var/www/html/tiantianfan/Bin/Clas/Article.class.php 第 17 行.
+NOTIC: [8] Undefined variable: role /var/www/html/tiantianfan/Bin/Clas/Article.class.php 第 18 行.
+NOTIC: [8] Undefined index: page /var/www/html/tiantianfan/Bin/Clas/Article.class.php 第 126 行.
+NOTIC: [8] Undefined index: size /var/www/html/tiantianfan/Bin/Clas/Article.class.php 第 127 行.
+SQL: SELECT `id`,`title`,`time`,`thumb` FROM `sns_article` WHERE ( cat_id=1 )  [ RunTime:0.0005s ]
+NOTIC: [8] Undefined index: page /var/www/html/tiantianfan/Bin/Clas/Ad.class.php 第 43 行.
+SQL: SELECT * FROM `sns_ad` WHERE `position` = 'goods_middle_banner' ORDER BY sort desc,id desc LIMIT 1   [ RunTime:0.0006s ]
+NOTIC: [8] Undefined index: page /var/www/html/tiantianfan/Bin/Clas/Ad.class.php 第 43 行.
+SQL: SELECT * FROM `sns_ad` WHERE `position` = 'goods_f_banner' ORDER BY sort desc,id desc LIMIT 1   [ RunTime:0.0006s ]
+NOTIC: [8] Undefined index: page /var/www/html/tiantianfan/Bin/Clas/Ad.class.php 第 43 行.
+SQL: SELECT * FROM `sns_ad` WHERE `position` = 'goods_r_t_banner' ORDER BY sort desc,id desc LIMIT 1   [ RunTime:0.0006s ]
+NOTIC: [8] Undefined index: page /var/www/html/tiantianfan/Bin/Clas/Ad.class.php 第 43 行.
+SQL: SELECT * FROM `sns_ad` WHERE `position` = 'goods_r_fd_banner' ORDER BY sort desc,id desc LIMIT 1   [ RunTime:0.0005s ]
+NOTIC: [8] Undefined index: page /var/www/html/tiantianfan/Bin/Clas/Ad.class.php 第 43 行.
+SQL: SELECT * FROM `sns_ad` WHERE `position` = 'goods_r_rd_banner' ORDER BY sort desc,id desc LIMIT 1   [ RunTime:0.0005s ]
+NOTIC: [2] Missing argument 5 for Clas\Goods::goodsList(), called in /var/www/html/tiantianfan/Bin/M/Controller/IndexController.class.php on line 109 and defined /var/www/html/tiantianfan/Bin/Clas/Goods.class.php 第 2431 行.
+NOTIC: [2] Missing argument 1 for I(), called in /var/www/html/tiantianfan/Bin/Clas/Goods.class.php on line 2467 and defined /var/www/html/tiantianfan/ThinkPHP/Common/functions.php 第 271 行.
+NOTIC: [8] Undefined variable: name /var/www/html/tiantianfan/ThinkPHP/Common/functions.php 第 273 行.
+NOTIC: [8] Undefined variable: name /var/www/html/tiantianfan/ThinkPHP/Common/functions.php 第 278 行.
+NOTIC: [8] Undefined variable: name /var/www/html/tiantianfan/ThinkPHP/Common/functions.php 第 339 行.
+NOTIC: [8] Undefined index: type /var/www/html/tiantianfan/Bin/Clas/Goods.class.php 第 2468 行.
+NOTIC: [8] Undefined variable: extGoodsArr /var/www/html/tiantianfan/Bin/Clas/Goods.class.php 第 2493 行.
+SQL: SHOW COLUMNS FROM `sns_goods` [ RunTime:0.0024s ]
+SQL: SELECT `id`,`name`,`subhead`,`price`,`market_price`,`shipping_fee`,`cat_id`,`thumb`,`images`,`click_count`,`store_count`,`sell_count`,`shop_id`,`hot_id`,`sort`,`is_on_sale`,`time`,`ip`,`isdel`,`shop_fee_id`,`sell_count2`,`service_content`,`type_id`,`goods_kind`,`is_group`,`is_hour`,`is_time`,`shipping_type`,`shipping_rule_id`,`video`,`product_code`,`is_pick`,`picksite`,`purchase_price`,`hits`,`service_show`,`product_type`,`tags`,`is_shipping`,`shipping_types`,`service_fee_bfb`,`still_fee_bfb`,`is_coupon` FROM `sns_goods` WHERE `is_group` = 1 AND `isdel` = 0 AND `is_on_sale` = 1 AND `product_type` = 0 ORDER BY sort asc, id desc LIMIT 0,3   [ RunTime:0.0025s ]
+SQL: SHOW COLUMNS FROM `sns_goods_spec_price` [ RunTime:0.0019s ]
+SQL: SELECT `group_price` FROM `sns_goods_spec_price` WHERE ( goods_id=530 ) ORDER BY group_price asc LIMIT 1   [ RunTime:0.0015s ]
+SQL: SELECT * FROM `sns_goods_category` WHERE `id` = 1189 LIMIT 1   [ RunTime:0.0004s ]
+SQL: SELECT `group_price` FROM `sns_goods_spec_price` WHERE ( goods_id=733 ) ORDER BY group_price asc LIMIT 1   [ RunTime:0.0014s ]
+SQL: SELECT * FROM `sns_goods_category` WHERE `id` = 1189 LIMIT 1   [ RunTime:0.0004s ]
+SQL: SELECT `group_price` FROM `sns_goods_spec_price` WHERE ( goods_id=549 ) ORDER BY group_price asc LIMIT 1   [ RunTime:0.0014s ]
+SQL: SELECT * FROM `sns_goods_category` WHERE `id` = 1177 LIMIT 1   [ RunTime:0.0004s ]
+SQL: SELECT * FROM `sns_goods_spec_price` WHERE `goods_id` = 530 LIMIT 1   [ RunTime:0.0018s ]
+SQL: SELECT * FROM `sns_goods_spec_price` WHERE `goods_id` = 733 LIMIT 1   [ RunTime:0.0026s ]
+SQL: SELECT * FROM `sns_goods_spec_price` WHERE `goods_id` = 549 LIMIT 1   [ RunTime:0.0015s ]
+SQL: SHOW COLUMNS FROM `sns_goods_comment` [ RunTime:0.0029s ]
+SQL: SELECT COUNT(*) AS tp_count FROM `sns_goods_comment` WHERE ( goods_id=530 ) LIMIT 1   [ RunTime:0.0009s ]
+SQL: SELECT COUNT(*) AS tp_count FROM `sns_goods_comment` WHERE ( goods_id=733 ) LIMIT 1   [ RunTime:0.0004s ]
+SQL: SELECT COUNT(*) AS tp_count FROM `sns_goods_comment` WHERE ( goods_id=549 ) LIMIT 1   [ RunTime:0.0003s ]
+NOTIC: [2] Missing argument 5 for Clas\Goods::goodsList(), called in /var/www/html/tiantianfan/Bin/M/Controller/IndexController.class.php on line 148 and defined /var/www/html/tiantianfan/Bin/Clas/Goods.class.php 第 2431 行.
+NOTIC: [2] Missing argument 1 for I(), called in /var/www/html/tiantianfan/Bin/Clas/Goods.class.php on line 2467 and defined /var/www/html/tiantianfan/ThinkPHP/Common/functions.php 第 271 行.
+NOTIC: [8] Undefined variable: name /var/www/html/tiantianfan/ThinkPHP/Common/functions.php 第 273 行.
+NOTIC: [8] Undefined variable: name /var/www/html/tiantianfan/ThinkPHP/Common/functions.php 第 278 行.
+NOTIC: [8] Undefined variable: name /var/www/html/tiantianfan/ThinkPHP/Common/functions.php 第 339 行.
+NOTIC: [8] Undefined index: type /var/www/html/tiantianfan/Bin/Clas/Goods.class.php 第 2468 行.
+NOTIC: [8] Undefined variable: extGoodsArr /var/www/html/tiantianfan/Bin/Clas/Goods.class.php 第 2493 行.
+SQL: SELECT `id`,`name`,`subhead`,`price`,`market_price`,`shipping_fee`,`cat_id`,`thumb`,`images`,`click_count`,`store_count`,`sell_count`,`shop_id`,`hot_id`,`sort`,`is_on_sale`,`time`,`ip`,`isdel`,`shop_fee_id`,`sell_count2`,`service_content`,`type_id`,`goods_kind`,`is_group`,`is_hour`,`is_time`,`shipping_type`,`shipping_rule_id`,`video`,`product_code`,`is_pick`,`picksite`,`purchase_price`,`hits`,`service_show`,`product_type`,`tags`,`is_shipping`,`shipping_types`,`service_fee_bfb`,`still_fee_bfb`,`is_coupon` FROM `sns_goods` WHERE `is_hour` = 1 AND `isdel` = 0 AND `is_on_sale` = 1 AND `product_type` = 0 ORDER BY sort asc, id desc LIMIT 0,3   [ RunTime:0.0015s ]
+SQL: SELECT `hour_price` FROM `sns_goods_spec_price` WHERE ( goods_id=739 ) ORDER BY hour_price asc LIMIT 1   [ RunTime:0.0009s ]
+SQL: SELECT * FROM `sns_goods_category` WHERE `id` = 1188 LIMIT 1   [ RunTime:0.0003s ]
+SQL: SELECT `hour_price` FROM `sns_goods_spec_price` WHERE ( goods_id=593 ) ORDER BY hour_price asc LIMIT 1   [ RunTime:0.0009s ]
+SQL: SELECT * FROM `sns_goods_category` WHERE `id` = 1205 LIMIT 1   [ RunTime:0.0003s ]
+SQL: SELECT `hour_price` FROM `sns_goods_spec_price` WHERE ( goods_id=744 ) ORDER BY hour_price asc LIMIT 1   [ RunTime:0.0009s ]
+SQL: SELECT * FROM `sns_goods_category` WHERE `id` = 1168 LIMIT 1   [ RunTime:0.0003s ]
+SQL: SHOW COLUMNS FROM `sns_goods_hour` [ RunTime:0.0013s ]
+SQL: SELECT * FROM `sns_goods_hour` WHERE ( goods_id=739 and end_time>=1610438400 and start_time<1610442000 ) LIMIT 1   [ RunTime:0.0005s ]
+SQL: SELECT COUNT(*) AS tp_count FROM `sns_goods_comment` WHERE ( goods_id=739 ) LIMIT 1   [ RunTime:0.0005s ]
+SQL: SELECT * FROM `sns_goods_hour` WHERE ( goods_id=593 and end_time>=1610438400 and start_time<1610442000 ) LIMIT 1   [ RunTime:0.0004s ]
+SQL: SELECT COUNT(*) AS tp_count FROM `sns_goods_comment` WHERE ( goods_id=593 ) LIMIT 1   [ RunTime:0.0004s ]
+SQL: SELECT * FROM `sns_goods_hour` WHERE ( goods_id=744 and end_time>=1610438400 and start_time<1610442000 ) LIMIT 1   [ RunTime:0.0004s ]
+SQL: SELECT COUNT(*) AS tp_count FROM `sns_goods_comment` WHERE ( goods_id=744 ) LIMIT 1   [ RunTime:0.0004s ]
+NOTIC: [2] Missing argument 5 for Clas\Goods::goodsList(), called in /var/www/html/tiantianfan/Bin/M/Controller/IndexController.class.php on line 216 and defined /var/www/html/tiantianfan/Bin/Clas/Goods.class.php 第 2431 行.
+NOTIC: [2] Missing argument 1 for I(), called in /var/www/html/tiantianfan/Bin/Clas/Goods.class.php on line 2467 and defined /var/www/html/tiantianfan/ThinkPHP/Common/functions.php 第 271 行.
+NOTIC: [8] Undefined variable: name /var/www/html/tiantianfan/ThinkPHP/Common/functions.php 第 273 行.
+NOTIC: [8] Undefined variable: name /var/www/html/tiantianfan/ThinkPHP/Common/functions.php 第 278 行.
+NOTIC: [8] Undefined variable: name /var/www/html/tiantianfan/ThinkPHP/Common/functions.php 第 339 行.
+NOTIC: [8] Undefined index: type /var/www/html/tiantianfan/Bin/Clas/Goods.class.php 第 2468 行.
+NOTIC: [8] Undefined variable: extGoodsArr /var/www/html/tiantianfan/Bin/Clas/Goods.class.php 第 2493 行.
+SQL: SELECT `id`,`name`,`subhead`,`price`,`market_price`,`shipping_fee`,`cat_id`,`thumb`,`images`,`click_count`,`store_count`,`sell_count`,`shop_id`,`hot_id`,`sort`,`is_on_sale`,`time`,`ip`,`isdel`,`shop_fee_id`,`sell_count2`,`service_content`,`type_id`,`goods_kind`,`is_group`,`is_hour`,`is_time`,`shipping_type`,`shipping_rule_id`,`video`,`product_code`,`is_pick`,`picksite`,`purchase_price`,`hits`,`service_show`,`product_type`,`tags`,`is_shipping`,`shipping_types`,`service_fee_bfb`,`still_fee_bfb`,`is_coupon` FROM `sns_goods` WHERE `hot_id` = 2 AND `isdel` = 0 AND `is_on_sale` = 1 AND `product_type` = 0 ORDER BY sort asc, id desc LIMIT 0,4   [ RunTime:0.0016s ]
+NOTIC: [8] Undefined index: page /var/www/html/tiantianfan/Bin/Clas/Ad.class.php 第 43 行.
+SQL: SELECT * FROM `sns_ad` WHERE `position` = 'four_ads_1_v2' ORDER BY sort desc,id desc LIMIT 2   [ RunTime:0.0005s ]
+NOTIC: [8] Undefined index: page /var/www/html/tiantianfan/Bin/Clas/Ad.class.php 第 43 行.
+SQL: SELECT * FROM `sns_ad` WHERE `position` = 'four_ads_2_v2' ORDER BY sort desc,id desc LIMIT 2   [ RunTime:0.0005s ]
+NOTIC: [8] Undefined index: page /var/www/html/tiantianfan/Bin/Clas/Ad.class.php 第 43 行.
+SQL: SELECT * FROM `sns_ad` WHERE `position` = 'four_ads_3_v2' ORDER BY sort desc,id desc LIMIT 2   [ RunTime:0.0005s ]
+NOTIC: [8] Undefined index: page /var/www/html/tiantianfan/Bin/Clas/Ad.class.php 第 43 行.
+SQL: SELECT * FROM `sns_ad` WHERE `position` = 'four_ads_4_v2' ORDER BY sort desc,id desc LIMIT 2   [ RunTime:0.0004s ]
+SQL: SHOW COLUMNS FROM `sns_config_pay3` [ RunTime:0.0042s ]
+SQL: SELECT * FROM `sns_config_pay3` WHERE ( type=3 ) LIMIT 1   [ RunTime:0.0011s ]
+NOTIC: [2] unlink(./Bin/Runtime/Temp/217bea8e573037cc2a2645a036f12914.php): No such file or directory /var/www/html/tiantianfan/ThinkPHP/Library/Think/Cache/Driver/File.class.php 第 157 行.
+SQL: SELECT * FROM `sns_ad` WHERE `position` = 'index_two_image'  [ RunTime:0.0017s ]
+SQL: SELECT * FROM `sns_ad` WHERE `position` = 'index_goods_one' LIMIT 1   [ RunTime:0.0013s ]
+SQL: SELECT * FROM `sns_ad` WHERE `position` = 'index_goods_two' LIMIT 1   [ RunTime:0.0020s ]
+SQL: SELECT * FROM `sns_ad` WHERE `position` = 'index_goods_three' LIMIT 1   [ RunTime:0.0024s ]
+INFO: [ view_parse ] --START--
+INFO: [ template_filter ] --START--
+INFO: Run Behavior\ContentReplaceBehavior [ RunTime:0.000182s ]
+INFO: [ template_filter ] --END-- [ RunTime:0.000243s ]
+NOTIC: [8] Use of undefined constant category - assumed 'category' /var/www/html/tiantianfan/Bin/Runtime/Cache/M/22ae4f9fa68c2b5d356ea0129e31e030.php 第 348 行.
+NOTIC: [8] Undefined variable: menu_category /var/www/html/tiantianfan/Bin/Runtime/Cache/M/22ae4f9fa68c2b5d356ea0129e31e030.php 第 450 行.
+NOTIC: [8] Undefined variable: menu_near /var/www/html/tiantianfan/Bin/Runtime/Cache/M/22ae4f9fa68c2b5d356ea0129e31e030.php 第 456 行.
+NOTIC: [8] Undefined variable: menu_center /var/www/html/tiantianfan/Bin/Runtime/Cache/M/22ae4f9fa68c2b5d356ea0129e31e030.php 第 462 行.
+INFO: Run Behavior\ParseTemplateBehavior [ RunTime:0.063157s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.063304s ]
+INFO: [ view_filter ] --START--
+INFO: Run Behavior\WriteHtmlCacheBehavior [ RunTime:0.000114s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.000140s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.000598s ]
+INFO: [ app_end ] --END-- [ RunTime:0.000642s ]
+
+[ 2021-01-12T16:10:51+08:00 ] 172.17.0.1 /index.php
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000014s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000371s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000741s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000855s ]
+SQL: SHOW COLUMNS FROM `sns_article_category` [ RunTime:0.0008s ]
+SQL: SELECT * FROM `sns_article_category` WHERE ( is_pc_show=1 )  [ RunTime:0.0003s ]
+SQL: SHOW COLUMNS FROM `sns_article` [ RunTime:0.0008s ]
+SQL: SELECT `id`,`title` FROM `sns_article` WHERE ( cat_id=8 )  [ RunTime:0.0003s ]
+SQL: SELECT `id`,`title` FROM `sns_article` WHERE ( cat_id=9 )  [ RunTime:0.0002s ]
+SQL: SELECT `id`,`title` FROM `sns_article` WHERE ( cat_id=10 )  [ RunTime:0.0002s ]
+SQL: SELECT `id`,`title` FROM `sns_article` WHERE ( cat_id=11 )  [ RunTime:0.0002s ]
+SQL: SELECT `id`,`title` FROM `sns_article` WHERE ( cat_id=12 )  [ RunTime:0.0002s ]
+SQL: SELECT `id`,`title` FROM `sns_article` WHERE ( cat_id=13 )  [ RunTime:0.0002s ]
+NOTIC: [8] Undefined index: page /var/www/html/tiantianfan/Bin/Clas/Ad.class.php 第 43 行.
+SQL: SHOW COLUMNS FROM `sns_ad` [ RunTime:0.0010s ]
+SQL: SELECT * FROM `sns_ad` WHERE `position` = 'goods_top_banner' ORDER BY sort desc,id desc LIMIT 5   [ RunTime:0.0004s ]
+SQL: SHOW COLUMNS FROM `sns_goods_category` [ RunTime:0.0007s ]
+SQL: SELECT `id`,`name`,`pid`,`img` FROM `sns_goods_category` WHERE ( pid=0 )  [ RunTime:0.0003s ]
+NOTIC: [2] Missing argument 1 for Clas\Article::__construct(), called in /var/www/html/tiantianfan/Bin/M/Controller/IndexController.class.php on line 50 and defined /var/www/html/tiantianfan/Bin/Clas/Article.class.php 第 13 行.
+NOTIC: [2] Missing argument 2 for Clas\Article::__construct(), called in /var/www/html/tiantianfan/Bin/M/Controller/IndexController.class.php on line 50 and defined /var/www/html/tiantianfan/Bin/Clas/Article.class.php 第 13 行.
+NOTIC: [8] Undefined variable: user_id /var/www/html/tiantianfan/Bin/Clas/Article.class.php 第 17 行.
+NOTIC: [8] Undefined variable: role /var/www/html/tiantianfan/Bin/Clas/Article.class.php 第 18 行.
+NOTIC: [8] Undefined index: page /var/www/html/tiantianfan/Bin/Clas/Article.class.php 第 126 行.
+NOTIC: [8] Undefined index: size /var/www/html/tiantianfan/Bin/Clas/Article.class.php 第 127 行.
+SQL: SELECT `id`,`title`,`time`,`thumb` FROM `sns_article` WHERE ( cat_id=1 )  [ RunTime:0.0003s ]
+NOTIC: [8] Undefined index: page /var/www/html/tiantianfan/Bin/Clas/Ad.class.php 第 43 行.
+SQL: SELECT * FROM `sns_ad` WHERE `position` = 'goods_middle_banner' ORDER BY sort desc,id desc LIMIT 1   [ RunTime:0.0003s ]
+NOTIC: [8] Undefined index: page /var/www/html/tiantianfan/Bin/Clas/Ad.class.php 第 43 行.
+SQL: SELECT * FROM `sns_ad` WHERE `position` = 'goods_f_banner' ORDER BY sort desc,id desc LIMIT 1   [ RunTime:0.0003s ]
+NOTIC: [8] Undefined index: page /var/www/html/tiantianfan/Bin/Clas/Ad.class.php 第 43 行.
+SQL: SELECT * FROM `sns_ad` WHERE `position` = 'goods_r_t_banner' ORDER BY sort desc,id desc LIMIT 1   [ RunTime:0.0003s ]
+NOTIC: [8] Undefined index: page /var/www/html/tiantianfan/Bin/Clas/Ad.class.php 第 43 行.
+SQL: SELECT * FROM `sns_ad` WHERE `position` = 'goods_r_fd_banner' ORDER BY sort desc,id desc LIMIT 1   [ RunTime:0.0003s ]
+NOTIC: [8] Undefined index: page /var/www/html/tiantianfan/Bin/Clas/Ad.class.php 第 43 行.
+SQL: SELECT * FROM `sns_ad` WHERE `position` = 'goods_r_rd_banner' ORDER BY sort desc,id desc LIMIT 1   [ RunTime:0.0003s ]
+NOTIC: [2] Missing argument 5 for Clas\Goods::goodsList(), called in /var/www/html/tiantianfan/Bin/M/Controller/IndexController.class.php on line 109 and defined /var/www/html/tiantianfan/Bin/Clas/Goods.class.php 第 2431 行.
+NOTIC: [2] Missing argument 1 for I(), called in /var/www/html/tiantianfan/Bin/Clas/Goods.class.php on line 2467 and defined /var/www/html/tiantianfan/ThinkPHP/Common/functions.php 第 271 行.
+NOTIC: [8] Undefined variable: name /var/www/html/tiantianfan/ThinkPHP/Common/functions.php 第 273 行.
+NOTIC: [8] Undefined variable: name /var/www/html/tiantianfan/ThinkPHP/Common/functions.php 第 278 行.
+NOTIC: [8] Undefined variable: name /var/www/html/tiantianfan/ThinkPHP/Common/functions.php 第 339 行.
+NOTIC: [8] Undefined index: type /var/www/html/tiantianfan/Bin/Clas/Goods.class.php 第 2468 行.
+NOTIC: [8] Undefined variable: extGoodsArr /var/www/html/tiantianfan/Bin/Clas/Goods.class.php 第 2493 行.
+SQL: SHOW COLUMNS FROM `sns_goods` [ RunTime:0.0016s ]
+SQL: SELECT `id`,`name`,`subhead`,`price`,`market_price`,`shipping_fee`,`cat_id`,`thumb`,`images`,`click_count`,`store_count`,`sell_count`,`shop_id`,`hot_id`,`sort`,`is_on_sale`,`time`,`ip`,`isdel`,`shop_fee_id`,`sell_count2`,`service_content`,`type_id`,`goods_kind`,`is_group`,`is_hour`,`is_time`,`shipping_type`,`shipping_rule_id`,`video`,`product_code`,`is_pick`,`picksite`,`purchase_price`,`hits`,`service_show`,`product_type`,`tags`,`is_shipping`,`shipping_types`,`service_fee_bfb`,`still_fee_bfb`,`is_coupon` FROM `sns_goods` WHERE `is_group` = 1 AND `isdel` = 0 AND `is_on_sale` = 1 AND `product_type` = 0 ORDER BY sort asc, id desc LIMIT 0,3   [ RunTime:0.0013s ]
+SQL: SHOW COLUMNS FROM `sns_goods_spec_price` [ RunTime:0.0007s ]
+SQL: SELECT `group_price` FROM `sns_goods_spec_price` WHERE ( goods_id=530 ) ORDER BY group_price asc LIMIT 1   [ RunTime:0.0006s ]
+SQL: SELECT * FROM `sns_goods_category` WHERE `id` = 1189 LIMIT 1   [ RunTime:0.0002s ]
+SQL: SELECT `group_price` FROM `sns_goods_spec_price` WHERE ( goods_id=733 ) ORDER BY group_price asc LIMIT 1   [ RunTime:0.0005s ]
+SQL: SELECT * FROM `sns_goods_category` WHERE `id` = 1189 LIMIT 1   [ RunTime:0.0002s ]
+SQL: SELECT `group_price` FROM `sns_goods_spec_price` WHERE ( goods_id=549 ) ORDER BY group_price asc LIMIT 1   [ RunTime:0.0005s ]
+SQL: SELECT * FROM `sns_goods_category` WHERE `id` = 1177 LIMIT 1   [ RunTime:0.0002s ]
+SQL: SELECT * FROM `sns_goods_spec_price` WHERE `goods_id` = 530 LIMIT 1   [ RunTime:0.0010s ]
+SQL: SELECT * FROM `sns_goods_spec_price` WHERE `goods_id` = 733 LIMIT 1   [ RunTime:0.0013s ]
+SQL: SELECT * FROM `sns_goods_spec_price` WHERE `goods_id` = 549 LIMIT 1   [ RunTime:0.0007s ]
+SQL: SHOW COLUMNS FROM `sns_goods_comment` [ RunTime:0.0008s ]
+SQL: SELECT COUNT(*) AS tp_count FROM `sns_goods_comment` WHERE ( goods_id=530 ) LIMIT 1   [ RunTime:0.0003s ]
+SQL: SELECT COUNT(*) AS tp_count FROM `sns_goods_comment` WHERE ( goods_id=733 ) LIMIT 1   [ RunTime:0.0002s ]
+SQL: SELECT COUNT(*) AS tp_count FROM `sns_goods_comment` WHERE ( goods_id=549 ) LIMIT 1   [ RunTime:0.0002s ]
+NOTIC: [2] Missing argument 5 for Clas\Goods::goodsList(), called in /var/www/html/tiantianfan/Bin/M/Controller/IndexController.class.php on line 148 and defined /var/www/html/tiantianfan/Bin/Clas/Goods.class.php 第 2431 行.
+NOTIC: [2] Missing argument 1 for I(), called in /var/www/html/tiantianfan/Bin/Clas/Goods.class.php on line 2467 and defined /var/www/html/tiantianfan/ThinkPHP/Common/functions.php 第 271 行.
+NOTIC: [8] Undefined variable: name /var/www/html/tiantianfan/ThinkPHP/Common/functions.php 第 273 行.
+NOTIC: [8] Undefined variable: name /var/www/html/tiantianfan/ThinkPHP/Common/functions.php 第 278 行.
+NOTIC: [8] Undefined variable: name /var/www/html/tiantianfan/ThinkPHP/Common/functions.php 第 339 行.
+NOTIC: [8] Undefined index: type /var/www/html/tiantianfan/Bin/Clas/Goods.class.php 第 2468 行.
+NOTIC: [8] Undefined variable: extGoodsArr /var/www/html/tiantianfan/Bin/Clas/Goods.class.php 第 2493 行.
+SQL: SELECT `id`,`name`,`subhead`,`price`,`market_price`,`shipping_fee`,`cat_id`,`thumb`,`images`,`click_count`,`store_count`,`sell_count`,`shop_id`,`hot_id`,`sort`,`is_on_sale`,`time`,`ip`,`isdel`,`shop_fee_id`,`sell_count2`,`service_content`,`type_id`,`goods_kind`,`is_group`,`is_hour`,`is_time`,`shipping_type`,`shipping_rule_id`,`video`,`product_code`,`is_pick`,`picksite`,`purchase_price`,`hits`,`service_show`,`product_type`,`tags`,`is_shipping`,`shipping_types`,`service_fee_bfb`,`still_fee_bfb`,`is_coupon` FROM `sns_goods` WHERE `is_hour` = 1 AND `isdel` = 0 AND `is_on_sale` = 1 AND `product_type` = 0 ORDER BY sort asc, id desc LIMIT 0,3   [ RunTime:0.0009s ]
+SQL: SELECT `hour_price` FROM `sns_goods_spec_price` WHERE ( goods_id=739 ) ORDER BY hour_price asc LIMIT 1   [ RunTime:0.0005s ]
+SQL: SELECT * FROM `sns_goods_category` WHERE `id` = 1188 LIMIT 1   [ RunTime:0.0002s ]
+SQL: SELECT `hour_price` FROM `sns_goods_spec_price` WHERE ( goods_id=593 ) ORDER BY hour_price asc LIMIT 1   [ RunTime:0.0005s ]
+SQL: SELECT * FROM `sns_goods_category` WHERE `id` = 1205 LIMIT 1   [ RunTime:0.0002s ]
+SQL: SELECT `hour_price` FROM `sns_goods_spec_price` WHERE ( goods_id=744 ) ORDER BY hour_price asc LIMIT 1   [ RunTime:0.0005s ]
+SQL: SELECT * FROM `sns_goods_category` WHERE `id` = 1168 LIMIT 1   [ RunTime:0.0002s ]
+SQL: SHOW COLUMNS FROM `sns_goods_hour` [ RunTime:0.0007s ]
+SQL: SELECT * FROM `sns_goods_hour` WHERE ( goods_id=739 and end_time>=1610438400 and start_time<1610442000 ) LIMIT 1   [ RunTime:0.0003s ]
+SQL: SELECT COUNT(*) AS tp_count FROM `sns_goods_comment` WHERE ( goods_id=739 ) LIMIT 1   [ RunTime:0.0002s ]
+SQL: SELECT * FROM `sns_goods_hour` WHERE ( goods_id=593 and end_time>=1610438400 and start_time<1610442000 ) LIMIT 1   [ RunTime:0.0002s ]
+SQL: SELECT COUNT(*) AS tp_count FROM `sns_goods_comment` WHERE ( goods_id=593 ) LIMIT 1   [ RunTime:0.0002s ]
+SQL: SELECT * FROM `sns_goods_hour` WHERE ( goods_id=744 and end_time>=1610438400 and start_time<1610442000 ) LIMIT 1   [ RunTime:0.0002s ]
+SQL: SELECT COUNT(*) AS tp_count FROM `sns_goods_comment` WHERE ( goods_id=744 ) LIMIT 1   [ RunTime:0.0002s ]
+NOTIC: [2] Missing argument 5 for Clas\Goods::goodsList(), called in /var/www/html/tiantianfan/Bin/M/Controller/IndexController.class.php on line 216 and defined /var/www/html/tiantianfan/Bin/Clas/Goods.class.php 第 2431 行.
+NOTIC: [2] Missing argument 1 for I(), called in /var/www/html/tiantianfan/Bin/Clas/Goods.class.php on line 2467 and defined /var/www/html/tiantianfan/ThinkPHP/Common/functions.php 第 271 行.
+NOTIC: [8] Undefined variable: name /var/www/html/tiantianfan/ThinkPHP/Common/functions.php 第 273 行.
+NOTIC: [8] Undefined variable: name /var/www/html/tiantianfan/ThinkPHP/Common/functions.php 第 278 行.
+NOTIC: [8] Undefined variable: name /var/www/html/tiantianfan/ThinkPHP/Common/functions.php 第 339 行.
+NOTIC: [8] Undefined index: type /var/www/html/tiantianfan/Bin/Clas/Goods.class.php 第 2468 行.
+NOTIC: [8] Undefined variable: extGoodsArr /var/www/html/tiantianfan/Bin/Clas/Goods.class.php 第 2493 行.
+SQL: SELECT `id`,`name`,`subhead`,`price`,`market_price`,`shipping_fee`,`cat_id`,`thumb`,`images`,`click_count`,`store_count`,`sell_count`,`shop_id`,`hot_id`,`sort`,`is_on_sale`,`time`,`ip`,`isdel`,`shop_fee_id`,`sell_count2`,`service_content`,`type_id`,`goods_kind`,`is_group`,`is_hour`,`is_time`,`shipping_type`,`shipping_rule_id`,`video`,`product_code`,`is_pick`,`picksite`,`purchase_price`,`hits`,`service_show`,`product_type`,`tags`,`is_shipping`,`shipping_types`,`service_fee_bfb`,`still_fee_bfb`,`is_coupon` FROM `sns_goods` WHERE `hot_id` = 2 AND `isdel` = 0 AND `is_on_sale` = 1 AND `product_type` = 0 ORDER BY sort asc, id desc LIMIT 0,4   [ RunTime:0.0009s ]
+NOTIC: [8] Undefined index: page /var/www/html/tiantianfan/Bin/Clas/Ad.class.php 第 43 行.
+SQL: SELECT * FROM `sns_ad` WHERE `position` = 'four_ads_1_v2' ORDER BY sort desc,id desc LIMIT 2   [ RunTime:0.0003s ]
+NOTIC: [8] Undefined index: page /var/www/html/tiantianfan/Bin/Clas/Ad.class.php 第 43 行.
+SQL: SELECT * FROM `sns_ad` WHERE `position` = 'four_ads_2_v2' ORDER BY sort desc,id desc LIMIT 2   [ RunTime:0.0004s ]
+NOTIC: [8] Undefined index: page /var/www/html/tiantianfan/Bin/Clas/Ad.class.php 第 43 行.
+SQL: SELECT * FROM `sns_ad` WHERE `position` = 'four_ads_3_v2' ORDER BY sort desc,id desc LIMIT 2   [ RunTime:0.0003s ]
+NOTIC: [8] Undefined index: page /var/www/html/tiantianfan/Bin/Clas/Ad.class.php 第 43 行.
+SQL: SELECT * FROM `sns_ad` WHERE `position` = 'four_ads_4_v2' ORDER BY sort desc,id desc LIMIT 2   [ RunTime:0.0003s ]
+SQL: SHOW COLUMNS FROM `sns_config_pay3` [ RunTime:0.0010s ]
+SQL: SELECT * FROM `sns_config_pay3` WHERE ( type=3 ) LIMIT 1   [ RunTime:0.0003s ]
+NOTIC: [2] unlink(./Bin/Runtime/Temp/217bea8e573037cc2a2645a036f12914.php): No such file or directory /var/www/html/tiantianfan/ThinkPHP/Library/Think/Cache/Driver/File.class.php 第 157 行.
+SQL: SELECT * FROM `sns_ad` WHERE `position` = 'index_two_image'  [ RunTime:0.0007s ]
+SQL: SELECT * FROM `sns_ad` WHERE `position` = 'index_goods_one' LIMIT 1   [ RunTime:0.0006s ]
+SQL: SELECT * FROM `sns_ad` WHERE `position` = 'index_goods_two' LIMIT 1   [ RunTime:0.0009s ]
+SQL: SELECT * FROM `sns_ad` WHERE `position` = 'index_goods_three' LIMIT 1   [ RunTime:0.0005s ]
+INFO: [ view_parse ] --START--
+INFO: [ template_filter ] --START--
+INFO: Run Behavior\ContentReplaceBehavior [ RunTime:0.000168s ]
+INFO: [ template_filter ] --END-- [ RunTime:0.000215s ]
+NOTIC: [8] Use of undefined constant category - assumed 'category' /var/www/html/tiantianfan/Bin/Runtime/Cache/M/22ae4f9fa68c2b5d356ea0129e31e030.php 第 348 行.
+NOTIC: [8] Undefined variable: menu_category /var/www/html/tiantianfan/Bin/Runtime/Cache/M/22ae4f9fa68c2b5d356ea0129e31e030.php 第 450 行.
+NOTIC: [8] Undefined variable: menu_near /var/www/html/tiantianfan/Bin/Runtime/Cache/M/22ae4f9fa68c2b5d356ea0129e31e030.php 第 456 行.
+NOTIC: [8] Undefined variable: menu_center /var/www/html/tiantianfan/Bin/Runtime/Cache/M/22ae4f9fa68c2b5d356ea0129e31e030.php 第 462 行.
+INFO: Run Behavior\ParseTemplateBehavior [ RunTime:0.035904s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.035959s ]
+INFO: [ view_filter ] --START--
+INFO: Run Behavior\WriteHtmlCacheBehavior [ RunTime:0.000219s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.000256s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.000640s ]
+INFO: [ app_end ] --END-- [ RunTime:0.000709s ]
+
+[ 2021-01-12T16:25:14+08:00 ] 172.17.0.1 /index.php?Admin/Account/memberstatistics/
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000013s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000302s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000330s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000374s ]
+SQL: SHOW COLUMNS FROM `sns_article_category` [ RunTime:0.0012s ]
+SQL: SELECT * FROM `sns_article_category` WHERE ( is_pc_show=1 )  [ RunTime:0.0003s ]
+SQL: SHOW COLUMNS FROM `sns_article` [ RunTime:0.0012s ]
+SQL: SELECT `id`,`title` FROM `sns_article` WHERE ( cat_id=8 )  [ RunTime:0.0004s ]
+SQL: SELECT `id`,`title` FROM `sns_article` WHERE ( cat_id=9 )  [ RunTime:0.0003s ]
+SQL: SELECT `id`,`title` FROM `sns_article` WHERE ( cat_id=10 )  [ RunTime:0.0003s ]
+SQL: SELECT `id`,`title` FROM `sns_article` WHERE ( cat_id=11 )  [ RunTime:0.0004s ]
+SQL: SELECT `id`,`title` FROM `sns_article` WHERE ( cat_id=12 )  [ RunTime:0.0005s ]
+SQL: SELECT `id`,`title` FROM `sns_article` WHERE ( cat_id=13 )  [ RunTime:0.0005s ]
+NOTIC: [8] Undefined index: page /var/www/html/tiantianfan/Bin/Clas/Ad.class.php 第 43 行.
+SQL: SHOW COLUMNS FROM `sns_ad` [ RunTime:0.0017s ]
+SQL: SELECT * FROM `sns_ad` WHERE `position` = 'goods_top_banner' ORDER BY sort desc,id desc LIMIT 5   [ RunTime:0.0013s ]
+SQL: SHOW COLUMNS FROM `sns_goods_category` [ RunTime:0.0012s ]
+SQL: SELECT `id`,`name`,`pid`,`img` FROM `sns_goods_category` WHERE ( pid=0 )  [ RunTime:0.0006s ]
+NOTIC: [2] Missing argument 1 for Clas\Article::__construct(), called in /var/www/html/tiantianfan/Bin/M/Controller/IndexController.class.php on line 50 and defined /var/www/html/tiantianfan/Bin/Clas/Article.class.php 第 13 行.
+NOTIC: [2] Missing argument 2 for Clas\Article::__construct(), called in /var/www/html/tiantianfan/Bin/M/Controller/IndexController.class.php on line 50 and defined /var/www/html/tiantianfan/Bin/Clas/Article.class.php 第 13 行.
+NOTIC: [8] Undefined variable: user_id /var/www/html/tiantianfan/Bin/Clas/Article.class.php 第 17 行.
+NOTIC: [8] Undefined variable: role /var/www/html/tiantianfan/Bin/Clas/Article.class.php 第 18 行.
+NOTIC: [8] Undefined index: page /var/www/html/tiantianfan/Bin/Clas/Article.class.php 第 126 行.
+NOTIC: [8] Undefined index: size /var/www/html/tiantianfan/Bin/Clas/Article.class.php 第 127 行.
+SQL: SELECT `id`,`title`,`time`,`thumb` FROM `sns_article` WHERE ( cat_id=1 )  [ RunTime:0.0006s ]
+NOTIC: [8] Undefined index: page /var/www/html/tiantianfan/Bin/Clas/Ad.class.php 第 43 行.
+SQL: SELECT * FROM `sns_ad` WHERE `position` = 'goods_middle_banner' ORDER BY sort desc,id desc LIMIT 1   [ RunTime:0.0007s ]
+NOTIC: [8] Undefined index: page /var/www/html/tiantianfan/Bin/Clas/Ad.class.php 第 43 行.
+SQL: SELECT * FROM `sns_ad` WHERE `position` = 'goods_f_banner' ORDER BY sort desc,id desc LIMIT 1   [ RunTime:0.0007s ]
+NOTIC: [8] Undefined index: page /var/www/html/tiantianfan/Bin/Clas/Ad.class.php 第 43 行.
+SQL: SELECT * FROM `sns_ad` WHERE `position` = 'goods_r_t_banner' ORDER BY sort desc,id desc LIMIT 1   [ RunTime:0.0005s ]
+NOTIC: [8] Undefined index: page /var/www/html/tiantianfan/Bin/Clas/Ad.class.php 第 43 行.
+SQL: SELECT * FROM `sns_ad` WHERE `position` = 'goods_r_fd_banner' ORDER BY sort desc,id desc LIMIT 1   [ RunTime:0.0005s ]
+NOTIC: [8] Undefined index: page /var/www/html/tiantianfan/Bin/Clas/Ad.class.php 第 43 行.
+SQL: SELECT * FROM `sns_ad` WHERE `position` = 'goods_r_rd_banner' ORDER BY sort desc,id desc LIMIT 1   [ RunTime:0.0005s ]
+NOTIC: [2] Missing argument 5 for Clas\Goods::goodsList(), called in /var/www/html/tiantianfan/Bin/M/Controller/IndexController.class.php on line 109 and defined /var/www/html/tiantianfan/Bin/Clas/Goods.class.php 第 2431 行.
+NOTIC: [2] Missing argument 1 for I(), called in /var/www/html/tiantianfan/Bin/Clas/Goods.class.php on line 2467 and defined /var/www/html/tiantianfan/ThinkPHP/Common/functions.php 第 271 行.
+NOTIC: [8] Undefined variable: name /var/www/html/tiantianfan/ThinkPHP/Common/functions.php 第 273 行.
+NOTIC: [8] Undefined variable: name /var/www/html/tiantianfan/ThinkPHP/Common/functions.php 第 278 行.
+NOTIC: [8] Undefined variable: name /var/www/html/tiantianfan/ThinkPHP/Common/functions.php 第 339 行.
+NOTIC: [8] Undefined index: type /var/www/html/tiantianfan/Bin/Clas/Goods.class.php 第 2468 行.
+NOTIC: [8] Undefined variable: extGoodsArr /var/www/html/tiantianfan/Bin/Clas/Goods.class.php 第 2493 行.
+SQL: SHOW COLUMNS FROM `sns_goods` [ RunTime:0.0020s ]
+SQL: SELECT `id`,`name`,`subhead`,`price`,`market_price`,`shipping_fee`,`cat_id`,`thumb`,`images`,`click_count`,`store_count`,`sell_count`,`shop_id`,`hot_id`,`sort`,`is_on_sale`,`time`,`ip`,`isdel`,`shop_fee_id`,`sell_count2`,`service_content`,`type_id`,`goods_kind`,`is_group`,`is_hour`,`is_time`,`shipping_type`,`shipping_rule_id`,`video`,`product_code`,`is_pick`,`picksite`,`purchase_price`,`hits`,`service_show`,`product_type`,`tags`,`is_shipping`,`shipping_types`,`service_fee_bfb`,`still_fee_bfb`,`is_coupon` FROM `sns_goods` WHERE `is_group` = 1 AND `isdel` = 0 AND `is_on_sale` = 1 AND `product_type` = 0 ORDER BY sort asc, id desc LIMIT 0,3   [ RunTime:0.0028s ]
+SQL: SHOW COLUMNS FROM `sns_goods_spec_price` [ RunTime:0.0022s ]
+SQL: SELECT `group_price` FROM `sns_goods_spec_price` WHERE ( goods_id=530 ) ORDER BY group_price asc LIMIT 1   [ RunTime:0.0019s ]
+SQL: SELECT * FROM `sns_goods_category` WHERE `id` = 1189 LIMIT 1   [ RunTime:0.0005s ]
+SQL: SELECT `group_price` FROM `sns_goods_spec_price` WHERE ( goods_id=733 ) ORDER BY group_price asc LIMIT 1   [ RunTime:0.0014s ]
+SQL: SELECT * FROM `sns_goods_category` WHERE `id` = 1189 LIMIT 1   [ RunTime:0.0003s ]
+SQL: SELECT `group_price` FROM `sns_goods_spec_price` WHERE ( goods_id=549 ) ORDER BY group_price asc LIMIT 1   [ RunTime:0.0014s ]
+SQL: SELECT * FROM `sns_goods_category` WHERE `id` = 1177 LIMIT 1   [ RunTime:0.0004s ]
+SQL: SELECT * FROM `sns_goods_spec_price` WHERE `goods_id` = 530 LIMIT 1   [ RunTime:0.0018s ]
+SQL: SELECT * FROM `sns_goods_spec_price` WHERE `goods_id` = 733 LIMIT 1   [ RunTime:0.0026s ]
+SQL: SELECT * FROM `sns_goods_spec_price` WHERE `goods_id` = 549 LIMIT 1   [ RunTime:0.0020s ]
+SQL: SHOW COLUMNS FROM `sns_goods_comment` [ RunTime:0.0027s ]
+SQL: SELECT COUNT(*) AS tp_count FROM `sns_goods_comment` WHERE ( goods_id=530 ) LIMIT 1   [ RunTime:0.0009s ]
+SQL: SELECT COUNT(*) AS tp_count FROM `sns_goods_comment` WHERE ( goods_id=733 ) LIMIT 1   [ RunTime:0.0005s ]
+SQL: SELECT COUNT(*) AS tp_count FROM `sns_goods_comment` WHERE ( goods_id=549 ) LIMIT 1   [ RunTime:0.0004s ]
+NOTIC: [2] Missing argument 5 for Clas\Goods::goodsList(), called in /var/www/html/tiantianfan/Bin/M/Controller/IndexController.class.php on line 148 and defined /var/www/html/tiantianfan/Bin/Clas/Goods.class.php 第 2431 行.
+NOTIC: [2] Missing argument 1 for I(), called in /var/www/html/tiantianfan/Bin/Clas/Goods.class.php on line 2467 and defined /var/www/html/tiantianfan/ThinkPHP/Common/functions.php 第 271 行.
+NOTIC: [8] Undefined variable: name /var/www/html/tiantianfan/ThinkPHP/Common/functions.php 第 273 行.
+NOTIC: [8] Undefined variable: name /var/www/html/tiantianfan/ThinkPHP/Common/functions.php 第 278 行.
+NOTIC: [8] Undefined variable: name /var/www/html/tiantianfan/ThinkPHP/Common/functions.php 第 339 行.
+NOTIC: [8] Undefined index: type /var/www/html/tiantianfan/Bin/Clas/Goods.class.php 第 2468 行.
+NOTIC: [8] Undefined variable: extGoodsArr /var/www/html/tiantianfan/Bin/Clas/Goods.class.php 第 2493 行.
+SQL: SELECT `id`,`name`,`subhead`,`price`,`market_price`,`shipping_fee`,`cat_id`,`thumb`,`images`,`click_count`,`store_count`,`sell_count`,`shop_id`,`hot_id`,`sort`,`is_on_sale`,`time`,`ip`,`isdel`,`shop_fee_id`,`sell_count2`,`service_content`,`type_id`,`goods_kind`,`is_group`,`is_hour`,`is_time`,`shipping_type`,`shipping_rule_id`,`video`,`product_code`,`is_pick`,`picksite`,`purchase_price`,`hits`,`service_show`,`product_type`,`tags`,`is_shipping`,`shipping_types`,`service_fee_bfb`,`still_fee_bfb`,`is_coupon` FROM `sns_goods` WHERE `is_hour` = 1 AND `isdel` = 0 AND `is_on_sale` = 1 AND `product_type` = 0 ORDER BY sort asc, id desc LIMIT 0,3   [ RunTime:0.0016s ]
+SQL: SELECT `hour_price` FROM `sns_goods_spec_price` WHERE ( goods_id=739 ) ORDER BY hour_price asc LIMIT 1   [ RunTime:0.0012s ]
+SQL: SELECT * FROM `sns_goods_category` WHERE `id` = 1188 LIMIT 1   [ RunTime:0.0004s ]
+SQL: SELECT `hour_price` FROM `sns_goods_spec_price` WHERE ( goods_id=593 ) ORDER BY hour_price asc LIMIT 1   [ RunTime:0.0010s ]
+SQL: SELECT * FROM `sns_goods_category` WHERE `id` = 1205 LIMIT 1   [ RunTime:0.0004s ]
+SQL: SELECT `hour_price` FROM `sns_goods_spec_price` WHERE ( goods_id=744 ) ORDER BY hour_price asc LIMIT 1   [ RunTime:0.0014s ]
+SQL: SELECT * FROM `sns_goods_category` WHERE `id` = 1168 LIMIT 1   [ RunTime:0.0010s ]
+SQL: SHOW COLUMNS FROM `sns_goods_hour` [ RunTime:0.0019s ]
+SQL: SELECT * FROM `sns_goods_hour` WHERE ( goods_id=739 and end_time>=1610438400 and start_time<1610442000 ) LIMIT 1   [ RunTime:0.0004s ]
+SQL: SELECT COUNT(*) AS tp_count FROM `sns_goods_comment` WHERE ( goods_id=739 ) LIMIT 1   [ RunTime:0.0003s ]
+SQL: SELECT * FROM `sns_goods_hour` WHERE ( goods_id=593 and end_time>=1610438400 and start_time<1610442000 ) LIMIT 1   [ RunTime:0.0003s ]
+SQL: SELECT COUNT(*) AS tp_count FROM `sns_goods_comment` WHERE ( goods_id=593 ) LIMIT 1   [ RunTime:0.0003s ]
+SQL: SELECT * FROM `sns_goods_hour` WHERE ( goods_id=744 and end_time>=1610438400 and start_time<1610442000 ) LIMIT 1   [ RunTime:0.0003s ]
+SQL: SELECT COUNT(*) AS tp_count FROM `sns_goods_comment` WHERE ( goods_id=744 ) LIMIT 1   [ RunTime:0.0003s ]
+NOTIC: [2] Missing argument 5 for Clas\Goods::goodsList(), called in /var/www/html/tiantianfan/Bin/M/Controller/IndexController.class.php on line 216 and defined /var/www/html/tiantianfan/Bin/Clas/Goods.class.php 第 2431 行.
+NOTIC: [2] Missing argument 1 for I(), called in /var/www/html/tiantianfan/Bin/Clas/Goods.class.php on line 2467 and defined /var/www/html/tiantianfan/ThinkPHP/Common/functions.php 第 271 行.
+NOTIC: [8] Undefined variable: name /var/www/html/tiantianfan/ThinkPHP/Common/functions.php 第 273 行.
+NOTIC: [8] Undefined variable: name /var/www/html/tiantianfan/ThinkPHP/Common/functions.php 第 278 行.
+NOTIC: [8] Undefined variable: name /var/www/html/tiantianfan/ThinkPHP/Common/functions.php 第 339 行.
+NOTIC: [8] Undefined index: type /var/www/html/tiantianfan/Bin/Clas/Goods.class.php 第 2468 行.
+NOTIC: [8] Undefined variable: extGoodsArr /var/www/html/tiantianfan/Bin/Clas/Goods.class.php 第 2493 行.
+SQL: SELECT `id`,`name`,`subhead`,`price`,`market_price`,`shipping_fee`,`cat_id`,`thumb`,`images`,`click_count`,`store_count`,`sell_count`,`shop_id`,`hot_id`,`sort`,`is_on_sale`,`time`,`ip`,`isdel`,`shop_fee_id`,`sell_count2`,`service_content`,`type_id`,`goods_kind`,`is_group`,`is_hour`,`is_time`,`shipping_type`,`shipping_rule_id`,`video`,`product_code`,`is_pick`,`picksite`,`purchase_price`,`hits`,`service_show`,`product_type`,`tags`,`is_shipping`,`shipping_types`,`service_fee_bfb`,`still_fee_bfb`,`is_coupon` FROM `sns_goods` WHERE `hot_id` = 2 AND `isdel` = 0 AND `is_on_sale` = 1 AND `product_type` = 0 ORDER BY sort asc, id desc LIMIT 0,4   [ RunTime:0.0014s ]
+NOTIC: [8] Undefined index: page /var/www/html/tiantianfan/Bin/Clas/Ad.class.php 第 43 行.
+SQL: SELECT * FROM `sns_ad` WHERE `position` = 'four_ads_1_v2' ORDER BY sort desc,id desc LIMIT 2   [ RunTime:0.0004s ]
+NOTIC: [8] Undefined index: page /var/www/html/tiantianfan/Bin/Clas/Ad.class.php 第 43 行.
+SQL: SELECT * FROM `sns_ad` WHERE `position` = 'four_ads_2_v2' ORDER BY sort desc,id desc LIMIT 2   [ RunTime:0.0005s ]
+NOTIC: [8] Undefined index: page /var/www/html/tiantianfan/Bin/Clas/Ad.class.php 第 43 行.
+SQL: SELECT * FROM `sns_ad` WHERE `position` = 'four_ads_3_v2' ORDER BY sort desc,id desc LIMIT 2   [ RunTime:0.0004s ]
+NOTIC: [8] Undefined index: page /var/www/html/tiantianfan/Bin/Clas/Ad.class.php 第 43 行.
+SQL: SELECT * FROM `sns_ad` WHERE `position` = 'four_ads_4_v2' ORDER BY sort desc,id desc LIMIT 2   [ RunTime:0.0004s ]
+SQL: SHOW COLUMNS FROM `sns_config_pay3` [ RunTime:0.0017s ]
+SQL: SELECT * FROM `sns_config_pay3` WHERE ( type=3 ) LIMIT 1   [ RunTime:0.0007s ]
+NOTIC: [2] unlink(./Bin/Runtime/Temp/217bea8e573037cc2a2645a036f12914.php): No such file or directory /var/www/html/tiantianfan/ThinkPHP/Library/Think/Cache/Driver/File.class.php 第 157 行.
+SQL: SELECT * FROM `sns_ad` WHERE `position` = 'index_two_image'  [ RunTime:0.0015s ]
+SQL: SELECT * FROM `sns_ad` WHERE `position` = 'index_goods_one' LIMIT 1   [ RunTime:0.0012s ]
+SQL: SELECT * FROM `sns_ad` WHERE `position` = 'index_goods_two' LIMIT 1   [ RunTime:0.0013s ]
+SQL: SELECT * FROM `sns_ad` WHERE `position` = 'index_goods_three' LIMIT 1   [ RunTime:0.0016s ]
+INFO: [ view_parse ] --START--
+INFO: [ template_filter ] --START--
+INFO: Run Behavior\ContentReplaceBehavior [ RunTime:0.000205s ]
+INFO: [ template_filter ] --END-- [ RunTime:0.000261s ]
+NOTIC: [8] Use of undefined constant category - assumed 'category' /var/www/html/tiantianfan/Bin/Runtime/Cache/M/22ae4f9fa68c2b5d356ea0129e31e030.php 第 348 行.
+NOTIC: [8] Undefined variable: menu_category /var/www/html/tiantianfan/Bin/Runtime/Cache/M/22ae4f9fa68c2b5d356ea0129e31e030.php 第 450 行.
+NOTIC: [8] Undefined variable: menu_near /var/www/html/tiantianfan/Bin/Runtime/Cache/M/22ae4f9fa68c2b5d356ea0129e31e030.php 第 456 行.
+NOTIC: [8] Undefined variable: menu_center /var/www/html/tiantianfan/Bin/Runtime/Cache/M/22ae4f9fa68c2b5d356ea0129e31e030.php 第 462 行.
+INFO: Run Behavior\ParseTemplateBehavior [ RunTime:0.047569s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.047673s ]
+INFO: [ view_filter ] --START--
+INFO: Run Behavior\WriteHtmlCacheBehavior [ RunTime:0.000141s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.000168s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.000599s ]
+INFO: [ app_end ] --END-- [ RunTime:0.000650s ]
+
+[ 2021-01-12T16:30:04+08:00 ] 172.17.0.1 /index.php/Admin/Account/tixian/ischeck/1/
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000012s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000291s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000471s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000533s ]
+SQL: SHOW COLUMNS FROM `sns_article_category` [ RunTime:0.0035s ]
+SQL: SELECT * FROM `sns_article_category` WHERE ( is_pc_show=1 )  [ RunTime:0.0014s ]
+SQL: SHOW COLUMNS FROM `sns_article` [ RunTime:0.0047s ]
+SQL: SELECT `id`,`title` FROM `sns_article` WHERE ( cat_id=8 )  [ RunTime:0.0012s ]
+SQL: SELECT `id`,`title` FROM `sns_article` WHERE ( cat_id=9 )  [ RunTime:0.0009s ]
+SQL: SELECT `id`,`title` FROM `sns_article` WHERE ( cat_id=10 )  [ RunTime:0.0010s ]
+SQL: SELECT `id`,`title` FROM `sns_article` WHERE ( cat_id=11 )  [ RunTime:0.0009s ]
+SQL: SELECT `id`,`title` FROM `sns_article` WHERE ( cat_id=12 )  [ RunTime:0.0010s ]
+SQL: SELECT `id`,`title` FROM `sns_article` WHERE ( cat_id=13 )  [ RunTime:0.0011s ]
+NOTIC: [8] Undefined index: page /var/www/html/tiantianfan/Bin/Clas/Ad.class.php 第 43 行.
+SQL: SHOW COLUMNS FROM `sns_ad` [ RunTime:0.0039s ]
+SQL: SELECT * FROM `sns_ad` WHERE `position` = 'goods_top_banner' ORDER BY sort desc,id desc LIMIT 5   [ RunTime:0.0014s ]
+SQL: SHOW COLUMNS FROM `sns_goods_category` [ RunTime:0.0038s ]
+SQL: SELECT `id`,`name`,`pid`,`img` FROM `sns_goods_category` WHERE ( pid=0 )  [ RunTime:0.0015s ]
+NOTIC: [2] Missing argument 1 for Clas\Article::__construct(), called in /var/www/html/tiantianfan/Bin/M/Controller/IndexController.class.php on line 50 and defined /var/www/html/tiantianfan/Bin/Clas/Article.class.php 第 13 行.
+NOTIC: [2] Missing argument 2 for Clas\Article::__construct(), called in /var/www/html/tiantianfan/Bin/M/Controller/IndexController.class.php on line 50 and defined /var/www/html/tiantianfan/Bin/Clas/Article.class.php 第 13 行.
+NOTIC: [8] Undefined variable: user_id /var/www/html/tiantianfan/Bin/Clas/Article.class.php 第 17 行.
+NOTIC: [8] Undefined variable: role /var/www/html/tiantianfan/Bin/Clas/Article.class.php 第 18 行.
+NOTIC: [8] Undefined index: page /var/www/html/tiantianfan/Bin/Clas/Article.class.php 第 126 行.
+NOTIC: [8] Undefined index: size /var/www/html/tiantianfan/Bin/Clas/Article.class.php 第 127 行.
+SQL: SELECT `id`,`title`,`time`,`thumb` FROM `sns_article` WHERE ( cat_id=1 )  [ RunTime:0.0010s ]
+NOTIC: [8] Undefined index: page /var/www/html/tiantianfan/Bin/Clas/Ad.class.php 第 43 行.
+SQL: SELECT * FROM `sns_ad` WHERE `position` = 'goods_middle_banner' ORDER BY sort desc,id desc LIMIT 1   [ RunTime:0.0012s ]
+NOTIC: [8] Undefined index: page /var/www/html/tiantianfan/Bin/Clas/Ad.class.php 第 43 行.
+SQL: SELECT * FROM `sns_ad` WHERE `position` = 'goods_f_banner' ORDER BY sort desc,id desc LIMIT 1   [ RunTime:0.0012s ]
+NOTIC: [8] Undefined index: page /var/www/html/tiantianfan/Bin/Clas/Ad.class.php 第 43 行.
+SQL: SELECT * FROM `sns_ad` WHERE `position` = 'goods_r_t_banner' ORDER BY sort desc,id desc LIMIT 1   [ RunTime:0.0013s ]
+NOTIC: [8] Undefined index: page /var/www/html/tiantianfan/Bin/Clas/Ad.class.php 第 43 行.
+SQL: SELECT * FROM `sns_ad` WHERE `position` = 'goods_r_fd_banner' ORDER BY sort desc,id desc LIMIT 1   [ RunTime:0.0016s ]
+NOTIC: [8] Undefined index: page /var/www/html/tiantianfan/Bin/Clas/Ad.class.php 第 43 行.
+SQL: SELECT * FROM `sns_ad` WHERE `position` = 'goods_r_rd_banner' ORDER BY sort desc,id desc LIMIT 1   [ RunTime:0.0015s ]
+NOTIC: [2] Missing argument 5 for Clas\Goods::goodsList(), called in /var/www/html/tiantianfan/Bin/M/Controller/IndexController.class.php on line 109 and defined /var/www/html/tiantianfan/Bin/Clas/Goods.class.php 第 2431 行.
+NOTIC: [2] Missing argument 1 for I(), called in /var/www/html/tiantianfan/Bin/Clas/Goods.class.php on line 2467 and defined /var/www/html/tiantianfan/ThinkPHP/Common/functions.php 第 271 行.
+NOTIC: [8] Undefined variable: name /var/www/html/tiantianfan/ThinkPHP/Common/functions.php 第 273 行.
+NOTIC: [8] Undefined variable: name /var/www/html/tiantianfan/ThinkPHP/Common/functions.php 第 278 行.
+NOTIC: [8] Undefined variable: name /var/www/html/tiantianfan/ThinkPHP/Common/functions.php 第 339 行.
+NOTIC: [8] Undefined index: type /var/www/html/tiantianfan/Bin/Clas/Goods.class.php 第 2468 行.
+NOTIC: [8] Undefined variable: extGoodsArr /var/www/html/tiantianfan/Bin/Clas/Goods.class.php 第 2493 行.
+SQL: SHOW COLUMNS FROM `sns_goods` [ RunTime:0.0037s ]
+SQL: SELECT `id`,`name`,`subhead`,`price`,`market_price`,`shipping_fee`,`cat_id`,`thumb`,`images`,`click_count`,`store_count`,`sell_count`,`shop_id`,`hot_id`,`sort`,`is_on_sale`,`time`,`ip`,`isdel`,`shop_fee_id`,`sell_count2`,`service_content`,`type_id`,`goods_kind`,`is_group`,`is_hour`,`is_time`,`shipping_type`,`shipping_rule_id`,`video`,`product_code`,`is_pick`,`picksite`,`purchase_price`,`hits`,`service_show`,`product_type`,`tags`,`is_shipping`,`shipping_types`,`service_fee_bfb`,`still_fee_bfb`,`is_coupon` FROM `sns_goods` WHERE `is_group` = 1 AND `isdel` = 0 AND `is_on_sale` = 1 AND `product_type` = 0 ORDER BY sort asc, id desc LIMIT 0,3   [ RunTime:0.0020s ]
+SQL: SHOW COLUMNS FROM `sns_goods_spec_price` [ RunTime:0.0014s ]
+SQL: SELECT `group_price` FROM `sns_goods_spec_price` WHERE ( goods_id=530 ) ORDER BY group_price asc LIMIT 1   [ RunTime:0.0011s ]
+SQL: SELECT * FROM `sns_goods_category` WHERE `id` = 1189 LIMIT 1   [ RunTime:0.0004s ]
+SQL: SELECT `group_price` FROM `sns_goods_spec_price` WHERE ( goods_id=733 ) ORDER BY group_price asc LIMIT 1   [ RunTime:0.0011s ]
+SQL: SELECT * FROM `sns_goods_category` WHERE `id` = 1189 LIMIT 1   [ RunTime:0.0004s ]
+SQL: SELECT `group_price` FROM `sns_goods_spec_price` WHERE ( goods_id=549 ) ORDER BY group_price asc LIMIT 1   [ RunTime:0.0013s ]
+SQL: SELECT * FROM `sns_goods_category` WHERE `id` = 1177 LIMIT 1   [ RunTime:0.0004s ]
+SQL: SELECT * FROM `sns_goods_spec_price` WHERE `goods_id` = 530 LIMIT 1   [ RunTime:0.0023s ]
+SQL: SELECT * FROM `sns_goods_spec_price` WHERE `goods_id` = 733 LIMIT 1   [ RunTime:0.0024s ]
+SQL: SELECT * FROM `sns_goods_spec_price` WHERE `goods_id` = 549 LIMIT 1   [ RunTime:0.0014s ]
+SQL: SHOW COLUMNS FROM `sns_goods_comment` [ RunTime:0.0014s ]
+SQL: SELECT COUNT(*) AS tp_count FROM `sns_goods_comment` WHERE ( goods_id=530 ) LIMIT 1   [ RunTime:0.0006s ]
+SQL: SELECT COUNT(*) AS tp_count FROM `sns_goods_comment` WHERE ( goods_id=733 ) LIMIT 1   [ RunTime:0.0005s ]
+SQL: SELECT COUNT(*) AS tp_count FROM `sns_goods_comment` WHERE ( goods_id=549 ) LIMIT 1   [ RunTime:0.0005s ]
+NOTIC: [2] Missing argument 5 for Clas\Goods::goodsList(), called in /var/www/html/tiantianfan/Bin/M/Controller/IndexController.class.php on line 148 and defined /var/www/html/tiantianfan/Bin/Clas/Goods.class.php 第 2431 行.
+NOTIC: [2] Missing argument 1 for I(), called in /var/www/html/tiantianfan/Bin/Clas/Goods.class.php on line 2467 and defined /var/www/html/tiantianfan/ThinkPHP/Common/functions.php 第 271 行.
+NOTIC: [8] Undefined variable: name /var/www/html/tiantianfan/ThinkPHP/Common/functions.php 第 273 行.
+NOTIC: [8] Undefined variable: name /var/www/html/tiantianfan/ThinkPHP/Common/functions.php 第 278 行.
+NOTIC: [8] Undefined variable: name /var/www/html/tiantianfan/ThinkPHP/Common/functions.php 第 339 行.
+NOTIC: [8] Undefined index: type /var/www/html/tiantianfan/Bin/Clas/Goods.class.php 第 2468 行.
+NOTIC: [8] Undefined variable: extGoodsArr /var/www/html/tiantianfan/Bin/Clas/Goods.class.php 第 2493 行.
+SQL: SELECT `id`,`name`,`subhead`,`price`,`market_price`,`shipping_fee`,`cat_id`,`thumb`,`images`,`click_count`,`store_count`,`sell_count`,`shop_id`,`hot_id`,`sort`,`is_on_sale`,`time`,`ip`,`isdel`,`shop_fee_id`,`sell_count2`,`service_content`,`type_id`,`goods_kind`,`is_group`,`is_hour`,`is_time`,`shipping_type`,`shipping_rule_id`,`video`,`product_code`,`is_pick`,`picksite`,`purchase_price`,`hits`,`service_show`,`product_type`,`tags`,`is_shipping`,`shipping_types`,`service_fee_bfb`,`still_fee_bfb`,`is_coupon` FROM `sns_goods` WHERE `is_hour` = 1 AND `isdel` = 0 AND `is_on_sale` = 1 AND `product_type` = 0 ORDER BY sort asc, id desc LIMIT 0,3   [ RunTime:0.0018s ]
+SQL: SELECT `hour_price` FROM `sns_goods_spec_price` WHERE ( goods_id=739 ) ORDER BY hour_price asc LIMIT 1   [ RunTime:0.0011s ]
+SQL: SELECT * FROM `sns_goods_category` WHERE `id` = 1188 LIMIT 1   [ RunTime:0.0005s ]
+SQL: SELECT `hour_price` FROM `sns_goods_spec_price` WHERE ( goods_id=593 ) ORDER BY hour_price asc LIMIT 1   [ RunTime:0.0010s ]
+SQL: SELECT * FROM `sns_goods_category` WHERE `id` = 1205 LIMIT 1   [ RunTime:0.0004s ]
+SQL: SELECT `hour_price` FROM `sns_goods_spec_price` WHERE ( goods_id=744 ) ORDER BY hour_price asc LIMIT 1   [ RunTime:0.0011s ]
+SQL: SELECT * FROM `sns_goods_category` WHERE `id` = 1168 LIMIT 1   [ RunTime:0.0004s ]
+SQL: SHOW COLUMNS FROM `sns_goods_hour` [ RunTime:0.0013s ]
+SQL: SELECT * FROM `sns_goods_hour` WHERE ( goods_id=739 and end_time>=1610438400 and start_time<1610442000 ) LIMIT 1   [ RunTime:0.0006s ]
+SQL: SELECT COUNT(*) AS tp_count FROM `sns_goods_comment` WHERE ( goods_id=739 ) LIMIT 1   [ RunTime:0.0005s ]
+SQL: SELECT * FROM `sns_goods_hour` WHERE ( goods_id=593 and end_time>=1610438400 and start_time<1610442000 ) LIMIT 1   [ RunTime:0.0007s ]
+SQL: SELECT COUNT(*) AS tp_count FROM `sns_goods_comment` WHERE ( goods_id=593 ) LIMIT 1   [ RunTime:0.0006s ]
+SQL: SELECT * FROM `sns_goods_hour` WHERE ( goods_id=744 and end_time>=1610438400 and start_time<1610442000 ) LIMIT 1   [ RunTime:0.0005s ]
+SQL: SELECT COUNT(*) AS tp_count FROM `sns_goods_comment` WHERE ( goods_id=744 ) LIMIT 1   [ RunTime:0.0006s ]
+NOTIC: [2] Missing argument 5 for Clas\Goods::goodsList(), called in /var/www/html/tiantianfan/Bin/M/Controller/IndexController.class.php on line 216 and defined /var/www/html/tiantianfan/Bin/Clas/Goods.class.php 第 2431 行.
+NOTIC: [2] Missing argument 1 for I(), called in /var/www/html/tiantianfan/Bin/Clas/Goods.class.php on line 2467 and defined /var/www/html/tiantianfan/ThinkPHP/Common/functions.php 第 271 行.
+NOTIC: [8] Undefined variable: name /var/www/html/tiantianfan/ThinkPHP/Common/functions.php 第 273 行.
+NOTIC: [8] Undefined variable: name /var/www/html/tiantianfan/ThinkPHP/Common/functions.php 第 278 行.
+NOTIC: [8] Undefined variable: name /var/www/html/tiantianfan/ThinkPHP/Common/functions.php 第 339 行.
+NOTIC: [8] Undefined index: type /var/www/html/tiantianfan/Bin/Clas/Goods.class.php 第 2468 行.
+NOTIC: [8] Undefined variable: extGoodsArr /var/www/html/tiantianfan/Bin/Clas/Goods.class.php 第 2493 行.
+SQL: SELECT `id`,`name`,`subhead`,`price`,`market_price`,`shipping_fee`,`cat_id`,`thumb`,`images`,`click_count`,`store_count`,`sell_count`,`shop_id`,`hot_id`,`sort`,`is_on_sale`,`time`,`ip`,`isdel`,`shop_fee_id`,`sell_count2`,`service_content`,`type_id`,`goods_kind`,`is_group`,`is_hour`,`is_time`,`shipping_type`,`shipping_rule_id`,`video`,`product_code`,`is_pick`,`picksite`,`purchase_price`,`hits`,`service_show`,`product_type`,`tags`,`is_shipping`,`shipping_types`,`service_fee_bfb`,`still_fee_bfb`,`is_coupon` FROM `sns_goods` WHERE `hot_id` = 2 AND `isdel` = 0 AND `is_on_sale` = 1 AND `product_type` = 0 ORDER BY sort asc, id desc LIMIT 0,4   [ RunTime:0.0017s ]
+NOTIC: [8] Undefined index: page /var/www/html/tiantianfan/Bin/Clas/Ad.class.php 第 43 行.
+SQL: SELECT * FROM `sns_ad` WHERE `position` = 'four_ads_1_v2' ORDER BY sort desc,id desc LIMIT 2   [ RunTime:0.0007s ]
+NOTIC: [8] Undefined index: page /var/www/html/tiantianfan/Bin/Clas/Ad.class.php 第 43 行.
+SQL: SELECT * FROM `sns_ad` WHERE `position` = 'four_ads_2_v2' ORDER BY sort desc,id desc LIMIT 2   [ RunTime:0.0006s ]
+NOTIC: [8] Undefined index: page /var/www/html/tiantianfan/Bin/Clas/Ad.class.php 第 43 行.
+SQL: SELECT * FROM `sns_ad` WHERE `position` = 'four_ads_3_v2' ORDER BY sort desc,id desc LIMIT 2   [ RunTime:0.0006s ]
+NOTIC: [8] Undefined index: page /var/www/html/tiantianfan/Bin/Clas/Ad.class.php 第 43 行.
+SQL: SELECT * FROM `sns_ad` WHERE `position` = 'four_ads_4_v2' ORDER BY sort desc,id desc LIMIT 2   [ RunTime:0.0005s ]
+SQL: SHOW COLUMNS FROM `sns_config_pay3` [ RunTime:0.0014s ]
+SQL: SELECT * FROM `sns_config_pay3` WHERE ( type=3 ) LIMIT 1   [ RunTime:0.0005s ]
+NOTIC: [2] unlink(./Bin/Runtime/Temp/217bea8e573037cc2a2645a036f12914.php): No such file or directory /var/www/html/tiantianfan/ThinkPHP/Library/Think/Cache/Driver/File.class.php 第 157 行.
+SQL: SELECT * FROM `sns_ad` WHERE `position` = 'index_two_image'  [ RunTime:0.0007s ]
+SQL: SELECT * FROM `sns_ad` WHERE `position` = 'index_goods_one' LIMIT 1   [ RunTime:0.0005s ]
+SQL: SELECT * FROM `sns_ad` WHERE `position` = 'index_goods_two' LIMIT 1   [ RunTime:0.0005s ]
+SQL: SELECT * FROM `sns_ad` WHERE `position` = 'index_goods_three' LIMIT 1   [ RunTime:0.0006s ]
+INFO: [ view_parse ] --START--
+INFO: [ template_filter ] --START--
+INFO: Run Behavior\ContentReplaceBehavior [ RunTime:0.000234s ]
+INFO: [ template_filter ] --END-- [ RunTime:0.000304s ]
+NOTIC: [8] Use of undefined constant category - assumed 'category' /var/www/html/tiantianfan/Bin/Runtime/Cache/M/22ae4f9fa68c2b5d356ea0129e31e030.php 第 348 行.
+NOTIC: [8] Undefined variable: menu_category /var/www/html/tiantianfan/Bin/Runtime/Cache/M/22ae4f9fa68c2b5d356ea0129e31e030.php 第 450 行.
+NOTIC: [8] Undefined variable: menu_near /var/www/html/tiantianfan/Bin/Runtime/Cache/M/22ae4f9fa68c2b5d356ea0129e31e030.php 第 456 行.
+NOTIC: [8] Undefined variable: menu_center /var/www/html/tiantianfan/Bin/Runtime/Cache/M/22ae4f9fa68c2b5d356ea0129e31e030.php 第 462 行.
+INFO: Run Behavior\ParseTemplateBehavior [ RunTime:0.045140s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.045201s ]
+INFO: [ view_filter ] --START--
+INFO: Run Behavior\WriteHtmlCacheBehavior [ RunTime:0.000181s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.000213s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.000445s ]
+INFO: [ app_end ] --END-- [ RunTime:0.000496s ]
+
+[ 2021-01-12T16:32:32+08:00 ] 172.17.0.1 /
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000010s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000230s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000437s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000498s ]
+SQL: SHOW COLUMNS FROM `sns_article_category` [ RunTime:0.0033s ]
+SQL: SELECT * FROM `sns_article_category` WHERE ( is_pc_show=1 )  [ RunTime:0.0010s ]
+SQL: SHOW COLUMNS FROM `sns_article` [ RunTime:0.0035s ]
+SQL: SELECT `id`,`title` FROM `sns_article` WHERE ( cat_id=8 )  [ RunTime:0.0010s ]
+SQL: SELECT `id`,`title` FROM `sns_article` WHERE ( cat_id=9 )  [ RunTime:0.0008s ]
+SQL: SELECT `id`,`title` FROM `sns_article` WHERE ( cat_id=10 )  [ RunTime:0.0007s ]
+SQL: SELECT `id`,`title` FROM `sns_article` WHERE ( cat_id=11 )  [ RunTime:0.0007s ]
+SQL: SELECT `id`,`title` FROM `sns_article` WHERE ( cat_id=12 )  [ RunTime:0.0009s ]
+SQL: SELECT `id`,`title` FROM `sns_article` WHERE ( cat_id=13 )  [ RunTime:0.0009s ]
+NOTIC: [8] Undefined index: page /var/www/html/tiantianfan/Bin/Clas/Ad.class.php 第 43 行.
+SQL: SHOW COLUMNS FROM `sns_ad` [ RunTime:0.0025s ]
+SQL: SELECT * FROM `sns_ad` WHERE `position` = 'goods_top_banner' ORDER BY sort desc,id desc LIMIT 5   [ RunTime:0.0009s ]
+SQL: SHOW COLUMNS FROM `sns_goods_category` [ RunTime:0.0016s ]
+SQL: SELECT `id`,`name`,`pid`,`img` FROM `sns_goods_category` WHERE ( pid=0 )  [ RunTime:0.0004s ]
+NOTIC: [2] Missing argument 1 for Clas\Article::__construct(), called in /var/www/html/tiantianfan/Bin/M/Controller/IndexController.class.php on line 50 and defined /var/www/html/tiantianfan/Bin/Clas/Article.class.php 第 13 行.
+NOTIC: [2] Missing argument 2 for Clas\Article::__construct(), called in /var/www/html/tiantianfan/Bin/M/Controller/IndexController.class.php on line 50 and defined /var/www/html/tiantianfan/Bin/Clas/Article.class.php 第 13 行.
+NOTIC: [8] Undefined variable: user_id /var/www/html/tiantianfan/Bin/Clas/Article.class.php 第 17 行.
+NOTIC: [8] Undefined variable: role /var/www/html/tiantianfan/Bin/Clas/Article.class.php 第 18 行.
+NOTIC: [8] Undefined index: page /var/www/html/tiantianfan/Bin/Clas/Article.class.php 第 126 行.
+NOTIC: [8] Undefined index: size /var/www/html/tiantianfan/Bin/Clas/Article.class.php 第 127 行.
+SQL: SELECT `id`,`title`,`time`,`thumb` FROM `sns_article` WHERE ( cat_id=1 )  [ RunTime:0.0004s ]
+NOTIC: [8] Undefined index: page /var/www/html/tiantianfan/Bin/Clas/Ad.class.php 第 43 行.
+SQL: SELECT * FROM `sns_ad` WHERE `position` = 'goods_middle_banner' ORDER BY sort desc,id desc LIMIT 1   [ RunTime:0.0005s ]
+NOTIC: [8] Undefined index: page /var/www/html/tiantianfan/Bin/Clas/Ad.class.php 第 43 行.
+SQL: SELECT * FROM `sns_ad` WHERE `position` = 'goods_f_banner' ORDER BY sort desc,id desc LIMIT 1   [ RunTime:0.0004s ]
+NOTIC: [8] Undefined index: page /var/www/html/tiantianfan/Bin/Clas/Ad.class.php 第 43 行.
+SQL: SELECT * FROM `sns_ad` WHERE `position` = 'goods_r_t_banner' ORDER BY sort desc,id desc LIMIT 1   [ RunTime:0.0004s ]
+NOTIC: [8] Undefined index: page /var/www/html/tiantianfan/Bin/Clas/Ad.class.php 第 43 行.
+SQL: SELECT * FROM `sns_ad` WHERE `position` = 'goods_r_fd_banner' ORDER BY sort desc,id desc LIMIT 1   [ RunTime:0.0004s ]
+NOTIC: [8] Undefined index: page /var/www/html/tiantianfan/Bin/Clas/Ad.class.php 第 43 行.
+SQL: SELECT * FROM `sns_ad` WHERE `position` = 'goods_r_rd_banner' ORDER BY sort desc,id desc LIMIT 1   [ RunTime:0.0005s ]
+NOTIC: [2] Missing argument 5 for Clas\Goods::goodsList(), called in /var/www/html/tiantianfan/Bin/M/Controller/IndexController.class.php on line 109 and defined /var/www/html/tiantianfan/Bin/Clas/Goods.class.php 第 2431 行.
+NOTIC: [2] Missing argument 1 for I(), called in /var/www/html/tiantianfan/Bin/Clas/Goods.class.php on line 2467 and defined /var/www/html/tiantianfan/ThinkPHP/Common/functions.php 第 271 行.
+NOTIC: [8] Undefined variable: name /var/www/html/tiantianfan/ThinkPHP/Common/functions.php 第 273 行.
+NOTIC: [8] Undefined variable: name /var/www/html/tiantianfan/ThinkPHP/Common/functions.php 第 278 行.
+NOTIC: [8] Undefined variable: name /var/www/html/tiantianfan/ThinkPHP/Common/functions.php 第 339 行.
+NOTIC: [8] Undefined index: type /var/www/html/tiantianfan/Bin/Clas/Goods.class.php 第 2468 行.
+NOTIC: [8] Undefined variable: extGoodsArr /var/www/html/tiantianfan/Bin/Clas/Goods.class.php 第 2493 行.
+SQL: SHOW COLUMNS FROM `sns_goods` [ RunTime:0.0013s ]
+SQL: SELECT `id`,`name`,`subhead`,`price`,`market_price`,`shipping_fee`,`cat_id`,`thumb`,`images`,`click_count`,`store_count`,`sell_count`,`shop_id`,`hot_id`,`sort`,`is_on_sale`,`time`,`ip`,`isdel`,`shop_fee_id`,`sell_count2`,`service_content`,`type_id`,`goods_kind`,`is_group`,`is_hour`,`is_time`,`shipping_type`,`shipping_rule_id`,`video`,`product_code`,`is_pick`,`picksite`,`purchase_price`,`hits`,`service_show`,`product_type`,`tags`,`is_shipping`,`shipping_types`,`service_fee_bfb`,`still_fee_bfb`,`is_coupon` FROM `sns_goods` WHERE `is_group` = 1 AND `isdel` = 0 AND `is_on_sale` = 1 AND `product_type` = 0 ORDER BY sort asc, id desc LIMIT 0,3   [ RunTime:0.0010s ]
+SQL: SHOW COLUMNS FROM `sns_goods_spec_price` [ RunTime:0.0008s ]
+SQL: SELECT `group_price` FROM `sns_goods_spec_price` WHERE ( goods_id=530 ) ORDER BY group_price asc LIMIT 1   [ RunTime:0.0006s ]
+SQL: SELECT * FROM `sns_goods_category` WHERE `id` = 1189 LIMIT 1   [ RunTime:0.0002s ]
+SQL: SELECT `group_price` FROM `sns_goods_spec_price` WHERE ( goods_id=733 ) ORDER BY group_price asc LIMIT 1   [ RunTime:0.0005s ]
+SQL: SELECT * FROM `sns_goods_category` WHERE `id` = 1189 LIMIT 1   [ RunTime:0.0001s ]
+SQL: SELECT `group_price` FROM `sns_goods_spec_price` WHERE ( goods_id=549 ) ORDER BY group_price asc LIMIT 1   [ RunTime:0.0005s ]
+SQL: SELECT * FROM `sns_goods_category` WHERE `id` = 1177 LIMIT 1   [ RunTime:0.0002s ]
+SQL: SELECT * FROM `sns_goods_spec_price` WHERE `goods_id` = 530 LIMIT 1   [ RunTime:0.0006s ]
+SQL: SELECT * FROM `sns_goods_spec_price` WHERE `goods_id` = 733 LIMIT 1   [ RunTime:0.0008s ]
+SQL: SELECT * FROM `sns_goods_spec_price` WHERE `goods_id` = 549 LIMIT 1   [ RunTime:0.0007s ]
+SQL: SHOW COLUMNS FROM `sns_goods_comment` [ RunTime:0.0009s ]
+SQL: SELECT COUNT(*) AS tp_count FROM `sns_goods_comment` WHERE ( goods_id=530 ) LIMIT 1   [ RunTime:0.0002s ]
+SQL: SELECT COUNT(*) AS tp_count FROM `sns_goods_comment` WHERE ( goods_id=733 ) LIMIT 1   [ RunTime:0.0002s ]
+SQL: SELECT COUNT(*) AS tp_count FROM `sns_goods_comment` WHERE ( goods_id=549 ) LIMIT 1   [ RunTime:0.0002s ]
+NOTIC: [2] Missing argument 5 for Clas\Goods::goodsList(), called in /var/www/html/tiantianfan/Bin/M/Controller/IndexController.class.php on line 148 and defined /var/www/html/tiantianfan/Bin/Clas/Goods.class.php 第 2431 行.
+NOTIC: [2] Missing argument 1 for I(), called in /var/www/html/tiantianfan/Bin/Clas/Goods.class.php on line 2467 and defined /var/www/html/tiantianfan/ThinkPHP/Common/functions.php 第 271 行.
+NOTIC: [8] Undefined variable: name /var/www/html/tiantianfan/ThinkPHP/Common/functions.php 第 273 行.
+NOTIC: [8] Undefined variable: name /var/www/html/tiantianfan/ThinkPHP/Common/functions.php 第 278 行.
+NOTIC: [8] Undefined variable: name /var/www/html/tiantianfan/ThinkPHP/Common/functions.php 第 339 行.
+NOTIC: [8] Undefined index: type /var/www/html/tiantianfan/Bin/Clas/Goods.class.php 第 2468 行.
+NOTIC: [8] Undefined variable: extGoodsArr /var/www/html/tiantianfan/Bin/Clas/Goods.class.php 第 2493 行.
+SQL: SELECT `id`,`name`,`subhead`,`price`,`market_price`,`shipping_fee`,`cat_id`,`thumb`,`images`,`click_count`,`store_count`,`sell_count`,`shop_id`,`hot_id`,`sort`,`is_on_sale`,`time`,`ip`,`isdel`,`shop_fee_id`,`sell_count2`,`service_content`,`type_id`,`goods_kind`,`is_group`,`is_hour`,`is_time`,`shipping_type`,`shipping_rule_id`,`video`,`product_code`,`is_pick`,`picksite`,`purchase_price`,`hits`,`service_show`,`product_type`,`tags`,`is_shipping`,`shipping_types`,`service_fee_bfb`,`still_fee_bfb`,`is_coupon` FROM `sns_goods` WHERE `is_hour` = 1 AND `isdel` = 0 AND `is_on_sale` = 1 AND `product_type` = 0 ORDER BY sort asc, id desc LIMIT 0,3   [ RunTime:0.0008s ]
+SQL: SELECT `hour_price` FROM `sns_goods_spec_price` WHERE ( goods_id=739 ) ORDER BY hour_price asc LIMIT 1   [ RunTime:0.0004s ]
+SQL: SELECT * FROM `sns_goods_category` WHERE `id` = 1188 LIMIT 1   [ RunTime:0.0001s ]
+SQL: SELECT `hour_price` FROM `sns_goods_spec_price` WHERE ( goods_id=593 ) ORDER BY hour_price asc LIMIT 1   [ RunTime:0.0004s ]
+SQL: SELECT * FROM `sns_goods_category` WHERE `id` = 1205 LIMIT 1   [ RunTime:0.0001s ]
+SQL: SELECT `hour_price` FROM `sns_goods_spec_price` WHERE ( goods_id=744 ) ORDER BY hour_price asc LIMIT 1   [ RunTime:0.0004s ]
+SQL: SELECT * FROM `sns_goods_category` WHERE `id` = 1168 LIMIT 1   [ RunTime:0.0002s ]
+SQL: SHOW COLUMNS FROM `sns_goods_hour` [ RunTime:0.0008s ]
+SQL: SELECT * FROM `sns_goods_hour` WHERE ( goods_id=739 and end_time>=1610438400 and start_time<1610442000 ) LIMIT 1   [ RunTime:0.0003s ]
+SQL: SELECT COUNT(*) AS tp_count FROM `sns_goods_comment` WHERE ( goods_id=739 ) LIMIT 1   [ RunTime:0.0003s ]
+SQL: SELECT * FROM `sns_goods_hour` WHERE ( goods_id=593 and end_time>=1610438400 and start_time<1610442000 ) LIMIT 1   [ RunTime:0.0003s ]
+SQL: SELECT COUNT(*) AS tp_count FROM `sns_goods_comment` WHERE ( goods_id=593 ) LIMIT 1   [ RunTime:0.0002s ]
+SQL: SELECT * FROM `sns_goods_hour` WHERE ( goods_id=744 and end_time>=1610438400 and start_time<1610442000 ) LIMIT 1   [ RunTime:0.0002s ]
+SQL: SELECT COUNT(*) AS tp_count FROM `sns_goods_comment` WHERE ( goods_id=744 ) LIMIT 1   [ RunTime:0.0002s ]
+NOTIC: [2] Missing argument 5 for Clas\Goods::goodsList(), called in /var/www/html/tiantianfan/Bin/M/Controller/IndexController.class.php on line 216 and defined /var/www/html/tiantianfan/Bin/Clas/Goods.class.php 第 2431 行.
+NOTIC: [2] Missing argument 1 for I(), called in /var/www/html/tiantianfan/Bin/Clas/Goods.class.php on line 2467 and defined /var/www/html/tiantianfan/ThinkPHP/Common/functions.php 第 271 行.
+NOTIC: [8] Undefined variable: name /var/www/html/tiantianfan/ThinkPHP/Common/functions.php 第 273 行.
+NOTIC: [8] Undefined variable: name /var/www/html/tiantianfan/ThinkPHP/Common/functions.php 第 278 行.
+NOTIC: [8] Undefined variable: name /var/www/html/tiantianfan/ThinkPHP/Common/functions.php 第 339 行.
+NOTIC: [8] Undefined index: type /var/www/html/tiantianfan/Bin/Clas/Goods.class.php 第 2468 行.
+NOTIC: [8] Undefined variable: extGoodsArr /var/www/html/tiantianfan/Bin/Clas/Goods.class.php 第 2493 行.
+SQL: SELECT `id`,`name`,`subhead`,`price`,`market_price`,`shipping_fee`,`cat_id`,`thumb`,`images`,`click_count`,`store_count`,`sell_count`,`shop_id`,`hot_id`,`sort`,`is_on_sale`,`time`,`ip`,`isdel`,`shop_fee_id`,`sell_count2`,`service_content`,`type_id`,`goods_kind`,`is_group`,`is_hour`,`is_time`,`shipping_type`,`shipping_rule_id`,`video`,`product_code`,`is_pick`,`picksite`,`purchase_price`,`hits`,`service_show`,`product_type`,`tags`,`is_shipping`,`shipping_types`,`service_fee_bfb`,`still_fee_bfb`,`is_coupon` FROM `sns_goods` WHERE `hot_id` = 2 AND `isdel` = 0 AND `is_on_sale` = 1 AND `product_type` = 0 ORDER BY sort asc, id desc LIMIT 0,4   [ RunTime:0.0011s ]
+NOTIC: [8] Undefined index: page /var/www/html/tiantianfan/Bin/Clas/Ad.class.php 第 43 行.
+SQL: SELECT * FROM `sns_ad` WHERE `position` = 'four_ads_1_v2' ORDER BY sort desc,id desc LIMIT 2   [ RunTime:0.0004s ]
+NOTIC: [8] Undefined index: page /var/www/html/tiantianfan/Bin/Clas/Ad.class.php 第 43 行.
+SQL: SELECT * FROM `sns_ad` WHERE `position` = 'four_ads_2_v2' ORDER BY sort desc,id desc LIMIT 2   [ RunTime:0.0004s ]
+NOTIC: [8] Undefined index: page /var/www/html/tiantianfan/Bin/Clas/Ad.class.php 第 43 行.
+SQL: SELECT * FROM `sns_ad` WHERE `position` = 'four_ads_3_v2' ORDER BY sort desc,id desc LIMIT 2   [ RunTime:0.0005s ]
+NOTIC: [8] Undefined index: page /var/www/html/tiantianfan/Bin/Clas/Ad.class.php 第 43 行.
+SQL: SELECT * FROM `sns_ad` WHERE `position` = 'four_ads_4_v2' ORDER BY sort desc,id desc LIMIT 2   [ RunTime:0.0003s ]
+SQL: SHOW COLUMNS FROM `sns_config_pay3` [ RunTime:0.0009s ]
+SQL: SELECT * FROM `sns_config_pay3` WHERE ( type=3 ) LIMIT 1   [ RunTime:0.0004s ]
+NOTIC: [2] unlink(./Bin/Runtime/Temp/217bea8e573037cc2a2645a036f12914.php): No such file or directory /var/www/html/tiantianfan/ThinkPHP/Library/Think/Cache/Driver/File.class.php 第 157 行.
+SQL: SELECT * FROM `sns_ad` WHERE `position` = 'index_two_image'  [ RunTime:0.0031s ]
+SQL: SELECT * FROM `sns_ad` WHERE `position` = 'index_goods_one' LIMIT 1   [ RunTime:0.0017s ]
+SQL: SELECT * FROM `sns_ad` WHERE `position` = 'index_goods_two' LIMIT 1   [ RunTime:0.0016s ]
+SQL: SELECT * FROM `sns_ad` WHERE `position` = 'index_goods_three' LIMIT 1   [ RunTime:0.0022s ]
+INFO: [ view_parse ] --START--
+INFO: [ template_filter ] --START--
+INFO: Run Behavior\ContentReplaceBehavior [ RunTime:0.000253s ]
+INFO: [ template_filter ] --END-- [ RunTime:0.000330s ]
+NOTIC: [8] Use of undefined constant category - assumed 'category' /var/www/html/tiantianfan/Bin/Runtime/Cache/M/22ae4f9fa68c2b5d356ea0129e31e030.php 第 348 行.
+NOTIC: [8] Undefined variable: menu_category /var/www/html/tiantianfan/Bin/Runtime/Cache/M/22ae4f9fa68c2b5d356ea0129e31e030.php 第 450 行.
+NOTIC: [8] Undefined variable: menu_near /var/www/html/tiantianfan/Bin/Runtime/Cache/M/22ae4f9fa68c2b5d356ea0129e31e030.php 第 456 行.
+NOTIC: [8] Undefined variable: menu_center /var/www/html/tiantianfan/Bin/Runtime/Cache/M/22ae4f9fa68c2b5d356ea0129e31e030.php 第 462 行.
+INFO: Run Behavior\ParseTemplateBehavior [ RunTime:0.107760s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.107903s ]
+INFO: [ view_filter ] --START--
+INFO: Run Behavior\WriteHtmlCacheBehavior [ RunTime:0.000119s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.000148s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.000350s ]
+INFO: [ app_end ] --END-- [ RunTime:0.000384s ]
+
+[ 2021-01-12T16:35:10+08:00 ] 172.17.0.1 /index.php/Admin/Account/tixian/ischeck/1/
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000020s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000476s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000679s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000747s ]
+SQL: SHOW COLUMNS FROM `sns_article_category` [ RunTime:0.0042s ]
+SQL: SELECT * FROM `sns_article_category` WHERE ( is_pc_show=1 )  [ RunTime:0.0014s ]
+SQL: SHOW COLUMNS FROM `sns_article` [ RunTime:0.0047s ]
+SQL: SELECT `id`,`title` FROM `sns_article` WHERE ( cat_id=8 )  [ RunTime:0.0024s ]
+SQL: SELECT `id`,`title` FROM `sns_article` WHERE ( cat_id=9 )  [ RunTime:0.0012s ]
+SQL: SELECT `id`,`title` FROM `sns_article` WHERE ( cat_id=10 )  [ RunTime:0.0009s ]
+SQL: SELECT `id`,`title` FROM `sns_article` WHERE ( cat_id=11 )  [ RunTime:0.0010s ]
+SQL: SELECT `id`,`title` FROM `sns_article` WHERE ( cat_id=12 )  [ RunTime:0.0011s ]
+SQL: SELECT `id`,`title` FROM `sns_article` WHERE ( cat_id=13 )  [ RunTime:0.0011s ]
+NOTIC: [8] Undefined index: page /var/www/html/tiantianfan/Bin/Clas/Ad.class.php 第 43 行.
+SQL: SHOW COLUMNS FROM `sns_ad` [ RunTime:0.0047s ]
+SQL: SELECT * FROM `sns_ad` WHERE `position` = 'goods_top_banner' ORDER BY sort desc,id desc LIMIT 5   [ RunTime:0.0019s ]
+SQL: SHOW COLUMNS FROM `sns_goods_category` [ RunTime:0.0040s ]
+SQL: SELECT `id`,`name`,`pid`,`img` FROM `sns_goods_category` WHERE ( pid=0 )  [ RunTime:0.0015s ]
+NOTIC: [2] Missing argument 1 for Clas\Article::__construct(), called in /var/www/html/tiantianfan/Bin/M/Controller/IndexController.class.php on line 50 and defined /var/www/html/tiantianfan/Bin/Clas/Article.class.php 第 13 行.
+NOTIC: [2] Missing argument 2 for Clas\Article::__construct(), called in /var/www/html/tiantianfan/Bin/M/Controller/IndexController.class.php on line 50 and defined /var/www/html/tiantianfan/Bin/Clas/Article.class.php 第 13 行.
+NOTIC: [8] Undefined variable: user_id /var/www/html/tiantianfan/Bin/Clas/Article.class.php 第 17 行.
+NOTIC: [8] Undefined variable: role /var/www/html/tiantianfan/Bin/Clas/Article.class.php 第 18 行.
+NOTIC: [8] Undefined index: page /var/www/html/tiantianfan/Bin/Clas/Article.class.php 第 126 行.
+NOTIC: [8] Undefined index: size /var/www/html/tiantianfan/Bin/Clas/Article.class.php 第 127 行.
+SQL: SELECT `id`,`title`,`time`,`thumb` FROM `sns_article` WHERE ( cat_id=1 )  [ RunTime:0.0015s ]
+NOTIC: [8] Undefined index: page /var/www/html/tiantianfan/Bin/Clas/Ad.class.php 第 43 行.
+SQL: SELECT * FROM `sns_ad` WHERE `position` = 'goods_middle_banner' ORDER BY sort desc,id desc LIMIT 1   [ RunTime:0.0015s ]
+NOTIC: [8] Undefined index: page /var/www/html/tiantianfan/Bin/Clas/Ad.class.php 第 43 行.
+SQL: SELECT * FROM `sns_ad` WHERE `position` = 'goods_f_banner' ORDER BY sort desc,id desc LIMIT 1   [ RunTime:0.0011s ]
+NOTIC: [8] Undefined index: page /var/www/html/tiantianfan/Bin/Clas/Ad.class.php 第 43 行.
+SQL: SELECT * FROM `sns_ad` WHERE `position` = 'goods_r_t_banner' ORDER BY sort desc,id desc LIMIT 1   [ RunTime:0.0011s ]
+NOTIC: [8] Undefined index: page /var/www/html/tiantianfan/Bin/Clas/Ad.class.php 第 43 行.
+SQL: SELECT * FROM `sns_ad` WHERE `position` = 'goods_r_fd_banner' ORDER BY sort desc,id desc LIMIT 1   [ RunTime:0.0015s ]
+NOTIC: [8] Undefined index: page /var/www/html/tiantianfan/Bin/Clas/Ad.class.php 第 43 行.
+SQL: SELECT * FROM `sns_ad` WHERE `position` = 'goods_r_rd_banner' ORDER BY sort desc,id desc LIMIT 1   [ RunTime:0.0014s ]
+NOTIC: [2] Missing argument 5 for Clas\Goods::goodsList(), called in /var/www/html/tiantianfan/Bin/M/Controller/IndexController.class.php on line 109 and defined /var/www/html/tiantianfan/Bin/Clas/Goods.class.php 第 2431 行.
+NOTIC: [2] Missing argument 1 for I(), called in /var/www/html/tiantianfan/Bin/Clas/Goods.class.php on line 2467 and defined /var/www/html/tiantianfan/ThinkPHP/Common/functions.php 第 271 行.
+NOTIC: [8] Undefined variable: name /var/www/html/tiantianfan/ThinkPHP/Common/functions.php 第 273 行.
+NOTIC: [8] Undefined variable: name /var/www/html/tiantianfan/ThinkPHP/Common/functions.php 第 278 行.
+NOTIC: [8] Undefined variable: name /var/www/html/tiantianfan/ThinkPHP/Common/functions.php 第 339 行.
+NOTIC: [8] Undefined index: type /var/www/html/tiantianfan/Bin/Clas/Goods.class.php 第 2468 行.
+NOTIC: [8] Undefined variable: extGoodsArr /var/www/html/tiantianfan/Bin/Clas/Goods.class.php 第 2493 行.
+SQL: SHOW COLUMNS FROM `sns_goods` [ RunTime:0.0030s ]
+SQL: SELECT `id`,`name`,`subhead`,`price`,`market_price`,`shipping_fee`,`cat_id`,`thumb`,`images`,`click_count`,`store_count`,`sell_count`,`shop_id`,`hot_id`,`sort`,`is_on_sale`,`time`,`ip`,`isdel`,`shop_fee_id`,`sell_count2`,`service_content`,`type_id`,`goods_kind`,`is_group`,`is_hour`,`is_time`,`shipping_type`,`shipping_rule_id`,`video`,`product_code`,`is_pick`,`picksite`,`purchase_price`,`hits`,`service_show`,`product_type`,`tags`,`is_shipping`,`shipping_types`,`service_fee_bfb`,`still_fee_bfb`,`is_coupon` FROM `sns_goods` WHERE `is_group` = 1 AND `isdel` = 0 AND `is_on_sale` = 1 AND `product_type` = 0 ORDER BY sort asc, id desc LIMIT 0,3   [ RunTime:0.0021s ]
+SQL: SHOW COLUMNS FROM `sns_goods_spec_price` [ RunTime:0.0016s ]
+SQL: SELECT `group_price` FROM `sns_goods_spec_price` WHERE ( goods_id=530 ) ORDER BY group_price asc LIMIT 1   [ RunTime:0.0011s ]
+SQL: SELECT * FROM `sns_goods_category` WHERE `id` = 1189 LIMIT 1   [ RunTime:0.0003s ]
+SQL: SELECT `group_price` FROM `sns_goods_spec_price` WHERE ( goods_id=733 ) ORDER BY group_price asc LIMIT 1   [ RunTime:0.0009s ]
+SQL: SELECT * FROM `sns_goods_category` WHERE `id` = 1189 LIMIT 1   [ RunTime:0.0004s ]
+SQL: SELECT `group_price` FROM `sns_goods_spec_price` WHERE ( goods_id=549 ) ORDER BY group_price asc LIMIT 1   [ RunTime:0.0012s ]
+SQL: SELECT * FROM `sns_goods_category` WHERE `id` = 1177 LIMIT 1   [ RunTime:0.0005s ]
+SQL: SELECT * FROM `sns_goods_spec_price` WHERE `goods_id` = 530 LIMIT 1   [ RunTime:0.0013s ]
+SQL: SELECT * FROM `sns_goods_spec_price` WHERE `goods_id` = 733 LIMIT 1   [ RunTime:0.0017s ]
+SQL: SELECT * FROM `sns_goods_spec_price` WHERE `goods_id` = 549 LIMIT 1   [ RunTime:0.0014s ]
+SQL: SHOW COLUMNS FROM `sns_goods_comment` [ RunTime:0.0017s ]
+SQL: SELECT COUNT(*) AS tp_count FROM `sns_goods_comment` WHERE ( goods_id=530 ) LIMIT 1   [ RunTime:0.0006s ]
+SQL: SELECT COUNT(*) AS tp_count FROM `sns_goods_comment` WHERE ( goods_id=733 ) LIMIT 1   [ RunTime:0.0006s ]
+SQL: SELECT COUNT(*) AS tp_count FROM `sns_goods_comment` WHERE ( goods_id=549 ) LIMIT 1   [ RunTime:0.0004s ]
+NOTIC: [2] Missing argument 5 for Clas\Goods::goodsList(), called in /var/www/html/tiantianfan/Bin/M/Controller/IndexController.class.php on line 148 and defined /var/www/html/tiantianfan/Bin/Clas/Goods.class.php 第 2431 行.
+NOTIC: [2] Missing argument 1 for I(), called in /var/www/html/tiantianfan/Bin/Clas/Goods.class.php on line 2467 and defined /var/www/html/tiantianfan/ThinkPHP/Common/functions.php 第 271 行.
+NOTIC: [8] Undefined variable: name /var/www/html/tiantianfan/ThinkPHP/Common/functions.php 第 273 行.
+NOTIC: [8] Undefined variable: name /var/www/html/tiantianfan/ThinkPHP/Common/functions.php 第 278 行.
+NOTIC: [8] Undefined variable: name /var/www/html/tiantianfan/ThinkPHP/Common/functions.php 第 339 行.
+NOTIC: [8] Undefined index: type /var/www/html/tiantianfan/Bin/Clas/Goods.class.php 第 2468 行.
+NOTIC: [8] Undefined variable: extGoodsArr /var/www/html/tiantianfan/Bin/Clas/Goods.class.php 第 2493 行.
+SQL: SELECT `id`,`name`,`subhead`,`price`,`market_price`,`shipping_fee`,`cat_id`,`thumb`,`images`,`click_count`,`store_count`,`sell_count`,`shop_id`,`hot_id`,`sort`,`is_on_sale`,`time`,`ip`,`isdel`,`shop_fee_id`,`sell_count2`,`service_content`,`type_id`,`goods_kind`,`is_group`,`is_hour`,`is_time`,`shipping_type`,`shipping_rule_id`,`video`,`product_code`,`is_pick`,`picksite`,`purchase_price`,`hits`,`service_show`,`product_type`,`tags`,`is_shipping`,`shipping_types`,`service_fee_bfb`,`still_fee_bfb`,`is_coupon` FROM `sns_goods` WHERE `is_hour` = 1 AND `isdel` = 0 AND `is_on_sale` = 1 AND `product_type` = 0 ORDER BY sort asc, id desc LIMIT 0,3   [ RunTime:0.0022s ]
+SQL: SELECT `hour_price` FROM `sns_goods_spec_price` WHERE ( goods_id=739 ) ORDER BY hour_price asc LIMIT 1   [ RunTime:0.0014s ]
+SQL: SELECT * FROM `sns_goods_category` WHERE `id` = 1188 LIMIT 1   [ RunTime:0.0005s ]
+SQL: SELECT `hour_price` FROM `sns_goods_spec_price` WHERE ( goods_id=593 ) ORDER BY hour_price asc LIMIT 1   [ RunTime:0.0015s ]
+SQL: SELECT * FROM `sns_goods_category` WHERE `id` = 1205 LIMIT 1   [ RunTime:0.0008s ]
+SQL: SELECT `hour_price` FROM `sns_goods_spec_price` WHERE ( goods_id=744 ) ORDER BY hour_price asc LIMIT 1   [ RunTime:0.0011s ]
+SQL: SELECT * FROM `sns_goods_category` WHERE `id` = 1168 LIMIT 1   [ RunTime:0.0004s ]
+SQL: SHOW COLUMNS FROM `sns_goods_hour` [ RunTime:0.0013s ]
+SQL: SELECT * FROM `sns_goods_hour` WHERE ( goods_id=739 and end_time>=1610438400 and start_time<1610442000 ) LIMIT 1   [ RunTime:0.0005s ]
+SQL: SELECT COUNT(*) AS tp_count FROM `sns_goods_comment` WHERE ( goods_id=739 ) LIMIT 1   [ RunTime:0.0005s ]
+SQL: SELECT * FROM `sns_goods_hour` WHERE ( goods_id=593 and end_time>=1610438400 and start_time<1610442000 ) LIMIT 1   [ RunTime:0.0005s ]
+SQL: SELECT COUNT(*) AS tp_count FROM `sns_goods_comment` WHERE ( goods_id=593 ) LIMIT 1   [ RunTime:0.0005s ]
+SQL: SELECT * FROM `sns_goods_hour` WHERE ( goods_id=744 and end_time>=1610438400 and start_time<1610442000 ) LIMIT 1   [ RunTime:0.0005s ]
+SQL: SELECT COUNT(*) AS tp_count FROM `sns_goods_comment` WHERE ( goods_id=744 ) LIMIT 1   [ RunTime:0.0004s ]
+NOTIC: [2] Missing argument 5 for Clas\Goods::goodsList(), called in /var/www/html/tiantianfan/Bin/M/Controller/IndexController.class.php on line 216 and defined /var/www/html/tiantianfan/Bin/Clas/Goods.class.php 第 2431 行.
+NOTIC: [2] Missing argument 1 for I(), called in /var/www/html/tiantianfan/Bin/Clas/Goods.class.php on line 2467 and defined /var/www/html/tiantianfan/ThinkPHP/Common/functions.php 第 271 行.
+NOTIC: [8] Undefined variable: name /var/www/html/tiantianfan/ThinkPHP/Common/functions.php 第 273 行.
+NOTIC: [8] Undefined variable: name /var/www/html/tiantianfan/ThinkPHP/Common/functions.php 第 278 行.
+NOTIC: [8] Undefined variable: name /var/www/html/tiantianfan/ThinkPHP/Common/functions.php 第 339 行.
+NOTIC: [8] Undefined index: type /var/www/html/tiantianfan/Bin/Clas/Goods.class.php 第 2468 行.
+NOTIC: [8] Undefined variable: extGoodsArr /var/www/html/tiantianfan/Bin/Clas/Goods.class.php 第 2493 行.
+SQL: SELECT `id`,`name`,`subhead`,`price`,`market_price`,`shipping_fee`,`cat_id`,`thumb`,`images`,`click_count`,`store_count`,`sell_count`,`shop_id`,`hot_id`,`sort`,`is_on_sale`,`time`,`ip`,`isdel`,`shop_fee_id`,`sell_count2`,`service_content`,`type_id`,`goods_kind`,`is_group`,`is_hour`,`is_time`,`shipping_type`,`shipping_rule_id`,`video`,`product_code`,`is_pick`,`picksite`,`purchase_price`,`hits`,`service_show`,`product_type`,`tags`,`is_shipping`,`shipping_types`,`service_fee_bfb`,`still_fee_bfb`,`is_coupon` FROM `sns_goods` WHERE `hot_id` = 2 AND `isdel` = 0 AND `is_on_sale` = 1 AND `product_type` = 0 ORDER BY sort asc, id desc LIMIT 0,4   [ RunTime:0.0016s ]
+NOTIC: [8] Undefined index: page /var/www/html/tiantianfan/Bin/Clas/Ad.class.php 第 43 行.
+SQL: SELECT * FROM `sns_ad` WHERE `position` = 'four_ads_1_v2' ORDER BY sort desc,id desc LIMIT 2   [ RunTime:0.0006s ]
+NOTIC: [8] Undefined index: page /var/www/html/tiantianfan/Bin/Clas/Ad.class.php 第 43 行.
+SQL: SELECT * FROM `sns_ad` WHERE `position` = 'four_ads_2_v2' ORDER BY sort desc,id desc LIMIT 2   [ RunTime:0.0006s ]
+NOTIC: [8] Undefined index: page /var/www/html/tiantianfan/Bin/Clas/Ad.class.php 第 43 行.
+SQL: SELECT * FROM `sns_ad` WHERE `position` = 'four_ads_3_v2' ORDER BY sort desc,id desc LIMIT 2   [ RunTime:0.0005s ]
+NOTIC: [8] Undefined index: page /var/www/html/tiantianfan/Bin/Clas/Ad.class.php 第 43 行.
+SQL: SELECT * FROM `sns_ad` WHERE `position` = 'four_ads_4_v2' ORDER BY sort desc,id desc LIMIT 2   [ RunTime:0.0004s ]
+SQL: SHOW COLUMNS FROM `sns_config_pay3` [ RunTime:0.0012s ]
+SQL: SELECT * FROM `sns_config_pay3` WHERE ( type=3 ) LIMIT 1   [ RunTime:0.0004s ]
+NOTIC: [2] unlink(./Bin/Runtime/Temp/217bea8e573037cc2a2645a036f12914.php): No such file or directory /var/www/html/tiantianfan/ThinkPHP/Library/Think/Cache/Driver/File.class.php 第 157 行.
+SQL: SELECT * FROM `sns_ad` WHERE `position` = 'index_two_image'  [ RunTime:0.0013s ]
+SQL: SELECT * FROM `sns_ad` WHERE `position` = 'index_goods_one' LIMIT 1   [ RunTime:0.0011s ]
+SQL: SELECT * FROM `sns_ad` WHERE `position` = 'index_goods_two' LIMIT 1   [ RunTime:0.0013s ]
+SQL: SELECT * FROM `sns_ad` WHERE `position` = 'index_goods_three' LIMIT 1   [ RunTime:0.0018s ]
+INFO: [ view_parse ] --START--
+INFO: [ template_filter ] --START--
+INFO: Run Behavior\ContentReplaceBehavior [ RunTime:0.000284s ]
+INFO: [ template_filter ] --END-- [ RunTime:0.000414s ]
+NOTIC: [8] Use of undefined constant category - assumed 'category' /var/www/html/tiantianfan/Bin/Runtime/Cache/M/22ae4f9fa68c2b5d356ea0129e31e030.php 第 348 行.
+NOTIC: [8] Undefined variable: menu_category /var/www/html/tiantianfan/Bin/Runtime/Cache/M/22ae4f9fa68c2b5d356ea0129e31e030.php 第 450 行.
+NOTIC: [8] Undefined variable: menu_near /var/www/html/tiantianfan/Bin/Runtime/Cache/M/22ae4f9fa68c2b5d356ea0129e31e030.php 第 456 行.
+NOTIC: [8] Undefined variable: menu_center /var/www/html/tiantianfan/Bin/Runtime/Cache/M/22ae4f9fa68c2b5d356ea0129e31e030.php 第 462 行.
+INFO: Run Behavior\ParseTemplateBehavior [ RunTime:0.075435s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.075584s ]
+INFO: [ view_filter ] --START--
+INFO: Run Behavior\WriteHtmlCacheBehavior [ RunTime:0.000109s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.000136s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.000422s ]
+INFO: [ app_end ] --END-- [ RunTime:0.000465s ]
+

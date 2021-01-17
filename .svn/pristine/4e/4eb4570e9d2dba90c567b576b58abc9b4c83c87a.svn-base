@@ -1,0 +1,367 @@
+.case_left {
+    float: left;
+    margin-top: 3vw;
+    margin-left: 3vw;
+}
+
+.order-case {
+    width: 100%;
+    background: #fff;
+    padding: 1vw 0 3vw;
+    display: table;
+    border-bottom-left-radius: 3.7vw;
+    border-bottom-right-radius: 3.7vw;
+}
+
+.order-case ul {
+    /* margin: 5px; */
+    padding: 0;
+    display: flex;
+    justify-content: space-around;
+}
+
+.order-case ul li {
+    /*width: 16%;
+    float: left;*/
+    text-align: center;
+    /* margin-top: 2vw; */
+}
+
+.order-case ul li a {
+    font-size: 3.52vw;
+    padding: 2vw 0 1.2vw 0;
+    color: #999999;
+    line-height: 35px;
+}
+
+.order-case ul li a.cut {
+    border-bottom: 0.74vw solid #fe4543;
+    font-size: 3.7vw;
+    color: #333333;
+}
+
+.manage_cont {
+    overflow: hidden;
+    margin-top: 3.33vw;
+}
+
+.manage_list {
+    display: block;
+    width: 92.59vw;
+    background-color: #ffffff;
+    border-radius: 2.78vw;
+    margin: 0 auto 3.33vw;
+    padding: 0 3.8vw;
+    overflow: hidden;
+}
+
+.manage_list_top {
+    overflow: hidden;
+}
+
+.manage_list .product_img {
+    width: 22.22vw;
+    height: 22.22vw;
+    border-radius: 1vw;
+    float: left;
+    margin-right: 3.7vw;
+}
+
+.manage_list_lr {
+    width: 69%;
+    float: right;
+}
+
+.list_lr_h2 {
+    font-size: 3.7vw;
+    color: #333333;
+    margin-bottom: 2vw;
+    height: 5vw;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.inventory {
+    margin-bottom: 2.5vw;
+    font-size: 3.33vw;
+    color: #999999;
+    overflow: hidden;
+}
+
+.inventory .inv01 {
+    float: left;
+}
+
+.inventory .inv02 {
+    float: right;
+}
+
+.shelves {
+    font-size: 3.15vw;
+    color: #fe4543;
+    margin-top: 4vw;
+}
+
+.shelves .size {
+    font-size: 3.89vw;
+    font-weight: bold;
+}
+
+.manage_delivery {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 3vw;
+}
+
+.delivery_fh {
+    font-size: 3.7vw;
+    color: #fe4543;
+    margin-top: 2vw;
+}
+
+.manage_delivery .button {
+    width: 20.37vw;
+    height: 8.15vw;
+    border-radius: 4.07vw;
+    border: solid 0.19vw #fe4543;
+    font-size: 3.52vw;
+    color: #fe4543;
+    background-color: #fff;
+}
+
+.empty_data {
+    width: 90vw;
+    margin: 0 auto;
+    padding-top: 30vw;
+}
+
+.empty_cart_img_1 {
+    width: 72.87vw;
+    height: 45.37vw;
+    margin: 0 auto;
+    display: block;
+}
+
+.empty_data_t1 {
+    width: 100%;
+    text-align: center;
+    font-size: 3.89vw;
+    color: #a1adbd;
+    padding-top: 2vw;
+}
+
+.load_more {
+    font-size: 3.33vw;
+    text-align: center;
+    padding-top: 5vw;
+    padding-bottom: 5vw;
+    color: #999999;
+}
+
+.load_more_red {
+    color: #fe4543;
+}
+
+.h_goods::-webkit-scrollbar {
+    scrollbar-width: none;
+    display: none; /* Chrome Safari */
+}
+
+.h_out {
+    height: 9.07vw;
+    font-size: 3.15vw;
+    color: #ff8437;
+    line-height: 10.57vw;
+    padding-left: 4.72vw;
+    background-color: #ffe5ce;
+}
+
+.h_goods_box {
+    padding: 0 3.7vw;
+    background-color: #fff;
+    margin-bottom: 2.78vw;
+}
+
+.h_goods_con {
+    padding-top: 3.33vw;
+    padding-bottom: 6.57vw;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.h_goods_con p {
+    margin: 0;
+}
+
+.h_goods_btn {
+    display: inline-block;
+    width: 9.26vw;
+    height: 4.63vw;
+    font-size: 2.78vw;
+    color: #ff1e32;
+    text-align: center;
+    line-height: 4.63vw;
+    border-radius: 2.31vw;
+    border: solid 0.19vw #ff1e32;
+    margin-left: 1.87vw;
+}
+
+.h_goods {
+    white-space: nowrap;
+    overflow-x: auto;
+}
+
+.h_goods img {
+    width: 19.44vw;
+    height: 19.44vw;
+    margin-right: 3.33vw;
+}
+
+/* 确认收货部分 */
+
+.confirm_cont {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 3.4vw;
+    padding-bottom: 4vw;
+}
+
+.h_goods_num {
+    color: #999999;
+    font-size: 3.15vw;
+    width: 40%;
+
+}
+
+.firm_button {
+    border-radius: 5vw;
+    border: solid 1px #858585;
+    height: 7vw;
+    line-height: 7vw;
+    color: #333;
+    font-size: 2.78vw;
+    text-align: center;
+    background-color: #fff;
+    padding: 0 3.1vw;
+}
+
+.h_yun {
+    font-size: 3.7vw;
+    color: #ff8437;
+    display: flex;
+    align-items: center;
+}
+
+.h_yun img {
+    width: 4.26vw;
+    height: 4.72vw;
+    margin-right: 2.41vw;
+}
+
+/*//改202009101503 hwt*/
+.order_li .xmname {
+    width: 100%;
+    font-size: 3.33vw;
+    color: #999999;
+    display: flex;
+    align-items: center;
+    padding: 3.5vw 0;
+}
+
+.shop_img {
+    width: 5.93vw;
+    height: 5.93vw;
+    border-radius: 5vw;
+    margin-right: 1.3vw;
+}
+
+.order_li .xmname span {
+    margin-left: auto;
+    color: #fe4543;
+    font-size: 3.33vw;
+}
+
+.order_li .goods-li {
+    display: flex;
+    align-items: center;
+    padding: 1vw 0;
+    overflow-x: auto;
+}
+
+.order_li .goods-li img {
+    width: 22.22vw;
+    height: 22.22vw;
+    border-radius: 0.93vw;
+    margin-right: 2vw;
+}
+
+.order_li .goods-title {
+    /* padding-left: 1.8vw; */
+    height: 22.22vw;
+}
+
+.z_gt_1 {
+    font-size: 3.7vw;
+    color: #333333;
+    padding-top: 2.5vw;
+}
+
+.z_gt_2 {
+    font-size: 3.33vw;
+    color: #999999;
+    padding-top: 2.5vw;
+}
+
+.order_li .price-div {
+    width: 100%;
+    text-align: right;
+    padding: 2vw 0;
+    font-size: 3.33vw;
+    color: #555555;
+}
+
+.order_li .price-div span {
+    font-size: 3.33vw;
+    color: #555555;
+}
+
+.order_li .but-div {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+.but-wul {
+    width: 20.37vw;
+    height: 7.41vw;
+    color: #333;
+    font-size: 3.33vw;
+    border-radius: 3.7vw;
+    margin: 2vw 0 2vw 2vw;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: solid 0.19vw #858585;
+}
+
+.h_goods {
+    white-space: nowrap;
+    overflow-x: auto;
+}
+
+.h_goods img {
+    width: 19.44vw;
+    height: 19.44vw;
+    margin-right: 3.33vw;
+}
+
+.h_omit2 {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    text-align: justify;
+    overflow: hidden;
+}

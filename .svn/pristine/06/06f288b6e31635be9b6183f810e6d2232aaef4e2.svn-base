@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>{$data.shop.shop_name}</title>
+	<meta name="viewport"
+	      content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+	<link rel="stylesheet" href="__PUBLIC__/css/swiper.min.css">
+	<link rel="stylesheet" href="__PUBLIC__/mobile/css_v3/mui.min.css">
+	<link rel="stylesheet" href="__PUBLIC__/mobile/css_v3/chant_detail.css?n=1">
+	<link rel="stylesheet" href="__PUBLIC__/mobile/style/main_style.css">
+
+	<script src="__PUBLIC__/js/swiper.min.js"></script>
+	<script src="__PUBLIC__/js/jquery.min.js"></script>
+	<script type="text/javascript" src="__PUBLIC__/layer/mobile/layer.js"></script>
+</head>
+<body style="background-color:#f7f8fa;padding: 0 3.7vw;">
+<div class="swiper-container">
+	<div class="swiper-wrapper">
+		<input type="hidden" value="{$data.shop.shop_id}">
+		<volist name='data.list_img' id="vo">
+			<div class="swiper-slide">
+				<div class="ba_pic"><img class="fan" src="/Public/mobile/images_v3/mbanner.png"></div>
+			</div>
+		</volist>
+	</div>
+	<div class="swiper-pagination"></div>
+</div>
+<!--banner以下的内容-->
+<div class="Intr_cont">
+	<div class="shop_aa">
+		<div class="shop_aa_list active" curd="1">
+			<h6>商家信息</h6>
+			<span class="line"></span>
+		</div>
+		<div class="shop_aa_list" curd="2">
+			<h6>相关产品</h6>
+			<span class="line"></span>
+		</div>
+		<div class="shop_aa_list" curd="3">
+			<h6>店铺评论</h6>
+			<span class="line"></span>
+		</div>
+	</div>
+
+	<!--商家信息-->
+	<div class="div_shop">
+		<div class="sp_tt">
+			<div class="Businesses_text">
+				{$data.shop.description}
+			</div>
+			<a href="tel:{$data.shop.phone}">
+				<div class="ac_phone">
+					<div class="ac_te">
+						<p>电话：<span> {$data.shop.phone} </span></p>
+						<p>
+							<img src="/Public/mobile/images_v3/f_shoujihao.png" class="change"/>
+							<img class="fanhui" src="/Public/mobile/images_v3/xzjt.png"/>
+						</p>
+					</div>
+
+				</div>
+			</a>
+
+			<div class="ac_phone" onclick="map({$data.shop.shop_id})">
+				<div class="ac_te">
+					<p>地址：<span>  {$data.shop.address}  </span></p>
+					<p>
+						<img src="/Public/mobile/images_v3/f_dizhi.png" class="change"/>
+						<img class="fanhui" src="/Public/mobile/images_v3/xzjt.png"/>
+					</p>
+				</div>
+			</div>
+			<input type="hidden" value="{$user_id}" id="user_id">
+		</div>
+	</div>
+
+	<div class="div_product" style="display: none;">
+		<div class="good_cont">
+			<div class="good_list">
+				<ul id="goodsList">
+
+					<volist name="list" id="vo">
+						<a href="{:U('Goods/detail')}?id={$vo.id}">
+							<li>
+								<div class="list_pp"><img src="{$vo.thumb}" style="width:100%;height:100%;"/></div>
+								<div class="list_money">
+									<h6>{$vo.name}</h6>
+									<div class="list_jiaoshao">
+										{$vo.subhead}
+									</div>
+									<p><span class="list_rmb">￥</span>{$vo.price}</p>
+								</div>
+							</li>
+						</a>
+					</volist>
+				</ul>
+
+				<!-- 增加分页的功能-->
+				<div class="load_more_product"></div>
+				<div class="load_more load_product">
+					<if condition="$max_page_goods gt 1">
+						<span class="load_more_red">点击</span>加载更多
+						<else/>
+						数据已全部加载
+					</if>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="div_comment" style="display: none;">
+		<div class="pro_list">
+			<div class="evaluate_dd">
+				<ul id="commentGoods">
+					<volist name="comment" id="vo">
+						<li>
+							<div class="clearfix comment_top">
+								<div class="ping_lf">
+									<img class="eva_img" src="{$vo['user']['headimgurl']}" width="100%" height="100%"/>
+									<div class="ping_lf_xx">
+										<h6 class="eva_h6">{$vo['user']['nickname']}</h6>
+										<div class="Satisfied">
+											<div class="star_eva">
+												<for start="0" end="$vo['commodity_quality']"><img
+														src="__PUBLIC__/mobile/images_v3/z_spxq_img_8.jpg"/></for>
+												<for start="0" end="5-$vo['commodity_quality']"><img
+														src="__PUBLIC__/mobile/images_v3/z_spxq_img_7_2.jpg"></for>
+											</div>
+											<div class="star_yi"></div>
+										</div>
+									</div>
+								</div>
+								<!--日期-->
+								<div class="ping_lr">
+									{$vo.time}
+								</div>
+							</div>
+							<p class="introduce">{$vo.content}</p>
+							<div class="pic_eva swiper-container">
+								<div class="swiper-wrapper">
+									<if condition="$vo['images']">
+										<volist name="vo.images" id="image">
+											<div class="swiper-slide"><img src="{$image}" width="100%" height="100%"/>
+											</div>
+										</volist>
+									</if>
+
+								</div>
+							</div>
+							<div class="eva_st">
+
+							</div>
+						</li>
+					</volist>
+				</ul>
+
+				<!-- 增加分页的功能-->
+				<div class="load_more_comment"></div>
+				<div class="load_more load_comment">
+					<if condition="$max_page_comment gt 1">
+						<span class="load_more_red">点击</span>加载更多
+						<else/>
+						数据已全部加载
+					</if>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+</div>
+
+<!--下方按钮-->
+<div class="ta_in ">
+	<div class="collect collect01" id="favorites" onclick="favorites(this)">
+		<if condition="$data.is_favorite eq 1">
+
+			<input type="hidden" value="1" name="shouchang" id="shouchang">
+			<span class="btn_sc yi_shouchang">已收藏</span>
+			<else/>
+
+			<span class="btn_sc shouchang">收藏商家</span>
+			<input type="hidden" value="0" name="shouchang" id="shouchang">
+		</if>
+	</div>
+	<div class="collect collect02" onclick="bill({$data.shop.shop_id})">
+		<span>我要买单</span>
+	</div>
+</div>
+
+
+<script type="text/javascript">
+	var user_id = "{$user_id}"; // 用户ID
+	var shop_id = "{$shop_id}"; // 商家ID
+	var type = 1; // 当前类型，1商家信息，2商品列表，3评价列表
+	var page_goods = 2; // 当前页码，默认从第2页开始，因为刚进来已经输出一次了
+	var page_commnent = 2; // 当前页码，默认从第2页开始，因为刚进来已经输出一次了
+
+	// 店铺评论的滑动效果
+	var mySwiper = new Swiper('.pic_eva', {
+		slidesPerView: 3,
+		slidesPerGroup: 1,
+	})
+
+	// 上方3个选项切换
+	$(".shop_aa_list").on("click", function () {
+		var curd = $(this).attr("curd");
+		$(this).addClass("active").siblings().removeClass("active");
+		if (curd == 1) {
+			$(".div_shop").show();
+			$(".div_product").hide();
+			$(".div_comment").hide();
+			type = 1;
+		} else if (curd == 2) {
+			$(".div_shop").hide();
+			$(".div_product").show();
+			$(".div_comment").hide();
+			type = 2;
+		} else if (curd == 3) {
+			$(".div_shop").hide();
+			$(".div_product").hide();
+			$(".div_comment").show();
+			type = 3;
+		}
+	});
+
+	// 加载商品分页
+	var max_page_goods = "{$max_page_goods}";
+	$(".load_product").on("click", function () {
+		if (max_page_goods == 1 || page_goods > max_page_goods) {
+			layer.open({
+				type: 2,
+				content: '数据已全部加载',
+				time: 1
+			});
+			$(".load_product").text("数据已全部加载");
+			return;
+		}
+		layer.open({
+			type: 2,
+			content: '加载中'
+		});
+
+		$(".load_more_product").load("{:U('shopdetail')}", {
+			page: page_goods,
+			type: type,
+			shop_id: shop_id,
+		}, function (response, status) {
+			if (status == "success") {
+				var html = $(".load_more_product").html();
+				$("#goodsList").append(html);
+				$(".load_more_product").html("");
+				page_goods = parseInt(page_goods) + 1; // 在本页自增
+			}
+			layer.closeAll();
+		});
+	});
+
+
+	// 加载评论分页
+	var max_page_comment = "{$max_page_comment}";
+	$(".load_comment").on("click", function () {
+		if (max_page_comment == 1 || page_commnent > max_page_comment) {
+			layer.open({
+				type: 2,
+				content: '数据已全部加载',
+				time: 1
+			});
+			$(".load_comment").text("数据已全部加载");
+			return;
+		}
+		layer.open({
+			type: 2,
+			content: '加载中'
+		});
+
+		$(".load_more_comment").load("{:U('shopdetail')}", {
+			page: page_commnent,
+			type: type,
+			shop_id: shop_id,
+		}, function (response, status) {
+			if (status == "success") {
+				var html = $(".load_more_comment").html();
+				$("#commentGoods").append(html);
+				$(".load_more_comment").html("");
+				page_commnent = parseInt(page_commnent) + 1; // 在本页自增
+			}
+			layer.closeAll();
+		});
+	});
+
+
+	// 收藏店铺
+	$('#favorites').click(function () {
+		var sc = $("input[name=shouchang]").val();
+		console.log(sc);
+
+		if (user_id == 0) {
+			layer.open({
+				content: '您还没有登录 请去登录',
+				skin: 'msg',
+				time: 1
+			});
+			return;
+		}
+		if (sc != 1) {
+			$.ajax({
+				type: 'post',
+				dataType: 'json',
+				url: "{:U('Api/Favoritesin/addFavorites')}",
+				data: {'type': 2, 'fav_id': shop_id, user_id: user_id},
+				success: function (data) {
+					console.log(data);
+					var html = '';
+					if (data.status == 0) {
+						$(".btn_sc").addClass("yi_shouchang").removeClass("shouchang");
+						$(".btn_sc").text("已收藏")
+						$("input[name=shouchang]").val(1);
+
+						layer.open({
+							content: data.msg,
+							skin: 'msg',
+							time: 1
+						});
+					} else {
+						layer.open({
+							content: data.msg,
+							skin: 'msg',
+							time: 1
+						});
+					}
+				}
+			})
+		} else {
+			$.ajax({
+				type: 'POST',
+				url: "{:U('Api/Favoritesin/deleteFavorites')}",
+				data: {'id': shop_id, 'type': 2, source: 2, user_id: user_id},
+				dataType: 'json',
+				success: function (data) {
+					if (data.status == 0) {
+						$(".btn_sc").addClass("shouchang").removeClass("yi_shouchang");
+						$(".btn_sc").text("收藏商家")
+						$("input[name=shouchang]").val(0);
+
+						layer.open({
+							content: "取消收藏",
+							skin: 'msg',
+							time: 1
+						});
+
+					} else {
+						layer.open({
+							content: data.msg,
+							skin: 'msg',
+							time: 1
+						});
+					}
+				}
+			});
+
+		}
+	})
+
+
+	//地图
+	function map(id) {
+		location.href = "{:U('Shop/map')}?shop_id=" + id;
+	}
+
+	//
+	function bill(shop_id) {
+		var user_id = $('#user_id').val();
+		console.log(user_id);
+
+		if (user_id == 0) {
+			layer.open({
+				content: '您还没有登录 请去登录',
+				skin: 'msg',
+				time: 1
+			});
+			return;
+		}
+		location.href = "{:U('Index/pay')}?shop_id=" + shop_id;
+	}
+</script>
+</body>
+</html>

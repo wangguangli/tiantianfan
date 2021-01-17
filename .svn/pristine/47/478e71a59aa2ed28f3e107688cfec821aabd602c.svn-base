@@ -1,0 +1,485 @@
+<!doctype html>
+<html>
+
+	<head>
+		<title>{:GC('web_title')}-附近首页</title>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+		<meta name="Keywords" content="">
+		<meta name="description" content="">
+		<link rel="stylesheet" href="__PUBLIC__/mobile/style/jquery-weui.min.css">
+		<link rel="stylesheet" href="__PUBLIC__/mobile/css_v3/weui.min.css">
+		<link rel="stylesheet" href="__PUBLIC__/mobile/style/main_style.css">
+		<link rel="stylesheet" href="__PUBLIC__/mobile/css_v3/near.css">
+		<link rel="stylesheet" href="__PUBLIC__/mobile/style/dropload.css">
+		<link rel="stylesheet" type="text/css" href="__PUBLIC__/css/swiper.min.css" />
+		<link rel="stylesheet" href="__PUBLIC__/mobile/css_v3/index.css">
+
+		<script src="__PUBLIC__/layer/mobile/layer.js"></script>
+		<script src="__PUBLIC__/js/global.js"></script>
+		<link href="__PUBLIC__/css/footer.css" rel="stylesheet" type="text/css" />
+		<script type="text/javascript" src="https://webapi.amap.com/maps?v=1.4.3&key=41c11c3ad52409c170a7b014990285a1"></script>
+		<script type="text/javascript" src="https://cache.amap.com/lbs/static/addToolbar.js"></script>
+		<style>
+			input::-webkit-input-placeholder {
+				color: #999;
+			}
+			
+			input::-moz-placeholder {
+				/* Mozilla Firefox 19+ */
+				color: #999;
+			}
+			
+			input:-moz-placeholder {
+				/* Mozilla Firefox 4 to 18 */
+				color: #999;
+			}
+			
+			input:-ms-input-placeholder {
+				/* Internet Explorer 10-11 */
+				color: #999;
+			}
+			
+			.ul_near_product:after {
+				content: " ";
+				display: block;
+				clear: both;
+				height: 0;
+			}
+			
+			.ul_near_product {
+				zoom: 1;
+			}
+			
+			.swiper-container {
+				width: 92.59vw;
+				margin: 0 auto;
+			}
+		</style>
+	</head>
+
+	<body style="background-color: #f7f8fa;">
+		<div class="header_search">
+			<img class="head_img" src="__PUBLIC__/mobile/images_v3/address_add.png" />
+			<p class="city" id="city"></p>
+
+			<form action=''>
+				<div class="search_div">
+					<div onClick="search();">
+						<img class="search_img" src="__PUBLIC__/mobile/images_v3/f_shou.png" />
+						<input type="text" placeholder="输入搜索内容" />
+					</div>
+				</div>
+			</form>
+		</div>
+
+		<section class="header_swiper">
+			<div class="swiper-container">
+				<div class="swiper-wrapper">
+					<volist name="data.ad1" id="i">
+						<div class="swiper-slide">
+							<if condition="$i.module eq 'goods' && $i.link neq '0'">
+								<a href="{:U('Goods/detail', 'id='.$i['link'])}">
+									<elseif condition="$i.module eq 'shop' && $i.link neq '0'" />
+									<a href="javascript:shopdetail({$i.link})">
+							</if>
+							<img src="{$i.photo}">
+							</a>
+							</if>
+						</div>
+					</volist>
+				</div>
+				<div class="swiper-pagination"></div>
+			</div>
+
+		</section>
+		<nav class="nearby_nav">
+			<ul class="nav_ul swiper-wrapper">
+				<volist name="data.catelist" id="i">
+					<li class="swiper-slide">
+						<a href="{:U('shop/shoplist','industry_id='.$i['id'])}"> <img src="{$i.img}" class="nav_img">
+							<p>{$i.name}</p>
+						</a>
+					</li>
+				</volist>
+				<div class="clear"></div>
+			</ul>
+		</nav>
+
+		<!--4个广告位-->
+		<div class="bra_cont main_nav">
+			<volist name="data.ad2" id='vo' key="key" offset="0" length='4'>
+				<div class="bra_list back0{$key}">
+					<if condition="$vo.module eq 'goods' && $vo.link neq '0'">
+						<a href="{:U('Goods/detail', 'id='.$vo['link'])}">
+							<elseif condition="$vo.module eq 'shop' && $vo.link neq '0'"/>
+							<a href="{:U('shop/shopDetail','shop_id='.$vo['link'])}">
+								<elseif/>
+					</if>
+						<div class="bra_list_lf">
+							<h2>{$vo.title}</h2>
+							<span>{$vo.content}</span>
+							<if condition="$key eq 1 or $key eq 4">
+								<img src="__PUBLIC__/mobile/images_v3/go02.png" />
+							</if>
+						</div>
+						<div class="bra_list_lr">
+							<img src="{$vo.photo}">
+						</div>
+					</a>
+				</div>
+			</volist>
+			<!--<div class="bra_list back02" id="bag_two">
+				&lt;!&ndash;商品链接&ndash;&gt;
+				<a href="/M/Goods/detail/id/62.html">
+					<div class="bra_list_lf">
+						<h2>一元烧烤</h2>
+						<span style="height: 11vw;">全年啤酒半价烧烤啤酒青年标配</span>
+					</div>
+					<div class="bra_list_lr">
+						<img src="http://ishuangniuqn.yuanzhihang.com/15845282596145.jpg">
+					</div>
+				</a>
+			</div>
+			<div class="bra_list back02" id="bag_three">
+				&lt;!&ndash;商品链接&ndash;&gt;
+				<a href="/M/Goods/detail/id/69.html">
+					<div class="bra_list_lf" style="margin-top:2.2vw;">
+						<h2>聚龙犟骨头</h2>
+						<span>19.9犟骨头</span>
+					</div>
+					<div class="bra_list_lr">
+						<img src="http://ishuangniuqn.yuanzhihang.com/15845279623995.jpg">
+					</div>
+				</a>
+			</div>
+			<div class="bra_list back03">
+				&lt;!&ndash;商品链接&ndash;&gt;
+				<a href="/M/Goods/detail/id/60.html">
+					<div class="bra_list_lf">
+						<h2>优越艺术</h2>
+						<span>29.9元四节课</span>
+						<img src="__PUBLIC__/mobile/images_v3/go02.png" />
+					</div>
+					<div class="bra_list_lr">
+						<img src="http://ishuangniuqn.yuanzhihang.com/15845271554064.png">
+					</div>
+				</a>
+			</div>-->
+		</div>
+
+		<div class="good_list" style="width: 92.59vw;margin: 0 auto;">
+			<!--公用标题-->
+			<div class="nearby_shops">
+				<h2 class="title">附近商家</h2>
+			</div>
+			<ul class="ul_near_product " id="inx_id">
+
+			</ul>
+			<ul class="ul_near_product " id="inx_id1">
+
+			</ul>
+		</div>
+
+		<include file="Public/tabbar" />
+		<script src="__PUBLIC__/mobile/js/vue.min.js"></script>
+		<script src="__PUBLIC__/mobile/js/jquery-2.1.4.js"></script>
+		<script src="__PUBLIC__/mobile/js/jquery-weui.min.js"></script>
+		<script src="__PUBLIC__/mobile/js/swiper.min.js"></script>
+		<script src="__PUBLIC__/mobile/js/dropload.min.js"></script>
+		<script src="https://res.wx.qq.com/open/js/jweixin-1.1.0.js"></script>
+	</body>
+	<script>
+		mapObj = new AMap.Map('iCenter');
+		$(".swiper-container").swiper({
+			loop: true,
+			autoplay: 3000,
+		});
+		var swiper = new Swiper('.nearby_nav', {
+			slidesPerView: 4, //一行显示5个
+			slidesPerColumn: 2, //显示两行
+			paginationClickable: true, // 此参数设置为true时，点击分页器的指示点分页器会控制Swiper切换。
+			spaceBetween: 5 // 滑块之间的距离5px
+		});
+		var city = null; //城市
+		var long = null; //经度
+		var lat = null; //纬度
+		// var aa  =  getCookie('ct');
+		// console.log(aa);
+		// var ct_a = getCookie('ct');
+		// console.log(ct_a);
+		var ct_a = sessionStorage.getItem("ct");
+		// if (ct_a) {
+		//      long = sessionStorage.getItem("long");
+		//      lat= sessionStorage.getItem("lat");
+		//     var ct = document.getElementById('city');
+		//     ct.innerHTML = ct_a;
+		//     city = ct_a;
+		//     // setCookies('ct', '');
+		//     sessionStorage.removeItem("ct"); sessionStorage.removeItem("long"); sessionStorage.removeItem("lnt");
+		// } else {
+		var map, geolocation;
+		//加载地图，调用浏览器定位服务
+		map = new AMap.Map('iCenter');
+		map.plugin('AMap.Geolocation', function() {
+			geolocation = new AMap.Geolocation({
+				enableHighAccuracy: true, //是否使用高精度定位，默认:true
+				timeout: 100,
+				// noIpLocate:1,
+				// noGeoLocation:0,//超过10秒后停止定位，默认：无穷大
+				// useNative: true,          //超过10秒后停止定位，默认：无穷大
+			});
+			map.addControl(geolocation);
+			geolocation.getCurrentPosition(function(status, result) {
+				if (result.status == 1 && result.info == 'SUCCESS') {
+					var ct = document.getElementById('city');
+					city = result.addressComponent.city;
+					long = result.position.lng;
+					lat = result.position.lat;
+					ct.innerHTML = city;
+					console.log(result);
+					// console.log(city);
+					$.ajax({
+						type: 'POST',
+						data: {
+							'city': city,
+							'num': 3,
+							'longitude': long,
+							'latitude': lat
+						},
+						url: "{:U('Near/shop')}",
+						dataType: 'json',
+						success: function(data) {
+							console.log("test 111")
+							console.log(data);
+							page = data.result.page;
+							var html = '';
+							if (data.status == 0) {
+								$.each(data.result.list.shop, function(index, item) {
+									html += '<li class="clearfix">' +
+										'<a href="/M/Shop/shopdetail?shop_id=' + item.shop_id + '" style="display: block;width: 100%;height: 100%;">' +
+										'<div class="good_img"><img class="product_img" src="' + item.thumb + '"></div>' +
+										'<div class="good_right">' +
+										'<h6>' + item.shop_name + '</h6>' +
+										'<div class="dizhi_cont"><img class="good_right_img" src="/Public/mobile/images_v3/dizhi5.png">' +
+										'<div class="dizhi">' + item.address + '</div></div>' +
+										'<div class="leixing"><span class="good_sp">咖啡饮品</span><span class="address">距离200m</span></div></div>' +
+										'</a></li>'
+								})
+								$('.ul_near_product').html(html);
+							} else {
+								layer.open({
+									content: "暂无数据",
+									skin: 'msg',
+									time: 2
+								});
+							}
+						}
+					});
+					if (!sessionStorage.getItem('ct')) {
+						/*********跟踪标记**********/
+						console.log('未检测检查有上一次定位数据，进行数据写入+++');
+						let cityName = city; //城市名
+						let long = result.position.lng; //精度
+						let lat = result.position.lat; //纬度
+						sessionStorage.setItem('ct', cityName);
+						sessionStorage.setItem('long', long);
+						sessionStorage.setItem('lat', lat);
+						/*********跟踪标记**********/
+						console.log('同步IP定位结束，进行数据写入完成+++');
+					}
+				}
+			});
+			//getCityInfo是高德GPS定位里面的一个方法，先返回ip定位数据，由于IP定位有可能不准确，所以后面用GPS数据修正
+			//
+			// geolocation.getCityInfo(function (status, result) {
+			//
+			//     /*********跟踪标记**********/
+			//
+			//     if (status === 'complete' && result.info === 'SUCCESS') {
+			//         var ct = document.getElementById('city');
+			//         ct.innerHTML = result.city;
+			//         city = result.city;
+			//         // console.log(result);
+			//         $.ajax({
+			//             type: 'POST',
+			//             data: {'city': result.city, 'num': 3},
+			//             url: "{:U('Near/shop')}",
+			//             dataType: 'json',
+			//             success: function (data) {
+			//                 page = data.result.page;
+			//                 var html = '';
+			//                 if (data.status == 0) {
+			//                     $.each(data.result.list.shop, function (index, item) {
+			//                         html += '<li class="li">' +
+			//                             '<a href="' + '{:U("shop/shopdetail")}?shop_id=' + item.shop_id + '">' +
+			//                             '<img src="' + item.thumb + '" class="product">' +
+			//                             '                <div class="div_product_info">' +
+			//                             '                    <h2 class="good_name">' + item.shop_name + '</h2>' +
+			//
+			//                             '                    <h3 class="address address_black_icon">' + item.address + '</h3>' +
+			//                             '                    <p class="recomment">' + item.description + '</p>' +
+			//                             '                </div>' +
+			//                             '                <p class="distance">0.27km</p>' +
+			//                             '                <div class="clear"></div>' +
+			//                             '            </a>' +
+			//                             '        </li>';
+			//
+			//                     })
+			//                     $('.ul_near_product').html(html);
+			//
+			//                 } else {
+			//                     layer.open({
+			//                         content: "暂无数据"
+			//                         , skin: 'msg'
+			//                         , time: 2
+			//                     });
+			//                 }
+			//             }
+			//         });
+			//         //
+			//         //
+			//         // 		if(isNull(sessionStorage.getItem('autouserchooselocationct'))){
+			//         //
+			//         // 			/*********跟踪标记**********/     console.log('未检测检查有上一次定位数据，进行数据写入+++');
+			//         // 			let cityAdcode=result.adcode;
+			//         // 			let cityName=result.city;
+			//         // 			sessionStorage.setItem('autouserchooselocationct', cityName);
+			//         // 			sessionStorage.setItem('autouserchooselocationcode', cityAdcode);
+			//         //
+			//         // 			/*********跟踪标记**********/    console.log('同步IP定位结束，进行数据写入完成+++');
+			//         // 		}
+			//         // 	}
+			//         // });
+			AMap.event.addListener(geolocation, 'complete', onComplete); //返回定位信息
+			AMap.event.addListener(geolocation, 'error', onError);
+			//     }//返回定位出错信息
+			// });
+			// AMap.plugin('AMap.CitySearch', function () {
+			// 	var citySearch = new AMap.CitySearch();
+			// 	citySearch.getLocalCity(function (status, result) {
+			// 		if (status === 'complete' && result.info === 'OK') {
+			// 			var ct = document.getElementById('city');
+			// 			ct.innerHTML = result.city;
+			// 			city = result.city;
+			// 			console.log(city);
+			// 			$.ajax({
+			// 				type: 'POST',
+			// 				data: {'city': result.city, 'num': 3},
+			// 				url: "{:U('Near/shop')}",
+			// 				dataType: 'json',
+			// 				success: function (data) {
+			// 					page = data.result.page;
+			// 					var html = '';
+			// 					if (data.status == 0) {
+			// 						$.each(data.result.list.shop, function (index, item) {
+			// 							html += '<li class="li">' +
+			// 								'<a href="' + '{:U("shop/shopdetail")}?shop_id=' + item.shop_id + '">' +
+			// 								'<img src="' + item.thumb + '" class="product">' +
+			// 								'                <div class="div_product_info">' +
+			// 								'                    <h2 class="good_name">' + item.shop_name + '</h2>' +
+			//
+			// 								'                    <h3 class="address address_black_icon">' + item.address + '</h3>' +
+			// 								'                    <p class="recomment">' + item.description + '</p>' +
+			// 								'                </div>' +
+			// 								'                <p class="distance">0.27km</p>' +
+			// 								'                <div class="clear"></div>' +
+			// 								'            </a>' +
+			// 								'        </li>';
+			//
+			// 						})
+			// 						$('.ul_near_product').html(html);
+			//
+			// 					} else {
+			// 						layer.open({
+			// 							content: "暂无数据"
+			// 							,skin: 'msg'
+			// 							,time: 2
+			// 						});
+			// 					}
+			// 				}
+			// 			});
+			// 		}
+			// 	})
+			// });
+		})
+		$(function() {
+			// 页数
+			var page = 1;
+			// dropload
+			$('#inx_id1').dropload({
+				scrollArea: window,
+				loadDownFn: function(me) {
+					page++; // 拼接HTML
+					var html = '';
+					$.ajax({
+						type: 'POST',
+						data: {
+							'city': city,
+							'num': 10,
+							'longitude': long,
+							'latitude': lat,
+							'page': page
+						},
+						url: "{:U('Near/shop')}",
+						dataType: 'json',
+						success: function(data) {
+							console.log("test 222")
+							console.log(data);
+							if (data.status == 0) {
+								$.each(data.result.list.shop, function(index, item) {
+									html += '<li class="clearfix">' +
+										'<a href="/M/Shop/shopdetail?shop_id=' + item.shop_id + '" style="display: block;width: 100%;height: 100%;">' +
+										'<div class="good_img"><img class="product_img" src="' + item.thumb + '"></div>' +
+										'<div class="good_right">' +
+										'<h6>' + item.shop_name + '</h6>' +
+										'<div class="dizhi_cont"><img class="good_right_img" src="/Public/mobile/images_v3/dizhi5.png">' +
+										'<div class="dizhi">' + item.address + '</div></div>' +
+										'<div class="leixing"><span class="good_sp">咖啡饮品</span><span class="address">距离200m</span></div></div>' +
+										'</a></li>'
+								});
+								// 如果没有数据
+							} else {
+								me.lock(); // 锁定
+								me.noData(); // 无数据
+							}
+							// 为了测试，延迟1秒加载
+							setTimeout(function() {
+								// console.log(html) // 插入数据到页面，放到最后面
+								$('#inx_id').append(html); // 每次数据插入，必须重置
+								me.resetload();
+							}, 1000);
+						},
+						// error: function (xhr, type) {
+						//     alert('Ajax error!');  // 即使加载出错，也得重置
+						//     me.resetload();
+						// }
+					});
+				}
+			});
+		});
+
+		function search() {
+			location.href = "{:U('near/search')}";
+		}
+
+		function ct123() {
+			location.href = "{:U('near/city')}";
+		}
+
+		function method(id) {}
+
+		function shopdetail(id) {
+			location.href = "{:U('shop/shopdetail')}?shop_id=" + id;
+		}
+		// function onError(data) {
+		//     alert(JSON.stringify(data));
+		// }
+		//
+		// function onComplete(data) {
+		//     alert(JSON.stringify(data));
+		// }
+	</script>
+
+</html>

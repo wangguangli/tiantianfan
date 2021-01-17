@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>我的收藏</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"> 
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="stylesheet" href="__PUBLIC__/css/mui.min.css">
+    <link rel="stylesheet" href="__PUBLIC__/css/collect.css">
+    <script src="__PUBLIC__/js/mui.min.js"></script>
+    <script src="__PUBLIC__/js/jquery.min.js"></script>   
+	</head>
+
+		<header class="mui-bar mui-bar-nav" style="background: #FE274E;">
+		    <span onclick="back()"><a class="mui-pull-left mui-icon mui_turn"><img src="__PUBLIC__/img/return.png" width="20vw"height="20vw"/></a></span>
+		    <h1 class="mui-title tit_login" style="color: #fff;">我的收藏</h1>
+		</header>
+		<div class="mui-content">
+		    <div class="collect_shop">
+		    	<ul class="clearfix" id="active">
+					<a href="{:U('User/collect','type=1')}">
+						<li  <if condition="$type==1">class="active"</if> >商品</li>
+					</a>
+					<a href="{:U('User/collect','type=2')}">
+						<li  <if condition="$type==2">class="active"</if> >商家</li>
+					</a>
+
+		    	</ul>		    			    	
+		    </div>
+			<if condition="$type==1">
+		    <div class="shop_chant">
+		    	<ul class="clearfix" id="collect">
+					<volist name="list" id="vo">
+						<a href="{:U('Goods/detail','id='.$vo['id'])}">
+							<li>
+								<div class="chant_img"><img src="{$vo.thumb}" width="100%" height="100%"/></div>
+								<p>{$vo.name}</p>
+								<div class="price"><span>￥{$vo.price}</span><span>立即购买</span></div>
+							</li>
+						</a>
+
+					</volist>
+		    	</ul>
+		    </div>
+			</if>
+
+			<if condition="$type==2">
+			<div class="section_near_product">
+				<ul class="ul_near_product " id="inx_id">
+					<volist name="list" id="vo">
+						<a href="{:U('Shop/shopdetail')}?shop_id={$vo.id}">
+						<li class="clearfix" id="shopdetail">
+							<input type="hidden" name='shop_id' value="{$vo.user_id}" id="shop_id">
+							<img src="{$vo.thumb}" class="product">
+							<div class="div_product_info" >
+								<h5 class="good_name" >{$vo.shop_name}</h5>
+								<p class="address address_black_icon">
+									<img src="__PUBLIC__/img/address.png" width="15"/>
+									<span>{$vo.address}</span>
+								</p>
+							</div>
+							<div class="clear"></div>
+						</li>
+						</a>
+					</volist>
+				</ul>
+			</div>
+			</if>
+		</div>
+	</body>
+  <script type="text/javascript">
+	  //返回首页
+	  function back() {
+		  location.href = "{:U('User/index')}";
+	  }
+  </script>
+</html>

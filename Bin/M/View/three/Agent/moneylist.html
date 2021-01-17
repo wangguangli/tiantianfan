@@ -1,0 +1,422 @@
+<!doctype html>
+<html class="pixel-ratio-2 retina ios ios-11 ios-11-0 ios-gt-10 ios-gt-9 ios-gt-8 ios-gt-7 ios-gt-6">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="Generator" content="tpshop v1.1">
+    <meta name="viewport" content="width=device-width">
+    <meta http-equiv="keywords" content="">
+    <meta name="description" content="">
+    <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <title>资产明细</title>
+    <link href="__PUBLIC__/mobile/style/user_index.css" rel="stylesheet" type="text/css">
+    <link href="__PUBLIC__/mobile/style/sel.css" rel="stylesheet" type="text/css">
+    <script src="__PUBLIC__/js/jquery.min.js"></script>
+
+</head>
+
+<body>
+
+<div class="zcmxalls">
+    <div class="consume">
+        <ul class="clearfix" id="togg">
+            <li class="active" onclick="account(1)" id="account">交易账户</li>
+            <li onclick="expend(1)" id="expend">账户余额</li>
+            <li onclick="gift(1)" id="gift">账户积分</li>
+            <li onclick="withdraw(1)" id="withdraw">提现明细</li>
+        </ul>
+    </div>
+
+    <div class="clear"></div>
+    <input type="hidden" value=" {$Think.session.user_id}" id="user_id">
+    <div class="expensealls">
+        <div class="expense" style="display: block">
+            <ul id="account1">
+
+            </ul>
+        </div>
+    </div>
+
+</div>
+<script src="__PUBLIC__/layer/mobile/layer.js"></script>
+<script>
+    user_id = $('#user_id').val();
+    var type= getParam('type');
+    //获取url参数的值  输入参数  值得键名
+    function getParam(paramName) {
+        paramValue = "", isFound = !1;
+        if (this.location.search.indexOf("?") == 0 && this.location.search.indexOf("=") > 1) {
+            arrSource = unescape(this.location.search).substring(1, this.location.search.length).split("&"), i = 0;
+            while (i < arrSource.length && !isFound) arrSource[i].indexOf("=") > 0 && arrSource[i].split("=")[0].toLowerCase() == paramName.toLowerCase() && (paramValue = arrSource[i].split("=")[1], isFound = !0), i++
+        }
+        return paramValue == "" && (paramValue = null), paramValue
+    }
+    $.ajax({
+        type: 'post',
+        dataType: 'json',
+        data:{'utype':3,'user_id':user_id},
+        url: "{:U('Api/Userout/accountLog')}",
+        success: function (data) {
+            console.log(data);
+            if (data.status == 0) {
+                html = '';
+                $.each(data.result.list, function (index, item) {
+
+                    html += ' <li class="clearfix">' +
+                        '                        <div class="time_ex">' + item.remark + '</div>' +
+                        '                        <div class="time_right">' +
+                        '                            <p>';
+
+
+                    html+= item.amount +
+                        '                            </p>' +
+                        '                            <span>' + item.cre_date + '</span>' +
+                        '                        </div>' +
+                        '                    </li>'
+                })
+                $('#account1').html(html);
+                if(data.result.max_page>data.result.page){
+
+                    var html1='  <div  id="load" class="load">' +
+                        '        <span>加载更多</span>' +
+                        '        <input type="hidden" value="'+data.result.page+'" id ="page">' +
+                        '   <input type="hidden" value="'+data.result.max_page+'" id="max_page">' +
+                        ' </div>';
+                    $('.expensealls').after(html1);
+                }
+
+            } else {
+
+                layer.open({
+                    content: data.msg
+                    , skin: 'msg'
+                    , time: 1
+                });
+            }
+
+
+        }
+    })
+    if(type==1){
+        gift();
+    }else if(type==2){
+        expend();
+    }else if(type==3){
+        withdraw();
+    }
+    $(document).on('click','#load',function () {
+        if($('#account').hasClass('active')){
+            account(2);
+        }else if($('#expend').hasClass('active')){
+            expend(2);
+        }else if($('#gift').hasClass('active')){
+            gift(2);
+        }else if($('#withdraw').hasClass('active')){
+            withdraw(2);
+        }
+    })
+    //交易账户
+    function account(a) {
+        $('#account').addClass('active');
+        $('#expend').removeClass('active');
+        $('#gift').removeClass('active');
+        $('#withdraw').removeClass('active');
+
+        if(a== 2) {
+            var page = $('#page').val();
+                page ++;
+        } else{
+            var page = 1;
+           if($('#ok').length>0) {
+               $('#ok').remove();
+           }
+
+        }
+
+        $.ajax({
+            type: 'post',
+            dataType: 'json',
+            data:{'utype':3,'user_id':user_id,'page':page},
+            url: "{:U('Api/Userout/accountLog')}",
+            success: function (data) {
+                console.log(data);
+                if (data.status == 0) {
+                    html = '';
+                    $.each(data.result.list, function (index, item) {
+
+                        html += ' <li class="clearfix">' +
+                            '                        <div class="time_ex">' + item.remark + '</div>' +
+                            '                        <div class="time_right">' +
+                            '                            <p>';
+
+
+                        html+= item.amount +
+                            '                            </p>' +
+                            '                            <span>' + item.cre_date + '</span>' +
+                            '                        </div>' +
+                            '                    </li>'
+                    })
+                    if(a==1){
+                        $('#account1').html(html);
+                    }  else{
+                        $('#account1').append(html);
+                        $('#page').val(data.result.page);
+                    }
+
+                   if(data.result.max_page>data.result.page&&!$('#load').hasClass('load')){
+
+
+                       var html1='  <div  id="load" class="load">' +
+                           '        <span>加载更多</span>' +
+                           '        <input type="hidden" value="'+data.result.page+'" id ="page">' +
+                           '   <input type="hidden" value="'+data.result.max_page+'" id="max_page">' +
+                           ' </div>';
+                       $('.expensealls').after(html1);
+
+                   }
+                    if(data.result.max_page==data.result.page){
+                        $('#load').remove();
+                        var html2='  <div class="ok" id="ok">' +
+                            '        <span>加载完成</span>'+
+                            ' </div>';
+                        $('.expensealls').after(html2);
+                    }
+                } else {
+                    layer.open({
+                        content: data.msg
+                        , skin: 'msg'
+                        , time: 1
+                    });
+                }
+
+
+            }
+        })
+    }
+
+
+    //账户余额
+    function expend(a) {
+        $('#expend').addClass('active');
+        $('#account').removeClass('active');
+        $('#gift').removeClass('active');
+        $('#withdraw').removeClass('active');
+
+        if(a== 2) {
+            var page = $('#page').val();
+            page ++;
+        } else{
+            var page = 1;
+            if($('#ok').length>0) {
+                $('#ok').remove();
+            }
+        }
+        $.ajax({
+            type: 'post',
+            dataType: 'json',
+            data: {'type': 10,'utype':3,'user_id':user_id,'page':page},
+            url: "{:U('Api/Userout/accountLog')}",
+            success: function (data) {
+                console.log(data);
+                if (data.status == 0) {
+
+                    html = '';
+                    $.each(data.result.list, function (index, item) {
+
+                        html += ' <li class="clearfix">' +
+                            '                        <div class="time_ex">' + item.remark + '</div>' +
+                            '                        <div class="time_right">' +
+                            '                            <p>';
+
+                       html+= item.amount +
+                            '                            </p>' +
+                            '                            <span>' + item.cre_date + '</span>' +
+                            '                        </div>' +
+                            '                    </li>'
+                    })
+                    if(a==1){
+                        $('#account1').html(html);
+                    }  else{
+                        $('#account1').append(html);
+
+                    }
+
+                    if(data.result.max_page>data.result.page&&!$('#load').hasClass('load')){
+                        var html1='  <div  id="load" class="load">' +
+                            '        <span>加载更多</span>' +
+                            '        <input type="hidden" value="'+data.result.page+'" id ="page">' +
+                            '   <input type="hidden" value="'+data.result.max_page+'" id="max_page">' +
+                            ' </div>';
+                        $('.expensealls').after(html1);
+
+                    }
+                    $('#page').val(data.result.page);
+                    if(data.result.max_page==data.result.page){
+                        $('#load').remove();
+                        var html2='  <div class="ok" id="ok" >' +
+                            '        <span>加载完成</span>'+
+                            ' </div>';
+                        $('.expensealls').after(html2);
+                    }
+                } else {
+                    layer.open({
+                        content: data.msg
+                        , skin: 'msg'
+                        , time: 1
+                    });
+                }
+
+
+            }
+        })
+    }
+    //账户积分
+    function gift(a) {
+        $('#expend').removeClass('active');
+        $('#account').removeClass('active');
+        $('#gift').addClass('active');
+        $('#withdraw').removeClass('active');
+        if(a== 2) {
+            var page = $('#page').val();
+            page ++;
+        } else{
+            var page = 1;
+            if($('#ok').length>0) {
+                $('#ok').remove();
+            }
+        }
+        $.ajax({
+            type: 'post',
+            dataType: 'json',
+            data: {'type':11,'utype':3,'user_id':user_id,'page':page},
+            url: "{:U('Api/Userout/accountLog')}",
+            success: function (data) {
+                console.log(data);
+                if (data.status == 0) {
+
+                    html = '';
+                    $.each(data.result.list, function (index, item) {
+
+                        html += ' <li class="clearfix">' +
+                            '                        <div class="time_ex">' + item.remark + '</div>' +
+                            '                        <div class="time_right">' +
+                            '                            <p>';
+
+
+                        html+= item.amount +
+                            '                            </p>' +
+                            '                            <span>' + item.cre_date + '</span>' +
+                            '                        </div>' +
+                            '                    </li>'
+                    })
+                    if(a==1){
+                        $('#account1').html(html);
+                    }  else{
+                        $('#account1').append(html);
+                    }
+                    if(data.result.max_page>data.result.page&&!$('#load').hasClass('load')){
+                        var html1='  <div  id="load" class="load">' +
+                            '        <span>加载更多</span>' +
+                            '        <input type="hidden" value="'+data.result.page+'" id ="page">' +
+                            '   <input type="hidden" value="'+data.result.max_page+'" id="max_page">' +
+                            ' </div>';
+                        $('.expensealls').after(html1);
+
+                    }
+                    $('#page').val(data.result.page);
+                    if(data.result.max_page==data.result.page){
+                        $('#load').remove();
+                        var html2='  <div  class="ok" id="ok">' +
+                            '        <span>加载完成</span>'+
+                            ' </div>';
+                        $('.expensealls').after(html2);
+                    }
+                } else {
+                    layer.open({
+                        content: data.msg
+                        , skin: 'msg'
+                        , time: 1
+                    });
+                }
+
+
+            }
+        })
+    }
+
+    //提现积分
+    function withdraw(a) {
+        $('#expend').removeClass('active');
+        $('#account').removeClass('active');
+        $('#gift').removeClass('active');
+        $('#withdraw').addClass('active');
+        if(a== 2) {
+            var page = $('#page').val();
+            page ++;
+        } else{
+            var page = 1;
+            if($('#ok').length>0) {
+                $('#ok').remove();
+            }
+        }
+        $.ajax({
+            type: 'post',
+            dataType: 'json',
+            data: {'deal_type': 5,'utype':3,'user_id':user_id,'page':page},
+            url: "{:U('Api/Userout/accountLog')}",
+            success: function (data) {
+                console.log(data);
+                if (data.status == 0) {
+
+                    html = '';
+                    $.each(data.result.list, function (index, item) {
+
+                        html += ' <li class="clearfix">' +
+                            '                        <div class="time_ex">' + item.remark + '</div>' +
+                            '                        <div class="time_right">' +
+                            '                            <p>';
+
+
+                        html+= item.amount +
+                            '                            </p>' +
+                            '                            <span>' + item.cre_date + '</span>' +
+                            '                        </div>' +
+                            '                    </li>'
+                    })
+                    if(a==1){
+                        $('#account1').html(html);
+                    }  else{
+                        $('#account1').append(html);
+                    }
+                    if(data.result.max_page>data.result.page&&!$('#load').hasClass('load')){
+                        var html1='  <div  id="load" class="load">' +
+                            '        <span>加载更多</span>' +
+                            '        <input type="hidden" value="'+data.result.page+'" id ="page">' +
+                            '   <input type="hidden" value="'+data.result.max_page+'" id="max_page">' +
+                            ' </div>';
+                        $('.expensealls').after(html1);
+
+                    }
+                    $('#page').val(data.result.page);
+                    if(data.result.max_page==data.result.page){
+                        $('#load').remove();
+                        var html2='  <div class="ok" id="ok">' +
+                            '        <span>加载完成</span>'+
+                            ' </div>';
+                        $('.expensealls').after(html2);
+                    }
+                } else {
+                    layer.open({
+                        content: data.msg
+                        , skin: 'msg'
+                        , time: 1
+                    });
+                }
+
+
+            }
+        })
+    }
+
+</script>
+</body>
+</html>

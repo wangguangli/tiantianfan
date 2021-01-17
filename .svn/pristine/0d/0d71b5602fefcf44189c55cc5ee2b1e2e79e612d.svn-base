@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<title>设置</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<link rel="stylesheet" href="__PUBLIC__/mobile/css_v3/since.css">
+		<link rel="stylesheet" href="__PUBLIC__/mobile/style/main_style.css">
+
+		<script src="__PUBLIC__/js/mui.min.js"></script>
+		<script src="__PUBLIC__/js/jquery.min.js"></script>
+		<script src="__PUBLIC__/layer/mobile/layer.js"></script>
+	</head>
+
+	<body style="background-color: #fff;">
+		<div class="input_tents">
+			<div class="tents_in">
+				<img class="search_img" src="/Public/mobile/images_v3/f_dm1.png" alt="" />
+				<input class="input" id="title" type="text" placeholder="输入搜索自提点名称" />
+			</div>
+			<span class="search_text" onclick="search_list()">搜索</span>
+		</div>
+		<!--自提部分-->
+		<div class="point_cont">
+			<div class="point_lf" >
+				<select name="" id="region_name" onchange="choose_region()">
+    		</select>
+
+			</div>
+			<div class="point_lr">
+				当前自提点
+			</div>
+		</div>
+		<!--列表部分-->
+		<div class="address_cont" id="address_cont_list">
+		</div>
+		<iframe id="geoPage" width="0" height="0" frameborder=0 style="display:none;" scrolling="no"
+				src="https://apis.map.qq.com/tools/geolocation?key=2AQBZ-IUJLF-GMSJR-NRL27-2RTBF-MSFMV&referer=myapp"
+				allow="geolocation"></iframe>
+		<script type="text/javascript" src="https://res.wx.qq.com/open/js/jweixin-1.4.0.js"></script>
+		<script>
+			var lat = '';
+			var lng = '';
+			var city = '';
+		$(function () {
+
+			window.addEventListener('message', function (event) {
+				var loc = event.data; // 接收位置信息
+				if (loc && loc.module == "geolocation") {
+					lat = loc.lat;
+					lng = loc.lng
+					var data = {
+						location:lat+','+lng,
+						key:"2AQBZ-IUJLF-GMSJR-NRL27-2RTBF-MSFMV",
+						get_poi:0
+					}
+					var url="http://apis.map.qq.com/ws/geocoder/v1/?";
+					     data.output="jsonp";
+					     $.ajax({
+							 dataType:'jsonp',
+							 data:data,
+							 url:url,
+							 jsonp:"callback",
+							 jsonpCallback:"QQmap",
+							 success:function (res) {
+								 city = res.result.address_component.city;
+								 get_list(lat,lng,res.result.address_component.city);
+							 }
+						 })
+				}
+			})
+			
+		})
+			function get_list(lat,lng,city_name,title) {
+				$.ajax({
+					url:"{:U('/Api/Orderout/picksite')}",
+					dataType:'json',
+					data:{
+						lat:lat,
+						lng:lng,
+						city_name:city_name,
+						title:title
+					},
+					success:function (res) {
+						var result = res.result;
+						if(result.region){
+							var html1 = '';
+							$.each(result.region,function (index,item) {
+								if(city_name == item.name){
+									html1 += '<option value="'+item.name+'" selected>'+item.name+'</option>'
+								}else {
+									html1 += '<option value="'+item.name+'">'+item.name+'</option>'
+								}
+
+							})
+							$('#region_name').html(html1)
+						}
+						var html2 = '';
+						if(result.picksiteList.length < 1){
+							html2 += '<div class="empty_data">' +
+									'<div class="empty_data_t0">' +
+									'<img src="__PUBLIC__/mobile/images_v3/empty_cart_img_1.png" class="empty_cart_img_1">\n' +
+									'</div>' +
+									'<div class="empty_data_t1">暂无数据</div>' +
+									'</div>';
+							layer.open({
+								content: "该区域暂无自提点信息",
+								skin: 'msg',
+								time: 3
+							});
+						}else {
+							$.each(result.picksiteList,function (index,item) {
+								if(item.distance){
+									var distance = parseFloat(item.distance);
+									var html3='<span class="distance">'+distance.toFixed(2)+'km</span>';
+								}else {
+									var html3 = '';
+								}
+
+								html2 += '<a href="{:U(\'Cart/confirm\')}?shiptype=2&picksite_id='+item.id+'">' +
+										'<div class="address_list">' +
+										'<div class="address_list_top">' +
+										'<h2 class="list_top_title">'+item.title+'</h2>' +
+										html3+
+
+										'</div>\n' +
+										'<div class="add_details">' +
+										item.address +
+										'</div>' +
+										'</div>' +
+										'</a>'
+							})
+						}
+						$('#address_cont_list').html(html2);
+					}
+				})
+			}
+			function choose_region() {
+				var city_name = $('#region_name').val();
+				var title = $('#title').val();
+				get_list(lat,lng,city_name,title);
+			}
+			function search_list() {
+				var city_name = $('#region_name').val();
+				var title = $('#title').val();
+				get_list(lat,lng,city_name,title);
+			}
+	</script>
+	</body>
+
+</html>

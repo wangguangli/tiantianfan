@@ -1,0 +1,118 @@
+<?php
+
+/**
+ * Created by PhpStorm.
+ * User: Administrator
+ * Date: 2020/8/25
+ * Time: 10:13
+ * @param  $dirName 文件夹路劲
+ * 删除文件夹
+ */
+function  removeDir($dirName)
+{
+    if (!is_dir($dirName)) {
+        return false;
+    }
+    $handle = @opendir($dirName);
+    while (($file = @readdir($handle)) !== false) {
+        //判断是不是文件 .表示当前文件夹 ..表示上级文件夹 =2
+        if ($file != '.' && $file != '..') {
+            $dir = $dirName . '/' . $file;
+            is_dir($dir) ? removeDir($dir) : @unlink($dir);
+        }
+    }
+    closedir($handle);
+    @rmdir($dirName);
+}
+
+
+/**
+ * @Title:记录待返积分 以及奖金池
+ * @Param: order_id int 订单id
+ * @Date:2020/10/27
+ * @Time:11:20
+ * @Author:lty
+ */
+function order_type0($order_id){
+    $orderInfo = M('order')->find($order_id);
+    $userInfo = M('user')->find($orderInfo['user_id']);
+    //根据商品返还
+    $orderGoods = M('order_goods')->where('order_id='.$order_id)->select();
+    $where['name'] = 'all_money';
+    foreach ($orderGoods as $k => $v){
+        //每个商品比例不一样
+        $goodsInfo = M('goods')->find($v['goods_id']);
+        $money_wait = $goodsInfo['rebate'] * 0.01 * $v['goods_total'];//待返积分
+        $money_all = $goodsInfo['rebate'] * 0.01 * $v['goods_total'];//奖金池金额
+        change_money_log($orderInfo['user_id'],1,'money_wait',$userInfo['money_wait'],$money_wait,6,2,'购买商品'.$v['goods_name'].'的待返积分',1,1,1,$orderInfo['id'],$orderInfo['user_id'],0);
+        //奖金池增加 也要记录在account_log表里面
+        $all_money = get_config('all_money',true);//当前奖金池金额
+        $account_log = array(
+            'user_id' => 0,
+            'user_amount' => $all_money,
+            'amount' => $money_all,
+            'type' => 17,
+            'deal_type' => 2,
+            'remark' => '用户'.$userInfo['phone'].'购买商品'.$v['goods_name'].'产生奖金池金额',
+            'order_id' => $order_id,
+            'other_user_id' => $orderInfo['user_id'],
+            'utype' => 4,
+            'op_type' => 1,
+            'cre_time' => time(),
+            'cre_date' => date('Y-m-d H:i:s',time()),
+            'ip' => get_client_ip(),
+        );
+        M('account_log')->add($account_log);
+        M('config')->where($where)->setInc('val',$all_money);
+    }
+    $userInfo = M('user')->find($orderInfo['user_id']);
+    $unit = get_config_project('unit_price');
+    $number = floor($userInfo['money_wait']/$unit);
+    M('user')->where('id='.$orderInfo['user_id'])->setField('ipo',$number);//现在的股数
+    //给上级返利
+    if($userInfo['first_leader']){
+        $top = M('user')->find($userInfo['first_leader']);
+        $data = get_config_user_level($top['level']);
+        $rebate = $data['rebate'];
+        $first_money =$rebate * 0.01 * $orderInfo['total_commodity_price'];
+        change_money_log($top['id'],1,'money',$top['money'],$first_money,1,17,'购买商品'.$v['goods_name'].'的一级分销',1,1,1,$orderInfo['id'],$orderInfo['user_id'],0);
+    }
+}
+/**
+ * @Title:分红股每日返还
+ * @Param: null
+ * @Date:2020/10/27
+ * @Time:8:43
+ * @Author:lty
+ */
+function autoRebate(){
+    //查询今日奖金池的金额
+    $all_money = get_config('all_money',true);
+    if($all_money > 0){
+        $where['ipo'] = array('gt',0);
+        $number = M('user')->where($where)->sum('ipo');
+        if(!empty($number)){
+            $unit = round($all_money / $number,2);//每股的单价
+            //每个用户进行返利
+            $allUser  = M('user')->field('id,ipo,money_wait')->where($where)->select();
+            foreach ($allUser as $k => $v){
+                $money = $unit * $v['ipo'];//需要返利的金额
+                if($money>= $v['money_wait']){
+                   $money = $v['money_wait'];
+                }
+                //减去待返积分
+                change_money_log($v['id'],1,'money_wait',$v['money_wait'],$money,6,11,'每日股权返还扣除待返金额',2,1,1,0,0,0);
+                //加上已返金额
+                change_money_log($v['id'],1,'price',$v['price'],$money,18,11,'每日股权返还增加已返金额',1,1,1,0,0,0);
+            }
+        }
+    }
+    //奖金池扣除今日返利的金额
+    $beginToday=mktime(0,0,0,date('m'),date('d'),date('Y'));
+    $endToday=mktime(0,0,0,date('m'),date('d')+1,date('Y'))-1;
+
+    $accountWhere['cre_time'] = array('BETWEEN',array($beginToday,$endToday));
+    $allAccountMoney = M('account_log')->where($accountWhere)->sum('amount');
+    $configWhere['name'] = 'all_money';
+    M('config')->where($configWhere)->setDec('val',$allAccountMoney);
+}

@@ -1,0 +1,162 @@
+<!DOCTYPE html >
+<html>
+
+	<head>
+		<meta name="Generator" content="tpshop v1.1" />
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width">
+		<title>签到领积分</title>
+		<meta http-equiv="keywords" content="{$tpshop_config['shop_info_store_keyword']}" />
+		<meta name="description" content="{$tpshop_config['shop_info_store_desc']}" />
+		<meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+		<link rel="stylesheet" href="__PUBLIC__/mobile/style/main_style.css">
+		<link rel="stylesheet" type="text/css" href="__PUBLIC__/mobile/css_v2/sign.css" />
+		<link href="__PUBLIC__/css/footer.css" rel="stylesheet" type="text/css" />
+		<script src="__PUBLIC__/layer/mobile/layer.js"></script>
+	</head>
+
+	<body>
+		<div class="f_heade">
+			<img class="hd_img" src="/Public/mobile/images_v2/return_3.png" alt="" />
+			<h2 class="title">签到</h2>
+		</div>
+		<div class="Sign_cont">
+			<img class="Sign_img" src="/Public/mobile/images_v2/qd3.png" alt="" />
+			<img class="rules_img" src="/Public/mobile/images_v2/qd5.png" alt="" />
+			<!--中间部分-->
+			<div class="calen_cont">
+				<span class="day">已连续签到5天</span>
+				<div class="retroactive">
+					<!--星期-->
+					<div class="week">
+						<span class="week_list">日</span>
+						<span class="week_list">一</span>
+						<span class="week_list">二</span>
+						<span class="week_list">三</span>
+						<span class="week_list">四</span>
+						<span class="week_list">五</span>
+						<span class="week_list">六</span>
+					</div>
+					<!--日期-->
+					<ul class="date_of">
+						<li>1</li>
+						<li>2</li>
+						<li class="bor">3</li>
+						<li class="bor">4</li>
+						<li>5</li>
+						<li class="bor">6</li>
+						<li>7</li>
+						<li>8</li>
+						<li>9</li>
+						<li>10</li>
+						<li class="active">11</li>
+						<li class="active">1</li>
+						<li>2</li>
+						<li>3</li>
+						<li>4</li>
+						<li>5</li>
+						<li>6</li>
+						<li>7</li>
+						<li>8</li>
+						<li>9</li>
+						<li>10</li>
+						<li>11</li>
+						<li>1</li>
+						<li>2</li>
+						<li>3</li>
+						<li>4</li>
+						<li>5</li>
+						<li>6</li>
+						<li>7</li>
+						<li>8</li>
+						<li>9</li>
+						<li>10</li>
+						<li>11</li>
+					</ul>
+
+				</div>
+				<div class="calen_ret">
+					<div class="cal_list">补签</div>
+					<div class="cal_list active button2">签到</div>
+				</div>
+
+			</div>
+		</div>
+		<!--签到规则-->
+		<div class="rules_cont" style="display: none;">
+			<div class="ru_top">连续 <em>5</em>日签到成功</div>
+			<div class="ru_bot">
+				<div class="ru_bot_list">
+					<span class="digital">1</span>
+					<div class="ru_bot_lr">
+						<span class="bot_title">日常签到</span>
+						<p>日常签到可获得5积分</p>
+					</div>
+				</div>
+				<div class="ru_bot_list">
+					<span class="digital">2</span>
+					<div class="ru_bot_lr">
+						<span class="bot_title">首次签到</span>
+						<p>首次签到可获得10积分</p>
+					</div>
+				</div>
+				<div class="ru_bot_list">
+					<span class="digital">3</span>
+					<div class="ru_bot_lr">
+						<span class="bot_title">奖励签到</span>
+						<p>1. 连续签到5天赠送10积分</p>
+						<p>2. 连续签到10天赠送15积分</p>
+					</div>
+				</div>
+
+			</div>
+			<img class="guan_img" src="/Public/mobile/images_v2/guanbi.png" alt="" />
+		</div>
+		<!--签到弹窗-->
+		<div class="win_cont" style="display: none;">
+			<img class="vouchers" src="/Public/mobile/images_v2/qd7.png" alt="" />
+			<div class="integral_cont">
+				<div class="ru_top ru_top2">连续 <em>5</em>日签到成功</div>
+				<div class="integral_middle">
+					<div class="mid_img">
+						<div class="obtain">恭喜获得积分<span>2</span>个</div>
+						<p class="mi_p">每日签到可以获得1~3个积分哦</p>
+					</div>
+					<p class="next">再接再厉,下个五日还有额外奖励哦~</p>
+				</div>
+				<img class="next_img" src="/Public/mobile/images_v2/guanbi.png" alt="" />
+			</div>
+		</div>
+		<div class="foot-box"></div>
+		<include file="Public/tabbar" />
+		<script src="__PUBLIC__/mobile/js/vue.min.js"></script>
+		<script src="__PUBLIC__/mobile/js/jquery-2.1.4.js"></script>
+		<script src="__PUBLIC__/mobile/js/jquery-weui.min.js"></script>
+		<script src="__PUBLIC__/mobile/js/swiper.min.js"></script>
+		<script src="__PUBLIC__/mobile/js/dropload.min.js"></script>
+		<script src="__PUBLIC__/mobile/js/jquery.js"></script>
+		<!--规则-->
+		<script>
+			$(document).ready(function() {
+				$(".guan_img").click(function() {
+					$(".rules_cont").hide();
+				});
+				$(".rules_img").click(function() {
+					$(".rules_cont").show();
+				});
+			});
+		</script>
+		<!--签到-->
+		<script>
+			$(document).ready(function() {
+				$(".next_img").click(function() {
+					$(".win_cont").hide();
+				});
+				$(".button2").click(function() {
+					$(".win_cont").show();
+				});
+			});
+		</script>
+	</body>
+
+</html>

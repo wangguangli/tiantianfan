@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>会员登录</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"> 
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+   <script src="__PUBLIC__/js/mui.min.js"></script>
+<link rel="stylesheet" href="__PUBLIC__/mobile/css_v3/mui.min.css">
+     <link rel="stylesheet" href="__PUBLIC__/mobile/css_v3/information.css">
+     <link rel="stylesheet" href="__PUBLIC__/mobile/style/main_style.css">
+    
+	</head>
+	<body>
+ 
+			<div class="mui-content">
+                <volist name="data" id="vo">
+				<!--1-->
+				<a href="{:U('Index/messageInfo','id='.$vo['id'])}">
+					<div class="com_intr">
+						<h6>{$vo.title}</h6>
+						<p>{$vo.time}</p>
+					</div>
+				</a>
+				<div class="wo_he" style="height: 1.5vw;"></div>
+                </volist>
+			</div>
+
+
+	</body>
+</html>

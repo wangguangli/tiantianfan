@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<title>商品分类</title>
+		<meta charset="utf-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0" />
+		<!--防止在iOS设备中的Safari将数字识别为电话号码  -->
+		<meta name="format-detection" content="telephone=no" />
+		<!-- windows phone 点击无高光 -->
+		<meta name="msapplication-tap-highlight" content="no">
+		 <script src="__PUBLIC__/js/tools/jquery-2.0.3.min.js"></script>
+
+    <script src="__PUBLIC__/js/tools/excanvas.min.js"></script>
+    <link href="__PUBLIC__/css/shopindex.css" rel="stylesheet" type="text/css"/>
+    <link rel="stylesheet" href="__PUBLIC__/mobile/style/weui.min.css">
+    <link rel="stylesheet" href="__PUBLIC__/mobile/style/main_style.css">
+    <link rel="stylesheet" href="__PUBLIC__/css/footer.css" type="text/css"/>
+    <link href="__PUBLIC__/mobile/css_v3/category.css?n=1" rel="stylesheet" type="text/css"/>
+
+	</head>
+
+	<body style="background-color: #f7f8fa;">
+		<div class="product-title" style="position: fixed;z-index: 88; display: none;">
+			<p>
+				<font class="icon">
+					<a class="mui-pull-left mui-icon mui_turn" href="javascript:history.back()">
+						<img src="__PUBLIC__/img/return.png" width="20vw" height="20vw" />
+					</a>
+				</font>
+				商品分类
+			</p>
+			<div class="product-title-back"></div>
+			<div class="clear"></div>
+		</div>
+		<div class="product-leibie" style="overflow:scroll;">
+			<ul style="overflow-x:scroll;overflow-y:scroll;-webkit-overflow-scrolling : touch;background-color: #fff;">
+				<volist name="list" id="i" key="k">
+					<if condition="!empty($i['name'])">
+						<li id="{$k}" <if condition="$k eq 1"> class="bc-gray"</if>><span></span>{$i.name}</li> <input type="hidden" value="{$i.id}">
+					</if>
+				</volist>
+			</ul>
+		</div>
+		<div class="product-erji">
+			<div class="phone_code">
+			
+				<div class="product_img">
+
+					<if condition="$ads['module']=='goods'">
+						<a href="{:U('Goods/detail','id='.$ads['link'])}"><img src="{$ads.photo}" width="100%" height="100%" /></a>
+						<elseif condition="$ads['module']=='shop'" />
+						<a href="{:U('Shop/index','shop_id='.$ads['link'])}"><img src="{$ads.photo}" width="100%" height="100%" /></a>
+						<elseif condition="$ads['module']==category" />
+						<a href="{:U('Goods/index','cat_id='.$ads['cate_id'])}"><img src="{$ads.photo}" width="100%" height="100%" /></a>
+						<elseif condition="$ads['module']=='article'" />
+						<a href="{:U('Index/messageInfo','id='.$ads['link'])}"><img src="{$ads.photo}" width="100%" height="100%" /></a>
+						<elseif condition="$ads['module']=='link'" />
+						<a href="{$ads['link']}"><img src="{$ads.photo}" width="100%" height="100%" /></a>
+						<elseif condition="$ads['module']=='false'" />
+						<a href="{$ads['link']}"><img src="{$ads.photo}" width="100%" height="100%" /></a>
+						<elseif condition="$ads['module']==''" />
+						<img src="{$ads.photo}" width="100%" height="100%" />
+					</if>
+				</div>
+				<!--<if condition="strlen($ads['module']) gt 0 "  >-->
+				<!--</if>-->
+				<!--手机数码-->
+				<foreach name="first.sub" item="i" key="k1">
+					<div class="code_list">
+						<div class="phone_shop">
+							<span class="phone_1">{$i}</span>
+							<span class="phone_2"></span>
+						</div>
+					</div>
+					<div class="shop_code">
+						<ul id="two_cat">
+							<foreach name="list[$k1].sub" item="i3" key="k3">
+								<a href="{:U('Goods/index')}?cat_id={$list[$k1]['ids'][$k3]}">
+									<li>
+										<if condition="empty($list[$k1]['imgs'][$k3])">
+											<div class="shop_list1"><img src="__PUBLIC__/images/img_place.png" width="100%" height="100%" />
+											</div>
+											<else/>
+											<div class="shop_list1"><img src="{$list[$k1]['imgs'][$k3]}" width="100%" height="100%" />
+											</div>
+										</if>
+										<span class="shop_span" style="margin-left: 5vw;">{$i3}</span>
+									</li>
+								</a>
+							</foreach>
+							<div class="clear"></div>
+						</ul>
+					</div>
+				</foreach>
+			</div>
+		</div>
+
+		</div>
+
+
+		<include file="Public/tabbar" />
+		<script src="__PUBLIC__/layer/layer.js"></script>
+		<script src="__PUBLIC__/layui/layui.js"></script>
+		<script>
+			$(".product-leibie ul li").click(function() {
+				$li = $(this);
+				var id = $(this).next().val();
+				$(this).addClass("bc-gray");
+				$(this).parent().find('li').not(this).removeClass("bc-gray");
+				var index = $(this).attr('id') - 1;
+				$ul = $('.product-erji ul').eq(index);
+				$ul.parent().find('ul').not($ul).hide();
+
+				//增加加载中提示
+				$ul.show();
+				var index = layer.load(0, {shade: false}); //0代表加载的风格，支持0-2
+				$.ajax({
+					'type': 'post',
+					'dataType': 'json',
+					'url': '{:U("M/Goods/getAllCategoryTwo")}',
+					'data': {
+						'id': id
+					},
+					success: function(res) {
+						html1 = "";
+						if (res.result.ads['id'] > 0 && res.result.ads['photo']) {
+							var ad_photo = res.result.ads['photo'];
+							if (!ad_photo) {
+								ad_photo = "__PUBLIC__/images/img_place.png";
+							}
+							var ad_module = res.result.ads['module'];
+							var ad_link = res.result.ads['link'];
+							var cate_id = res.result.ads['cate_id'];
+							html1 += '<div class="product_img">';
+							if (ad_module == 'goods') {
+								html1 += '<a href="{:U(\'Goods/index\')}?id=' + ad_link + '"><img src="' + ad_photo + '" width="100%" height="100%" /></a>';
+							} else if (ad_module == 'shop') {
+								html1 += '<a href="{:U(\'Shop/index\')}?shop_id=' + ad_link + '"><img src="' + ad_photo + '" width="100%" height="100%" /></a>';
+							} else if (ad_module == 'category') {
+								html1 += '<a href="{:U(\'Goods/index\')}?cat_id=' + cate_id + '"><img src="' + ad_photo + '" width="100%" height="100%" /></a>';
+							} else if (ad_module == 'article') {
+								html1 += '<a href="{:U(\'Index/messageInfo\')}?id=' + ad_link + '"><img src="' + ad_photo + '" width="100%" height="100%" /></a>';
+							} else if (ad_module == 'link') {
+								html1 += '<a href="' + ad_link + '"><img src="' + ad_photo + '" width="100%" height="100%" /></a>';
+							} else if (ad_module == 'false') {
+								html1 += '<a href="' + ad_link + '"><img src="' + ad_photo + '" width="100%" height="100%" /></a>';
+							} else if (ad_module == '') {
+								html1 += '<img src="' + ad_photo + '" width="100%" height="100%" />';
+							}
+							html1 += '</div>';
+						}
+						if (res.status == 1) {
+							$.each(res.result.children, function(i, val) {
+								html1 += '<div class="code_list"><div class="phone_shop"><span class="phone_1">' + val.name + '</span>';
+								html1 += '<span class="phone_2"></span></div></div><div class="shop_code"><ul id="two_cat">';
+								if (val.children) {
+									$.each(val.children, function(i1, val1) {
+										if (!val1.img) {
+											val1.img = "__PUBLIC__/images/img_place.png";
+										}
+										html1 += '<a href="{:U(\'Goods/index\')}?cat_id=' + val1.id + '&hot_id=6"><li><div class="shop_list1"><img src="' + val1.img + '" width="100%" height="100%"/>';
+										html1 += ' </div><span class="shop_span" style="margin-left: 5vw;">' + val1.name + '</span></li></a>';
+									})
+								}
+								html1 += '<div class="clear"></div></ul></div>';
+							})
+							$('.phone_code').html(html1);
+							var index = layer.load(0, {time: 0.1*1000}); //0代表加载的风格，支持0-2
+						} else {
+							$('.phone_code').html(html1);
+							var index = layer.load(0, {time: 0.1*1000}); //0代表加载的风格，支持0-2
+						}
+					}
+				})
+			});
+		</script>
+	</body>
+
+</html>

@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>分销中心</title>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+	<meta name="Keywords" content="">
+	<meta name="description" content="">
+	<!-- UC强制全屏 -->
+	<meta name="full-screen" content="yes">
+	<!-- QQ强制全屏 -->
+	<meta name="x5-fullscreen" content="true">
+	<link rel="stylesheet" href="__PUBLIC__/mobile/style/jquery-weui.min.css">
+	<link rel="stylesheet" href="__PUBLIC__/mobile/css_v3/weui.min.css?n=1">
+	<link rel="stylesheet" href="__PUBLIC__/mobile/style/main_style.css">
+	<link rel="stylesheet" href="__PUBLIC__/mobile/css_v3/merchants_center.css">
+	<link href="__PUBLIC__/css/footer.css" rel="stylesheet" type="text/css" />
+	<!--上拉加载-->
+	<link rel="stylesheet" href="__PUBLIC__/mobile/style/dropload.css">
+	<script type="text/javascript" src="__PUBLIC__/layer/mobile/layer.js"></script>
+
+</head>
+
+<body style="background-color: #f7f8fa;">
+<div class="dis_container">
+	<!--头像部分-->
+	<div class="portrait_cont">
+		<a href="#">
+			<img class="portrait_img" src="{$data.thumb" />
+			<div class="portrait_lr">
+				<span class="name">{$data.shop_name}</span>
+				<div class="introduce">
+				{$data.description}
+				</div>
+
+			</div>
+		</a>
+	</div>
+</div>
+<!--提现-->
+<div class="withdrawal">
+	<div class="wit_top">
+		<div class="wit_top_tit">可提现金额</div>
+		<div class="money_cont">
+			<a href="{:U('User/accountDetail','type=1')}" class="number">{$data.shop_money}}</a>
+			<a href="javascript:;" onclick="vtruename()" class="tx_button">提现</a>
+		</div>
+	</div>
+	<!--资产说明-->
+	<div class="wit_bot">
+		<a href="{:U('moneylist')}">
+			<div class="assets_lf">
+				<img class="qiandai_img" src="__PUBLIC__/mobile/images_v3/qaindai.png" />
+				<span class="instruc">资产明细</span>
+			</div>
+			<img class="assets_jump" src="__PUBLIC__/mobile/images_v3/qian_fh.png" />
+		</a>
+	</div>
+
+</div>
+<!--佣金-->
+<div class="commission">
+	<div class="comm_lf">
+		<a href="#">
+			<span class="comm_lf_tit">待返积分</span>
+			<div class="comm_lf_qian">
+				{$data.money_wait}
+			</div>
+		</a>
+	</div>
+	<div class="comm_lf">
+		<a href="#">
+			<span class="comm_lf_tit line">已返积分</span>
+			<div class="comm_lf_qian">
+				{$data.money}
+			</div>
+		</a>
+	</div>
+	<div class="comm_lf">
+		<a href="#">
+			<span class="comm_lf_tit line">已提金额</span>
+			<div class="comm_lf_qian">
+				{$data.tx_money
+			</div>
+		</a>
+	</div>
+	 
+</div>
+<!--管理工具-->
+<div class="tool_container">
+	<h2 class="title">管理工具</h2>
+	<div class="tool_ul">
+		<div class="tool_li">
+			<a href="{:U('Shopcenter/orders')}">
+				<div class="tool_li_lf">
+					<img class="tool_img" src="__PUBLIC__/mobile/images_v3/f_dian1.png" />
+					<span class="x_baioti">订单管理</span>
+				</div>
+				<img class="tooi_jump" src="__PUBLIC__/mobile/images_v3/f_fanhui2.png" />
+			</a>
+		</div>
+		<div class="tool_li">
+			<a href="{:U('Shopcenter/management')}">
+				<div class="tool_li_lf">
+					<img class="tool_img" src="__PUBLIC__/mobile/images_v3/f_dian2.png" />
+					<span class="x_baioti">商品管理</span>
+				</div>
+				<img class="tooi_jump" src="__PUBLIC__/mobile/images_v3/f_fanhui2.png" />
+			</a>
+		</div>
+		<div class="tool_li">
+			<a href="{:U('Shopcenter/shop')}">
+				<div class="tool_li_lf">
+					<img class="tool_img" src="__PUBLIC__/mobile/images_v3/f_dian3.png" />
+					<span class="x_baioti">店铺信息</span>
+				</div>
+				<img class="tooi_jump" src="__PUBLIC__/mobile/images_v3/f_fanhui2.png" />
+			</a>
+		</div>
+		<div class="tool_li">
+			<a href="{:U('baodan')}">
+				<div class="tool_li_lf">
+					<img class="tool_img" src="__PUBLIC__/mobile/images_v3/f_dian4.png" />
+					<span class="x_baioti">收银中心</span>
+				</div>
+				<img class="tooi_jump" src="__PUBLIC__/mobile/images_v3/f_fanhui2.png" />
+			</a>
+		</div>
+		<div class="tool_li">
+			<a href="{:U('code')}">
+				<div class="tool_li_lf">
+					<img class="tool_img" src="__PUBLIC__/mobile/images_v3/f_dian5.png" />
+					<span class="x_baioti">收款二维码</span>
+				</div>
+				<img class="tooi_jump" src="__PUBLIC__/mobile/images_v3/f_fanhui2.png" />
+			</a>
+		</div>
+		<div class="tool_li" style="margin-bottom: 0;">
+			<a href="{:U('swap')}">
+				<div class="tool_li_lf">
+					<img class="tool_img" src="__PUBLIC__/mobile/images_v3/f_dian6.png" />
+					<span class="x_baioti">额度转换</span>
+				</div>
+				<img class="tooi_jump" src="__PUBLIC__/mobile/images_v3/f_fanhui2.png" />
+			</a>
+		</div>
+
+	</div>
+
+</div>
+
+<include file="Public/tabbar" />
+<script src="__PUBLIC__/mobile/js/vue.min.js"></script>
+<script src="__PUBLIC__/mobile/js/jquery-2.1.4.js"></script>
+<script src="__PUBLIC__/mobile/js/jquery-weui.min.js"></script>
+<script src="__PUBLIC__/mobile/js/swiper.min.js"></script>
+<script src="__PUBLIC__/mobile/js/dropload.min.js"></script>
+<script>
+	function gift() {
+		location.href = "{:U('Shopcenter/moneylist')}?type=1";
+	}function expend() {
+		location.href = "{:U('Shopcenter/moneylist')}?type=2";
+	}function withdraw() {
+		location.href = "{:U('Shopcenter/moneylist')}?type=3";
+	}
+	function vtruename() {
+		var realname = "{$user.realname}";
+		var id_card = "{$user.id_card}";
+		var bank_no = "{$user.bank_no}";
+		if (realname && id_card && bank_no) {
+			location.href="{:U('moneyout')}";
+		} else {
+			layer.open({
+				content: '申请提现，请先实名认证',
+				btn: ['去认证', '取消'],
+				yes: function (index) {
+					layer.close(index);
+					location.href = "{:U('User/rep_account')}";
+				}
+			});
+			return;
+		}
+	}
+</script>
+</body>
+
+</html>
+
+
+
+<!doctype html>
+<html class="pixel-ratio-2 retina ios ios-11 ios-11-0 ios-gt-10 ios-gt-9 ios-gt-8 ios-gt-7 ios-gt-6"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<meta name="Generator" content="tpshop v1.1">
+	<meta name="viewport" content="width=device-width">
+	<meta http-equiv="keywords" content="">
+	<meta name="description" content="">
+	<meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+	<title>商家中心</title>
+	<link  href="__PUBLIC__/mobile/style/user_index.css" rel="stylesheet" type="text/css">
+	<link href="__PUBLIC__/mobile/style/sel.css" rel="stylesheet" type="text/css">
+	<script src="__PUBLIC__/layer/mobile/layer.js"></script>
+</head>
+<body>
+<div class="wappalls">
+	<div class="sjtop">
+		<img src="{$data.thumb}">
+		<p>{$data.shop_name}</p>
+	</div>
+	<div class="zicans">
+		<div class="jiyis">
+			<div class="jit-left">
+				<p>交易账户</p>
+				<h1>{$data.shop_money}</h1>
+			</div>
+			<div class="jit-right">
+				<a href="javascript:;">
+					<img src="__PUBLIC__/mobile/images/shopcenter3.png">
+					<span onclick="vtruename();">提现</span>
+				</a>
+			</div>
+		</div>
+		<hr>
+		<div class="detail">
+			<a href="{:U('moneylist')}">
+				<img src="__PUBLIC__/mobile/images/shopcenter4.png" class="detamg1">
+				<h4>资产明细</h4>
+				<img src="__PUBLIC__/mobile/images/spxq_pintuan_more.png" class="detamg2">
+			</a>
+		</div>
+	</div>
+	<div class="clear"></div>
+	<div class="zclist">
+		<ul>
+			<li>
+				<a href="javascript:gift()">
+					<p>账户积分</p>
+					<h2>{$data.money}</h2>
+				</a>
+			</li>
+			<li>
+				<a href="javascript:expend()">
+					<p>账户余额</p>
+					<h2>{$data.shop_money}</h2>
+				</a>
+			</li>
+			<li>
+				<a href="javascript:withdraw()">
+					<p>已提现</p>
+					<h2>{$data.tx_money}</h2>
+				</a>
+			</li>
+		</ul>
+	</div>
+	<div class="guanlis">
+		<h2>管理工具</h2>
+		<hr>
+		<ul>
+			<li>
+				<a href="{:U('Shopcenter/orders')}">
+					<img src="__PUBLIC__/mobile/images/shopcenter10.png" class="gulimg1">
+					<p>订单信息</p>
+					<img src="__PUBLIC__/mobile/images/spxq_pintuan_more.png" class="gulimg2">
+				</a>
+			</li>
+			<li>
+				<a href="{:U('Shopcenter/shop')}">
+					<img src="__PUBLIC__/mobile/images/shopcenter7.png" class="gulimg1">
+					<p>店铺信息</p>
+					<img src="__PUBLIC__/mobile/images/spxq_pintuan_more.png" class="gulimg2">
+				</a>
+			</li>
+			<li>
+				<a href="{:U('baodan')}">
+					<img src="__PUBLIC__/mobile/images/shopcenter8.png" class="gulimg1">
+					<p>报单中心</p>
+					<img src="__PUBLIC__/mobile/images/spxq_pintuan_more.png" class="gulimg2">
+				</a>
+			</li>
+			<li>
+				<a href="{:U('code')}">
+					<img src="__PUBLIC__/mobile/images/shopcenter9.png" class="gulimg1">
+					<p>收款二维码</p>
+					<img src="__PUBLIC__/mobile/images/spxq_pintuan_more.png" class="gulimg2">
+				</a>
+			</li>
+			<li>
+				<a href="{:U('swap')}">
+					<img src="__PUBLIC__/mobile/images/shop_center_2_1.png" class="gulimg1">
+					<p>额度转换</p>
+					<img src="__PUBLIC__/mobile/images/spxq_pintuan_more.png" class="gulimg2">
+				</a>
+			</li>
+		</ul>
+	</div>
+</div>
+<script>
+	function gift() {
+		location.href = "{:U('Shopcenter/moneylist')}?type=1";
+	}function expend() {
+		location.href = "{:U('Shopcenter/moneylist')}?type=2";
+	}function withdraw() {
+		location.href = "{:U('Shopcenter/moneylist')}?type=3";
+	}
+	function vtruename() {
+		var realname = "{$user.realname}";
+		var id_card = "{$user.id_card}";
+		var bank_no = "{$user.bank_no}";
+		if (realname && id_card && bank_no) {
+			location.href="{:U('moneyout')}";
+		} else {
+			layer.open({
+				content: '申请提现，请先实名认证',
+				btn: ['去认证', '取消'],
+				yes: function (index) {
+					layer.close(index);
+					location.href = "{:U('User/rep_account')}";
+				}
+			});
+			return;
+		}
+	}
+</script>
+</body>
+</html>

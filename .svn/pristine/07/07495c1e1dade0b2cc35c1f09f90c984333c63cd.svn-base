@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<title>弹窗</title>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+		<meta name="Keywords" content="">
+		<meta name="description" content="">
+		<!-- UC强制全屏 -->
+		<meta name="full-screen" content="yes">
+		<!-- QQ强制全屏 -->
+		<meta name="x5-fullscreen" content="true">
+		<link rel="stylesheet" href="__PUBLIC__/mobile/style/jquery-weui.min.css">
+		<link rel="stylesheet" href="__PUBLIC__/mobile/css_v3/weui.min.css">
+		<link rel="stylesheet" href="__PUBLIC__/mobile/style/main_style.css">
+		<link rel="stylesheet" href="__PUBLIC__/mobile/css_v3/window.css">
+		<link href="__PUBLIC__/css/footer.css" rel="stylesheet" type="text/css" />
+		<!--上拉加载-->
+		<link rel="stylesheet" href="__PUBLIC__/mobile/style/dropload.css">
+		<script type="text/javascript" src="__PUBLIC__/layer/mobile/layer.js"></script>
+
+	</head>
+
+	<body>
+		<div class="win_cont">
+			<div class="win_top">
+				<h3>商品橱窗</h3>
+				<img src="/Public/mobile/images_v3/f-guanbi.png" alt="" />
+			</div>
+			<!--内容部分-->
+			<div class="win_container">
+				<div class="win_list">
+					<div class="top_tit">
+						<div class="top_tit_lf">
+							<img class="tb" src="/Public/mobile/images_v3/f_t3.png" alt="" />
+							<h2>我的足迹</h2>
+						</div>
+						<a href="">
+	     				查看更多
+	     				<img class="fanhui" src="/Public/mobile/images_v3/f_dm34.png" alt="" />
+	     			</a>
+					</div>
+					<ul class="win_product">
+						<li>
+							<a href="">
+								<img src="/Public/mobile/images_v3/f_dm10.png" alt="" />
+								<span class="f_price">￥<span class="f_symbol">69</span></span>
+							</a>
+						</li>
+						<li>
+							<a href="">
+								<img src="/Public/mobile/images_v3/f_dm10.png" alt="" />
+								<span class="f_price">￥<span class="f_symbol">69</span></span>
+							</a>
+						</li>
+						<li>
+							<a href="">
+								<img src="/Public/mobile/images_v3/f_dm10.png" alt="" />
+								<span class="f_price">￥<span class="f_symbol">69</span></span>
+							</a>
+						</li>
+					</ul>
+				</div>
+				<!--店铺热榜-->
+				<div class="win_list">
+					<div class="top_tit">
+						<div class="top_tit_lf">
+							<img class="tb" src="/Public/mobile/images_v3/f_t2.png" alt="" />
+							<h2>我的足迹</h2>
+						</div>
+						<a href="">
+	     				查看更多
+	     				<img class="fanhui" src="/Public/mobile/images_v3/f_dm34.png" alt="" />
+	     			</a>
+					</div>
+					<ul class="win_product">
+						<li>
+							<a href="">
+								<img src="/Public/mobile/images_v3/f_dm10.png" alt="" />
+								<span class="f_price">￥<span class="f_symbol">69</span></span>
+							</a>
+						</li>
+						<li>
+							<a href="">
+								<img src="/Public/mobile/images_v3/f_dm10.png" alt="" />
+								<span class="f_price">￥<span class="f_symbol">69</span></span>
+							</a>
+						</li>
+						<li>
+							<a href="">
+								<img src="/Public/mobile/images_v3/f_dm10.png" alt="" />
+								<span class="f_price">￥<span class="f_symbol">69</span></span>
+							</a>
+						</li>
+					</ul>
+				</div>
+				<!--智能推荐-->
+				<div class="win_list">
+					<div class="top_tit">
+						<div class="top_tit_lf">
+							<img class="tb" src="/Public/mobile/images_v3/f_t1.png" alt="" />
+							<h2>我的足迹</h2>
+						</div>
+						<a href="">
+	     				查看更多
+	     				<img class="fanhui" src="/Public/mobile/images_v3/f_dm34.png" alt="" />
+	     			</a>
+					</div>
+					<ul class="win_product">
+						<li>
+							<a href="">
+								<img src="/Public/mobile/images_v3/f_dm10.png" alt="" />
+								<span class="f_price">￥<span class="f_symbol">69</span></span>
+							</a>
+						</li>
+						<li>
+							<a href="">
+								<img src="/Public/mobile/images_v3/f_dm10.png" alt="" />
+								<span class="f_price">￥<span class="f_symbol">69</span></span>
+							</a>
+						</li>
+						<li>
+							<a href="">
+								<img src="/Public/mobile/images_v3/f_dm10.png" alt="" />
+								<span class="f_price">￥<span class="f_symbol">69</span></span>
+							</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+
+		</div>
+
+		<include file="Public/tabbar" />
+		<script src="__PUBLIC__/mobile/js/vue.min.js"></script>
+		<script src="__PUBLIC__/mobile/js/jquery-2.1.4.js"></script>
+		<script src="__PUBLIC__/mobile/js/jquery-weui.min.js"></script>
+		<script src="__PUBLIC__/mobile/js/swiper.min.js"></script>
+		<script src="__PUBLIC__/mobile/js/dropload.min.js"></script>
+
+	</body>
+
+</html>

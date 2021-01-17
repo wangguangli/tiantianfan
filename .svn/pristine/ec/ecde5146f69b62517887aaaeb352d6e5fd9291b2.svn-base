@@ -1,0 +1,44 @@
+<?php
+
+    namespace M\Controller;
+    header( "Content-type: text/html; charset=utf-8" ); // tp输出的编码不是utf8，模板编码是。
+    use Clas\Orderin;
+    use Think\Controller;
+
+    class CommonController extends Controller
+    {
+        public function __construct()
+        {
+            parent::__construct();
+            $fname = ACTION_NAME;//方法名
+            $array = array( 'refund_log',
+                'alipay'
+            );                   //不用继承的方法名数组
+            $this->user_id = session( 'user_id' );
+            if ( !in_array( $fname,$array ) ){
+                if ( !$this->user_id ){
+                    $url = U( 'Index/login' );
+                    redirect( $url );
+                }
+
+            }
+            $time = time() - get_config( 'order_end_time' ) * 60;//30分钟自动取消积分订单
+            $where[ 'user_id' ] = array( 'eq',
+                $this->user_id
+            );
+            $where[ 'order_status' ] = array( 'eq',
+                0
+            );
+            $where[ 'add_time' ] = array( 'elt',
+                $time
+            );
+            $order = M( 'order' )->where( $where )->select();
+            $orderIn = new Orderin();
+            foreach ( $order as $k => $v ){
+                $re = $orderIn->cancelOrder( $v[ 'id' ] );
+                if ( $re && $v['order_type'] == 11){
+                    M( 'user' )->where( 'id=' . $this->user_id )->setDec( 'wait_score',$v[ 'actual_order_total' ] );
+                }
+            }
+        }
+    }

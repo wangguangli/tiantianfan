@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<title>银行卡</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<link rel="stylesheet" href="__PUBLIC__/mobile/css_v3/mui.min.css">
+		<link rel="stylesheet" href="__PUBLIC__/mobile/css_v3/bank_card.css?n=1">
+		<link rel="stylesheet" href="__PUBLIC__/mobile/style/main_style.css">
+		<script src="__PUBLIC__/js/mui.min.js"></script>
+		<script src="__PUBLIC__/js/jquery.min.js"></script>
+		<script src="__PUBLIC__/layer/mobile/layer.js"></script>
+	</head>
+
+	<body>
+
+		<div class="mui-content">
+			<if condition="empty($list)">
+				<div class="empty_data">
+					<div class="empty_data_t0">
+						<img src="__PUBLIC__/mobile/images_v3/empty_cart_img_1.png" class="empty_cart_img_1">
+					</div>
+					<div class="empty_data_t1">暂无数据</div>
+				</div>
+				<else/>
+				<div class="bank" id="bank">
+					<volist name="list" id="vo">
+						<div class="bank_banner  myBtn">
+							<input type="hidden" class="bank_id" value="{$vo.id}">
+							<h5 class="name">{$vo.bank_name}</h5>
+							<span class="card">储蓄卡</span>
+							<div class="number">{$vo.cart_no}</div>
+						</div>
+					</volist>
+				</div>
+			</if>
+			<div class="addition">
+				<a href="javascript:;" onclick="add_bank()" class="add_bank" style="width: 30%;">添加</a>
+				<a href="javascript:;" onclick="add_bank2()" class="add_bank" style="width: 30%;">充值</a>
+				<a href="javascript:;" onclick="add_bank1()" class="add_bank" style="width: 30%;">提现</a>
+			</div>
+		</div>
+		<!-- 弹窗 -->
+		<div id="myModal" class="modal">
+			<!-- 弹窗内容 -->
+			<div class="modal-content">
+				<h5>是否删除</h5>
+				<div class="delete">
+					<ul class="delete_sure clearfix">
+						<li class="close">取消</li>
+						<li id="sure">确定</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</body>
+	<script type="text/javascript">
+		var search = location.search;
+
+		function parse(search) {
+			//从第二个字符开始截取   ，获取到第二个开始后面所有的字符
+			var str = search.substring(1);
+			var result = {};
+			//分割字符串  -->产生字符串数组
+			var strs = str.split("&");
+			//遍历数组中的每一个元素
+			strs.forEach(function(v) {
+				//伪代码：v="age=18"
+				var keyvalue = v.split("=");
+				var name = keyvalue[0];
+				var value = keyvalue[1];
+				result[name] = value;
+			})
+			return result;
+		}
+		var r = parse(search);
+		var cart1 = r.cart;
+		var agent = r.agent;
+		var user = r.user;
+		$(".myBtn").on("click", function() {
+			var bank_id = $(this).find('.bank_id').val();
+			console.log(bank_id);
+			if (cart1) {
+				location.href = "/M/Shopcenter/moneyout?bank_id=" + bank_id;
+			} else if (agent) {
+				location.href = "/M/Agent/moneyout?bank_id=" + bank_id;
+			} else if (user) {
+				location.href = "/M/User/moneyout?bank_id=" + bank_id;
+			}else {
+				layer.open({
+					content: '请选择',
+					btn: ['编辑', '取消', ],
+					skin: 'footer',
+					yes: function(index, data) {
+						var bank_id = $(".bank_id").val(); //银行卡id
+						location.href = "/M/User/add_card?bank_id="+bank_id+"&cart1="+cart1+"&agent="+agent+"&user="+user;
+					},
+					function(index, data) {}
+				});
+			}
+		})
+
+		function back() {
+			location.href = "{:U('User/index')}";
+		}
+
+		function add_bank() {
+			if (cart1) {
+				location.href = "/M/User/add_card?cart=" + cart1;
+			} else if (agent) {
+				location.href = "/M/User/add_card?agent=" + agent;
+			} else if (user) {
+				location.href = "/M/User/add_card?user=" + user;
+			}else {
+				location.href = "/M/User/add_card";
+			}
+		}
+		function add_bank1() {
+
+				location.href = "/M/User/distributionCenter";
+
+		}
+		function add_bank2() {
+
+				location.href = "/M/User/cz";
+
+		}
+	</script>
+
+</html>

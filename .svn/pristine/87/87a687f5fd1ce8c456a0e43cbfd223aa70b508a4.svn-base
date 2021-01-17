@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>物流详情</title>
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="stylesheet" href="__PUBLIC__/css/mui.min.css">
+    <link rel="stylesheet" href="__PUBLIC__/mobile/css_v3/order.css?n=4">
+    <script src="__PUBLIC__/js/mui.min.js"></script>
+    <script src="__PUBLIC__/js/jquery.min.js"></script>
+
+</head>
+<body style="background: #F7F8FA;">
+<header class="mui-bar mui-bar-nav" style="box-shadow: none">
+    <p class="mui-pull-left mui-icon mui_turn" onclick="back()">
+        <img src="__PUBLIC__/images/left.png" width="20vw" height="20vw"/>
+    </p>
+    <h1 class="mui-title tit_login">物流详情</h1>
+</header>
+<div class="mui-content">
+    <if condition="$list.num gt 0">
+        <div class="h_out">{$list.num}个包裹已发出</div>
+    </if>
+    <volist name="list.goods" id="vo">
+        <div class="h_goods_box">
+<!--            result.jsp?nu=$vo.tracking_number-->
+            <a class="h_goods_con" onclick="copy_number('{$vo.express_url}','{$vo.tracking_number}')">
+                <p class="h_yun"><img src="__PUBLIC__/images/h_goods.png" alt="">{$vo.order_status_sn}</p>
+                <if condition="$vo['tracking_number'] neq ''">
+                    <p>{$vo.express_name}：{$vo.tracking_number} <span class="h_goods_btn">查看</span></p>
+                </if>
+            </a>
+            <div class="h_goods">
+                <volist name="vo.goods" id="vo1">
+                    <img src="{$vo1.goods_thumb}" />
+                </volist>
+
+            </div>
+            <div class="confirm_cont">
+                <div class="h_goods_num">共{$vo.goods_num}件商品</div>
+                <if condition="$vo['order_status'] eq '2'">
+                    <div class="firm_button" onclick="sure_order({$list.shop_id},{$vo.tracking_number},{$list.order_id})">确认收货</div>
+                </if>
+            </div>
+        </div>
+    </volist>
+
+</div>
+<script src="__PUBLIC__/js/jquery-1.11.1.min.js"></script>
+<script src="__PUBLIC__/layer/mobile/layer.js"></script>
+<script>
+    function copy_number(url,number) {
+        var Url2=number;
+        document.execCommand("Copy"); // 执行浏览器复制命令
+        var oInput = document.createElement('input');
+        oInput.value = Url2;
+        document.body.appendChild(oInput);
+        oInput.select(); // 选择对象
+        document.execCommand("Copy"); // 执行浏览器复制命令
+        oInput.className = 'oInput';
+        oInput.style.display='none';
+        window.location.href = url;
+    }
+    //确认收货
+    function sure_order(shop_id, tracking_number, order_id) {
+        $.ajax({
+            type: "POST",
+            dataType: "json",
+            data: {"shop_id": shop_id, "tracking_number": tracking_number, "order_id": order_id},
+            url: "{:U('Api/Orderin/takeNumDelivery')}",
+            success: function (data) {
+                console.log(data);
+                layer.open({
+                    content: '订单已收货'
+                    , skin: 'msg'
+                    , time: 2 //2秒后自动关闭
+                });
+                window.location.reload()
+            }
+        });
+    }
+</script>
+</body>
+</html>

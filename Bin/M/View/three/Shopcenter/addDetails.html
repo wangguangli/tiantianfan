@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>商品管理</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="Keywords" content="">
+    <meta name="description" content="">
+    <!-- UC强制全屏 -->
+    <meta name="full-screen" content="yes">
+    <!-- QQ强制全屏 -->
+    <meta name="x5-fullscreen" content="true">
+    <link rel="stylesheet" href="__PUBLIC__/mobile/css_v3/addItem.css">
+    <script type="text/javascript" src="__PUBLIC__/layer/mobile/layer.js"></script>
+    <!--上拉加载-->
+</head>
+<body style="background-color: #f7f8fa;">
+<div class="h_vh">
+    <div class="h_goods"></div>
+    <input type="file" class="upImg" style="display: none">
+</div>
+<div class="nextStep">
+    <a class="nextStepBtn_02" href="javascript:;">批量设置</a>
+    <a class="nextStepBtn_03" href="javascript:;" onclick="nextStep()">下一步</a>
+</div>
+<!--弹窗-->
+<div class="f_window">
+    <div class="f_wind_cont">
+        <div class="f_wind_bj">
+            <!--商品规格-->
+            <div class="f_wind_g">
+                商品规格
+            </div>
+            <!--中间部分-->
+            <div class="f_wind_mid">
+                <div class="f_wind_list">
+                    <span class="price">售价：</span>
+                    <input class="put" type="text" />
+                    <button class="but" onclick="InputVal(this,0)">确定</button>
+                </div>
+                <div class="f_wind_list">
+                    <span class="price">成本价：</span>
+                    <input class="put" type="text" />
+                    <button class="but" onclick="InputVal(this,1)">确定</button>
+                </div>
+                <div class="f_wind_list">
+                    <span class="price">库存：</span>
+                    <input class="put" type="text" />
+                    <button class="but" onclick="InputVal(this,2)">确定</button>
+                </div>
+                <div class="f_wind_list">
+                    <span class="price">重量(g)：</span>
+                    <input class="put" type="text" />
+                    <button class="but" onclick="InputVal(this,3)">确定</button>
+                </div>
+                <!--规格图片-->
+                <div class="f_wind_list">
+                    <span class="price">规格图片：</span>
+                    <img class="f_wind_img" src="/Public/mobile/images_v3/h_ic_h.png" alt="" />
+                    <p class="f_wind_img_p T-upImg">上传</p>
+                    <button class="but" onclick="ImgVal(this)">确定</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--关闭按钮-->
+    <img class="f_guan_img" src="/Public/mobile/images_v3/f_tc_gb.png" alt="" />
+</div>
+<script src="__PUBLIC__/mobile/js/jquery-2.1.4.js"></script>
+<script type="text/javascript">
+    var user_id = "{$user_id}";
+    var IMGDATA; //本地存储信息
+    var PREV; //图片DOM做this指向
+    var ITEMIMG; //做本地存储是否有规格信息
+    if(localStorage.addData){
+        IMGDATA = JSON.parse(localStorage.addData);
+        if(IMGDATA.item){
+            ITEMIMG = JSON.parse(IMGDATA.item)
+        }
+    }
+    $(function () {
+        $.ajax({
+            type: 'post',
+            dataType: 'json',
+            // timeout:  4000,//接口请求超时
+            async: false,//改为同步方式
+            url: "{:U('Api/Shopapp/getSpec')}",
+            data: {
+                'user_id': user_id,
+                'shop_id': IMGDATA.shop_id,
+                'goods_id': IMGDATA.goods_id,
+                'spec_arr': JSON.stringify(IMGDATA.spec_arr)
+            },
+            success: function (row) {
+                if(row.status == 0){
+                    var data = row.result;
+                    var html = '';
+                    $.each(data,function (k,v) {
+                        html += '<div class="h_ridge" data-key='+v.key+'>' +
+                            '            <div class="h_red">' +
+                            '                <span class="h_hui">'+v.name1+'</span>' +
+                            '            </div>' +
+                            '            <ul class="h_tiaoMu">' +
+                            '                <li>' +
+                            '                    <p>售价</p>' +
+                            '                    <input type="text" name="price" value='+(ITEMIMG?ITEMIMG[v.key].price:v.price)+'>' +
+                            '                </li>' +
+                            '                <li>' +
+                            '                    <p>成本价</p>' +
+                            '                    <input type="text" name="purchase_price" value='+(ITEMIMG?ITEMIMG[v.key].purchase_price:v.purchase_price)+'>' +
+                            '                </li>' +
+                            '                <li>' +
+                            '                    <p>库存</p>' +
+                            '                    <input type="text" name="store_count" value='+(ITEMIMG?ITEMIMG[v.key].store_count:v.store_count)+'>' +
+                            '                </li>' +
+                            '                <li>' +
+                            '                    <p>重量(g)</p>' +
+                            '                    <input type="text" name="weight" value='+(ITEMIMG?ITEMIMG[v.key].weight:v.weight)+'>' +
+                            '                </li>' +
+                            '            </ul>' +
+                            '            <div class="h_upImg">' +
+                            '                <span>规格图片</span>';
+                        if(ITEMIMG){
+                            html += '<img src='+(ITEMIMG[v.key].img?ITEMIMG[v.key].img:"__PUBLIC__/mobile/images_v3/h_ic_h.png")+' alt="">' ;
+                        }else if(!v.img){
+                            html += '<img src="__PUBLIC__/mobile/images_v3/h_ic_h.png" alt="">' ;
+                        }else {
+                            html += '<img src='+v.img+' alt="">' ;
+                        }
+                        html += '                <p class="T-upImg">上传</p>' +
+                            '            </div>' +
+                            '        </div>';
+                    });
+                    $('.h_goods').html(html)
+
+                }else {
+                    layer.open({content: row.msg,skin: 'msg',time: 1});
+                }
+            },
+        });
+    });
+    //弹窗
+    $(".f_guan_img,.nextStepBtn_02").click(function() {
+        $(".f_window").toggle();
+    });
+    //批量操作 0 售价 1 成本价 2 库存 3 重量(g)
+    function InputVal(that,ind){
+        var val = $(that).prev().val();
+        if(val || ind == 1 || ind == 3){
+            $('.h_goods .h_tiaoMu').each(function () {
+                $(this).children().eq(ind).children('input').val(val)
+            });
+            $(".f_window").toggle();
+        }else {
+            layer.open({content: '请填写该规格值',skin: 'msg',time: 1});
+        }
+    }
+    //批量操作 图片
+    function ImgVal(that){
+        var src = $(that).prevAll('img').attr('src');
+        $('.h_goods .h_upImg img').each(function () {
+            $(this).attr('src',src)
+        });
+        $(".f_window").toggle();
+    }
+    // 上传图片
+    $('body').on("click",'.T-upImg',function() {
+        PREV = $(this).prev();
+        $('.upImg').click();
+    });
+    $('.upImg').change(function(){
+        upAdd(this.files,PREV);
+    });
+    function upAdd(upFiles,PREV){
+        //如果没有图片文件
+        if( upFiles.length<1 ){
+            return false;
+        }
+        for( var i=0;i<upFiles.length;i++ ){
+            layer.open({content: '上传加载中...',skin: 'msg',});
+            var file_obj = upFiles[i];		//单个文件
+            var name = file_obj.name;	//文件名
+            var imageType = /^image\//;
+            //是否是图片
+            if(!imageType.test(file_obj.type)) {
+                layer.open({content: '请上传图片文件',skin: 'msg',time: 1});
+                return false;
+            }
+            var formData = new FormData();
+            formData.append("headimg", file_obj);
+            formData.append("handlename", 'headimg');
+            $.ajax({
+                url: '/index.php/M/Shopcenter/uploads',
+                type: 'post',
+                data: formData,
+                contentType: false,
+                dataType: "json",
+                processData: false,
+                success: function (row) {
+                    layer.closeAll();
+                    if(row.status == 0){
+                        $(PREV).attr('src',row.result);
+                        $('[type="file"]').val('');
+                    }else {
+                        layer.open({content: row.result,skin: 'msg',time: 1});
+                    }
+                },
+                error: function () {
+                    layer.closeAll()
+                },
+            });
+        }
+    }
+    //下一步
+    function nextStep() {
+        var kong = true;  //判断必填内容
+        var dataItem = {};
+        $('.h_ridge').each(function () {
+            var key = $(this).attr('data-key');
+            var price = $(this).find("[name='price']").val(); //price
+            if(!price){
+                kong = false;
+                layer.open({content: '请填写售价',skin: 'msg',time: 1});
+                return false
+            }
+            var purchase_price = $(this).find("[name='purchase_price']").val();
+            var store_count = $(this).find("[name='store_count']").val(); //
+            if(!store_count){
+                kong = false;
+                layer.open({content: '请填写库存',skin: 'msg',time: 1});
+                return false
+            }
+            var weight = $(this).find("[name='weight']").val();
+            var img = $(this).children('.h_upImg').children('img').attr('src');
+            dataItem[key] = {
+                purchase_price: purchase_price,
+                price: price,
+                store_count: store_count,
+                weight: weight,
+                img: img
+            }
+        });
+        if(kong) {
+            IMGDATA['item'] = JSON.stringify(dataItem);
+            localStorage.setItem("addData", JSON.stringify(IMGDATA));
+            window.location.href = "{:U('Shopcenter/addText')}"
+        }
+    }
+</script>
+</body>
+</html>

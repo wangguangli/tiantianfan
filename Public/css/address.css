@@ -1,0 +1,851 @@
+body,
+dl,
+dd,
+ul,
+ol,
+li,
+h1,
+h2,
+h3,
+h4,
+form,
+fieldset,
+input,
+textarea,
+p,
+th,
+td {
+	margin: 0;
+	padding: 0;
+}
+
+body,
+button,
+input,
+select,
+textarea {
+	margin: 0;
+	padding: 0;
+	font-size: 1rem;
+	font-family: "microsoft yahei", Arial, Helvetica, sans-serif;
+}
+
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+	line-height: 1.5;
+}
+
+img {
+	border: 0;
+}
+
+* {
+	padding: 0;
+	margin: 0;
+}
+
+ol,
+ul,
+li {
+	list-style: none;
+}
+
+caption,
+th {
+	text-align: left;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+	font-size: 100%;
+	font-weight: normal;
+}
+
+
+/*html5*/
+
+article,
+aside,
+dialog,
+footer,
+header,
+section,
+footer,
+nav,
+figure,
+menu {
+	display: block;
+}
+
+input,
+textarea,
+button,
+select {
+	outline: none;
+}
+
+textarea {
+	resize: none;
+}
+
+i,
+em,
+cite {
+	font-style: normal;
+}
+
+a {
+	text-decoration: none;
+	color: #333;
+}
+.clear{clear:both}
+.hide {
+	display: none;
+}
+
+* {
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+}
+
+*:before,
+*:after {
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+}
+
+.iconfont {
+	font-family: "iconfont";
+	font-style: normal;
+	-webkit-font-smoothing: antialiased;
+	-webkit-text-stroke-width: 0.2px;
+}
+/*头部登录*/
+
+.hed_login {
+	width: 100%;
+	height: 28px;
+	line-height: 28px;
+	background-color: #e3e4e5;
+}
+
+.hed_login-cont em {
+	color: #999;
+	margin: 0 5px;
+}
+
+.hed_login a {
+	color: #999;
+	font-size: 12px;
+}
+
+.hed_login a:hover {
+	color: #df1a0f;
+}
+/*左边地址*/
+
+.province_cont {
+	width: 500px;
+	float: left;
+}
+
+.province_cont li {
+	width: 73px;
+	float: left;
+}
+
+.province_cont .dorpdown img {
+	width: 16px;
+	height: 15px;
+	float: left;
+	margin-top: 7px;
+	margin-right: 2px;
+}
+
+.dorpdown span {
+	color: #999;
+	font-size: 12px;
+}
+
+.hed_login-cont {
+	width: 30%;
+	float: right;
+	text-align: right;
+}
+
+.shopping_cart_bj .navitems {
+	width: 672px;
+	text-align: center;
+	float: left;
+}
+
+.navitems ul {
+	width: 346px;
+	overflow: hidden;
+	margin-top: 22px;
+	margin-left: 227px;
+}
+
+.shopping_cart_bj .navitems ul li {
+	width: 115px;
+	float: left;
+}
+
+.navitems ul li a {
+	font-size: 16px;
+	color: #333;
+}
+
+.navitems ul li .active {
+	color: #df1a0f;
+}
+
+.navitems ul li a:hover {
+	font-size: 16px;
+	color: #df1a0f;
+}
+/*头部的搜索框部分*/
+
+.shopping_cart_bj {
+	width: 100%;
+	overflow: hidden;
+}
+
+.header_left {
+	width: 385px;
+	float: right;
+	overflow: hidden;
+	margin-top: 14px;
+}
+
+.search_box {
+	float: left;
+	height: 36px;
+}
+
+.search_box .text {
+	width: 175px;
+    font-size: 12px;
+    height: 34px;
+    border: 2px solid #e2231a;
+    padding-left: 17px;
+    float: left;
+}
+.the_link .text02{
+	width: 300px;
+	background-color: #f2f2f6;
+	border: 2px solid #f2f2f6;
+}
+input::-webkit-input-placeholder {
+	color: #999;
+}
+
+input::-moz-placeholder {
+	/* Mozilla Firefox 19+ */
+	color: #999;
+}
+
+input:-moz-placeholder {
+	/* Mozilla Firefox 4 to 18 */
+	color: #999;
+}
+
+input:-ms-input-placeholder {
+	/* Internet Explorer 10-11 */
+	color: #999;
+}
+
+.search_box .button {
+	width: 58px;
+    border: none;
+    background-color: #e1251b;
+    font-size: 20px;
+    height: 34px;
+}
+.search_box .button img {
+	width: 20px;
+	height: 20px;
+	margin-top: 5px;
+}
+.the_link{
+	margin-top: 53px;
+}
+/*头部购物车*/
+
+.shopping-icon {
+	width: 130px;
+	height: 34px;
+	background-color: #fff;
+	border-color: #eee;
+	border: 2px solid #df1a0f;
+	float: right;
+	position: relative;
+}
+
+.shopping_cart {
+	width: 17px;
+	height: 18px;
+	margin-left: 10px;
+	float: left;
+	margin-top: 6px;
+}
+
+.shopping_cart img {
+	width: 100%;
+	height: 100%;
+}
+
+.shopping-icon .round {
+	width: 16px;
+	height: 16px;
+	border-radius: 50%;
+	float: left;
+	background-color: #df1a0f;
+	text-align: center;
+	color: #fff;
+	font-size: 12px;
+}
+
+.shopping-text {
+	font-size: 14px;
+	color: #df1a0f;
+	margin-left: 7px;
+	margin-top: 5px;
+	display: inline-block;
+}
+/*二维码内容*/
+
+.personal_center {
+	width: 1200px;
+	margin: 0 auto;
+	margin-top: 25px;
+}
+
+.personal_center .personal_side {
+	width: 175px;
+	height: auto;
+	background-color: #fff;
+	padding: 0 16px;
+	padding-bottom: 20px;
+	float: left;
+}
+
+.personal_side .fore1 {
+	padding: 15px 20px 5px 25px;
+	border-bottom: 1px dashed #ddd;
+}
+
+.fore1_border {
+	border-bottom: 0 !important;
+}
+
+.fore1 .fore1_order {
+	font-size: 16px;
+	font-weight: 700;
+	margin-bottom: 7px;
+}
+
+.fore1_ul {
+	width: 100%;
+	overflow: hidden;
+}
+
+.fore1_ul li {
+	font-size: 14px;
+	margin: 14px 0;
+}
+
+.fore1_ul li a {
+	color: #8a8a8a;
+}
+.fore1_ul li a:hover{
+	color: #e4393c;
+}
+
+.shop_cont_bottom {
+	margin-bottom: 20px;
+}
+
+.grid_c1 {
+	width: 1200px;
+	margin: 0 auto;
+	overflow: hidden;
+	font-size: 13px;
+	padding-bottom: 11px;
+}
+/*右边内容*/
+ .right_side{
+	width: 1011px;
+	float: right;
+    overflow: hidden;
+}
+.right_side_top{
+	width: 100%;
+	background-color: #fff;
+	padding: 12px 26px;
+	margin-bottom: 15px;
+}
+.right_side_top a{
+	font-size: 15px;
+	color: #333;
+	font-weight: bold;
+}
+.right_side_top a:hover{
+	color: #e4393c;
+}
+/*公用底部*/
+
+.footer {
+	width: 100%;
+	overflow: hidden;
+}
+
+.mod_service {
+	padding: 30px 0;
+	border-bottom: 1px solid #dedede
+}
+
+.mod_service_list {
+	height: 42px
+}
+
+.mod_service_item {
+	float: left;
+	width: 321px
+}
+
+.mod_service_item02 {
+	width: 235px
+}
+
+.mod_service_txt {
+	width: 176px;
+	float: left;
+	margin-left: 10px;
+	height: 42px;
+	line-height: 42px;
+	font-size: 18px;
+	font-weight: 700;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	color: #444
+}
+
+.mod_help {
+	padding: 30px 0 20px 0;
+}
+
+.mod_help_list {
+	overflow: hidden;
+	height: 160px
+}
+
+.mod_help_nav {
+	float: left;
+	width: 75px;
+	text-align: center;
+	line-height: 22px;
+	margin: 0 62px;
+}
+
+.mod_help_nav_tit {
+	font-size: 16px;
+	font-weight: bold;
+	margin-bottom: 15px;
+}
+
+.mod_copyright_inner {
+	padding: 15px 0;
+	border-top: 1px solid #e1e1e1;
+	text-align: center
+}
+
+.mod_copyright_info {
+	padding: 10px 0;
+	line-height: 22px;
+	color: #999
+}
+
+.mod_copyright_info a {
+	color: #999
+}
+
+.mod_copyright_info a:hover {
+	color: #c81623
+}
+/*底部有边框的字*/
+
+.mod_service_tit {
+	width: 39px;
+	height: 39px;
+	line-height: 34px;
+	border-radius: 50%;
+	border: 2px solid #e23441;
+	color: #e23441;
+	font-size: 19px;
+	font-weight: bold;
+	text-align: center;
+	float: left;
+}
+/*底部链接*/
+
+.mod_help_nav_con a {
+	font-size: 14px;
+	color: #444;
+	line-height: 28px;
+}
+
+.mod_help_nav_con a:hover {
+	color: #df1824;
+}
+ 
+
+/*收货地址*/
+/*内容背景*/
+ .head_portrait{
+ 	height: auto;
+    background-color: #fff;
+    padding: 30px 30px 30px 30px;
+    margin-bottom: 80px;
+}
+ .set_up_cont{
+ 	width: 100%;
+ 	overflow: hidden;
+ 	margin-bottom: 35px;
+ }
+  
+/*主要内容*/
+.head_portrait{
+	width: 100%;
+	overflow: hidden;
+}
+.shipping_address{
+   width: 100%;
+   overflow: hidden;
+}
+.shipping_address button{
+   width: 155px;
+   height: 40px;
+   border: 1px solid #e4393c;
+   background-color: #e4393c;
+   text-align: center;
+   font-size: 15px;
+   color: #fff;
+   border-radius:4px ;
+   float: left;
+   margin-right: 17px;
+   position: relative;
+}
+.shipping_address .text{
+	margin-top: 10px;
+	font-size: 15px;
+	color: #7d7d7d;
+	float: left;
+}
+.address_cont .address_img{
+	width: 70px;
+	height: 69px;
+	float: left;
+	margin-right: 26px;
+}
+.address_cont .address_img img{
+	 width: 100%;
+	 height: 100%;
+}
+/*下半部分*/
+.head_portrait .address_cont{
+	width: 351px;
+	overflow: hidden;
+	margin-left: 225px;
+	margin-top: 125px;
+	padding-bottom: 251px;
+}
+.address_cont .address_text{
+	font-size: 16px;
+	color: #ddd;
+}
+.address_cont .address_text p{
+	margin-top: 7px;
+	font-size: 16px;
+	color: #ddd;
+}
+.address_cont .address_text p a{
+	color: #e4393c;
+	display: inline-block;
+	margin: 0 4px;
+}
+
+/*地址列表*/
+ 
+/*地址列表主要内容*/
+.shipping_add{
+   width: 100%;
+   overflow: hidden;
+   margin-bottom: 11px;
+}
+.shipping_add button{
+   width: 155px;
+   height: 40px;
+   border: 1px solid #e4393c;
+   background-color: #e4393c;
+   text-align: center;
+   font-size: 15px;
+   color: #fff;
+   border-radius:4px ;
+   float: left;
+   margin-right: 17px;
+}
+.shipping_add .text{
+	margin-top: 10px;
+	font-size: 15px;
+	color: #7d7d7d;
+	float: left;
+}
+
+/*列表内容*/
+.the_consignee{
+	width: 100%;
+	overflow: hidden;
+	position: relative;
+}
+.consignee_list{
+	border: 1px solid #e6e6e6;
+	padding: 9px 11px;
+	font-size: 15px;
+    color: #7d7d7d;
+    margin-top: 17px;
+	position:relative;
+}
+.consignee_list_delete{
+	width: 100%;
+	position: relative;
+	display:table;
+	margin-bottom: 16px;
+}
+.consignee_list_delete .left{
+	width: 121px;
+	float: left;
+}
+.consignee_list_delete .default{
+	display: inline-block;
+	padding: 2px 7px;
+	background-color: #f53a3a;
+	text-align: center;
+	color: #fff;
+	font-size: 13px;
+}
+.consignee_list_delete .default a{
+	 font-size: 13px;
+	 color: #fff;
+}
+.consignee_list_delete .df_img{
+	width: 13px;
+	height: 13px;
+	position: absolute;
+	top: -2px;
+	right:3px ;
+}
+.list_bottom .consignee{
+	color: #e4393c;
+}
+.list_bottom{
+	width: 890px;
+	 
+}
+.list_bottom .list{
+	margin-bottom: 10px;
+}
+.list_bottom .list .the_left{
+	 text-align: right;
+	  width: 73px;
+	 display: inline-block;
+}
+.list_bottom .list .jl{
+	 text-align: left;
+	  width: 500px;
+	 display: inline-block;
+	 margin-left: 3px;
+}
+/*编辑*/
+.list_bottom .editor{
+	font-size: 14px;
+    position: absolute;
+    bottom: 16px;
+    right: 15px;
+}
+.list_bottom .editor a{
+	 color: #427ab4;
+}
+.list_bottom .default{
+	 color: #427ab4;
+	 margin-right: 18px;
+}
+
+/*添加地址*/
+/*新增收货地址弹出框*/
+.transparent_cont {
+	width: 770px;
+	background-color: #fff;
+	margin: 0 auto;
+	height: auto;
+	border: 1px solid #ababab;
+	position: fixed;
+	top: 200px;
+	left: 50%;
+	margin-left:-285px;
+	border-radius:6px ;
+	display: none;
+	 
+}
+/*添加银行卡部分*/
+
+.Add_bank_card {
+	width: 100%;
+	height: 39px;
+	line-height: 39px;
+	background: #f5f5f5;
+	font-size: 15px;
+	color: #333;
+	padding: 0 20px;
+	border-radius:6px 6px 0 0;
+	margin-bottom: 7px;
+}
+.Add_bank_card img{
+	margin-left: 10px;
+	margin-bottom: 5px;
+}
+.Add_bank_card .mandatory{
+	color: #999;
+}
+/*关闭的x号*/
+
+.transparent_cont .shut_down {
+	width: 31px;
+	height: 31px;
+	position: absolute;
+	top: 4px;
+	right: 14px;
+}
+
+.transparent_cont .shut_down img {
+	width: 100%;
+	height: 100%;
+}
+/*弹出的添加地址主要内容部分*/
+ 
+.he_por {
+	width: 100%;
+	overflow: hidden;
+	padding: 0 20px 40px 20px;
+}
+
+.cont_list {
+	width: 254px;
+	margin-top: 15px;
+}
+
+.he_por .cont_list .cardholder{
+	font-size: 14px;
+	color: #999;
+	display: block;
+	 
+}
+.cardholder img{
+	margin-bottom: 5px;
+}
+
+.he_por .cont_list input {
+	border: 1px solid #ddd;
+	padding: 0 14px;
+	height: 33px;
+	margin-top: 7px;
+	width: 235px;
+	font-size: 14px;
+}
+ 
+.he_por .but_dete {
+	border: 1px solid #e4393c;
+	height: 31px;
+	font-size: 15px;
+	text-align: center;
+	color: #fff;
+	width: 147px;
+	border-radius: 4px;
+	background-color: #e4393c;
+	margin-top: 20px;
+}
+
+select {
+	width: 165px;
+	height: 34px;
+	margin-top: 7px;
+	border: 1px solid #ddd;
+	font-size: 14px;
+	color: #333;
+}
+.cont_list .detailed{
+	width: 507px!important;
+}
+/*手机号和固定电话部分*/
+.cont_list_phone{
+	width: 560px;
+	overflow: hidden;
+}
+.cont_list_phone .phone_no{
+	width: 236px;
+	float: left;
+}
+
+.cont_list_phone .telephone{
+	width: 254px;
+	float: left;
+}
+.phone_no_or{
+	display: block;
+	width: 36px;
+	text-align: center;
+	float: left;
+	margin-top: 50px;
+	color: #999;
+
+}
+.default_cont{
+	width: 500px;
+	margin-top: 12px;
+	font-size: 14px;
+    color: #333;
+}
+.default_cont .radio_text{
+	margin-left: 1px;
+}
+ 
+
+/*弹出框里面的  改变input的字体颜色*/
+
+input::-webkit-input-placeholder {
+	color: #ddd;
+}
+
+input::-moz-placeholder {
+	/* Mozilla Firefox 19+ */
+	color: #ddd;
+}
+
+input:-moz-placeholder {
+	/* Mozilla Firefox 4 to 18 */
+	color: #ddd;
+}
+
+input:-ms-input-placeholder {
+	/* Internet Explorer 10-11 */
+	color: #ddd;
+} 
+.location{width:507px; display:flex; align-items:center}
+.location select{width:calc((100% - 30px)/3); margin-right:15px;}
+.location select:last-child{margin-right:0}

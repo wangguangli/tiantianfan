@@ -1,0 +1,168 @@
+/**页面样式 **/
+
+body {
+	background: #202028 !important
+}
+
+.f_upgrade_cont {
+	height: 173.7vw;
+	/*background: url(../images_v3/f_shenji_4.png) no-repeat;	*/
+	background-size: 100% auto;
+	padding: 0 3.8vw;
+}
+
+.f_head {
+	width: 80%;
+	margin: 0 auto;
+	text-align: center;
+	padding-top: 8vw;
+}
+
+.f_head_img {
+	width: 14.81vw;
+	height: 14.81vw;
+	border: 2px solid #fff;
+	border-radius: 50%;
+}
+
+.f_head_number {
+	font-size: 4.26vw;
+	color: #ffffff;
+	margin-top: 4vw;
+}
+
+
+/*会员升级部分*/
+
+.f_welfare {
+	margin-top: 13vw;
+}
+
+.f_welfare_top {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+}
+
+.f_welfare_top .text {
+	font-size: 5.19vw;
+	color: #fff7e5;
+}
+
+.f_welfare_top .line {
+	display: block;
+	width: 70.37vw;
+	height: 0.09vw;
+	background-color: #fff7e5;
+}
+
+.f_introduce {
+	font-size: 3.33vw;
+	color: #fff7e5;
+	opacity: 0.8;
+	margin-top: 0.9vw;
+}
+
+
+/*滑动部分*/
+
+.price_cont {
+	overflow: hidden;
+	margin-top: 6.2vw;
+}
+
+.price_list {
+	width: 27.22vw;
+	overflow: hidden;
+	border-radius: 1.48vw;
+	background-image: linear-gradient(0deg, #2f3142 0%, #464a5b 100%);
+	text-align: center;
+	font-size: 3.89vw;
+	color: #f7d7ab;
+	padding-top: 5vw;
+	padding-bottom: 2.1vw;
+	border: solid 0.28vw #2f3142;
+	margin-right: 2.9vw;
+	float: left;
+}
+
+.price_cont .active {
+	background-image: linear-gradient(0deg, #fae5cd 0%, #edcfaa 100%);
+	border: solid 0.28vw #c09a7c;
+	color: #351c0e;
+}
+
+.money_cont .number {
+	font-size: 6vw;
+}
+
+.security_p {
+	font-size: 2.96vw;
+	opacity: 0.8;
+	line-height: 5vw;
+}
+
+.money_cont {
+	margin-top: 0.4vw;
+	margin-bottom: 1.6vw;
+}
+
+
+/*支付方式*/
+
+.H-pay {
+	padding: 0 3vw;
+	margin-top: 3vw;
+}
+
+li[class*="z-"] {
+	font-size: 4.26vw;
+	line-height: 16vw;
+	padding-left: 14vw;
+	color: #fff7e5;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+}
+
+.z-1 {
+	background: url("../../mobile/images_v3/f_shenji_1.png") no-repeat center left;
+	background-size: 11vw;
+}
+
+.z-2 {
+	background: url("../../mobile/images_v3/f_shenji_3.png") no-repeat center left;
+	background-size: 11vw;
+}
+
+.z-3 {
+	background: url("../../mobile/images_v3/f_shenji_2.png") no-repeat center left;
+	background-size: 11vw;
+}
+
+li[class*="z-"] i {
+	float: right;
+	height: 5.5vw;
+	width: 5.5vw;
+	background: url("../../mobile/images_v3/f_shenji_6.png") no-repeat center center;
+	background-size: 5.5vw;
+	display: none;
+}
+
+li[class*="z-"].active i {
+	display: block;
+}
+
+.H-button {
+	width: 78.7vw;
+	height: 10.19vw;
+	line-height: 10.19vw;
+	background-image: linear-gradient(-90deg, #fce6d0 0%, #efceaa 100%);
+	border-radius: 5.09vw;
+	font-size: 4.26vw;
+	color: #24242b;
+	text-align: center;
+	margin: 0 auto;
+	margin-bottom: 8vw;
+	margin-top: 6vw;
+}

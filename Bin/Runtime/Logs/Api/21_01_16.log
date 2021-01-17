@@ -1,0 +1,76 @@
+[ 2021-01-16T10:11:31+08:00 ] 172.17.0.1 /index.php/Api/Goodsout/category
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000011s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000235s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000349s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000393s ]
+SQL: SHOW COLUMNS FROM `sns_article_category` [ RunTime:0.0007s ]
+SQL: SELECT * FROM `sns_article_category` WHERE ( is_pc_show=1 )  [ RunTime:0.0002s ]
+SQL: SHOW COLUMNS FROM `sns_article` [ RunTime:0.0006s ]
+SQL: SELECT `id`,`title` FROM `sns_article` WHERE ( cat_id=8 )  [ RunTime:0.0003s ]
+SQL: SELECT `id`,`title` FROM `sns_article` WHERE ( cat_id=9 )  [ RunTime:0.0002s ]
+SQL: SELECT `id`,`title` FROM `sns_article` WHERE ( cat_id=10 )  [ RunTime:0.0003s ]
+SQL: SELECT `id`,`title` FROM `sns_article` WHERE ( cat_id=11 )  [ RunTime:0.0003s ]
+SQL: SELECT `id`,`title` FROM `sns_article` WHERE ( cat_id=12 )  [ RunTime:0.0002s ]
+SQL: SELECT `id`,`title` FROM `sns_article` WHERE ( cat_id=13 )  [ RunTime:0.0002s ]
+NOTIC: [2] error_log(Public/log/log_20210116.txt): failed to open stream: Permission denied /var/www/html/tiantianfan/Bin/Common/Common/function.php 第 3215 行.
+NOTIC: [2] error_log(Public/log/log_20210116.txt): failed to open stream: Permission denied /var/www/html/tiantianfan/Bin/Common/Common/function.php 第 3215 行.
+NOTIC: [2] Missing argument 1 for I(), called in /var/www/html/tiantianfan/Bin/Api/Controller/CommonController.class.php on line 20 and defined /var/www/html/tiantianfan/ThinkPHP/Common/functions.php 第 271 行.
+NOTIC: [8] Undefined variable: name /var/www/html/tiantianfan/ThinkPHP/Common/functions.php 第 273 行.
+NOTIC: [8] Undefined variable: name /var/www/html/tiantianfan/ThinkPHP/Common/functions.php 第 278 行.
+NOTIC: [8] Undefined variable: name /var/www/html/tiantianfan/ThinkPHP/Common/functions.php 第 339 行.
+NOTIC: [2] error_log(Public/log/log_20210116.txt): failed to open stream: Permission denied /var/www/html/tiantianfan/Bin/Common/Common/function.php 第 3215 行.
+NOTIC: [2] error_log(Public/log/log_20210116.txt): failed to open stream: Permission denied /var/www/html/tiantianfan/Bin/Common/Common/function.php 第 3215 行.
+SQL: SHOW COLUMNS FROM `sns_config` [ RunTime:0.0014s ]
+SQL: SELECT `name`,`val` FROM `sns_config`  [ RunTime:0.0003s ]
+NOTIC: [8] Undefined index: app_verify_ /var/www/html/tiantianfan/Bin/Common/Common/function.php 第 3098 行.
+NOTIC: [2] Missing argument 1 for I(), called in /var/www/html/tiantianfan/Bin/Api/Controller/GoodsoutController.class.php on line 30 and defined /var/www/html/tiantianfan/ThinkPHP/Common/functions.php 第 271 行.
+NOTIC: [8] Undefined variable: name /var/www/html/tiantianfan/ThinkPHP/Common/functions.php 第 273 行.
+NOTIC: [8] Undefined variable: name /var/www/html/tiantianfan/ThinkPHP/Common/functions.php 第 278 行.
+NOTIC: [8] Undefined variable: name /var/www/html/tiantianfan/ThinkPHP/Common/functions.php 第 339 行.
+NOTIC: [8] Undefined index: shop_id /var/www/html/tiantianfan/Bin/Clas/Goods.class.php 第 21 行.
+NOTIC: [8] Undefined index: shop_id /var/www/html/tiantianfan/Bin/Clas/Goods.class.php 第 30 行.
+NOTIC: [8] Undefined index: pid /var/www/html/tiantianfan/Bin/Clas/Goods.class.php 第 1450 行.
+NOTIC: [8] Undefined index: level /var/www/html/tiantianfan/Bin/Clas/Goods.class.php 第 1454 行.
+NOTIC: [8] Undefined index: id /var/www/html/tiantianfan/Bin/Clas/Goods.class.php 第 1458 行.
+NOTIC: [8] Undefined variable: where /var/www/html/tiantianfan/Bin/Clas/Goods.class.php 第 1462 行.
+SQL: SHOW COLUMNS FROM `sns_goods_category` [ RunTime:0.0009s ]
+SQL: SELECT * FROM `sns_goods_category` WHERE `pid` = 0  [ RunTime:0.0004s ]
+SQL: SHOW COLUMNS FROM `sns_ad` [ RunTime:0.0009s ]
+SQL: SELECT `id`,`photo`,`module`,`mod_id`,`api_url`,`link` FROM `sns_ad` WHERE ( cate_id=179 ) LIMIT 1   [ RunTime:0.0003s ]
+SQL: SELECT * FROM `sns_goods_category` WHERE ( pid=179 )  [ RunTime:0.0003s ]
+SQL: SELECT * FROM `sns_goods_category` WHERE ( pid=1150 )  [ RunTime:0.0004s ]
+SQL: SELECT * FROM `sns_goods_category` WHERE ( pid=1184 )  [ RunTime:0.0003s ]
+SQL: SELECT `id`,`photo`,`module`,`mod_id`,`api_url`,`link` FROM `sns_ad` WHERE ( cate_id=255 ) LIMIT 1   [ RunTime:0.0003s ]
+SQL: SELECT * FROM `sns_goods_category` WHERE ( pid=255 )  [ RunTime:0.0003s ]
+SQL: SELECT * FROM `sns_goods_category` WHERE ( pid=1156 )  [ RunTime:0.0002s ]
+SQL: SELECT * FROM `sns_goods_category` WHERE ( pid=1157 )  [ RunTime:0.0003s ]
+SQL: SELECT `id`,`photo`,`module`,`mod_id`,`api_url`,`link` FROM `sns_ad` WHERE ( cate_id=315 ) LIMIT 1   [ RunTime:0.0002s ]
+SQL: SELECT * FROM `sns_goods_category` WHERE ( pid=315 )  [ RunTime:0.0002s ]
+SQL: SELECT * FROM `sns_goods_category` WHERE ( pid=1133 )  [ RunTime:0.0002s ]
+SQL: SELECT * FROM `sns_goods_category` WHERE ( pid=1134 )  [ RunTime:0.0002s ]
+SQL: SELECT `id`,`photo`,`module`,`mod_id`,`api_url`,`link` FROM `sns_ad` WHERE ( cate_id=359 ) LIMIT 1   [ RunTime:0.0002s ]
+SQL: SELECT * FROM `sns_goods_category` WHERE ( pid=359 )  [ RunTime:0.0002s ]
+SQL: SELECT * FROM `sns_goods_category` WHERE ( pid=1135 )  [ RunTime:0.0002s ]
+SQL: SELECT * FROM `sns_goods_category` WHERE ( pid=1136 )  [ RunTime:0.0002s ]
+SQL: SELECT `id`,`photo`,`module`,`mod_id`,`api_url`,`link` FROM `sns_ad` WHERE ( cate_id=405 ) LIMIT 1   [ RunTime:0.0002s ]
+SQL: SELECT * FROM `sns_goods_category` WHERE ( pid=405 )  [ RunTime:0.0002s ]
+SQL: SELECT * FROM `sns_goods_category` WHERE ( pid=1166 )  [ RunTime:0.0002s ]
+SQL: SELECT * FROM `sns_goods_category` WHERE ( pid=1167 )  [ RunTime:0.0002s ]
+SQL: SELECT `id`,`photo`,`module`,`mod_id`,`api_url`,`link` FROM `sns_ad` WHERE ( cate_id=473 ) LIMIT 1   [ RunTime:0.0001s ]
+SQL: SELECT * FROM `sns_goods_category` WHERE ( pid=473 )  [ RunTime:0.0002s ]
+SQL: SELECT * FROM `sns_goods_category` WHERE ( pid=1170 )  [ RunTime:0.0002s ]
+SQL: SELECT `id`,`photo`,`module`,`mod_id`,`api_url`,`link` FROM `sns_ad` WHERE ( cate_id=513 ) LIMIT 1   [ RunTime:0.0002s ]
+SQL: SELECT * FROM `sns_goods_category` WHERE ( pid=513 )  [ RunTime:0.0002s ]
+SQL: SELECT * FROM `sns_goods_category` WHERE ( pid=1174 )  [ RunTime:0.0002s ]
+SQL: SELECT `id`,`photo`,`module`,`mod_id`,`api_url`,`link` FROM `sns_ad` WHERE ( cate_id=644 ) LIMIT 1   [ RunTime:0.0002s ]
+SQL: SELECT * FROM `sns_goods_category` WHERE ( pid=644 )  [ RunTime:0.0002s ]
+SQL: SELECT * FROM `sns_goods_category` WHERE ( pid=1144 )  [ RunTime:0.0002s ]
+SQL: SELECT `id`,`photo`,`module`,`mod_id`,`api_url`,`link` FROM `sns_ad` WHERE ( cate_id=1125 ) LIMIT 1   [ RunTime:0.0002s ]
+SQL: SELECT * FROM `sns_goods_category` WHERE ( pid=1125 )  [ RunTime:0.0002s ]
+SQL: SELECT * FROM `sns_goods_category` WHERE ( pid=1145 )  [ RunTime:0.0002s ]
+SQL: SELECT `id`,`photo`,`module`,`mod_id`,`api_url`,`link` FROM `sns_ad` WHERE ( cate_id=1126 ) LIMIT 1   [ RunTime:0.0002s ]
+SQL: SELECT * FROM `sns_goods_category` WHERE ( pid=1126 )  [ RunTime:0.0002s ]
+SQL: SELECT * FROM `sns_goods_category` WHERE ( pid=1178 )  [ RunTime:0.0002s ]
+

@@ -1,0 +1,436 @@
+<!doctype html>
+<html class="pixel-ratio-2 retina ios ios-11 ios-11-0 ios-gt-10 ios-gt-9 ios-gt-8 ios-gt-7 ios-gt-6">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<meta name="Generator" content="tpshop v1.1">
+	<meta name="viewport" content="width=device-width">
+	<meta http-equiv="keywords" content="">
+	<meta name="description" content="">
+	<meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+	<title>申请商家</title>
+	<link href="__PUBLIC__/mobile/style/user_index.css" rel="stylesheet" type="text/css">
+	<script src="__PUBLIC__/js/jquery.min.js"></script>
+	<link rel="stylesheet" href="__PUBLIC__/mobile/css_v3/sel.css">
+	<link rel="stylesheet" href="__PUBLIC__/mobile/style/main_style.css">
+	<script src="{:U('Shopcenter/get_city_json')}?.js"></script>
+	<style>
+		.uimgs_1 {
+			float: left;
+		}
+	</style>
+</head>
+
+<body>
+
+<div class="stoalls">
+	<form action="{:U('Shopcenter/editShop')}" method="post" enctype="multipart/form-data" id="form">
+		<div class="storetop">
+			<ul>
+				<li>
+					<lable>店铺名称</lable>
+					<input type="text" name="shop_name" placeholder="请输入店铺名" value="{$data.shop_name}" class="inserese">
+					<input type="hidden" name="city" value="{$data.city}">
+					<input type="hidden" name="latitude" value="{$data.latitude}">
+					<input type="hidden" name="longitude" value="{$data.longitude}">
+					<input type="hidden" name="id" value="{$data.id}">
+				</li>
+				<li>
+					<lable>商家类型</lable>
+					<div class="select_width">
+
+						<select class="hyfls" name='industry'>
+							<volist name="industry" id="vo">
+
+								<option value="{$vo.id}"
+								<if condition="$data.industry eq $vo['id']">selected="selected"</if>
+								>{$vo.name}</option>
+							</volist>
+						</select>
+					</div>
+
+				</li>
+				<li>
+					<lable>服务费比例</lable>
+					<div class="select_width">
+						<input type="text" class="inserese" value="{$shop_fee}" disabled>
+						<input type="hidden" name="shop_fee_id" value="{$data.shop_fee_id}">
+					</div>
+				</li>
+				<li style="position: relative;">
+					<lable>店铺地址</lable>
+					<div class="xuanzes">
+						<select class="xzsheng" id="province" name="province_id">
+							<option id="">选择省</option>
+						</select>
+						<select class="xzsheng" id="city" name="city_id">
+							<option>选择市</option>
+						</select>
+						<select class="xzsheng" id="district" name="district_id">
+							<option>选择区/县</option>
+						</select>
+					</div>
+				</li>
+
+				<div class="clear"></div>
+				<li>
+					<lable>详细地址</lable>
+					<input type="text" name="address" class="inserese"  value="{$data.address}" placeholder="请选择详细地址">
+				</li>
+				<li>
+					<lable>地图选点</lable>
+					<a href="javascript:;" onclick="choose_lat({$data['id']})">
+						<div class="inserese"></div>
+					</a>
+				</li>
+				<li>
+					<lable>联系人</lable>
+					<input type="text" name="contact_person" value='{$data.contact_person}' class="inserese"  placeholder="请输入联系人">
+				</li>
+				<li>
+					<lable>联系电话</lable>
+					<input type="text" name="tel" value='{$data.tel}' placeholder="请输入商家电话" class="inserese">
+				</li>
+				<li>
+					<lable>店铺描述</lable>
+					<input type="text" name="description" value="{$data.description}" placeholder="请输入店铺描述" class="inserese" style="padding-right: 4vw;">
+				</li>
+
+				<li>
+					<lable>营业执照</lable>
+					<!--<div class="uimgs uimgs_v2">
+					</div>-->
+					<div class="new_uimgs <if condition="$data['license']"> uimgs_v2 </if>" data-num="4">
+					<img class="uimgs_img" id="uimgs_img4" src="{$data['license']}" <if condition="$data['license']"> style="display: none" </if> alt="" />
+					<if condition="$data['license'] eq ''">
+						<img class="xiangji" id="xiangji_4" data-num="4" src="/Public/mobile/images_v3/xiangji.png" alt="" />
+						<span class="shooting" id="shooting4">点击拍摄/上传营业执照</span>
+					</if>
+					<input type="hidden" value="{$data.license}" name="license" id='tspec_img4'>
+					<input type="file" id="tspec_img4_1" data-num="4" class="uimgs_file" style="display: none">
+			</div>
+		</li>
+		<li>
+			<lable>身份证正面</lable>
+			<div class="new_uimgs <if condition="$data['card_img1']"> uimgs_v2 </if>" data-num="3">
+			<img class="uimgs_img" id="uimgs_img3" src="{$data['card_img1']}" <if condition="$data['license3']"> style="display: none" </if> alt="" />
+			<if condition="$data['card_img1'] eq ''">
+				<img class="xiangji" id="xiangji_3" data-num="3" src="/Public/mobile/images_v3/xiangji.png" alt="" />
+				<span class="shooting" id="shooting3">点击拍摄/上传身份证正面</span>
+			</if>
+
+			<input type="hidden" value="{$data.card_img1}" data-num="3" name="card_img1" id='tspec_img3'>
+			<input type="file" id="tspec_img3_1" data-num="3" class="uimgs_file" style="display: none">
+</div>
+</li>
+<li>
+	<lable>身份证反面</lable>
+	<div class="new_uimgs <if condition="$data['card_img2']"> uimgs_v2 </if>" data-num="2">
+	<img class="uimgs_img" id="uimgs_img2" src="{$data['card_img2']}" <if condition="$data['card_img2']"> style="display: none" </if> alt="" />
+	<if condition="$data['card_img2'] eq ''">
+		<img class="xiangji" id="xiangji_2" data-num="2" src="/Public/mobile/images_v3/xiangji.png" alt="" />
+		<span class="shooting" id="shooting2">点击拍摄/上传身份证反面</span>
+	</if>
+	<input type="hidden" value="{$data.card_img2}" data-num="2" name="card_img2" id='tspec_img2'>
+	<input type="file" id="tspec_img2_1" data-num="2" class="uimgs_file" style="display: none">
+
+	</div>
+</li>
+<li>
+	<lable>店铺门头图片</lable>
+	<div class="uimgs <if condition="$data['thumb']"> uimgs_v2 </if>" data-num="1">
+	<img class="uimgs_img" id="uimgs_img1" src="{$data['thumb']}" <if condition="$data['thumb']"> style="display: none" </if> alt="" />
+	<if condition="$data['thumb'] eq ''">
+		<img class="xiangji" id="xiangji_1" data-num="1" src="/Public/mobile/images_v3/xiangji.png" alt="" />
+		<span class="shooting" id="shooting1">点击拍摄/上传店铺门头图片</span>
+	</if>
+	<input type="hidden" value="{$data.thumb}" data-num="1" name="thumb" id='tspec_img1'>
+	<input type="file" id="tspec_img1_1" data-num="1" class="uimgs_file" style="display: none">
+	</div>
+</li>
+<li>
+	<lable>上传店铺图片</lable>
+	<div class="uimgs_v3">
+		<volist name="list_img" id="vo">
+			<img class="tianjia"  src="{$vo}" alt="" />
+		</volist>
+		<img class="tianjia" id="tianjia" src="__PUBLIC__/mobile/images_v3/tianjia.png" alt="" />
+		<input type="file" id="tianjia1" class="uimgs_file1" style="display: none">
+		<input type="hidden" name="images" id="images" value="{$data['list_img']}">
+	</div>
+</li>
+</ul>
+</div>
+
+</div>
+<div class="aniutj">
+	<input type="submit" name="" value="提交" class="bgrs">
+	<!--协议-->
+	<p class="agreement">注册即同意<span class="contract">商家合约</span></p>
+</div>
+</form>
+<script src="__PUBLIC__/layer/mobile/layer.js"></script>
+<script>
+
+	var curr_prov = curr_city = curr_dist = 0;
+	if({$province_id} != 0){
+		curr_prov = {$province_id};
+		$("#province").append(get_city_list(0, true));
+
+	}
+	if({$city_id} != 0){
+		curr_city = {$city_id};
+		$("#city").append(get_city_list(curr_prov, true));
+
+	}
+	if({$district_id} != 0){
+		curr_dist = {$district_id};
+		$("#district").append(get_city_list(curr_city, true));
+	}
+	var user_id = {$user_id};
+	$(function () {
+	<notempty name = "rel" >
+				$("input[type=submit]").click(function () {
+					var formval = $("form").serialize();
+					console.log(formval)
+					$.ajax({
+						type: 'POST',
+						data: formval,
+						url: "{:U('User/edit_address')}",
+						dataType: 'json',
+						success: function (args) {
+							console.log(args);
+							if (args.err == 0) {
+								var rs = args.result;
+								//微信不支持
+								//window.close();
+								//window.opener.notice(args.result.address_id);
+
+								//					window.history.back();
+								if (rs.rel == 'buy') {
+									location.href = "{:U('Home/order/buy',array('rel'=>'buy'))}";
+								}
+								if (rs.rel == 'jihuo') {
+									location.href = "{:U('Home/order/buy',array('rel'=>'jihuo'))}";
+								}
+								if (rs.rel == 'baodan') {
+									location.href = "{:U('Home/order/buy',array('rel'=>'baodan'))}";
+								}
+
+							} else {
+								layer.open({
+									content: args.info
+									, skin: 'msg'
+									, time: 2
+								});
+							}
+						}
+					});
+					return false;
+				});
+	</notempty>
+		if (curr_prov) {
+			$("#province").append(get_city_list(0, true));
+			$("#city").append(get_city_list(curr_prov, true));
+			$("#district").append(get_city_list(curr_city, true));
+		} else {
+			$("#province").append(get_city_list(0));
+			$("#city").append('<option value="0">选择市</option>');
+			$("#district").append('<option value="0">选择县/区</option>');
+		}
+		$("#province").change(function () {
+			var v = $(this).val();
+			if (v != 0) {
+				var d = get_city_list(v);
+				$("#province").next().html('<option value="0">选择市</option>' + d);
+			} else {
+				$("#city").html('<option value="0">选择市</option>');
+			}
+			$("#city").next().html('<option value="0">选择区县</option>');
+		});
+		$("#city").change(function () {
+			var v = $(this).val();
+			if (v != 0) {
+				var d = get_city_list(v);
+				$("#city").next().html('<option value="0">选择区县</option>' + d);
+			}
+		});
+	});
+
+	function get_city_list(pid, is_sel) {
+		if (!pid) pid = 0;
+		var city = region_list[pid];
+		var html = '';
+		for (var i in city) {
+			var _sel = (is_sel && (i == curr_prov || i == curr_city || i == curr_dist)) ? ' selected="selected" ' : '';
+			html += '<option value="' + i + '"' + _sel + '>' + city[i] + '</option>';
+		}
+		return html;
+	}
+
+	$("#license").change(function () {
+		var license = $(this).val();
+		$.ajax({
+			type: 'get',
+			dataType: "json",
+			url: "{:U('Api/Shopin/editShop')}",
+			data: {'shop_id': shop_id, 'license3': license},
+			success: function (data) {
+				console.log(data);
+			}
+		})
+	})
+
+	function submit_img() {
+		var formval = $("#form").serialize();
+		$.ajax({
+			type: 'post',
+			dataType: "json",
+			url: "{:U('Admin/Common/uploads')}",
+			data: formval,
+			success: function (data) {
+				console.log(data);
+			}
+		})
+	}
+
+	$('#address').change(function () {
+		var address = $(this).val();
+		AMap.plugin('AMap.Geocoder', function () {
+			var geocoder = new AMap.Geocoder({
+				// city 指定进行编码查询的城市，支持传入城市名、adcode 和 citycode
+			})
+			geocoder.getLocation(address, function (status, result) {
+				if (status === 'complete' && result.info === 'OK') {
+					console.log(result);
+					var lnt = result.geocodes[0].location.lng + ',' + result.geocodes[0].location.lat;
+					$("#coordinate").val(lnt);
+				}
+			})
+		})
+	})
+	$('#address').click(function () {
+		location.href = "{:U('Shopcenter/location')}?shop=1"
+	})
+	$(".uimgs").click(function () {
+		var num = $(this).attr('data-num');
+		var id = "tspec_img"+num+"_1";
+		document.getElementById(id).click();
+
+	})
+	$(function () {
+		$("form img").each(function (e) {
+			var img_url = $(this).attr("src");
+			if (img_url == "") {
+				$(this).css("display", "none")
+			} else {
+				$(this).css("display", "block")
+			}
+		});
+		$('form').on("change", ".uimgs_file", function (e) {
+			var id = $(this).data("num")+"_1";
+			var id1 = $(this).data("num");
+			var formData = new FormData();
+			formData.append("headimg", document.getElementById('tspec_img' + id).files[0]);
+			formData.append("handlename", 'headimg');
+			$.ajax({
+				url: '/index.php/M/Shopcenter/uploads',
+				type: 'post',
+				data: formData,
+				contentType: false,
+				dataType: "json",
+				processData: false,
+				success: function (res, index) {
+					console.log(res)
+					if (res.status > 0) {
+						layer.open({
+							content: res.result,
+							skin: 'msg',
+							time: 1
+						});
+					} else {
+						if (id == 0) {
+							var v = $('#tspec_img' + id).val();
+							if (v) {
+
+								$('#tspec_img' + id).val(v + '|' + res.result);
+							} else {
+								$('#tspec_img' + id).val(res.result);
+							}
+							var html = '<div class="uimgs uimgs_1"><img src="' + res.result + '" alt="" with = "100%"></div>'
+							$('#tspec_img' + id).parent().before(html);
+						} else {
+							$('#tspec_img' + id1).val(res.result);
+							$('#xiangji_' + id1).hide();
+							$('#shooting' + id1).hide();
+							$('#uimgs_img'+id1).attr("src",res.result);
+							$('#uimgs_img'+id1).show();
+							$('#uimgs_img'+id1).parent().addClass('uimgs_v2');
+						}
+					}
+				},
+				error: function () {
+					layer.open({
+						content: '发送失败',
+						skin: 'msg',
+						time: 1
+					});
+				}
+			});
+		});
+	})
+	$('.tianjia').click(function () {
+		document.getElementById('tianjia1').click();
+	});
+	$('form').on("change", "#tianjia1", function (e) {
+		var id = "tianjia1";
+		var formData = new FormData();
+		formData.append("headimg", document.getElementById(id).files[0]);
+		formData.append("handlename", 'headimg');
+		$.ajax({
+			url: '/index.php/M/Shopcenter/uploads',
+			type: 'post',
+			data: formData,
+			contentType: false,
+			dataType: "json",
+			processData: false,
+			success: function (res, index) {
+				console.log(res)
+				if (res.status > 0) {
+					layer.open({
+						content: res.result,
+						skin: 'msg',
+						time: 1
+					});
+				} else {
+					var v = $('#images').val();
+					if (v) {
+						$('#images').val(v + '|' + res.result);
+					} else {
+						$('#images').val(res.result);
+					}
+					var html = '<img class="tianjia" src="'+res.result+'" alt="" />'
+					$('#tianjia').before(html);
+				}
+			},
+			error: function () {
+				layer.open({
+					content: '发送失败',
+					skin: 'msg',
+					time: 1
+				});
+			}
+		});
+	})
+	function choose_lat(shop_id) {
+		console.log(shop_id);
+		if(shop_id < 0){
+			shop_id = 0;
+		}
+		var form = $('#form').serialize();
+		var url = "/M/Shopcenter/location?shop_id="+shop_id+"&"+form;
+		window.location.href=url;
+	}
+
+</script>
+</body>
+</html>

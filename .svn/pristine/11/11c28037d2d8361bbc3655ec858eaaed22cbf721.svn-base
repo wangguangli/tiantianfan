@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<!--<meta name="viewport" content="width=device-width, initial-scale=1">-->
+	<title>{:GC('web_title')}管理后台-导出模板管理</title>
+	<include file="Public/asset_top_page"/>
+
+</head>
+
+<body>
+
+
+<!-- header -->
+<include file="Public/header"/>
+<!-- /header -->
+
+<!-- Page container -->
+<div class="page-container">
+
+	<!-- Page content -->
+	<div class="page-content">
+		<!-- main sidebar -->
+		<include file="Public/left"/>
+		<!-- /main sidebar -->
+
+		<!-- Main content -->
+		<div class="content-wrapper">
+
+			<!-- Content area -->
+			<div class="content" style="padding-top: 10px;">
+				<!-- Pagination types -->
+				<div class="v-container">
+
+					<div class="alert alert-tips alert-dismissible" role="alert">
+						<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span
+								aria-hidden="true">×</span></button>
+						在本页可对添加、修改导出模板，导出模板分为各种类型，请注意操作。
+					</div>
+
+					<div class="panel panel-flat">
+						<div class="panel-heading">
+							<form class="v-filter-container" action="" method="POST">
+								<div class="filter-fields-wrap">
+									<div class="filter-item clearfix">
+										<div class="filter-item__field">
+											<div class="v__control-group padd_left_11">
+												<div class="v__controls">
+													<a href="{:U('export_template_list')}"><input type="button"
+													                                                value="模板列表"
+													                                                class="layui-btn"></a>
+
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</form>
+
+							<!--搜索框-->
+							<div class="heading-elements">
+
+							</div>
+						</div>
+					</div>
+
+					<!-- page -->
+					<form class="form-horizontal" action="" method="post" enctype="multipart/form-data">
+						<input type="hidden" name="id" value="{$data.id}">
+
+						<div class="form-group">
+							<label class="col-xs-2 control-label text-right">模板类型</label>
+							<div class="col-xs-5">
+								<select name="type" class="form-control select-form-control inline-block"
+								        onchange="change_type(this.options[this.options.selectedIndex].value)">
+									<option value="0">请选择类型</option>
+									<foreach name="type_list" item="vo">
+										<option value="{$key}"
+										<if condition="$type eq $key"> selected</if>
+										>{$vo}</option>
+									</foreach>
+								</select>
+							</div>
+						</div>
+
+						<div class="form-group">
+							<label class="col-xs-2 control-label text-right">模板名称</label>
+							<div class="col-xs-5">
+								<input type="text" class="form-control" value="{$data.name}" placeholder="请输入名称"
+								       name="name" required>
+							</div>
+						</div>
+
+						<div class="form-group">
+							<label class="col-xs-2 control-label text-right">导出字段</label>
+							<div class="col-lg-5 card_n">
+								<div class="rule_card">
+									<foreach name="field_list" item="vo">
+										<div class="rule_c_4">
+											<label><input type="checkbox" name="field_en[]"
+											              value="{$vo.id}___{$vo.field_cn}"
+												<if condition="$vo['is_select'] eq 1">checked="checked"</if>
+												>{$vo.field_cn}</label>
+										</div>
+									</foreach>
+									<if condition="!$field_list">
+										<b>当前无字段，请选择其他模板类型</b>
+									</if>
+									<div class="clear"></div>
+								</div>
+
+							</div>
+						</div>
+						<div class="form-group text-center">
+							<label class="col-xs-2 control-label text-right"></label>
+							<div class="col-lg-5 card_n">
+								<button type="submit" class="btn btn-primary">保 存</button>
+							</div>
+						</div>
+					</form>
+
+					<!-- page end -->
+
+					<!-- Footer -->
+					<include file="Public/footer"/>
+					<!-- /footer -->
+
+				</div>
+				<!-- /content area -->
+
+			</div>
+			<!-- /main content -->
+
+		</div>
+		<!-- /main content -->
+
+
+		<style type="text/css">
+			.rule_card {
+				border: 1px solid #ccc;
+				border-radius: 3px;
+				padding: 8px;
+				margin-bottom: 5px;
+				clear: both;
+			}
+
+			.rule_c_4 {
+				padding-top: 5px;
+				padding-bottom: 5px;
+				padding-left: 12px;
+				float: left;
+			}
+
+			.card_n {
+				padding-top: 8px;
+			}
+		</style>
+
+	</div>
+	<!-- /page content -->
+
+</div>
+<!-- /page container -->
+
+
+<script type="text/javascript">
+	// 切换类型时，把type值传入
+	function change_type(val) {
+		var id = "{$data['id']}";
+		var url = "{:U('export_template_detail')}?id=" + id + "&type=" + val;
+		location.href = url;
+	}
+
+</script>
+
+
+</body>
+</html>
+
+

@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<!--<meta name="viewport" content="width=device-width, initial-scale=1">-->
+	<title>{:GC('web_title')}管理后台-项目设置</title>
+	<include file="Public/asset_top_page"/>
+</head>
+<body>
+<!-- header -->
+<include file="Public/header"/>
+<!-- /header -->
+<!-- Page container -->
+<div class="page-container">
+	<!-- Page content -->
+	<div class="page-content">
+		<!-- main sidebar -->
+		<include file="Public/left"/>
+		<!-- /main sidebar -->
+
+		<!-- Main content -->
+		<div class="content-wrapper">
+
+			<!-- Content area -->
+			<div class="content" style="padding-top: 10px;">
+				<!-- Pagination types -->
+				<div class="v-container">
+					<div class="alert alert-tips alert-dismissible" role="alert">
+						<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span
+								aria-hidden="true">×</span></button>
+						本页项目设置
+					</div>
+
+					<!-- page -->
+					<form class="form-horizontal pt-15" method="post" action="">
+
+						<volist name="list" id="vo">
+
+							<div class="form-group">
+
+								<label class="col-xs-2 control-label text-right">{$vo.text}</label>
+								<div class="col-xs-5">
+									<if condition="$vo['is_radio'] eq 1">
+										<label class="radio-inline">
+											<input type="radio" name="id[{$vo.id}]" value="1" class="styled" <if condition="$vo['val'] eq 1">checked</if> required>是
+										</label>
+										<label class="radio-inline">
+											<input type="radio" name="id[{$vo.id}]" value="0" class="styled" <if condition="$vo['val'] eq 0">checked</if>>否
+										</label>
+										<else/>
+										<if condition="$vo['name'] eq 'repeat_buy_type'">
+											<label class="radio-inline">
+												<input type="radio" name="id[{$vo.id}]" value="1" class="styled" <if condition="$vo['val'] eq 1">checked</if> required>单品
+											</label>
+											<label class="radio-inline">
+												<input type="radio" name="id[{$vo.id}]" value="2" class="styled" <if condition="$vo['val'] eq 2">checked</if>>全站
+											</label>
+											<elseif condition="$vo['name'] eq 'profit_space'"/>
+											<label class="radio-inline">
+												<input type="radio" name="id[{$vo.id}]" value="1" class="styled" <if condition="$vo['val'] eq 1">checked</if> required>支付后立即收益
+											</label>
+											<label class="radio-inline">
+												<input type="radio" name="id[{$vo.id}]" value="2" class="styled" <if condition="$vo['val'] eq 2">checked</if>>收货后获得收益
+											</label>
+											<label class="radio-inline">
+												<input type="radio" name="id[{$vo.id}]" value="3" class="styled" <if condition="$vo['val'] eq 3">checked</if> required>收货7天后获得收益
+											</label>
+											<label class="radio-inline">
+												<input type="radio" name="id[{$vo.id}]" value="4" class="styled" <if condition="$vo['val'] eq 4">checked</if>>发货七天后获得收益
+											</label>
+												<else/>
+											<input class="form-control" type="text" name="id[{$vo.id}]" value="{$vo.val}" />
+										</if>
+
+									</if>
+
+								</div>
+							</div>
+						</volist>
+
+						<div class="form-group">
+							<label class="col-xs-2 control-label"></label>
+							<div class="col-xs-8">
+								<button class="layui-btn layui-btn-sm layui-btn-normal" type="submit">提交</button>
+								<a href="javascript:history.go(-1);" class="layui-btn layui-btn-sm layui-btn-primary">返回</a>
+							</div>
+						</div>
+					</form>
+
+					<!-- page end -->
+
+					<!-- Footer -->
+					<include file="Public/footer" />
+					<!-- /footer -->
+
+				</div>
+				<!-- /content area -->
+
+			</div>
+			<!-- /main content -->
+
+		</div>
+		<!-- /page content -->
+
+	</div>
+	<!-- /page container -->
+
+	<!-- 上传图片 -->
+	<script>
+		layui.use('upload', function(){
+			var upload = layui.upload;
+
+			//执行实例
+			var uploadInst = upload.render({
+				elem: '#upimg' 							//绑定元素
+				,url: '/index.php/Admin/Common/uploads' 	//上传接口
+				,data:{handlename:"headimg"}			// 接口接收值
+				,field:"headimg"						// input name，与接口接收值 一致
+				,done: function(res)
+				{
+					//上传完毕回调-不一定成功，需要判断
+					console.log(res);
+					if (res.status > 0)
+					{
+						// 异常提示
+						layer.alert(res.result);
+					}
+					else
+					{
+						$(".headimgurl").val(res.result);
+						$(".img_headimgurl").attr("src", res.result);
+					}
+				}
+				,error: function(e)
+				{
+					//请求异常回调
+					console.log(e);
+				}
+			});
+		});
+	</script>
+	<!-- 上传图片 -->
+
+</body>
+</html>

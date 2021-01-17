@@ -1,0 +1,332 @@
+/*********初始化样式************/
+
+html,
+body,
+div,
+span,
+applet,
+object,
+iframe,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+blockquote,
+pre,
+a,
+abbr,
+acronym,
+address,
+big,
+cite,
+code,
+del,
+dfn,
+em,
+img,
+ins,
+kbd,
+q,
+s,
+samp,
+small,
+strike,
+sub,
+sup,
+tt,
+var,
+b,
+u,
+i,
+center,
+dl,
+dt,
+dd,
+ol,
+ul,
+li,
+fieldset,
+form,
+label,
+legend,
+table,
+caption,
+tbody,
+tfoot,
+thead,
+tr,
+th,
+td,
+article,
+aside,
+canvas,
+details,
+embed,
+figure,
+figcaption,
+footer,
+header,
+hgroup,
+menu,
+nav,
+output,
+ruby,
+section,
+summary,
+time,
+mark,
+audio,
+video {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	vertical-align: baseline;
+	box-sizing: border-box;
+	text-decoration: none;
+	list-style: none;
+	-webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+	-webkit-tap-highlight-color: transparent;
+}
+
+input {
+	-webkit-user-select: auto;
+}
+
+input[type=button],
+input[type=submit],
+input[type=file],
+button {
+	cursor: pointer;
+	-webkit-appearance: none;
+}
+
+small {
+	font-size: 12px;
+}
+
+
+/* 小于 12px 的中文很难阅读，让 small 正常化 */
+
+.clear {
+	clear: both;
+}
+
+.fl {
+	float: left
+}
+
+.fr {
+	float: right
+}
+
+.tal {
+	text-align: left;
+}
+
+.tac {
+	text-align: center;
+}
+
+.tar {
+	text-align: right;
+}
+
+
+/*********END************/
+
+
+/*************************个人中心样式********************************/
+
+
+/*头部*/
+
+.mater_cont {
+	padding: 5.07vw 6.8vw;
+}
+
+.mater_head {
+	overflow: hidden;
+	display: flex;
+	align-items: center;
+}
+
+.mater_lf {
+	color: #666666;
+	font-size: 2.93vw;
+}
+
+.mater_head .logo {
+	width: 11.33vw;
+	height: 11.33vw;
+	border-radius: 50%;
+	margin-right: 3.33vw;
+	float: left;
+}
+
+.mater_lf .ma_tit {
+	font-size: 3.47vw;
+	margin-bottom: 1.6vw;
+	overflow: hidden;
+	display: -webkit-box;
+	-webkit-box-orient: vertical;
+	-webkit-line-clamp: 1;
+	text-overflow: ellipsis;
+}
+
+
+/*内容部分*/
+
+.mater_mid {
+	margin-top: 4.2vw;
+	overflow: hidden;
+}
+
+.mater_mid .mid_h2 {
+	font-size: 4.6vw;
+	color: #3f3f3f;
+	margin-bottom: 3.4vw;
+}
+
+.mater_mid .introduce {
+	font-size: 3.47vw;
+	color: #3f3f3f;
+	line-height: 5.32vw;
+	margin-bottom: 2.4vw;
+}
+
+.product_ul {
+	overflow: hidden;
+	display: flex;
+	justify-content: space-between;
+	flex-wrap: wrap;
+}
+
+.product_ul .pro_img {
+	width: 27.87vw;
+	height: 27.87vw;
+	border-radius: 1.4vw;
+	margin-bottom: 1.2vw;
+}
+
+
+/*购买部分*/
+
+.buy_cont {
+	width: 86.27vw;
+	height: 23.73vw;
+	background-color: #f5f5f5;
+	border-radius: 1.33vw;
+	overflow: hidden;
+	margin-top: 1vw;
+	padding: 1.2vw 1.73vw;
+	display: flex;
+	justify-content: space-between;
+}
+
+.pro_buy_img {
+	width: 21.33vw;
+	height: 21.33vw;
+	background-color: #fff;
+	border-radius: 1.8vw;
+}
+
+.pro_buy_lf {
+	width: 21.33vw;
+	height: 21.33vw;
+	background-color: #fff;
+	border-radius: 1.4vw;
+}
+
+.pro_buy_jg {
+	overflow: hidden;
+	width: 71%;
+}
+
+.buy_title {
+	font-size: 3.73vw;
+	color: #3f3f3f;
+	overflow: hidden;
+	height: 11vw;
+}
+
+.buy_price {
+	overflow: hidden;
+	margin-top: 2vw;
+}
+
+.buy_price_lf {
+	width: 60%;
+	float: left;
+}
+
+.price_a {
+	font-size: 4vw;
+	color: #3f3f3f;
+}
+
+.price_b {
+	font-size: 3.2vw;
+	color: #a0a0a0;
+}
+
+.immediately {
+	width: 16.93vw;
+	height: 6.67vw;
+	line-height: 6.67vw;
+	background-image: linear-gradient(159deg, #ff6183 0%, #ff4870 40%, #ff2e5c 100%), linear-gradient( #a0a0a0, #a0a0a0);
+	text-align: center;
+	border-radius: 3.13vw;
+	font-size: 3.2vw;
+	color: #ffffff;
+	float: right;
+	margin-right: 4vw;
+}
+
+
+/*底部分享*/
+
+.footer_fx {
+	overflow: hidden;
+	display: flex;
+	justify-content: space-around;
+	margin-top: 2.93vw;
+}
+
+.footer_fx .footer_lf {
+	position: relative;
+	width: 50%;
+	/*display: flex;
+	align-items: center;*/
+}
+
+.footer_img {
+	width: 5.33vw;
+	height: 5.33vw;
+	margin-top: 1vw;
+	float: left;
+}
+
+.footer_lf .text {
+	font-size: 3.2vw;
+	color: #a0a0a0;
+}
+
+.footer_lf_bk {
+	width: 54%;
+	text-align: center;
+	margin: 0 auto;
+}
+
+.footer_line:before {
+	position: absolute;
+	right: 0;
+	top: 9px;
+	content: '';
+	width: 0.27vw;
+	height: 3.2vw;
+	background-color: #a0a0a0;
+}

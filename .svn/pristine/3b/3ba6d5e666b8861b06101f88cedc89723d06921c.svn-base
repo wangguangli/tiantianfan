@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<title>商品管理</title>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+		<meta name="Keywords" content="">
+		<meta name="description" content="">
+		<!-- UC强制全屏 -->
+		<meta name="full-screen" content="yes">
+		<!-- QQ强制全屏 -->
+		<meta name="x5-fullscreen" content="true">
+		<link rel="stylesheet" href="__PUBLIC__/mobile/style/jquery-weui.min.css">
+		<link rel="stylesheet" href="__PUBLIC__/mobile/css_v3/weui.min.css">
+		<link rel="stylesheet" href="__PUBLIC__/mobile/style/main_style.css">
+		<link rel="stylesheet" href="__PUBLIC__/mobile/css_v3/management.css">
+		<link href="__PUBLIC__/css/footer.css" rel="stylesheet" type="text/css" />
+		<!--上拉加载-->
+		<script type="text/javascript" src="__PUBLIC__/layer/mobile/layer.js"></script>
+		<style>
+			.h_por{
+				position: relative
+			}
+			.h_por > .button {
+				position: absolute;
+				bottom: 3.88vw;
+				right: 6.88vw;
+				width: 20.37vw;
+				height: 8.15vw;
+				background-color: #fe4543;
+				font-size: 3.52vw;
+				color: #ffffff;
+				text-align: center;
+				border: 0;
+				border-radius: 4.07vw;
+			}
+		</style>
+	</head>
+
+	<body style="background-color: #f7f8fa;">
+	<if condition="empty($list)">
+		<div class="empty_data">
+			<div class="empty_data_t0">
+				<img src="__PUBLIC__/mobile/images_v3/empty_cart_img_1.png" class="empty_cart_img_1">
+			</div>
+			<div class="empty_data_t1">暂无商品~</div>
+		</div>
+		<else/>
+		<div class="manage_cont" id="inx_id">
+			<volist name="list" id="vo">
+				<div class="h_por">
+					<a href="{:U('Shopcenter/addItem')}?goods={$vo.id}&shop={$vo.shop_id}" class="manage_list">
+						<img class="product_img" src="{$vo.thumb}" />
+						<div class="manage_list_lr">
+							<div class="list_lr_h2">{$vo.name}</div>
+							<div class="inventory">
+								<span class="inv01">库存：{$vo.store_count} </span>
+								<span class="inv02">销量：{$vo.sell_count}</span>
+							</div>
+							<div class="shelves">
+								<div class="number">
+									￥<span class="size">{$vo.price}</span>
+								</div>
+							</div>
+						</div>
+					</a>
+					<if condition="$vo['is_on_sale'] eq 1">
+						<button class="button" data-goods_id="{$vo.id}" data-in="1">下架</button>
+						<else/>
+						<button class="button" style="background: #ffb600;" data-goods_id="{$vo.id}" data-in="0">上架</button>
+					</if>
+				</div>
+			</volist>
+			<!--添加-->
+			<a class="h_ic_I" href="{:U('Shopcenter/addItem')}?shop={$shop_id}"></a>
+		</div>
+		<div class="load_more_content"></div>
+		<div class="load_more">
+			<if condition="$max_page gt 1">
+				<span class="load_more_red">点击</span>加载更多
+				<else/>
+				数据已全部加载
+			</if>
+		</div>
+	</if>
+		<include file="Public/tabbar" />
+		<script src="__PUBLIC__/mobile/js/vue.min.js"></script>
+		<script src="__PUBLIC__/mobile/js/jquery-2.1.4.js"></script>
+		<script src="__PUBLIC__/mobile/js/jquery-weui.min.js"></script>
+	<script type="text/javascript">
+		localStorage.removeItem('addData'); //清空存储
+		// 加载更多
+		var page = 2; // 当前页码，默认从第2页开始，因为刚进来已经输出一次了
+		var max_page = "{$max_page}"; // 最大页码
+		$(".load_more").on("click", function() {
+			if (page > max_page) {
+				layer.open({
+					type: 2,
+					content: '数据已全部加载',
+
+					time: 1
+				});
+				$(".load_more").text("数据已全部加载");
+				return;
+			}
+			layer.open({
+				type: 2,
+				content: '加载中'
+			});
+			$(".load_more_content").load("{:U('management')}", {
+				page:page
+			}, function(response, status) {
+				if (status == "success") {
+					var html = $(".load_more_content").html();
+					$("#inx_id").append(html);
+					$(".load_more_content").html("");
+					page = parseInt(page) + 1; // 在本页自增
+				}
+				layer.closeAll();
+			});
+		});
+		$('.button').click(function (event) {
+			var that = $(this);
+			var goods_id = that.attr('data-goods_id');
+			var is_on_sale = that.attr('data-in');
+			$.ajax({
+				url:'/Api/Goodsin/goods_is_on_sale',
+				data:{
+					goods_id:goods_id,
+					is_on_sale:is_on_sale
+				},
+				dataType:'json',
+				success:function (res) {
+					if(res.status == 0){
+						if(is_on_sale == 0){
+							that.attr('data-in',1);
+							that.html('下架');
+						}else {
+							that.attr('data-in',0);
+							that.html('上架');
+						}
+						layer.open({
+							content: '操作成功'
+							, skin: 'msg'
+							, time: 2
+						});
+
+					}else {
+						layer.open({
+							content: res.msg
+							, skin: 'msg'
+							, time: 2
+						});
+					}
+				}
+			})
+		})
+	</script>
+
+	</body>
+
+</html>

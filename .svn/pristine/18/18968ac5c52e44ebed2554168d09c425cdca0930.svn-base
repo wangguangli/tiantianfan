@@ -1,0 +1,128 @@
+﻿<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>会员注册</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"> 
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="stylesheet" href="__PUBLIC__/css/login.css">
+	<script src="__PUBLIC__/js/jquery.min.js"></script>
+	</head>
+	<body>
+		<div class="reg-div">
+			<h1>会员注册</h1>
+		</div>
+		<div class="reg-div">
+			<form action="" method="post">
+				<input type="hidden" value="{$tj_phone}" name="tj_phone" />
+				<input type="hidden" value="" name="session_id" />
+				<ul>
+					<li>
+						<span class="icon_user"></span>
+						<input type="text" name="nickname" placeholder="请输入用户名，至少4位" maxlength="11" value=""/>
+					</li>
+					<li>
+						<span class="icon_prass"></span>
+						<input type="password" name="password" placeholder="请输入密码，至少6位" value=""/>
+					</li>
+					<li>
+						<span class="icon_prass"></span>
+						<input type="password" name="confirm_pwd" placeholder="请输入确认密码" value=""/>
+					</li>
+
+					<li>
+						<span class="icon_prass"></span>
+						<input type="text" name="realname" placeholder="请输入姓名" value=""/>
+					</li>
+					<li>
+						<span class="icon_prass"></span>
+						<input type="text" name="phone" placeholder="请输入手机号" value=""/>
+					</li>
+					<li>
+						<span class="icon_prass"></span>
+						<input type="password" name="pay_password" placeholder="请输入支付密码，至少6位" value=""/>
+					</li>
+
+					<li>
+						<span class="icon_prass"></span>
+						<input type="text" name="id_card" placeholder="请输入身份证号" value=""/>
+					</li>
+
+					<li>
+						<span class="icon_user"></span>
+						推荐用户：{$nickname}
+						<input type="hidden" name="tjid" value="{$tjid}">
+					</li>
+				</ul>
+				<div class="tjxy">
+					<input type="checkbox" checked="checked"> <label> 同意《用户注册协议》</label>
+				</div>
+				<button>提交</button>
+				
+				<a href="http://www.haogou365.vip/M/Index/app_load" style="padding:10px 10px;display:block;text-align:center;color:#f34451;width:130px;border-radius:5px;border:1px solid #f34451;margin:0 auto;margin-top:20px;">立即下载APP</a>
+				
+			</form>
+		</div>
+<script src="__PUBLIC__/layer/mobile/layer.js"></script>
+<script type="text/javascript">
+$(function(){
+	$("#getPhoneCode").click(function(){
+		var phone = $.trim($("input[name=phone]").val());
+		
+		if (!(/1[3-8]+[0-9]{9}/.test(phone))) {
+			layer.open({
+				content: "手机格式不正确"
+				,skin: 'msg'
+				,time: 2
+			});
+			return;
+		}
+		if (! _SEND) return;
+
+		$(this).attr("disabled", _SEND);
+		$(this).val("重新获得(60)");
+		_SEND = false;
+		$.ajax({
+			url: "{:U('Api/Index/get_phone_code')}",
+			type: 'POST',
+			data: 'phone=' + phone,
+			dataType : 'json',
+			success: function(a) {
+				if (a.err) {
+					layer.open({
+						content: a.msg
+						,skin: 'msg'
+						,time: 2
+					});
+				} else {
+					$("input[name=session_id]").val(a.result.session_id);
+				}
+			}
+		});
+		setTimeout(repeatSend, 1010);
+	});
+});
+var _SEND = true;
+function repeatSend(){
+	var num = $("#getPhoneCode").val().replace(/\d+/ig,function(n){
+		if (n>0) {
+			return --n;
+		} else {
+			return "#";
+		}
+	});
+	if (num.indexOf("#") == -1) {
+		$("#getPhoneCode").val(num);
+		setTimeout(repeatSend, 1010);
+	} else {
+		$("#getPhoneCode").val("获取手机验证码");
+		$("#getPhoneCode").attr("disabled", _SEND);
+		_SEND = true;
+	}
+}
+</script>
+		
+	</body>
+</html>

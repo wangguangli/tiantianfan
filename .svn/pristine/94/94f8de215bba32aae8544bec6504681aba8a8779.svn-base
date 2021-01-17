@@ -1,0 +1,41 @@
+<!DOCTYPE html >
+<html>
+
+	<head>
+		<meta name="Generator" content="tpshop v1.1" />
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width">
+		<title>{$tpshop_config['shop_info_store_title']}</title>
+		<meta http-equiv="keywords" content="{$tpshop_config['shop_info_store_keyword']}" />
+		<meta name="description" content="{$tpshop_config['shop_info_store_desc']}" />
+		<meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+		<link rel="stylesheet" type="text/css" href="__PUBLIC__/css/tools/inite.css" />
+
+		<link rel="stylesheet" href="__PUBLIC__/mobile/css_v3/userindex.css">
+		<link rel="stylesheet" href="__PUBLIC__/mobile/style/main_style.css">
+
+		<script src="__PUBLIC__/layer/mobile/layer.js"></script>
+	</head>
+
+	<body style="background:#f7f8fa;">
+		<div class="explain">
+			<p class="red_p">定期修改有助于保护您的账号安全</p>
+			<p class="gray_p">建议设置6-18位数字+字母组合密码</p>
+		</div>
+		<form method="post" action="">
+			<div class="fill_word" style="border:0;">
+				<if condition="$password==1">
+					<input type="password" name="oldpwd" class="old" placeholder="请输入旧密码">
+				</if>
+				<div class="new">
+					<input type="password" name="newpwd" placeholder="请输入新密码" class="old">
+					<input type="password" name="confirmpwd" placeholder="请确认新密码" class="old">
+				</div>
+
+			</div>
+			<button class="btn_out">确定修改</button>
+		</form>
+
+	</body>
+
+</html>

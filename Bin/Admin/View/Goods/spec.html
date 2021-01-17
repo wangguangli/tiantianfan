@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!--<meta name="viewport" content="width=device-width, initial-scale=1">-->
+    <title>{:GC('web_title')}管理后台</title>
+    <include file="Public/asset_top_page"/>
+
+</head>
+<body>
+<!-- header -->
+<include file="Public/header"/>
+<!-- /header -->
+<!-- Page container -->
+<div class="page-container">
+    <!-- Page content -->
+    <div class="page-content">
+        <!-- main sidebar -->
+        <include file="Public/left"/>
+        <!-- /main sidebar -->
+
+        <!-- Main content -->
+        <div class="content-wrapper">
+
+            <!-- Content area -->
+            <div class="content" style="padding-top: 10px;">
+                <!-- Pagination types -->
+                <div class="v-container">
+
+
+                    <div class="panel panel-flat">
+                        <div class="panel-heading">
+
+
+                            <!--搜索框-->
+                            <div class="heading-elements">
+
+                            </div>
+                        </div>
+
+
+                        <div class="dataTables_wrapper no-footer">
+                            <table class="table datatable-tools-basic basic_table">
+                                <thead>
+                                <tr>
+                                    <th style="width: 1px;"></th>
+                                    <th class=""  style="float:left;margin-left: -40px">规格列表</th>
+                                </tr>
+                                </thead>
+
+
+                            </table>
+                            <div id="spec_content"></div>
+                            <!-- 分页 -->
+                        </div>
+                        <!-- /pagination types -->
+
+                    </div>
+                    <!-- Footer -->
+                    <include file="Public/footer" />
+                    <!-- /footer -->
+
+                </div>
+                <!-- /content area -->
+
+            </div>
+            <!-- /main content -->
+
+        </div>
+        <!-- /page content -->
+
+    </div>
+    <!-- /page container -->
+    <script>
+        $(function () {
+
+            var t = {$type_id};
+
+
+            $('#spec_content').load("/Admin/Goods/ajax_spec_select.html", {'type_id': t}, function () {
+                $('.add_spec,#first_i').click(function () {
+                    index = layer.open({
+                        type: 2,
+                        area: ['700px', '450px'],
+                        fixed: false, //不固定
+                        maxmin: true,
+                        content: "/Admin/Goods/update_spec.html?type_id=" + t
+                    });
+                });
+                $('.add_spec_child').click(function () {
+
+                    var index = layer.open({
+                        type: 2,
+                        area: ['700px', '450px'],
+                        fixed: false, //不固定
+                        maxmin: true,
+                        content: "/Admin/Goods/update_spec.html?spec_id=" + $(this).attr('data-id')
+                    });
+                });
+
+                $('img.del').click(function () {
+                    var id = $(this).attr('data-id');
+                    layer.confirm('确认要删除该规格项？', {
+                        btn: ['是的', '取消'] //按钮
+                    }, function () {
+
+                        $.post("/Admin/Goods/ajax_delete_spec.html", {id: id}, function (res) {
+                            if (res.status == 1) {
+                                layer.msg('操作成功!');
+                                setTimeout(function () {
+                                    location.reload();
+                                }, 800);
+
+                                return;
+                            }
+                            layer.msg(res.info);
+
+                        }, 'json');
+                    });
+                });
+            });
+        });
+
+    </script>
+</body>
+</html>

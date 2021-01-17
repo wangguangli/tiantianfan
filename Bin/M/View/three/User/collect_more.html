@@ -1,0 +1,51 @@
+<if condition="$type==1">
+
+			<volist name="list" id="vo">
+				<li>
+					<div class="proshow">
+						<a href="{:U('Goods/detail','id='.$vo['id'])}">
+							<img class="product_img" src="{$vo.thumb}" />
+							<div class="pro-info">
+								<p>{$vo.name}</p>
+								<div class="buy_cont">
+									<span class="price"><span class="symbol">￥</span>{$vo.price}</span>
+									<img class="gwc" src="__PUBLIC__/mobile/images_v3/f_dm26.png" />
+								</div>
+
+							</div>
+						</a>
+					</div>
+				</li>
+			</volist>
+
+</if>
+
+
+<!--收藏店铺-->
+<if condition="$type==2">
+
+		<volist name="list" id="vo">
+			<div class="sto_list">
+				<a href="{:U('Shop/shopdetail')}?shop_id={$vo.id}">
+					<img class="sto_img" src="{$vo.thumb}" />
+					<div class="sto_list_lr">
+						<div class="lr_top">
+							<h2 class="title">{$vo.shop_name}</h2>
+
+						</div>
+						<!--地址-->
+						<div class="lr_mid">
+							<img class="lr_mid_img" src="{$vo.thumb}" />
+							<p class="address">{$vo.address}</p>
+						</div>
+						<!--距离-->
+						<div class="lr_bot">
+							<div class="drink">{$vo.industry_name}</div>
+						</div>
+
+					</div>
+				</a>
+			</div>
+		</volist>
+
+</if>

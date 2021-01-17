@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>消息中心</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <script src="__PUBLIC__/js/mui.min.js"></script>
+    <script src="__PUBLIC__/js/jquery-1.11.1.min.js"></script>
+    <link rel="stylesheet" href="__PUBLIC__/css/mui.min.css">
+    <link rel="stylesheet" href="__PUBLIC__/mobile/style/near.css">
+</head>
+<body>
+<header class="mui-bar mui-bar-nav dis_ea"style="background: #FE274E;">
+    <!--<a class="mui-pull-left mui-icon mui_turn"><img src="__PUBLIC__/img/return.png" width="20vw"height="20vw"/></a>-->
+    <input type="text" name="name" id="goods_name" value="" placeholder="请输入商品名称"/>
+    <p id="search_id" onclick="search()">搜索</p>
+</header>
+<div class="mui-content" style="background: #fff;">
+    <!--<div class="cont_ch">-->
+        <!--<div class="sech_his">-->
+            <!--<p>搜索历史</p>-->
+            <!--<img src="__PUBLIC__/img/remove.png" width="20vw" height="20vw" />-->
+        <!--</div>-->
+        <!--<div class="sech_list">-->
+            <!--<ul class="clearfix">-->
+                <!--<li>6325</li>-->
+            <!--</ul>-->
+        <!--</div>-->
+    <!--</div>-->
+    <!--商品列表-->
+    <div class="good_list" style="display: none;">
+        <ul>
+            <li class="clearfix">
+                <div class="good_img"><img src="{$vo.thumb}" alt="" width="100%" /></div>
+                <div class="good_right">
+                    <h6>6325</h6>
+                    <p><img src="__PUBLIC__/img/address.png" width="12vw"height="12vw"/><span>山东省济宁市市辖区山东省济宁市任城区金宇</span></p>
+                    <span class="good_sp" style="color:#999999;">6325的店铺</span>
+                </div>
+            </li>
+        </ul>
+    </div>
+    <!--end-->
+</div>
+<script type="text/javascript">
+    $(function(){
+        $("#search_id").click(function(){
+            $(".good_list").show()
+            $(".cont_ch").hide()
+        })
+    });
+    function search() {
+        var goods_name = $('#goods_name').val();//搜素框输入信息
+        console.log(goods_name);
+        $.ajax({
+            type:'POST',
+            data:{'goods_name' : goods_name},
+            url: "{:U('Index/search')}",
+            dataType: 'json',
+            success: function (data) {
+                console.log(data);
+                var html = '';
+                if (data.status == 0) {
+                //    成功
+
+                }
+            }
+        });
+    }
+
+</script>
+</body>
+</html>

@@ -1,0 +1,31 @@
+<div class="sku_title">
+	<div class="sku_title_left">规格名1：</div>
+	<div class="sku_title_right">
+		<input list="sku_title_1" onchange="change_sku_1()" type="text" name="sku_title_1" value="{$spec_name}"
+		       class="form-control sku_ipt" placeholder="请选择规格名">
+		<datalist id="sku_title_1">
+			<option value="">请选择规格名</option>
+			<foreach name="list" item="vo">
+				<option value="{$vo['name']}" sid="{$vo['id']}">
+			</foreach>
+		</datalist>
+	</div>
+</div>
+<div class="sku_list">
+	<div class="sku_list_left">规格值1：</div>
+	<div class="sku_list_right sku_list_right_1">
+
+		<input list="sku_list_1" type="text" name="sku_list_1" class="form-control" placeholder="请选择规格值">
+		<datalist id="sku_list_1">
+			<option value="">请选择规格值</option>
+			<foreach name="itemlist" item="vo1">
+				<option value="{$vo1['item']}" data-sid="{$vo1['id']}" data-specid="{$vo1['spec_id']}">
+			</foreach>
+		</datalist>
+
+	</div>
+	<div>
+		<a class="add_sub_spec">添加规格值</a>
+	</div>
+</div>
+<input type="hidden" name="spec_id" value="{$spec_id}">

@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>{:GC('web_title')}</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="Keywords" content="{:GC('keywords')}">
+    <meta name="description" content="{:GC('description')}">
+    <!-- UC强制全屏 -->
+    <meta name="full-screen" content="yes">
+    <!-- QQ强制全屏 -->
+    <meta name="x5-fullscreen" content="true">
+    <link rel="stylesheet" href="__PUBLIC__/mobile/style/jquery-weui.min.css">
+    <link rel="stylesheet" href="__PUBLIC__/mobile/style/main_style.css?n=1">
+    <link rel="stylesheet" href="__PUBLIC__/mobile/css_v3/index.css?n=5">
+    <link href="__PUBLIC__/css/footer.css" rel="stylesheet" type="text/css"/>
+    <!--上拉加载-->
+    <link rel="stylesheet" href="__PUBLIC__/mobile/style/dropload.css">
+    <script type="text/javascript" src="__PUBLIC__/layer/mobile/layer.js"></script>
+    <style>
+        .in_pad{
+            margin-top: -3vw;
+        }
+    </style>
+</head>
+
+<body ontouchstart style="background-color: #F7F8F8;">
+<div class="qianDao ic3">
+    <div class="xinXi">
+        <span class="userscore">我的积分：3000</span>
+        <span onclick="guiZe()">签到规则</span>
+    </div>
+    <div class="lianXu">
+        <img src="__PUBLIC__/mobile/images_v3/h_ic_b.png" alt="">
+    </div>
+    <ul class="List" id="sign_view"></ul>
+    <div id="signclick"><p class="h_YQD_btn"></p></div>
+</div>
+<div class="jiFen">
+    <img src="__PUBLIC__/mobile/images_v3/h_ic_c.png" alt="">
+</div>
+<!--猜你喜欢模块-->
+<div class="inx-like">
+    <ul id="inx_id" class="in_pad">
+        <!--这里加载商品数据-->
+    </ul>
+</div>
+<div class="tanChuang">
+    <div class="box">
+        <img class="close" onclick="guiZe()" src="__PUBLIC__/mobile/images_v3/shareicon1_1.png" alt="">
+        <p class="guiZe">签到规则</p>
+        <div class="h_xiang">
+        {$rules}        </div>
+    </div>
+</div>
+<script src="__PUBLIC__/mobile/js/vue.min.js"></script>
+<script src="__PUBLIC__/mobile/js/jquery-2.1.4.js"></script>
+<script src="__PUBLIC__/mobile/js/jquery-weui.min.js"></script>
+<script src="__PUBLIC__/mobile/js/swiper.min.js"></script>
+<script src="__PUBLIC__/mobile/js/dropload.min.js"></script>
+<script type="text/javascript" src="//res.wx.qq.com/open/js/jweixin-1.6.0.js"></script>
+<script type="text/javascript" src="__PUBLIC__/mobile/js/clipboard.min.js"></script>
+<script type="text/javascript">
+    //上拉加载
+    $(function () {
+        // 点击客服弹出
+        $(".customer_service").on("click", function () {
+            $("#customer_service").popup();
+        });
+        // 页数
+        var page = 0;
+        // dropload
+        $('.inx-like').dropload({
+            scrollArea: window,
+            loadDownFn: function (me) {
+                page++; // 拼接HTML
+                var html = '';
+                $.ajax({
+                    type: 'GET',
+                    url: "{:U('Api/Goodsout/waitGoodsList')}?page=" + page,
+                    dataType: 'json',
+                    success: function (data) {
+                        console.log(data);
+                        if (data.status == 1) {
+                            // $(".dropload-down").remove();
+                            me.resetload();
+                            return;
+                        }
+                        var arrLen = data.result.list.length;
+                        if (arrLen > 0) {
+                            $.each(data.result.list, function (index, item) {
+                                html += '<li>';
+                                html += '<a href="{:U(\'Goods/detail\')}?id=' + item.id + '">';
+                                html += '<img class="pro_img" src="' + item.thumb + '"/>';
+                                html += '<div class="pro-info">';
+                                html += '<p class="elipe cakes_tit"><span class="goods_title">' + item.name + '</span></p>';
+                                // html += '<span class="cakes">热销商品</span>';
+                                html += '<div class="pro-info-tootm">';
+                                html += '<div class="price">';
+                                html += '<span>' + item.price + '积分</span>';
+                                html += '</div>';
+                                html += '<img src="__PUBLIC__/mobile/images_v3/f_dm26.png"/>';
+                                html += '</div>';
+                                html += '</div>';
+                                html += '</a>';
+                                html += '</li>';
+                            });
+                            // 如果没有数据
+                        } else {
+                            me.lock(); // 锁定
+                            me.noData(); // 无数据
+                        }
+                        // 为了测试，延迟1秒加载
+                        setTimeout(function () {
+                            // console.log(html) // 插入数据到页面，放到最后面
+                            $('#inx_id').append(html); // 每次数据插入，必须重置
+                            me.resetload();
+                        }, 8);
+                    },
+                    error: function (xhr, type) {
+                        alert('Ajax error!'); // 即使加载出错，也得重置
+                        me.resetload();
+                    }
+                });
+            }
+        });
+    });
+    //签到规则
+    function guiZe(){
+        $('.tanChuang').toggle()
+    }
+    //签到列表
+    singLst();
+    function singLst() {
+        $.ajax({
+            type: 'GET',
+            url: "{:U('/Api/Userin/sign_list')}?user_id={$user_id}",
+            dataType: 'json',
+            success: function (data) {
+                console.log(data)
+                var list = data.result.list
+                var arrLen = list.length;
+                $('.h_xiang').html(data.result.rules)
+                $('.userscore').html('我的积分：'+data.result.user_score)
+                if(data.result.is_check == 1){
+                    $('#signclick').html('<p class="h_YQD_btn">已签到</p>');
+                }else{
+                    $('#signclick').html('<p class="h_YQD_btn" onclick="onsing()">签到</p>');
+                }
+                var htmls = '';
+                console.log(htmls);
+                if(arrLen>0){
+                    $.each(list, function (index, item) {
+                        var cut = '';
+                        var imgurl = item.sign_award;
+                        if(item.is_special==1){
+                            var cut = 'active';
+                            var imgurl = '<img src="__PUBLIC__/mobile/images_v3/h_ic_f.png"  class="liHe">';
+                        }else if(item.is_sign==1){
+                            var cut = 'active';
+                        }
+
+                        htmls +='<li class="meiRi ' + cut  + '" >' +
+                            '            <div class="jiangLi">' +
+                            '                <div class="quan ic1">' +  imgurl  +
+                            '                </div>' +
+                            '            </div>' +
+                            '            <p class="shiJian">'+item.sign_date+'</p>' +
+                            '        </li>'
+                    })
+                    $('#sign_view').append(htmls); // 每次数据插入，必须重置
+                }
+
+            },
+            error: function (xhr, type) {
+                layer.open({
+                    content: "访问失败",
+                    skin: 'msg',
+                    time: 1
+                });
+            }
+        });
+    }
+//    签到
+    function onsing() {
+        $.ajax({
+            type: 'GET',
+            url: "{:U('/Api/Userin/sign')}?user_id={$user_id}",
+            dataType: 'json',
+            success: function (data) {
+                $('#signclick').html('<p class="h_YQD_btn">已签到</p>');
+                setTimeout(function () {
+                    window.location.reload();
+                },1500)
+                layer.open({
+                    content: data.msg,
+                    skin: 'msg',
+                    time: 1.5
+                });
+            }
+        })
+    }
+</script>
+</body>
+
+</html>

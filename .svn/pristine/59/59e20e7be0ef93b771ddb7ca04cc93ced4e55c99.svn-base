@@ -1,0 +1,131 @@
+ /*清理浮动的方法*/
+ 
+ .clearfix:after {
+ 	content: " ";
+ 	display: block;
+ 	clear: both;
+ 	height: 0;
+ }
+ 
+ .clearfix {
+ 	zoom: 1;
+ }
+ /*************************************************我的资产************************************************************************/
+ /*导航*/
+ 
+ .goods_nav {
+ 	width: 100%;
+ 	background-color: #fff;
+ 	border-radius: 0 0 3.7vw 3.7vw;
+ }
+ 
+ .goods_nav_kuan {
+ 	width: 83%;
+ 	font-size: 3.7vw;
+ 	color: #333;
+ 	display: flex;
+ 	align-items: center;
+ 	justify-content: space-around;
+ 	margin: 0 auto;
+ 	padding-top: 3.5vw;
+ 	padding-bottom: 3.7vw;
+ }
+ 
+ .nav_title {
+ 	width: 19vw;
+ 	text-align: center;
+ }
+ 
+ .f_active {
+ 	font-weight: bold;
+ }
+ 
+ .f_active .active_span {
+ 	width: 7.04vw;
+ 	border-bottom: 2px solid #fe4543;
+ 	display: block;
+ 	margin: 0 auto;
+ 	margin-top: 1vw;
+ 	border-radius: 0.37vw;
+ }
+ 
+ .detail_rq {
+ 	margin-top: 3.33vw;
+ 	background-color: #fff;
+ 	border-radius: 2.78vw;
+ }
+ 
+ .expense {
+ 	padding: 0 3.7vw;
+ }
+ 
+ .clearfix_top {
+ 	width: 100%;
+ 	overflow: hidden;
+ 	margin-bottom: 1vw;
+ }
+ 
+ .expense .time_ex {
+ 	font-size: 3.7vw;
+ 	color: #333333;
+ 	width: 60%;
+ 	float: left;
+ }
+ 
+ .clearfix_top .qian {
+ 	font-size: 3.89vw;
+ 	float: right;
+ }
+ /*红色*/
+ .qi_red {
+ 	color: #fe4543;
+ }
+ /*绿色*/
+ 
+ .qi_green{
+ 	color: #2fbe28;
+ }
+ 
+ .expense ul li {
+ 	padding-top: 4.09vw;
+ 	border-bottom: 1px solid #f2f2f2;
+ 	padding-bottom: 2.43vw;
+ }
+ 
+ .acc_time {
+ 	font-size: 3.33vw;
+ 	color: #999999;
+ 	display: block;
+ 	width: 100%;
+ }
+ 
+ .load_more {
+ 	font-size: 3.33vw;
+ 	text-align: center;
+ 	padding-top: 5vw;
+ 	padding-bottom: 5vw;
+ 	color: #999999;
+ }
+ 
+ .load_more_red {
+ 	color: #fe4543;
+ }
+ .empty_data{
+	 width: 90vw;
+	 margin: 0 auto;
+	 padding-top: 30vw;
+ }
+ .empty_cart_img_1{
+	 width: 72.87vw;
+	 height: 45.37vw;
+	 margin: 0 auto;
+	 display: block;
+ }
+ .empty_data_t1{
+	 width: 100%;
+	 text-align: center;
+	 font-size: 3.89vw;
+	 color: #a1adbd;
+	 padding-top: 3vw;
+	 padding-bottom: 4vw;
+ }

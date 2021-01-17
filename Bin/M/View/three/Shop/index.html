@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>商家</title>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+		<meta name="Keywords" content="">
+		<meta name="description" content="">
+		<link rel="stylesheet" href="__PUBLIC__/mobile/style/jquery-weui.min.css">
+		<link rel="stylesheet" href="__PUBLIC__/mobile/css_v3/weui.min.css">
+		<link rel="stylesheet" href="__PUBLIC__/mobile/style/main_style.css">
+		<link rel="stylesheet" href="__PUBLIC__/mobile/style/shop_index.css">
+	</head>
+	<body ontouchstart>	
+		<header class="header_shop_content">
+			<div class="swiper-container">
+				<div class="swiper-wrapper">
+					<div class="swiper-slide"><img src="__PUBLIC__/mobile/images/cp.jpg"/></div>
+					<div class="swiper-slide"><img src="__PUBLIC__/mobile/images/cp.jpg"/></div>
+					<div class="swiper-slide"><img src="__PUBLIC__/mobile/images/cp.jpg"/></div>
+				</div>
+				<div class="swiper-pagination"></div>
+			</div>
+			<div class="div_button">
+				 <a href="javascript:history.back(-1)">
+					<img class="left" img-lazyload="" src="__PUBLIC__/mobile/images/left.png">
+				 </a>
+				 <div class="clear"></div>
+			</div>
+			<div class="shop_div">
+				<img class="shop_logo" img-lazyload="" src="__PUBLIC__/mobile/images/cp.jpg">
+				<div class="div_shop_info">
+					<h2 class="name">兜兜店铺</h2>
+					<p class="note">这个是一个非常好玩的店铺</p>
+				</div>
+				<button class="collect" date-sc="2">+ 收藏</button>
+				<div class="div_shop_collect">
+					<p class="amount"><span class="scs">19</span><br>
+						收藏
+					</p>										  
+				</div>
+				 <div class="clear"></div>
+			</div>
+		</header>
+		<nav class="shop_nav">
+			<ul>
+				<li class="on">
+				   <a href="{:U('Shop/index')}">
+						<span class="shop_index_icon"></span>
+						<p class="title">首页</p>
+				   </a>	   
+				</li>
+				<li class="">
+					<a href="{:U('Shop/goods_list')}">
+						<span class="shop_good_icon"></span>
+						<p class="title">商品</p>
+					</a>	
+				</li>
+				<li class="">
+					<a href="{:U('Cart/index')}">
+						<span class="shop_cars_icon"></span>
+						<p class="title">购物车</p>
+					</a>
+				</li>
+				<div class="clear"></div>
+			</ul>
+		</nav>
+		<section class="section_more_product">
+			 <div class="div_good">
+				 <ul>
+					<li>
+						<a href="{:U('Goods/detail')}">
+							<img class="product" img-lazyload="__PUBLIC__/mobile/images/cp.jpg" src="__PUBLIC__/mobile/images/cp.jpg">
+							<h2 class="good_name">2018夏季新款高跟露趾一字带扣丝绒面中细跟酒红色舒适性感凉鞋女</h2>
+						</a>	
+						<div class="div_price">
+							<p>￥100.00</p>
+							<a href="{:U('Goods/detail')}">立即购买</a>
+						</div>	
+					</li>
+					<li>
+						<a href="{:U('Goods/detail')}">
+							<img class="product" img-lazyload="__PUBLIC__/mobile/images/cp.jpg" src="__PUBLIC__/mobile/images/cp.jpg">
+							<h2 class="good_name">2018夏季新款高跟露趾一字带扣丝绒面中细跟酒红色舒适性感凉鞋女</h2>
+						</a>	
+						<div class="div_price">
+							<p>￥100.00</p>
+							<a href="{:U('Goods/detail')}">立即购买</a>
+						</div>	
+					</li>
+					<div class="clear"></div>
+				 </ul>
+			 </div>
+		</section>
+		<nav class="footer_nav">
+			 <ul>
+				<li><a href="">店铺地址</a></li>
+				<li><a href="tel:110">联系店家</a></li>
+			 </ul>
+		</nav>
+		
+		<script src="__PUBLIC__/mobile/js/jquery-2.1.4.js"></script>
+		<script src="__PUBLIC__/mobile/js/jquery-weui.min.js"></script>
+		<script src="__PUBLIC__/mobile/js/fastclick.js"></script>
+		<script src="__PUBLIC__/mobile/js/swiper.min.js"></script>
+		<script>
+			$(".swiper-container").swiper({
+				loop: true,
+				autoplay: 3000
+			});
+		</script>
+	</body>
+</html>

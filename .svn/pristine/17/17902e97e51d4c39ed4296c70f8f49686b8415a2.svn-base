@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>订单详情</title>
+	<meta charset="utf-8">
+	<meta content="IE=edge" http-equiv="X-UA-Compatible">
+	<meta content="width=device-width, initial-scale=1, user-scalable=no" name="viewport">
+	<meta content="" name="Keywords">
+	<meta content="" name="description">
+	<link href="__PUBLIC__/mobile/style/main_style.css" rel="stylesheet">
+	<link href="__PUBLIC__/mobile/css_v3/order_detail.css?n=4" rel="stylesheet">
+	<style>
+		#orderDetail{
+			margin-top: -3.7vw;
+		}
+	</style>
+</head>
+<body ontouchstart>
+<!--		<div class="order-state" id="head">-->
+<!--			<span>{$order.order_status_cn}</span>-->
+<!--		</div>-->
+<div class='h_fall_time <if condition="$order['order_status'] neq 0">active</if> '>
+<div class="h_fall_1"><img alt="" src="__PUBLIC__/mobile/images_v3/h_ic_0{$order['order_status']}.png"> {$order.status_name}</div>
+<if condition="$order['order_status'] eq 0">
+	<div class="h_fall_2">需付款：￥{$order.total_commodity_price}  剩余：<span id="hour">00</span><span id="hour1">时</span><span id="minute">00</span>分<span id="second">00</span>秒</div>
+	<a href="{:U('Cart/sure_pay')}?order_id={$order.id}"><div class="h_fall_3">去支付</div></a>
+</if>
+</div>
+<volist id="vo" name="goods">
+	<div class="order-li" id="orderDetail">
+		<div class="shop-name">
+			<img src="{$vo.thumb}">
+			{$vo.shop_name}
+		</div>
+		<div class="goods-div">
+			<ul>
+				<volist id="vo2" name="vo['goods_list']">
+					<li>
+						<a href="javascript:;">
+							<img src="{$vo2.goods_thumb}"/>
+						</a>
+						<div class="goods-title">
+							<div class="title"><a href="javascript:;">{$vo2.goods_name}</a></div>
+							<div class="share">
+								<div class="pricenum">
+									数量 x{$vo2.goods_num}
+								</div>
+								<div class="pri">
+									<if condition="$order['order_type'] eq 11">
+										{$vo2.goods_price}<span>积分</span>
+										<else/>
+										<span>￥</span>{$vo2.goods_price}
+									</if>
+
+									<if condition="$vo2['order_status']==2">
+										<div class="but">
+											<span class="but-wul" onclick="sure_order({$vo2['user_id']},{$vo2['order_id']},{$vo2['goods_id']},{$vo2['id']})">确认收货</span>
+											<!--													<a class="but-wul" href="{:U('Order/receive',array('user_id' => $vo2['user_id'],'order_id' => $vo2['order_id'],'goods_id' => $vo2['goods_id'] ))}">确认收货</a>-->
+										</div>
+										<elseif condition="$vo2['order_status']==3" />
+										<div class="but">
+											<a class="but-wul" href="{:U('Order/sale',array('order_id' => $vo2['order_id'] , 'goods_id' => $vo2['goods_id']))}" >申请售后</a>
+											<a class="but-wul" href="{:U('Order/comment',array('order_id' => $vo2['order_id'] , 'goods_id' => $vo2['goods_id']))}">去评价</a>
+										</div>
+										<elseif condition="$vo2['order_status']==1" />
+										<div class="but">
+											<a class="but-wul" href="{:U('Order/sale',array('order_id' => $vo2['order_id'] , 'goods_id' => $vo2['goods_id']))}">申请售后</a>
+										</div>
+										<elseif condition="$vo2['order_status'] lt 0" />
+										<div class="but"><a class="but-wul">已售后</a></div>
+									</if>
+								</div>
+
+							</div>
+						</div>
+					</li>
+
+				</volist>
+			</ul>
+		</div>
+		<if condition="$vo['goods_list'][0]['user_note'] neq ''">
+			<div style="padding-top: 3.3vw;word-break:break-all;">备注：{$vo['goods_list'][0]['user_note']}</div>
+		</if>
+		<a class="lxkf" href="tel:{$vo.phone}" ><i class="iconfont">&#xe65a;</i>联系客服</a>
+	</div>
+</volist>
+
+
+<div class="order-li" id="time">
+	<div class="text-div">
+		<div class="litext">
+			<p class="litext_p">
+				<span class="litext_p_1">订单编号：</span><span class="litext_p_2" id="biao1">{$order.order_no}</span> <span class="litext_p_3" onClick="copyUrl2()">复制</span>
+			</p>
+			<p>
+				<label>下单时间：</label>{$order.add_date}
+			</p>
+		</div>
+
+		<if condition="$order_status==2 or $order_status==3 or $order_status==1">
+			<!--待收货-->
+			<div class="litext">
+				<p>
+					<label>支付方式：</label>{$order.payment_type_cn}
+				</p>
+				<p>
+					<label>支付时间：</label>{$order.pay_date}
+				</p>
+			</div>
+			<elseif condition="$order_status==-3" />
+			<!--部分商品已收货-->
+			<div class="litext">
+				<p>
+					<label>支付方式：</label>{$order.payment_type_cn}
+				</p>
+				<p>
+					<label>支付时间：</label>{$order.pay_date}
+				</p>
+			</div>
+			<elseif condition="$order_status==-2" />
+			<!--部分商品已发货-->
+			<div class="litext">
+				<p>
+					<label>支付方式：</label>{$order.payment_type_cn}
+				</p>
+				<p>
+					<label>支付时间：</label>{$order.pay_date}
+				</p>
+			</div>
+		</if>
+		<div class="litext">
+			<p>
+				<label>配送方式：</label>
+				<if condition="$order['shipping_type'] eq 1">
+					送货上门
+					<else/>
+					到店自提
+				</if>
+			</p>
+		</div>
+		<!--				<div class="litext">-->
+		<!--					<p>-->
+		<!--						&lt;!&ndash;//快递配送&ndash;&gt;-->
+		<!--						<label>配送方式：</label>{$goods[0]['goods_list'][0]['express_name']}-->
+		<!--						&lt;!&ndash;//到店自取&ndash;&gt;-->
+		<!--						&lt;!&ndash;<label>配送方式：</label>自提&ndash;&gt;-->
+		<!--					</p>-->
+		<!--					<p>-->
+		<!--						<label>物流单号：</label>{$goods[0]['goods_list'][0]['tracking_number']}-->
+		<!--					</p>-->
+		<!--				</div>-->
+	</div>
+</div>
+<div class="order-li" id="address">
+	<div class="address">
+		<i class="iconfont">&#xe606;</i>
+		<div class="add-xq">
+			<div class="title">
+				{$order.consignee} {$order.phone}
+			</div>
+			<div class="addinfo">
+				{$order.province_cn}{$order.city_cn}{$order.district_cn}{$order.address}
+			</div>
+		</div>
+	</div>
+</div>
+<div class="order-li" id="money">
+	<div class="price-div">
+		<div class="priceli">
+			商品总额
+			<if condition="$order['order_type'] eq 11">
+				<span>{$order.actual_order_total}积分</span>
+				<else/>
+				<span>￥{$order.actual_order_total}</span>
+			</if>
+
+		</div>
+		<div class="priceli">
+			运费
+			<if condition="$order['order_type'] eq 11">
+				<if condition="$order['express_fee_payment_type'] eq ''">
+					<span>＋{$order.total_express_fee}积分</span>
+					<else/>
+					<span>＋￥{$order.total_express_fee}</span>
+				</if>
+				<else/>
+				<span>＋￥{$order.total_express_fee}</span>
+			</if>
+
+		</div>
+	</div>
+	<div class="zprice">
+		<if condition="$order['order_type'] eq 11">
+			<if condition="$order['express_fee_payment_type'] neq ''">
+				实付款：<span>{$order.actual_order_total}积分+￥{$order.total_express_fee}</span>
+				<else/>
+				实付款：<span>{$order.total_commodity_price}积分</span>
+			</if>
+			<else/>
+			实付款：<span>￥{$order.total_commodity_price}</span>
+		</if>
+
+	</div>
+</div>
+<if condition="$order.is_share == 1">
+	<div class="order-li" id="fenxiang" style="display: none;">
+		<div class="address ">
+			<div class="add-xq">
+				<div class="title layui-btn layui-btn-primary" style="margin-left: 45%">
+					<a href="{:U('Order/pintuan',array('id'=>$order['id']))}">分享给朋友参加拼团</a>
+				</div>
+			</div>
+		</div>
+	</div>
+</if>
+
+<if condition="$order_status==0">
+	<div class="bottom-div"></div>
+	<!--待付款-->
+	<div class="bottom">
+		<div class="but-div">
+			<a class="but-wuld" href="{:U('Order/cancelOrder','order_id='.$order['id'])}">取消订单</a>
+		</div>
+		<div class="but-div redbg">
+			<a class="but-wuld" href="{:U('Cart/sure_pay','order_id='.$order['id'])}">去支付</a>
+		</div>
+	</div>
+	<elseif condition="$order_status==2" />
+	<div class="bottom-div"></div>
+	<!--待收货-->
+	<div class="bottom">
+		<div class="but-div">
+			<a class="but-wuld" href="{:U('logistics',array('order_id'=>$order_id,'shop_id'=>$shop_id))}">查看物流</a>
+		</div>
+		<div class="but-div">
+			<span class="but-wuld" onclick="sure_order_all({$order['user_id']},{$order['id']},{$goods[0]['shop_id']})">全部收货</span>
+		</div>
+	</div>
+	<elseif condition="$order_status==3" />
+	<div class="bottom-div"></div>
+	<!--已完成-->
+	<div class="bottom">
+		<div class="but-div">
+			<span class="but-wuld" onclick="deleteOrder()">删除订单</span>
+		</div>
+		<div class="but-div">
+			<a class="but-wuld" href="{:U('logistics',array('order_id'=>$order_id,'shop_id'=>$shop_id))}">查看物流</a>
+		</div>
+	</div>
+	<elseif condition="$order_status==4" />
+	<div class="bottom-div"></div>
+	<!--已完成-->
+	<div class="bottom">
+		<div class="but-div">
+			<span class="but-wuld" onclick="deleteOrder()">删除订单</span>
+		</div>
+	</div>
+</if>
+<input type="hidden" id="order_id" value="{$order_id}">
+</body>
+<script src="__PUBLIC__/mobile/js/jquery-2.1.4.js"></script>
+<script src="__PUBLIC__/layer/mobile/layer.js"></script>
+<script type="text/javascript">
+	var time = '{$new_time}';
+	var order_status = '{$order.order_status}';
+	console.log(time)
+	if(order_status == 0){
+		if (time > 0) {
+			var maxtime = time;
+			timer = setInterval("CountDown()", 1000);
+		}else {
+			location.href="{:U('Order/index')}"
+		}
+	}
+
+	function CountDown(a) {
+		// console.log(maxtime)
+		if (maxtime >= 0) {
+			hour = Math.floor(maxtime / 3600);
+			if(hour == 0){
+				$('#hour').hide();
+				$('#hour1').hide();
+			}
+			minutes = Math.floor((maxtime - hour * 3600) / 60);
+			seconds = Math.floor(maxtime % 60);
+			if (hour < 10) {
+				hour = "0" + hour
+			}
+			if (minutes < 10) {
+				minutes = "0" + minutes
+			}
+			if (seconds < 10) {
+				seconds = "0" + seconds
+			}
+			$('#hour').html(hour);
+			$('#minute').html(minutes);
+			$('#second').html(seconds);
+			--maxtime;
+		} else {
+			maxtime = 3600;
+			timer = setInterval("CountDown()", 1000);
+		}
+	}
+	//确认收货
+	function sure_order(user_id, order_id, goods_id,id) {
+		$.ajax({
+			type: "POST",
+			dataType: "json",
+			data: {"user_id": user_id, "order_id": order_id, "goods_id": goods_id, "order_goods_id": id},
+			url: "{:U('Api/Orderin/takeDelivery')}",
+			success: function (data) {
+				console.log(data);
+				layer.open({
+					content: '订单已收货'
+					, skin: 'msg'
+					, time: 2 //2秒后自动关闭
+				});
+				window.location.reload()
+			}
+		});
+	}
+	//全部收货
+	function sure_order_all(user_id, order_id, shop_id) {
+		layer.open({
+			content: '您确定要全部收货吗？'
+			, btn: ['确定', '不要']
+			, yes: function (index) {
+				$.ajax({
+					type: "POST",
+					dataType: "json",
+					data: {"user_id": user_id, "order_id": order_id, "shop_id": shop_id},
+					url: "{:U('Api/Orderin/takeDelivery')}",
+					success: function (data) {
+						console.log(data);
+						layer.open({
+							content: data.msg
+							, skin: 'msg'
+							, time: 2 //2秒后自动关闭
+						});
+						window.location.reload()
+					}
+				});
+			}
+		});
+	}
+	//删除订单
+	function deleteOrder() {
+		var order_id = $("#order_id").val();
+		layer.open({
+			content: '您确定要删除该订单吗？'
+			,btn: ['确定', '不要']
+			,yes: function(index){
+				$.ajax({
+					type : "POST",
+					dataType: "json",
+					data : {"order_id" : order_id},
+					url : "{:U('Order/deleteOrder')}",
+					success:function (data) {
+						console.log(data);
+						layer.open({
+							content:data.msg
+							,skin: 'msg'
+							,time: 2 //2秒后自动关闭
+						});
+						//返回上一页
+						location.href = '/index.php/M/Order/index';
+						// window.location.reload()
+					}
+				});
+			}
+		});
+	}
+	function copyUrl2() {
+		var Url2=$("#biao1").html();
+		document.execCommand("Copy"); // 执行浏览器复制命令
+		var oInput = document.createElement('input');
+		oInput.value = Url2;
+		document.body.appendChild(oInput);
+		oInput.select(); // 选择对象
+		document.execCommand("Copy"); // 执行浏览器复制命令
+		oInput.className = 'oInput';
+		oInput.style.display='none';
+		layer.open({
+			content: '复制成功'
+			,skin: 'msg'
+			,time: 2 //2秒后自动关闭
+		});
+	}
+
+</script>
+</html>

@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>购物车</title>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+	<meta name="Keywords" content="">
+	<meta name="description" content="">
+	<link rel="stylesheet" href="__PUBLIC__/mobile/style/jquery-weui.min.css">
+	<link rel="stylesheet" href="__PUBLIC__/mobile/style/weui.min.css">
+	<link rel="stylesheet" href="__PUBLIC__/mobile/style/main_style.css">
+	<link rel="stylesheet" href="__PUBLIC__/mobile/style/cart.css">
+	<script src="__PUBLIC__/layer/mobile/layer.js"></script>
+	<script type="text/javascript" src="__PUBLIC__/layer/mobile/layer.js"></script>
+
+</head>
+<body>
+<header>
+	<a class="mui-pull-left mui-icon mui_turn" href="javascript:history.back()"><img src="__PUBLIC__/img/return4.png" width="20vw" height="20vw"/></a>
+	购物车
+	<span class="icon_editor gcar" id="redact">编辑</span>
+	<span class="icon_editor gcar" id="ac_id" style="display: none;">完成</span>
+
+</header>
+<body>
+<div class="cart-div"></div>
+<div class="goods_ee"></div>
+<div class="bottom-total clearfix">
+	<div class="read_left"><input type="checkbox" id="checkd_all"/><span>全选 </span></div>
+	<form action="{:U('Cart/confirm')}" id=" form" method="post"  >
+		<input type="hidden" value="" id="goods" name="goods">
+		<input type="hidden" id="user_id" value="{$Think.session.user_id}">
+		<div id="redact_id" class="read_right">
+			<div class="total-price">合计：￥<span>0.00</span></div>
+			<button type="submit" class="jsbut">去结算</button>
+		</div>  </form>
+	<div id="achieve_id" class="read_right delete_div" style="display: none;">
+		<button type="submit" class="delete_su">删除</button>
+	</div>
+</div>
+<script src="__PUBLIC__/mobile/js/jquery-2.1.4.js"></script>
+<script>
+	var user_id = $('#user_id').val();
+	$.ajax({
+		type: 'post',
+		dataType: 'json',
+		// url: "{:U('Api/Orderout/cartList')}",
+		url: "{:U('M/Order/cartList')}",
+		data: {'user_id': user_id},
+		success: function (data) {
+			html = '';
+			console.log(data);
+			if (data.status == 0) {
+				$.each(data.result, function (index, item) {
+					html += '<div class="cart-list">' +
+						'<div class="shop-name">' +
+						'<input type="checkbox" id="checkshop"/> <i class="iconfont">&#xe63c;</i> ' + item.shop_name +
+						'</div>' + '<div class="goods-list">' +
+						'<ul>';
+					$.each(item.goods_list, function (index, item1) {
+						html +=
+							'<li>' +
+							'<input type="checkbox" class="checkgoods" cid= "' + item1.cart_id + '" gid = "' + item1.goods_id + '" gsid ="' + item1.goods_spec_id + '"/> ' +
+							'<div class="car-goods">' +
+								'<a href="'+"{:U('Goods/detail')}?id="+item1.goods_id+'">'+
+							'<img src="' + item1.goods_thumb + '"/></a>' +
+							'<div class="goodsjs">' +
+								'<a href="'+"{:U('Goods/detail')}?id="+item1.goods_id+'">'+
+							'<p class="goods-title" style="color: black;">' + item1.goods_name + '</p></a>' +
+							'<p class="goods-ms">' + item1.spec_name
+							+ '</p>' +
+							'<div class="goods-price">' +
+							'<span class="price">￥<span>' + item1.goods_price
+							+ '</span></span>' +
+							'<div class="plus">' +
+							'<div class="reduce" ">-</div>' +
+							'<input type="amount" value="' + item1.goods_num + '" readonly cid= "' + item1.cart_id + '" gid = "' + item1.goods_id + '" gsid ="' + item1.goods_spec_id + '">' +
+							'<div class="increase">+</div>' +
+							'<div class="clear"></div>' +
+							'</div>' +
+							'</div>' +
+							'</div>' +
+							'</div>' +
+							'</li>'
+
+					})
+					html += '</ul>' + '</div> ' + '</div>';
+				})
+				$('.cart-div').append(html);
+			}else{
+				// alert(data.msg);
+				layer.open({
+					content: data.msg,
+					skin: 'msg',
+					time: 1
+				});
+			}
+		}
+	})
+	$(document).on("click", '.increase', function () {
+		$input = $(this).prev();
+		var cid = $(this).prev().attr('cid');
+		var gsid = $(this).prev().attr('gsid');
+		var gid = $(this).prev().attr('gid');
+		var arr = new Array();
+		arr.push({'cart_id': cid, 'goods_id': gid, 'goods_num': 1, 'goods_spec_id': gsid});
+		var amount = $input.val();
+		if (amount < 99) {
+			$input.val(++amount);
+			summation();
+			$.ajax({
+				type: 'post',
+				dataType: 'json',
+				url: "{:U('M/Order/makeCart')}",
+				data: {'user_id': 1, 'type': 'up', 'goods': arr},
+				success: function (data) {
+					if (data.status == 1) {
+						// alert('操作失败');
+						layer.open({
+							content: "操作失败",
+							skin: 'msg',
+							time: 1
+						});
+
+					}
+				}
+			})
+		} else {
+			// alert('已经是最大了');
+			layer.open({
+				content: "已经是最大了",
+				skin: 'msg',
+				time: 1
+			});
+		}
+
+
+	});
+	$(document).on('click', '.reduce', function () {
+		$input = $(this).next();
+		var cid = $(this).next().attr('cid');
+		var gsid = $(this).next().attr('gsid');
+		var gid = $(this).next().attr('gid');
+		console.log(cid);
+		var arr = new Array();
+		arr.push({'cart_id': cid, 'goods_id': gid, 'goods_num': 1, 'goods_spec_id': gsid});
+		var amount = $input.val();
+		console.log(amount);
+		if (amount > 1) {
+			$input.val(--amount);
+			summation();
+			$.ajax({
+				type: 'post',
+				dataType: 'json',
+				url: "{:U('M/Order/makeCart')}",
+				data: {'user_id': 1, 'type': 'down', 'goods': arr},
+				success: function (data) {
+					if (data.status == 1) {
+						// alert('操作失败')
+						layer.open({
+							content: "操作失败",
+							skin: 'msg',
+							time: 1
+						});
+					}
+				}
+			})
+		} else {
+			// alert('已经是最小了');
+			layer.open({
+				content: "已经是最小了",
+				skin: 'msg',
+				time: 1
+			});
+		}
+
+	})
+
+	function summation() {
+		var total = 0;
+
+		$(".cart-list").each(function () {
+			$li = $(this).find(".goods-list ul li");
+			$li.each(function (i, val) {
+
+				if ($(this).find('.checkgoods').is(':checked')) {
+
+					var price = $(this).find(".goods-price").find('.price span').html();
+					var amount = $(this).find('input[type="amount"]').val();
+					var goodprice = parseFloat(price) * parseInt(amount);
+					total += goodprice;
+				}
+			});
+		});
+		total = total.toFixed(2);
+		$(".total-price").find("span").html(total);
+	};
+	$("#checkd_all").click(function () {
+		if ($(this).is(":checked")) {
+			$("input[type='checkbox']").prop("checked", true);
+		} else {
+			$("input[type='checkbox']").prop("checked", false);
+		}
+		summation();
+	});
+	$(document).on('click', '#checkshop', function () {
+		var goodsList = $(this).parent().next();
+		if ($(this).is(":checked")) {
+			goodsList.find("input[type='checkbox']").each(function () {
+				$(this).prop("checked", true);
+			});
+		} else {
+			goodsList.find("input[type='checkbox']").each(function () {
+				$(this).prop("checked", false);
+			});
+		}
+		summation();
+	})
+
+	$(document).on('click', '.checkgoods', function () {
+		var goodsList = $(this).parent().parent();
+		var clength = goodsList.find("input[type='checkbox']:checked").length;
+		var prev = $(this).parent().parent().parent().prev();
+		if (clength > 0) {
+			prev.find("input[type='checkbox']").prop("checked", true);
+		} else {
+			prev.find("input[type='checkbox']").prop("checked", false);
+		}
+		summation();
+	})
+	$('.jsbut').click(function () {
+		var cid = new Array();
+		var gid = new Array();
+		var gsid = new Array();
+		var gn = new Array();
+		var arr = new Array();
+		$('.checkgoods:checked').each(function () {
+			cid.push($(this).attr('cid'))
+			gid.push($(this).attr('gid'))
+			gsid.push($(this).attr('gsid'))
+			gn.push($(this).next().children().last().children().last().children().last().children('input').val())
+
+		});
+		if (cid.length > 0) {
+			for (var i = 0; i < cid.length; i++) {
+				arr.push({'cart_id': cid[i], 'goods_id': gid[i], 'goods_num': gn[i], 'goods_spec_id': gsid[i]});
+			}
+			var json = JSON.stringify(arr);
+		} else {
+			layer.open({
+				content: "至少选择一个商品",
+				skin: 'msg',
+				time: 1
+			});
+			return false;
+
+		}
+		$('#goods').val(json);
+
+	})
+	$('.delete_su').click(function () {
+		var cid = new Array();
+		var gid = new Array();
+		var gsid = new Array();
+		var gn = new Array();
+		var arr = new Array();
+		$('.checkgoods:checked').each(function () {
+			cid.push($(this).attr('cid'))
+			gid.push($(this).attr('gid'))
+			gsid.push($(this).attr('gsid'))
+			gn.push($(this).next().children().last().children().last().children().last().children('input').val())
+
+		});
+		if (cid.length > 0) {
+			for (var i = 0; i < cid.length; i++) {
+				arr.push({'cart_id': cid[i], 'goods_id': gid[i], 'goods_num': gn[i], 'goods_spec_id': gsid[i]});
+			}
+			var json = JSON.stringify(arr);
+		} else {
+			var json = 0;
+		}
+		$.ajax({
+			type: 'post',
+			dataType: 'json',
+			url: "{:U('M/Order/makeCart')}",
+			data: {'type': 'del', 'goods': json, 'user_id': user_id},
+			success: function (data) {
+				console.log(data);
+				if (data.status == 0) {
+					location.href = "{:U('Cart/index')}";
+				}
+			}
+		})
+	})
+	//点击编辑显示隐藏
+	$('#redact').click(function () {
+		$('#redact_id').hide();
+		$('#achieve_id').show();
+		$('#ac_id').show();
+		$('#redact').hide();
+	})
+	$('#ac_id').click(function () {
+		$('#redact_id').show();
+		$('#achieve_id').hide();
+		$('#ac_id').hide();
+		$('#redact').show();
+	})
+
+</script>
+</body>
+</html>

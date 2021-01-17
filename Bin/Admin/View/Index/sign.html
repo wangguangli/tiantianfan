@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!--<meta name="viewport" content="width=device-width, initial-scale=1">-->
+    <title>{:GC('web_title')}管理后台-签到设置</title>
+    <include file="Public/asset_top_page"/>
+    <script src="__PUBLIC__/admin_new/js/semantic.js" type="text/javascript"></script>
+    <link href="__PUBLIC__/admin_new/css/semantic.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<!-- header -->
+<include file="Public/header"/>
+<!-- /header -->
+<!-- Page container -->
+<div class="page-container">
+    <!-- Page content -->
+    <div class="page-content">
+        <!-- main sidebar -->
+        <include file="Public/left"/>
+        <!-- /main sidebar -->
+
+        <!-- Main content -->
+        <div class="content-wrapper">
+
+            <!-- Content area -->
+            <div class="content" style="padding-top: 10px;">
+                <!-- Pagination types -->
+                <div class="v-container">
+
+                    <div class="alert alert-tips alert-dismissible" role="alert">
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span
+                                aria-hidden="true">×</span></button>
+                        本页签到说明
+                    </div>
+                    <!-- page -->
+                    <form class="form-horizontal pt-15 layui-form" method="post" action="{:U('sign')}">
+                        <input type="hidden" name="id" value="{$data.id}">
+                        <div class="form-group">
+                            <label class="col-xs-3 control-label text-right">签到是否开启</label>
+                            <div class="col-xs-5">
+                                <input type="checkbox" class="form-control" id="is_open" name="is_open" lay-skin="switch" lay-filter="is_open" lay-text="开启|关闭" <if condition="$data['is_open'] eq 1">checked</if> value="{$data.is_open}">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-xs-3 control-label text-right">是否周期签到</label>
+                            <div class="col-xs-5">
+                                <input type="checkbox" lay-filter="is_cycle" id="is_cycle" class="form-control" name="is_cycle" lay-skin="switch" lay-text="开启|关闭" <if condition="$data['is_cycle'] eq 1">checked</if> value="{$data.is_cycle}" >
+                            </div>
+                        </div>
+
+                        <div class="form-group" id="one_cycle_days" <if condition="$data['is_cycle'] neq 1">style='display:none'</if>  >
+                            <label class="col-xs-3 control-label text-right">周期天数</label>
+                            <div class="col-xs-5">
+                                <input type="text" class="form-control"  name="one_cycle_days" value="{$data.one_cycle_days}" placeholder="请在此输入值" required>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-xs-3 control-label text-right">普通签到奖励</label>
+                            <div class="col-xs-5">
+                                <input type="number" class="form-control"  name="sign_award" value="{$data.sign_award}" placeholder="请在此输入值" required>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-xs-3 control-label text-right">超过多长时间未签到算首次签到</label>
+                            <div class="col-xs-5">
+                                <input type="number" class="form-control"  name="cycle_days" value="{$data.cycle_days}" placeholder="请在此输入值" required>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-xs-3 control-label text-right">首次签到奖励</label>
+                            <div class="col-xs-5">
+                                <input type="number" class="form-control"  name="first_sign_award" value="{$data.first_sign_award}" placeholder="请在此输入值" required>
+                            </div>
+                        </div>
+                        <div class="form-group" id="special_award" <if condition="$data['is_cycle'] neq 1">style='display:none'</if> >
+                            <label class="col-xs-3 control-label text-right">特殊奖励设置</label>
+                            <div class="col-xs-5">
+                                <input type="text" class="form-control"  name="special_award" value="{$data.special_award}" placeholder="请在此输入值" required>
+                            </div>
+                            （x=y,x2=y2,x3=y3）等号前面是第几天，后面是奖励多少
+                        </div>
+                        <div class="form-group">
+                            <label class="col-xs-2 control-label text-right">签到规则</label>
+                            <div class="col-xs-6">
+                                <script id="editor" type="text/plain" style="width:100%;height:400px;" name="sign_rules">{$data.sign_rules}
+
+
+
+                        </script>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-xs-3 control-label"></label>
+                            <div class="col-xs-8">
+                                <button class="layui-btn layui-btn-sm layui-btn-normal" type="submit">提交</button>
+                                <a href="javascript:history.go(-1);" class="layui-btn layui-btn-sm layui-btn-primary">返回</a>
+                            </div>
+                        </div>
+                    </form>
+
+
+                    <!-- Footer -->
+                    <include file="Public/footer" />
+                    <!-- /footer -->
+
+                </div>
+                <!-- /content area -->
+
+            </div>
+            <!-- /main content -->
+
+        </div>
+        <!-- /page content -->
+
+    </div>
+</div>
+    <!-- /page container -->
+
+
+
+</body>
+<script>
+    var ue = UE.getEditor('editor');
+    layui.use('form', function() {
+        var form = layui.form;
+        form.on('switch(is_cycle)', function (data) {
+            if(data.elem.checked == true){
+                $('#special_award').show();
+                $('#one_cycle_days').show();
+                $('#is_cycle').val(1)
+            }else {
+                $('#special_award').hide();
+                $('#one_cycle_days').hide();
+                $('#is_cycle').val(0)
+            }
+        })
+        form.on('switch(is_open)', function (data) {
+            if(data.elem.checked == true){
+                $('#special_award').show();
+                $('#one_cycle_days').show();
+                $('#is_open').val(1)
+            }else {
+                $('#special_award').hide();
+                $('#one_cycle_days').hide();
+                $('#is_open').val(0)
+            }
+        })
+    })
+
+</script>
+</html>

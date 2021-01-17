@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!--<meta name="viewport" content="width=device-width, initial-scale=1">-->
+    <title>{:GC('web_title')}管理后台</title>
+    <include file="Public/asset_top_page"/>
+</head>
+<body>
+<!-- header -->
+<include file="Public/header"/>
+<!-- /header -->
+<!-- Page container -->
+<div class="page-container">
+    <!-- Page content -->
+    <div class="page-content">
+        <!-- main sidebar -->
+        <include file="Public/left"/>
+        <!-- /main sidebar -->
+
+        <!-- Main content -->
+        <div class="content-wrapper">
+
+            <!-- Content area -->
+            <div class="content" style="padding-top: 10px;">
+                <!-- Pagination types -->
+                <div class="v-container">
+                    <div class="alert alert-tips alert-dismissible" role="alert">
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span
+                                aria-hidden="true">×</span></button>
+                        售后流程，请注意相关信息的核实
+                    </div>
+
+                    <!-- page -->
+                    <form class="form-horizontal" action="" method="post" autocomplete="off" disableautocomplete>
+
+                        <div class="form-group">
+                            <label class="col-xs-2 control-label text-right">原订单ID</label>
+                            <div class="col-xs-5">
+                                <span class="amount form-control">{$data.order_id}</span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-xs-2 control-label text-right">消费用户</label>
+                            <div class="col-xs-5">
+                                <span class="amount form-control">{$data.user_id|get_user_field=###,phone}</span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-xs-2 control-label text-right">消费商家</label>
+                            <div class="col-xs-5">
+                                <span class="amount form-control">{$data.shop_id|get_user_field=###,shop_name,0,2}</span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-xs-2 control-label text-right">商品图片</label>
+                            <div class="col-xs-5">
+                                <img src="{$data.goods_thumb}" style="width: 80px;height: 80px;">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-xs-2 control-label text-right">商品名称</label>
+                            <div class="col-xs-5">
+                                <span class="amount form-control">{$data.goods_name} {$data.goods_spec_price_name}</span>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-xs-2 control-label text-right">商品单价</label>
+                            <div class="col-xs-5">
+                                <span class="amount form-control">{$data.goods_price}</span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-xs-2 control-label text-right">商品数量</label>
+                            <div class="col-xs-5">
+                                <span class="amount form-control">{$data.refund_num}</span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-xs-2 control-label text-right">商品总价</label>
+                            <div class="col-xs-5">
+                                <span class="amount form-control">{$data.refund_total}</span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-xs-2 control-label text-right">售后类型</label>
+                            <div class="col-xs-5">
+                                <if condition="$data.refund_type eq 1">
+                                    <span class="amount form-control">退货</span>
+                                    <elseif condition="$data.refund_type eq 2"/>
+                                    <span class="amount form-control">换货</span>
+                                    <else/>
+                                    <span class="amount form-control">未发货,仅退款</span>
+
+                                </if>
+
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-xs-2 control-label text-right">当前状态</label>
+                            <div class="col-xs-5">
+                                <span class="amount form-control">{$data.refund_status|get_refund_status=###}</span>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-xs-2 control-label text-right">申请原因</label>
+                            <div class="col-xs-5">
+                                <span class="amount form-control">{$data.refund_reason}</span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-xs-2 control-label text-right">申请描述</label>
+                            <div class="col-xs-5">
+                                <span class="amount form-control">{$data.refund_description}</span>
+                            </div>
+                        </div>
+                        <if condition="$data.refund_type neq 3">
+                            <div class="form-group">
+                                <label class="col-xs-2 control-label text-right">上传图片</label>
+                                <div class="col-xs-5">
+                                    <foreach name="data['images']" item="vo2">
+                                        <img src="{$vo2}" style="width: 80px;height: 80px;margin-right: 10px;">
+                                    </foreach>
+                                </div>
+                            </div>
+                        </if>
+                        <if condition="$data.refund_type eq 2 && $data.refund_status gt 3">
+                            <div class="form-group">
+                                <label class="col-xs-2 control-label text-right">买家收货信息</label>
+                                <div class="col-xs-5">
+                                    <span class="amount form-control">【收货人】:{$address.receiver}【电话】:{$address.phone}【地址】:{$address.address}</span>
+                                </div>
+                            </div>
+                        </if>
+                        <if condition="$data.refund_type neq 3 && $data.refund_status gt 3">
+                            <div class="form-group">
+                                <label class="col-xs-2 control-label text-right">买家快递公司</label>
+                                <div class="col-xs-5">
+                                    <span class="amount form-control">{$data.user_express}</span>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-xs-2 control-label text-right">买家快递单号</label>
+                                <div class="col-xs-5">
+                                    <span class="amount form-control">{$data.user_tracking_number}</span>
+                                </div>
+                            </div>
+                        </if>
+                        <if condition="$data.refund_type eq 2 && $data.refund_status gt 4">
+                            <div class="form-group">
+                                <label class="col-xs-2 control-label text-right">商家快递公司</label>
+                                <div class="col-xs-5">
+                                    <select name="shop_express_id" class="form-control">
+                                        <option value="">请选择</option>
+                                        <volist name="express_list" id="vo">
+
+                                            <option value="{$vo.id}"
+                                            <if condition="$data.shop_express_id eq $vo['id']">
+                                                selected='selected'
+                                            </if>
+                                            >{$vo.name}</option>
+                                        </volist>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-xs-2 control-label text-right">商家快递单号</label>
+                                <div class="col-xs-5">
+                                    <input type="text" name="shop_tracking_number"
+                                           value="{$data.shop_tracking_number}" class="form-control">
+                                </div>
+                            </div>
+                        </if>
+                        <if condition="$data.refund_type neq 3">
+                            <div class="form-group">
+                                <label class="col-xs-2 control-label text-right">商家收货信息</label>
+                                <div class="col-xs-5">
+                                    <select name="refund_address_id" class="form-control">
+                                        <option value="">请选择</option>
+                                        <volist name="refund_address" id="vo">
+                                            <if condition="$data.refund_address_id
+ eq $vo['id']">selected='selected'
+                                            </if>
+                                            <option value="{$vo.id}"
+                                            <if condition="$data.refund_address_id
+ eq $vo['id']">selected='selected'
+                                            </if>
+                                            >
+                                            【收货人】:{$vo.receiver}【电话】:{$vo.phone}【地址】:{$vo.address}
+                                            </option>
+                                        </volist>
+                                    </select>
+                                </div>
+                                <p onclick="address()"
+                                   style="display: inline-block;background: #2196f3;color: #fff;padding: 7px 20px;border-radius: 3px;cursor: pointer;">
+                                    添加</p>
+                            </div>
+                        </if>
+                        <div class="form-group" style="display: none" id="receiver">
+                            <label class="col-xs-2 control-label text-right">收货人</label>
+                            <div class="col-xs-5">
+                                <input type="text" name="receiver" value="" class="form-control">
+                            </div>
+                        </div>
+                        <div class="form-group" style="display: none" id="phone">
+                            <label class="col-xs-2 control-label text-right">收货人电话</label>
+                            <div class="col-xs-5">
+                                <input type="text" name="phone" value="" class="form-control">
+                            </div>
+                        </div>
+                        <div class="form-group" style="display: none" id="address">
+                            <label class="col-xs-2 control-label text-right">收货人详细地址</label>
+                            <div class="col-xs-5">
+                                <input type="text" name="address" value="" class="form-control">
+                            </div>
+                        </div>
+                        <div class="form-group" style="display: none" id="zip_code">
+                            <label class="col-xs-2 control-label text-right">收货人邮编</label>
+                            <div class="col-xs-5">
+                                <input type="text" name="zip_code" value="" class="form-control">
+                            </div>
+                        </div>
+
+
+                        <div class="form-group">
+                            <label class="col-xs-2 control-label text-right">创建时间</label>
+                            <div class="col-xs-5">
+                                <span class="amount form-control">{$data.add_time|get_time=###,'Y-m-d H:i:s'}</span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-xs-2 control-label text-right">更新时间</label>
+                            <div class="col-xs-5">
+                                <span class="amount form-control">{$data.up_time|get_time=###,'Y-m-d H:i:s'}</span>
+                            </div>
+                        </div>
+                        <if condition="$data.refund_status eq 1">
+                            <div class="form-group">
+                                <label class="col-xs-2 control-label text-right">同意/拒绝说明</label>
+                                <div class="col-xs-5">
+                                    <input type="text" name="shop_reason" value="" class="form-control">
+                                </div>
+                            </div>
+                        </if>
+                        <div class="form-group">
+                            <label class="col-xs-2 control-label text-right">操作</label>
+                            <div class="col-xs-5">
+                                <select name="refund_status" class="form-control">
+
+                                    <option value="">请选择</option>
+                                    <if condition="$data.refund_status eq 1">
+                                        <option value="2">同意</option>
+                                        <option value="3">拒绝</option>
+                                    </if>
+                                    <if condition="$data.refund_status eq 4">
+                                        <option value="5">商家收货</option>
+                                    </if>
+                                    <if condition="$data.refund_type eq 2 && $data.refund_status eq 5">
+                                        <option value="6">商家回寄</option>
+                                    </if>
+
+                                    <!--<option value="7">买家收货</option>-->
+                                    <if condition="$data.refund_type eq 1 && $data.refund_status eq 5 || $data.refund_type eq 3&& $data.refund_status eq 2">
+                                        <option value="8">退款</option>
+                                    </if>
+                                    <if condition="$data.refund_status eq 7 || $data.refund_status eq 8">
+                                        <option value="9">售后完成</option>
+                                    </if>
+                                </select>
+                            </div>
+                        </div>
+
+
+
+
+                        <div class="form-group">
+                            <label class="col-xs-2 control-label"></label>
+                            <div class="col-xs-8">
+                                <button class="layui-btn layui-btn-sm layui-btn-normal" type="submit">提交</button>
+                                <a href="javascript:history.go(-1);" class="layui-btn layui-btn-sm layui-btn-primary">返回</a>
+                                <input type="hidden" name="id" value="{$data.id}">
+                            </div>
+                        </div>
+                    </form>
+
+                    <!-- page end -->
+
+                    <!-- Footer -->
+                    <include file="Public/footer" />
+                    <!-- /footer -->
+
+                </div>
+                <!-- /content area -->
+
+            </div>
+            <!-- /main content -->
+
+        </div>
+        <!-- /page content -->
+
+    </div>
+    <!-- /page container -->
+
+    <script>
+        function address() {
+            $('#receiver').css('display', 'block')
+            $('#phone').css('display', 'block')
+            $('#zip_code').css('display', 'block')
+            $('#address').css('display', 'block')
+        }
+    </script>
+
+</body>
+</html>

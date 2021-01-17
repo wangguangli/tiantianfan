@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>添加银行卡</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"> 
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="stylesheet" href="__PUBLIC__/css/mui.min.css">
+    <link rel="stylesheet" href="__PUBLIC__/css/bank_card.css">
+    <script src="__PUBLIC__/js/mui.min.js"></script>
+    <script src="__PUBLIC__/js/jquery.min.js"></script>
+	  <script src="__PUBLIC__/layer/mobile/layer.js"></script>
+	</head>
+	<body style="background: #efeff4;">
+		<header class="mui-bar mui-bar-nav" style="background: #FE274E;">
+		    <span onclick="back()"><a class="mui-pull-left mui-icon mui_turn"><img src="__PUBLIC__/img/return.png" width="20vw"height="20vw"/></a></span>
+		    <h1 class="mui-title tit_login" style="color: #fff;">添加银行卡</h1>
+		</header>
+		<div class="mui-content">
+			<form action="" method="post">
+
+		    <div class="magcard">
+		    	<ul class="card_ul">
+		    		<li class="mag_dd clearfix">
+		    			<h5>持卡人</h5>
+		    		    <input type="text" name="name"  value="" placeholder="请输入持卡人姓名" class="name_dd"/>
+		    		</li>
+		    		<li class="mag_dd clearfix">
+		    			<h5>手机号</h5>
+		    		    <input type="text" name="phone"  value="" placeholder="银行预留手机号" class="name_dd"/>
+		    		</li>
+		    		<li class="mag_dd clearfix">
+		    			<h5>卡号</h5>
+		    		    <input type="text" name="cart_no"  value="" placeholder="请输入银行卡号" class="name_dd"/>
+		    		</li>
+		    		<li class="mag_dd clearfix">
+		    			<h5>开户行</h5>
+		    		    <input type="text" name="bank_name"  value="" placeholder="请选择银行" class="name_dd"/>
+		    		</li>
+		    		<li class="mag_dd clearfix">
+		    			<h5>开户网点</h5>
+		    		  <input type="text" name="bank_address"  value="" placeholder="请输入开户网点" class="name_dd"/>
+		    		</li>		    	
+		    	</ul>		    
+		    </div>
+		    <div class="confirm">
+		    	 <input type="submit"  value="确认添加"/>
+		    </div>
+			</form>
+		</div>
+	</body>
+  <script type="text/javascript">
+		//返回首页
+	  function back() {
+		  location.href = "{:U('User/index')}";
+	  }
+  </script>
+</html>

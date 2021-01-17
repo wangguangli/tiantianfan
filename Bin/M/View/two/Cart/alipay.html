@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>支付宝支付</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+	<link href="__PUBLIC__/mobile/style/alipay.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<if condition="$notice eq 0">
+	{$payData}
+</if>
+
+<if condition="$notice eq 1">
+	<div class="header">
+		<h2>平台官方提醒您:</h2>
+		<h5>请按步骤操作，完成支付宝支付</h5>
+	</div>
+	<div class="content">
+		<ul class="liucheng">
+			<li>
+				<img src="__PUBLIC__/mobile/images/buzou1.png">
+				<p>1.点击右上角按钮后</p>
+				<div class="clear"></div>
+			</li>
+			<li>
+				<img src="__PUBLIC__/mobile/images/buzou2.png">
+				<p>2.点击“在浏览器中打开”</p>
+				<div class="clear"></div>
+			</li>
+			<li>
+				<img src="__PUBLIC__/mobile/images/buzou3.png">
+				<p>3.使用支付宝完成付款</p>
+				<div class="clear"></div>
+			</li>
+		</ul>
+	</div>
+	<div class="footer">
+		<ul>
+			<li>
+				<img src="__PUBLIC__/mobile/images/zhifubao.png">
+			</li>
+			<div class="clear"></div>
+		</ul>
+	</div>
+</if>
+</body>
+</html>

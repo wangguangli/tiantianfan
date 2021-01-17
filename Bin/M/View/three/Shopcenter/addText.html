@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>商品管理</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="Keywords" content="">
+    <meta name="description" content="">
+    <!-- UC强制全屏 -->
+    <meta name="full-screen" content="yes">
+    <!-- QQ强制全屏 -->
+    <meta name="x5-fullscreen" content="true">
+    <link rel="stylesheet" href="__PUBLIC__/mobile/css_v3/addItem.css">
+    <script type="text/javascript" src="__PUBLIC__/layer/mobile/layer.js"></script>
+    <!--上拉加载-->
+</head>
+<body style="background-color: #f7f8fa;">
+<div class="h_vh">
+    <textarea class="DetailBox" maxlength="300" placeholder="请输入商品详情"></textarea>
+</div>
+<div class="nextStep">
+    <a class="nextStepBtn_01" href="javascript:;" onclick="nextStep()">提交</a>
+</div>
+<script src="__PUBLIC__/mobile/js/jquery-2.1.4.js"></script>
+<script>
+    var user_id = "{$user_id}";
+    var IMGDATA; //本地存储信息
+    //初始化
+    if(localStorage.addData){
+        IMGDATA = JSON.parse(localStorage.addData);
+        if(IMGDATA.content){
+            $('.DetailBox').val(IMGDATA.content)
+        }else {
+            if(IMGDATA.goods_id){
+                $.ajax({
+                    type: 'post',
+                    dataType: 'json',
+                    async: false,//改为同步方式
+                    url: "{:U('Api/Shopapp/goodsDetail')}",
+                    data: {
+                        'user_id': user_id,
+                        'shop_id': IMGDATA.shop_id,
+                        'goods_id': IMGDATA.goods_id
+                    },
+                    success: function (row) {
+                        if(row.status == 0){
+                            $('.DetailBox').val(row.result.goods.content)
+                        }else {
+                            layer.open({content: row.msg,skin: 'msg',time: 1});
+                        }
+                    }
+                });
+            }
+        }
+    }
+    //下一步
+    function nextStep() {
+        IMGDATA['content'] = $('.DetailBox').val();
+        localStorage.setItem("addData",JSON.stringify(IMGDATA));
+        $.ajax({
+            type: 'post',
+            dataType: 'json',
+            async: false,//改为同步方式
+            url: "{:U('Api/Shopapp/goodsAdd')}",
+            data: IMGDATA,
+            success: function (row) {
+                if(row.status == 0){
+                    localStorage.removeItem('addData');
+                    layer.open({content: row.msg,skin: 'msg',time: 1});
+                }else {
+                    layer.open({content: row.msg,skin: 'msg',time: 1});
+                }
+            }
+        });
+        window.location.href="{:U('Shopcenter/management')}"
+    }
+</script>
+</body>
+</html>

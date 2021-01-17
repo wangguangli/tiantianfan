@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>商品评价</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="stylesheet" href="__PUBLIC__/css/mui.min.css">
+    <link rel="stylesheet" href="__PUBLIC__/css/bank_card.css">
+    <script src="__PUBLIC__/js/mui.min.js"></script>
+    <script src="__PUBLIC__/js/jquery.min.js"></script>
+
+</head>
+<body style="background: #fff;">
+<header class="mui-bar mui-bar-nav" style="background: #FE274E;">
+    <span onclick="back()"><a class="mui-pull-left mui-icon mui_turn"><img src="__PUBLIC__/img/return.png" width="20vw"height="20vw"/></a></span>
+    <h1 class="mui-title tit_login" style="color: #fff;">商品评价</h1>
+</header>
+<div class="mui-content">
+    <div class="matter">
+        <textarea name="name"  rows="4" cols="50" placeholder="请输入你宝贵的评价" id="evaluation_content"></textarea>
+    </div>
+    <input type="hidden" name="images" id="images" value="" />
+    <input type="hidden" name="star" id="star" value="" />
+    <input type="hidden" name="star1" id="star1" value="" />
+    <div class="trouble">
+        <h4>
+            <img src="__PUBLIC__/img/store.png"width="20vw"height="20vw"/>
+            <span>店铺</span>
+        </h4>
+        <div class="con_nt">
+            <div class="con_span clearfix">
+                <h5>描述相符</h5>
+                <div class="tro_con" data-id = "star">
+                    <img src="__PUBLIC__/img/star1.png" width="22"height="22"/>
+                    <img src="__PUBLIC__/img/star1.png" width="22"height="22"/>
+                    <img src="__PUBLIC__/img/star1.png" width="22"height="22"/>
+                    <img src="__PUBLIC__/img/star1.png" width="22"height="22"/>
+                    <img src="__PUBLIC__/img/star1.png" width="22"height="22"/>
+                </div>
+            </div>
+            <div class="con_span clearfix">
+                <h5>服务态度</h5>
+                <div class="tro_con" data-id = "star1">
+                    <img src="__PUBLIC__/img/star1.png" width="22"height="22"/>
+                    <img src="__PUBLIC__/img/star1.png" width="22"height="22"/>
+                    <img src="__PUBLIC__/img/star1.png" width="22"height="22"/>
+                    <img src="__PUBLIC__/img/star1.png" width="22"height="22"/>
+                    <img src="__PUBLIC__/img/star1.png" width="22"height="22"/>
+                </div>
+            </div>
+        </div>
+        <div class="on_upload clearfix">
+            <div class="on_tro">
+                <img src="__PUBLIC__/img/up_load.png"width="100%"height="100%" onclick="choose_photo()"/>
+                <input type="file"  id="file_dd" class="file" value="" name="headimg" accept="image/jpg,image/jpeg,image/png,image/bmp" multiple="" />
+            </div>
+        </div>
+    </div>
+    <div class="up_tro">
+        <input type="submit" name="submit" id="submit" value="提交" onclick="addComment()" />
+    </div>
+</div>
+<script src="__PUBLIC__/js/jquery-1.11.1.min.js"></script>
+<script src="__PUBLIC__/layer/mobile/layer.js"></script>
+<script type="text/javascript">
+    $('#file_dd').change(function(){
+        var formData = new FormData();
+        var img = document.getElementById('file_dd').files[0];
+        formData.append("images", img);
+        formData.append("case", 'images');
+        $.ajax({
+            url: "{:U('Api/Indexout/upload_image')}",
+            type: 'post',
+            async: false,
+            data: formData,
+            contentType: false,
+            processData: false,
+            dataType: 'json',
+            success: function(res) {
+                if(res.msg == 'ok') {
+                    var html = '<div class="on_tro"><img src="'+res.result.img+'"width="100%"height="100%"/></div>';
+                    $('.on_upload').prepend(html)
+                    var images = $('input[name="images"]').val();
+                    if(images==""){
+                        $('input[name="images"]').val(res.result.img);
+                    }else{
+                        images=images+','+ res.result.img;
+                        $('input[name="images"]').val(images);
+                    }
+                }
+            }
+        })
+    })
+    $('.tro_con img').click(function(){
+        var index = $(this).index();
+        var div = $(this).parent();
+
+        for (var i=0;i<5;i++){
+            $img = div.find('img').eq(i);
+            if(i<=index){
+                $img.attr('src','__PUBLIC__/img/star2.png');
+            }else{
+                $img.attr('src','__PUBLIC__/img/star1.png');
+            }
+        }
+        var id = div.data('id');
+        $('#'+id).val(index+1);
+    })
+    //提交评论
+    function addComment() {
+        var user_id = "{$list.user_id}";
+        var order_id = "{$list.order_id}";
+        var goods_id = "{$list.goods_id}";
+        var evaluation_content = $("#evaluation_content").val();//评论内容
+        var service_attitude = $("#star1").val();//服务态度
+        var commodity_quality = $("#star").val();//描述相符 （商品质量）
+        var images = $("#images").val();//图片
+        if(evaluation_content == ''){
+            layer.open({
+                content: '请填写评论内容'
+                ,skin: 'msg'
+                ,time: 1
+            });
+			return false;
+        }	
+        if(commodity_quality == ''){
+            layer.open({
+                content: '请评价描述相符程度'
+                ,skin: 'msg'
+                ,time: 1
+            });
+			return false;
+        }
+		if(service_attitude == ''){
+            layer.open({
+                content: '请评价服务态度'
+                ,skin: 'msg'
+                ,time: 1
+            });
+			return false;
+        }
+        $.ajax({
+            type:"POST",
+            dataType:"json",
+            data : {"commodity_quality":commodity_quality,"images":images,"user_id" : user_id,"order_id" : order_id,"goods_id":goods_id,"evaluation_content" :evaluation_content,"service_attitude":service_attitude},
+            url : "{:U('Order/addComment')}",
+            success:function (data) {
+                console.log(data);
+                if(data.status==0){
+                    layer.open({
+                        content: data.msg
+                        ,skin: 'msg'
+                        ,time: 1
+                    });
+                    location.href = "{:U('Order/index')}?order_status=3";
+                }else{
+                    layer.open({
+                        content: data.msg
+                        ,skin: 'msg'
+                        ,time: 1
+                    });
+                }
+            }
+        });
+    }
+    function choose_photo() {
+        $('#file_dd').click();
+    }
+</script>
+</body>
+</html>

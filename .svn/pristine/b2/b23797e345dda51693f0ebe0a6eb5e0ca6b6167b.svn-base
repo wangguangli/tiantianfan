@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!--<meta name="viewport" content="width=device-width, initial-scale=1">-->
+    <title>{:GC('web_title')}管理后台</title>
+    <include file="Public/asset_top_page"/>
+    <style>
+
+        th{
+            width: 50px;
+            border: 1px solid #dddddd;
+        }
+        td{
+            border: 1px solid #dddddd;
+        }
+
+        .bt{
+            text-align: center;
+        }
+        .d{
+            width: 15%;
+        }
+        .sp{
+            width: 15%;
+        }
+    </style>
+</head>
+<body>
+<!-- header -->
+<include file="Public/header"/>
+<!-- /header -->
+<!-- Page container -->
+<div class="page-container">
+    <!-- Page content -->
+    <div class="page-content">
+        <!-- main sidebar -->
+        <include file="Public/left"/>
+        <!-- /main sidebar -->
+
+        <!-- Main content -->
+        <div class="content-wrapper">
+
+            <!-- Content area -->
+            <div class="content" style="padding-top: 10px;">
+                <!-- Pagination types -->
+                <div class="v-container">
+                    <div class="alert alert-tips alert-dismissible" role="alert">
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
+                        订单发货</div>
+
+                    <div class="panel panel-flat">
+                        <div class="panel-heading">
+
+
+                            <!--搜索框-->
+                            <div class="heading-elements">
+
+                            </div>
+                        </div>
+
+
+                        <div class="dataTables_wrapper no-footer">
+                            <form id="delivery-form" action="{:U('order/deliveryHandle')}" method="post" >
+                            <table class="table datatable-tools-basic basic_table">
+
+                                <tr>
+                                    <th class="d" colspan="5" style="text-align: center">订单号</th>
+
+                                </tr>
+
+
+                                <tr class="tt_color">
+                                    <td class="d">订单号:</td>
+                                    <td class="" >
+                                        {$order.order_no}
+                                    </td>
+                                    <td class="d">下单时间:</td>
+                                    <td class="" colspan="2">
+                                        {$order.add_time|date='Y-m-d H:i',###}
+                                    </td>
+
+                                </tr>
+
+                                <tr class="tt_color">
+                                    <td class="d">配送方式:</td>
+                                    <td class="" >
+                                        <select id="express_id" name="express_id"  class="form-control" >
+                                            <volist name="express_list" id="v" key="k">
+                                                <option value="{$v.id}" >{$v.name}</option>
+                                            </volist>
+                                        </select>
+                                    </td>
+                                    <td class="d">配送单号:</td>
+                                    <td class="" colspan="2">
+                                        <input class="input-sm" name="tracking_number" id="tracking_number" value="{$order.tracking_number}">
+                                    </td>
+
+                                </tr>
+
+                                <tr class="tt_color">
+                                    <th class="d" colspan="5" style="text-align: center">商品信息</th>
+
+                                </tr>
+
+
+                                <if condition="$order_goods[0]['goods_list']!=null">
+                                    <tr class="tt_color">
+                                        <td style="width:40%">商品</td>
+                                        <td style="width: 25%">属性</td>
+                                        <td style="width: 15%">购买数量</td>
+                                        <td style="width: 10%">商品单价</td>
+                                        <td style="width: 10%">选择发货</td>
+                                    </tr>
+                                <volist name="order_goods[0]['goods_list']" id="good">
+                                    <tr class="tt_color">
+                                        <td>{$good.goods_name}</td>
+                                        <td>{$good.spec_key_name}</td>
+                                        <td>{$good.goods_num}</td>
+                                        <td>{$good.goods_price}</td>
+                                        <td>
+                                            <if condition="$good['order_status'] eq 2">
+                                                已发货
+                                                <elseif condition="$good['order_status'] eq 1"/>
+                                                <input type="checkbox" name="goods[]" value="{$good.id}" checked="checked">
+                                            </if>
+                                        </td>
+                                    </tr>
+                                </volist>
+                                </if>
+                                <if condition="$order_goods[1]['goods_list']!=null">
+                                    <tr class="tt_color">
+                                        <td style="width:40%">商品</td>
+                                        <td style="width: 25%">属性</td>
+                                        <td style="width: 15%">购买数量</td>
+                                        <td style="width: 10%">商品单价</td>
+                                        <td style="width: 10%">选择发货</td>
+                                    </tr>
+                                    <volist name="order_goods[1]['goods_list']" id="good1">
+                                        <tr class="tt_color">
+                                            <td>{$good1.goods_name}</td>
+                                            <td>{$good1.spec_key_name}</td>
+                                            <td>{$good1.goods_num}</td>
+                                            <td>{$good1.goods_price}</td>
+                                            <td>
+                                                <if condition="$good1['order_status'] eq 2">
+                                                    已发货
+                                                    <elseif condition="$good1['order_status'] eq 1"/>
+                                                    <input type="checkbox" name="goods[]" value="{$good1.id}" checked="checked">
+                                                </if>
+                                            </td>
+                                        </tr>
+                                    </volist>
+                                </if>
+                               <if condition="$order['shipping_status'] neq 1">
+
+                                <tr class="tt_color">
+                                    <th class="d" colspan="5" style="text-align: center">发货信息</th>
+                                </tr>
+
+                                <tr class="tt_color">
+                                    <td>发货单备注：</td>
+                                    <td colspan="4">
+
+                                        <textarea name="shop_note" placeholder="请输入操作备注" rows="3" class="form-control"></textarea>
+
+                                    </td>
+                                </tr>
+
+
+
+                                <tr class="tt_color">
+                                    <td clss="d">操作</td>
+                                    <td colspan="5">
+                                        <div class="form-group">
+                                            <label class="col-xs-2 control-label"></label>
+                                            <div class="col-xs-8">
+                                                <button onclick="dosubmit()"  class="btn btn-primary" type="button">确认发货</button>
+                                                <button onclick="history.go(-1)"  class="btn btn-primary" type="button">返回</button>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                               </if>
+                            </table>
+
+                            </form>
+                            <!-- 分页 -->
+                        </div>
+
+                        <!-- /pagination types -->
+
+                    </div>
+                    <!-- Footer -->
+                    <include file="Public/footer" />
+                    <!-- /footer -->
+
+                </div>
+                <!-- /content area -->
+
+            </div>
+            <!-- /main content -->
+
+        </div>
+        <!-- /page content -->
+
+    </div>
+    <!-- /page container -->
+    <script>
+        //完成时间
+        laydate.render({
+            elem: '#cre_time'
+            ,type: 'datetime'
+            ,range: true
+        });
+    </script>
+    <script>
+        function dosubmit(){
+            if($('#tracking_number').val() ==''){
+                alert('请输入配送单号');
+                return;
+            }
+            var a = [];
+            $('input[name*=goods]').each(function(i,o){
+                if($(o).is(':checked')){
+                    a.push($(o).val());
+                }
+            });
+            if(a.length == 0){
+                alert('请选择发货商品');
+                return;
+            }
+            $('#delivery-form').submit();
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,15 @@
+<volist name="list" id="vo">
+	<li id="order" class="order_li">
+		<input type="hidden" name="order_id" value="{$vo['id']}">
+		<div class="xmname">
+			<img src="{$vo.thumb}" class="shop_img">{$vo.shop_name}
+			<span>{$vo.payment_type_cn}</span>
+		</div>
+
+		<div class="price-div">
+			<span style="float: left">{$vo.pay_time_format}</span> 实付<span>￥{$vo.total_commodity_price}</span>
+
+		</div>
+
+	</li>
+</volist>

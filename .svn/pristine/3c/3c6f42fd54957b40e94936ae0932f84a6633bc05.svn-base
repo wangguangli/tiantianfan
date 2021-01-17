@@ -1,0 +1,658 @@
+<?php
+
+namespace Admin\Controller;
+
+use Clas\Shop;
+use Think\Page;
+
+class ShopController extends CommonController
+{
+
+	public function index($where = null)
+	{
+		$getData = I();
+		if ($getData['shop_id'])
+		{
+			$where['id'] = $getData['shop_id'];
+		}
+		if ($getData['content'])
+		{
+			$where['shop_name|contact_person|tel'] = array('like', '%' . $getData['content'] . '%');
+		}
+
+		if ($getData['user_content'])
+		{
+			if (is_numeric($getData['user_content']) && strlen($getData['user_content']) < 11)
+			{
+				$where_uc['id'] = $getData['user_content'];
+				$uidArr = M('user')->where($where_uc)->getField("id", true);
+				if ($uidArr)
+				{
+					$where['user_id'] = array("in", $uidArr);
+				}
+			}
+			else
+			{
+				$where_uc['realname|phone'] = array('like', '%' . $getData['user_content'] . '%');
+				$uidArr = M('user')->where($where_uc)->getField("id", true);
+				if ($uidArr)
+				{
+					$where['user_id'] = array("in", $uidArr);
+				}
+			}
+		}
+		if ($getData['cre_date'])
+		{
+			$getCreTime = get_time_style($getData['cre_date']);
+			$where['cre_time'] = array(array("gt", $getCreTime[0]), array("elt", $getCreTime[1]));
+		}
+		$num = 10;
+		$where['status'] = 1;
+		$count = M("shop")->where($where)->count();
+		$page = new Page($count, $num);
+		$show = $page->show();
+		$list = M("shop")->where($where)->order("id desc")->limit($page->firstRow . ',' . $page->listRows)->select();
+		$this->assign("list", $list);
+		$this->assign("show", $show);
+		$this->display();
+	}
+
+	// 商家详情
+	public function detail()
+	{
+		$id = I("id");
+		$where["id"] = $id;
+		$data = get_user_info($where, "*", 0, 2);
+		if (!$data)
+		{
+			$this->error("此商家不存在");
+		}
+		if (IS_POST)
+		{
+			$info = I();
+			unset($info["id"]);
+			if (!$info["shop_name"] || !$info["contact_person"] || !$info["tel"])
+			{
+				$this->error("商家名称、联系人、电话不可为空");
+			}
+			$industry_name = M("industry")->where("id=" . $info['industry'])->getField("name");
+			if (!$industry_name)
+			{
+				$info['industry_name'] = "";
+			}
+			else
+			{
+				$info['industry_name'] = $industry_name;
+			}
+			$rs = M("shop")->where("id=" . $id)->save($info);
+			M("user")->where("id=" . $data['user_id'])->setField("is_shop", $info['status']);
+			if ($rs !== false)
+			{
+				$this->success("修改成功");
+			}
+			else
+			{
+				$this->error("修改失败");
+			}
+			exit();
+		}
+
+		if ($data["list_img"])
+		{
+			$data["list_img"] = json_decode($data["list_img"], true);
+		}
+		$feelist = M("config_shop_fee")->select();
+		$this->assign('feelist', $feelist);
+		$industry = M("industry")->field("id,name")->select();
+		$this->assign('data', $data);
+		$this->assign('industry', $industry);
+		$this->display();
+	}
+
+	// 待审商家
+	public function check()
+	{
+		$getData = I();
+		if ($getData['shop_id'])
+		{
+			$where['id'] = $getData['shop_id'];
+		}
+		if ($getData['content'])
+		{
+			$where['shop_name|contact_person|tel'] = array('like', '%' . $getData['content'] . '%');
+		}
+
+		if ($getData['user_content'])
+		{
+			if (is_numeric($getData['user_content']) && strlen($getData['user_content']) < 11)
+			{
+				$where_uc['id'] = $getData['user_content'];
+				$uidArr = M('user')->where($where_uc)->getField("id", true);
+				if ($uidArr)
+				{
+					$where['user_id'] = array("in", $uidArr);
+				}
+			}
+			else
+			{
+				$where_uc['realname|phone'] = array('like', '%' . $getData['user_content'] . '%');
+				$uidArr = M('user')->where($where_uc)->getField("id", true);
+				if ($uidArr)
+				{
+					$where['user_id'] = array("in", $uidArr);
+				}
+			}
+		}
+		if ($getData['cre_date'])
+		{
+			$getCreTime = get_time_style($getData['cre_date']);
+			$where['cre_time'] = array(array("gt", $getCreTime[0]), array("elt", $getCreTime[1]));
+		}
+		$where['status'] = array('in', array(0, 3));
+
+		$count = M('shop')->where($where)->count();
+		$page = new Page($count, 10);
+		$show = $page->show();
+		$result = M('shop')->where($where)->order('id desc')->limit($page->firstRow . ',' . $page->listRows)->select();
+		foreach ($result as $k => $v)
+		{
+			$user = M('user')->where('id=' . $v['user_id'])->getField('nickname');
+			$result[$k]['user_name'] = $user;
+		}
+
+		$this->assign('show', $show);
+		$this->assign('res', $result);
+		$this->display();
+	}
+
+	// 商家服务费列表
+	public function shop_fee()
+	{
+		$list = M("config_shop_fee")->order("id asc")->select();
+		$this->assign('list', $list);
+		$this->display();
+	}
+
+	// 商家服务费设置
+	public function shop_fee_edit()
+	{
+		$id = I("id", 0);
+		if (IS_POST)
+		{
+			$data["percent1"] = I("percent1", 0, "floatval");
+			$data["percent2"] = I("percent2", 0, "floatval");
+			$data["percent3"] = I("percent3", 0, "floatval");
+			if (!$id)
+			{
+				$res = M("config_shop_fee")->add($data);
+			}
+			else
+			{
+				$res = M("config_shop_fee")->where("id=" . $id)->save($data);
+			}
+			if ($res !== false)
+			{
+				$this->success("操作成功");
+			}
+			else
+			{
+				$this->error("操作失败，请重新操作");
+			}
+
+			exit();
+		}
+
+		$data = M("config_shop_fee")->where("id=" . $id)->find();
+		$this->assign("data", $data);
+		$this->display();
+	}
+
+	// 商家服务费删除
+	public function shop_fee_del()
+	{
+		$id = I("id", 0);
+		$res = M("config_shop_fee")->where("id=" . $id)->delete();
+		if ($res !== false)
+		{
+			$this->success("删除成功");
+		}
+		else
+		{
+			$this->error("删除失败，请重新操作");
+		}
+	}
+
+
+	//冻结商家、用户的商家状态，下架所有商品
+	public function freeze()
+	{
+		$id = I('id', 0, 'intval');
+		$shopInfo = M("shop")->where("id=" . $id)->find();
+		if (!$shopInfo)
+		{
+			$this->error("不存在此商家，请刷新后操作");
+		}
+		$model = M();
+		$model->startTrans();
+
+		$rs = M("shop")->where("id=" . $id)->setField("status", 2);
+		$rs2 = M("user")->where("id=" . $shopInfo["user_id"])->setField("is_shop", 2);
+		$rs3 = M("goods")->where("shop_id=" . $shopInfo["user_id"])->setField("is_on_sale", 0);
+
+		if ($rs !== false && $rs2 !== false && $rs3 !== false)
+		{
+			$model->commit();
+			$this->success('处理完成');
+		}
+		else
+		{
+			$model->rollback();
+			$this->error("操作失败，请重新操作");
+		}
+	}
+
+
+	//删除商家、更改用户的商家状态，删除商品
+	public function delete()
+	{
+		$id = I('id', 0, 'intval');
+		$shopInfo = M("shop")->where("id=" . $id)->find();
+		if (!$shopInfo)
+		{
+			$this->error("不存在此商家，请刷新后操作");
+		}
+		$model = M();
+		$model->startTrans();
+
+		$rs = M("shop")->where("id=" . $id)->delete();
+		$rs2 = M("user")->where("id=" . $shopInfo["user_id"])->setField("is_shop", 0);
+		$rs3 = M("goods")->where("shop_id=" . $shopInfo["user_id"])->delete();
+
+		if ($rs !== false && $rs2 !== false && $rs3 !== false)
+		{
+			$model->commit();
+			$this->success('处理完成');
+		}
+		else
+		{
+			$model->rollback();
+			$this->error("操作失败，请重新操作");
+		}
+	}
+
+	/**
+	 * 冻结商家列表
+	 */
+	public function freezeList()
+	{
+
+		//搜索
+		$array = I();
+
+		if ($array['shop_id'])
+		{
+			$where['id'] = $array['shop_id'];
+		}
+		if ($array['content'])
+		{
+			$where['contact_person|tel|shop_name'] = array('like', '%' . $array['content'] . '%');
+		}
+		if ($array['user_content'])
+		{
+			if (is_numeric($array['user_content']) && strlen($array['user_content']) < 10)
+			{
+				// 小于10位，并且是数字，按用户ID搜索
+				$where_u['id'] = $array['user_content'];
+				$userArr = M('user')->where($where_u)->getField("id", true);
+				if ($userArr)
+				{
+					$where['user_id'] = array("in", $userArr);
+				}
+			}
+			else
+			{
+				// 非数字，或长度大于10位，按用户名或手机号搜索
+				$where_u['phone|realname'] = array("like", "%" . $array['user_content'] . "%");
+				$userArr = M('user')->where($where_u)->getField("id", true);
+				if ($userArr)
+				{
+					$where['user_id'] = array("in", $userArr);
+				}
+			}
+		}
+		if ($array['cre_date'])
+		{
+			$getCreTime = get_time_style($array['cre_date']);
+			$where['cre_time'] = array(array("gt", $getCreTime[0]), array("elt", $getCreTime[1]));
+		}
+
+		$where['status'] = 2;
+		$param = I('post.');
+		$count = M("shop")->where($where)->count();
+		$Page = new Page($count, 10, $param);
+		$list = M("shop")->where($where)->order("id desc")->limit($Page->firstRow . ',' . $Page->listRows)->select();
+		$show = $Page->show();
+		$this->assign('shop', $list);
+		$this->assign('page', $show);
+		$this->display();
+	}
+
+	/**
+	 * 解冻的操作
+	 */
+	public function isFreeze()
+	{
+		$shop_id = I('shop_id');
+		$where['id'] = $shop_id;
+		$res = M('shop')->find($shop_id);
+		if (!$res)
+		{
+			jsonout('该商家不存在', 1, null);
+		}
+		else
+		{
+			$save['status'] = 1;
+			M('shop')->where($where)->save($save);
+			jsonout('解冻成功', 0, null);
+		}
+	}
+
+	/**
+	 * Title： 导出表格
+	 * Note：
+	 * User： zd
+	 * Date： 2020/6/20 11:20
+	 */
+	public function export_excel()
+	{
+		$shop_id = I("shop_id", '');
+		$content = I("content", '');
+		$user_content = I("user_content", '');
+		$cre_date = I("cre_date", '');
+
+		if ($shop_id)
+		{
+			$where['id'] = $shop_id;
+		}
+		if ($content)
+		{
+			$where['shop_name|contact_person|tel'] = array('like', '%' . $content . '%');
+		}
+
+		if ($user_content)
+		{
+			if (is_numeric($user_content) && strlen($user_content) < 11)
+			{
+				$where_uc['id'] = $user_content;
+				$uidArr = M('user')->where($where_uc)->getField("id", true);
+				if ($uidArr)
+				{
+					$where['user_id'] = array("in", $uidArr);
+				}
+			}
+			else
+			{
+				$where_uc['realname|phone'] = array('like', '%' . $user_content . '%');
+				$uidArr = M('user')->where($where_uc)->getField("id", true);
+				if ($uidArr)
+				{
+					$where['user_id'] = array("in", $uidArr);
+				}
+			}
+		}
+		if ($cre_date)
+		{
+			$getCreTime = get_time_style($cre_date);
+			$where['cre_time'] = array(array("gt", $getCreTime[0]), array("elt", $getCreTime[1]));
+		}
+		$where['status'] = 1;
+
+		$tempID = 2;        // 导出模板ID
+		$res = exportExcel($where, 'id desc', 0, $tempID, '', 0);
+		if ($res['err'] == 0)
+		{
+			jsonout('数据导出', 0, $res['result']);
+		}
+		else
+		{
+			jsonout($res['msg'], 1);
+		}
+	}
+
+    /**
+     * Notes:添加线下门店
+     * User: WangSong
+     * Date: 2020/7/10
+     * Time: 20:28
+     */
+    public function shop_offline(){
+        $data = I();
+        $id = $data['id'];
+        unset($data['id']);
+        //print_r($data);exit();
+        if(IS_POST){
+            if($id){
+                $data['up_time'] = time();
+                $re = M('shop_offline')->where('id='.$id)->save($data);
+            }else{
+                $data['add_time'] = time();
+                $re = M('shop_offline')->add($data);
+            }
+            if($re){
+                $this->success('操作成功');
+            }else{
+                $this->error('操作失败');
+            }exit();
+        }
+        $shop_offline = array();
+        if($id){
+            $shop_offline = M('shop_offline')->where('id='.$id)->find();
+        }
+        $week = get_week_day('0,1,2,3,4,5,6');
+        $new_week = explode(',',$week);
+        $this->assign('week',$new_week);
+        $this->assign('data',$shop_offline);
+        $this->assign('shop_id',$data['shop_id']);
+	    $this->display();
+    }
+
+    /**
+     * Notes:线下门店列表
+     * User: WangSong
+     * Date: 2020/7/10
+     * Time: 20:28
+     */
+    public function shop_offline_list(){
+        $data = I();
+        $shop_id = $data['shop_id'];
+        $shop_offline = M('shop_offline')->where('shop_id='.$shop_id)->order('id desc')->select();
+        foreach ($shop_offline as $k=>$v){
+            $shop_offline[$k]['business_hours'] = $v['week1'].'到'.$v['week2'].';'.$v['business_hours1'].'-'.$v['business_hours2'];
+        }
+        $this->assign('list',$shop_offline);
+        $this->assign('shop_id',$shop_id);
+        $this->display();
+    }
+
+    /**
+     * Notes:删除线下门店
+     * User: WangSong
+     * Date: 2020/7/11
+     * Time: 9:54
+     */
+    public function delete_shop_offline(){
+        $id = I('id');
+        $re = M('shop_offline')->where('id='.$id)->delete();
+        if($re){
+            $this->success('操作成功');
+        }else{
+            $this->error('操作失败');
+        }
+    }
+
+
+    /**
+     * 待返金额
+     */
+    public function money_wait(){
+        //搜索
+        $array = I();
+        if($array['user_id']){
+            $where['user_id'] = $array['user_id'];
+        }
+        if($array['user_content']){
+            $phoneWhere['phone'] = $array['user_content'];
+            $user = M('user')->where($phoneWhere)->find();
+            if($user){
+                $where['user_id'] = $user['id'];
+            }else{
+                $where['user_id'] = array('lt',0);
+            }
+        }
+
+        if ($array['cre_date'])
+        {
+            $getCreTime = get_time_style($array['cre_date']);
+            $where['cre_time'] = array(array("gt", $getCreTime[0]), array("elt", $getCreTime[1]));
+        }
+
+        $where['type'] = 6;
+        $where['op_type'] = 1;
+        $param = I('post.');
+        $count = M("account_log")->where($where)->count();
+        $Page = new Page($count, 10, $param);
+        $list = M("account_log")->where($where)->order("id desc")->limit($Page->firstRow . ',' . $Page->listRows)->select();
+        $show = $Page->show();
+        $this->assign('list', $list);
+        $this->assign('page', $show);
+        $this->display();
+    }
+
+    /**
+     * 奖金池的列表
+     */
+    public function all_money(){
+        //搜索
+        $array = I();
+        if($array['user_id']){
+            $where['user_id'] = $array['user_id'];
+        }
+        if($array['user_content']){
+            $phoneWhere['phone'] = $array['user_content'];
+            $user = M('user')->where($phoneWhere)->find();
+            if($user){
+                $where['other_user_id'] = $user['id'];
+            }else{
+                $where['other_user_id'] = array('gt',0);
+            }
+        }
+        if ($array['cre_date'])
+        {
+            $getCreTime = get_time_style($array['cre_date']);
+            $where['cre_time'] = array(array("gt", $getCreTime[0]), array("elt", $getCreTime[1]));
+        }
+
+        $where['type'] = 17;
+
+        $where['order_id'] = array('gt',0);
+        $param = I('post.');
+
+        $count = M("account_log")->where($where)->count();
+        $Page = new Page($count, 10, $param);
+        $list = M("account_log")->where($where)->order("id desc")->limit($Page->firstRow . ',' . $Page->listRows)->select();
+        foreach ($list as $k => $v){
+            if($v['user_id']){
+                $userInfo = M('user')->find($v['user_id']);
+            }else{
+                $userInfo = M('user')->find($v['other_user_id']);
+            }
+            $list[$k]['user_user_id'] = $userInfo['id'];
+            $list[$k]['user_name'] = $userInfo['nickname'];
+            $list[$k]['phone'] = $userInfo['phone'];
+        }
+        $show = $Page->show();
+
+        //查询昨日奖金池  今日奖金池 总金额
+        $all_money = get_config('all_money',true);
+        //昨日金额
+        $beginYesterday=mktime(0,0,0,date('m'),date('d')-1,date('Y'));
+        $endYesterday=mktime(0,0,0,date('m'),date('d'),date('Y'))-1;
+
+        $beginToday=mktime(0,0,0,date('m'),date('d'),date('Y'));
+
+        $accountWhere['cre_time'] = array('BETWEEN',array($beginYesterday,$endYesterday));
+        $accountWhere['type'] = 17;
+        $accountWhere['deal_type'] = 2;
+
+        $yes = M('account_log')->where($accountWhere)->sum('amount');
+        if(empty($yes)){
+            $yes = 0;
+        }
+
+        //今日金额
+
+        $accountWhere['cre_time'] = array('GT',$beginToday);
+        $today = M('account_log')->where($accountWhere)->sum('amount');
+        if(empty($today)){
+            $today = 0;
+        }
+
+        $this->assign('list', $list);
+        $this->assign('all_money', $all_money);
+        $this->assign('yes', $yes);
+        $this->assign('today', $today);
+        $this->assign('page', $show);
+        $this->display();
+    }
+
+
+    /**
+     * 股权分红的列表
+     */
+    public function ipo(){
+        //搜索
+        $array = I();
+        if($array['user_id']){
+            $where['user_id'] = $array['user_id'];
+        }
+        if($array['user_content']){
+            $phoneWhere['phone'] = $array['user_content'];
+            $user = M('user')->where($phoneWhere)->find();
+            if($user){
+                $where['user_id'] = $user['id'];
+            }else{
+                $where['user_id'] = array('lt',0);
+            }
+        }
+        if ($array['cre_date'])
+        {
+            $getCreTime = get_time_style($array['cre_date']);
+            $where['cre_time'] = array(array("gt", $getCreTime[0]), array("elt", $getCreTime[1]));
+        }
+
+        $where['type'] = 18;
+        $where['deal_type'] = 11;
+        $param = I('post.');
+        $count = M("account_log")->where($where)->count();
+        $Page = new Page($count, 10, $param);
+        $list = M("account_log")->where($where)->order("id desc")->limit($Page->firstRow . ',' . $Page->listRows)->select();
+        foreach ($list as $k => $v){
+
+                if($v['user_id']){
+                    $userInfo = M('user')->find($v['user_id']);
+                }else{
+                    $userInfo = M('user')->find($v['other_user_id']);
+                }
+                $list[$k]['user_user_id'] = $userInfo['id'];
+                $list[$k]['user_name'] = $userInfo['nickname'];
+                $list[$k]['phone'] = $userInfo['phone'];
+
+        }
+        $show = $Page->show();
+        $this->assign('list', $list);
+        $this->assign('page', $show);
+        $this->display();
+
+    }
+
+}	

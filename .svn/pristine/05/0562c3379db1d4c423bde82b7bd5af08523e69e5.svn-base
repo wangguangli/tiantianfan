@@ -1,0 +1,37 @@
+/**页面样式 justify-content: center; **/
+/*清理浮动的方法*/
+.clearfix:after {content: " ";display: block;clear: both;height: 0;}
+.clearfix {zoom: 1;}
+header{width:100%; display:flex; position:relative; height:11.8vw; background:#fff; align-items: center; color:#333; padding:0 3vw; font-size:5vw; font-weight:500; letter-spacing:1px;font-weight: 600;justify-content: space-between;}
+.select{margin-right:auto}
+.cart-div{width:100%;}
+.goods_ee{padding: 0 3vw;}
+.cart-list{width:100%; position:relative;padding: 2.5vw;padding-right: 4vw;}
+.shop-name{width:100%; display: flex; align-items: center; color:#2d2d2d; font-size:4.2vw; font-weight:500; padding:2vw 0;}
+.shop-name i{margin:0 1.5vw 0 3vw; color:#5c5c5c}
+input[type='checkbox']{width: 4.8vw;height:  4.8vw; background: url(../images/unchecked.png) no-repeat center center;background-size: 100% 100%;appearance:none;-moz-appearance:none; -webkit-appearance:none; outline: 0; border:0}
+input[type='checkbox']:checked{background-image: url(../images/checked.png)}
+.goods-list{width:100%;padding: 3vw 0;}
+.goods-list  li{width:100%; display: flex; align-items: center; margin-bottom:4vw }
+.car-goods{width:85vw; margin-left:auto; box-shadow:0px 3px 5px 2px #f0f0f0; padding:3vw 2vw; display: flex; }
+.car-goods img{width:23vw; height:23vw; margin-right:2vw;}
+.goodsjs{font-size:3.8vw;line-height:140%; width:55vw; }
+.goodsjs .goods-title{height:10vw; overflow:hidden}
+.goodsjs .goods-ms{font-size:3.4vw; color:#848484; width:100%; overflow:hidden; white-space:nowrap; text-overflow:ellipsis;}
+.goodsjs .goods-price{width:100%; display:table; padding-top:2vw}
+.goodsjs .goods-price .price{color:#fe274e; font-size:4.5vw; line-height:7vw;}
+.goodsjs .goods-price .price span{font-size:5.5vw;}
+.plus{float:right;}
+.plus .increase,.plus .reduce {width: 7vw;height: 6.5vw;line-height: 6.5vw;float: left;text-align: center;font-size: 5vw;font-weight: 500;color: #666;}
+.plus input{width: 9vw;height: 6.5vw; background: #f6f6f6; line-height: 6.5vw;float: left; border-radius:0; padding: 0 ;margin: 0;border: none;text-align: center; font-size: 4.2vw;}
+.bottom-total{width:100%; padding:0 0 0 3vw; color:#585858; font-size:3.8vw; height:12vw; background:#fff; border-top:1px solid #ddd; position:fixed; bottom:0; left:0;}
+.bottom-total .read_left{display: flex;align-items: center;float: left;line-height:11vw;}
+.bottom-total .read_right{float: right;width: 80%;display: flex;justify-content: flex-end;}
+.bottom-total input[type='checkbox']{ margin-right:2vw;}
+.bottom-total .total-price{font-size:4vw; color:#232323;line-height: 12vw;}
+.bottom-total .total-price span{font-weight:600}
+.bottom-total .jsbut{margin-left:auto; border:0; height:12vw; width:30vw; color:#fff; background:#fe274e;}
+.icon_editor{color: #333;font-size: 4vw;font-weight: 300}
+.cart_car{text-align: center;}
+.delete_div{padding-top: 1vw;}
+.delete_div .delete_su{padding: 2vw 7vw;border:1px solid #C4C4C4;color: #5A5A5A;margin: 0;background-color: transparent;outline: none;border-radius: 20vw;}

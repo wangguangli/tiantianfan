@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>{:GC('web_title')}管理后台</title>
+	<!-- Global stylesheets -->
+	<link rel="stylesheet" type="text/css" href="__PUBLIC__/layui/css/layui.css">
+
+	<include file="Public/asset_top_page"/>
+
+</head>
+<body>
+<!-- header -->
+<include file="Public/header"/>
+<!-- /header -->
+<!-- Page container -->
+
+<div class="page-container">
+	<!-- Page content -->
+	<div class="page-content">
+		<!-- main sidebar -->
+		<include file="Public/left"/>
+		<!-- /main sidebar -->
+
+		<!-- Main content -->
+		<div class="content-wrapper">
+
+			<!-- Content area -->
+			<div class="content" style="padding-top: 10px;">
+				<!-- Pagination types -->
+				<div class="v-container">
+					<div class="alert alert-tips alert-dismissible" role="alert">
+						<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span
+								aria-hidden="true">×</span></button>
+						本页线下门店添加
+					</div>
+					<!-- page -->
+					<form class="form-horizontal pt-15 layui-form" method="post">
+						<input type="hidden" class="form-control" name="id" value="{$data['id']}">
+						<input type="hidden" class="form-control" name="shop_id" value="{$shop_id}">
+
+						<div class="form-group">
+							<label class="col-xs-2 control-label text-right">选择地址</label>
+							<div class="col-xs-5">
+								<input type="checkbox" id="diz" name="dizhi" lay-skin="switch" lay-filter="dizhi"
+									   lay-text="开启|关闭">
+							</div>
+						</div>
+						<div id="djwd">
+							<div class="form-group">
+								<label class="col-xs-2 control-label text-right">门店地址</label>
+								<div class="col-xs-6">
+									<input type="text" class="form-control" placeholder="" id="add" name="shop_address"
+										   value="{$data.shop_address}" required>
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-xs-2 control-label text-right">门店电话</label>
+								<div class="col-xs-6">
+									<input type="text" class="form-control" placeholder="" id="tel" name="tel"
+										   value="{$data.tel}" required>
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-xs-2 control-label text-right">门店logo</label>
+								<div class="col-xs-5 control-label">
+									<div class="placeholder">
+										<img src="{$data['shop_logo']}" class="img_headimgurl">
+									</div>
+									<button type="button" class="layui-btn layui-btn-sm" id="upimg">
+										<i class="layui-icon">&#xe67c;</i>上传图片
+									</button>
+
+									<input type="hidden" name="shop_logo" class="headimgurl"  value="{$data['shop_logo']}" required>
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-xs-2 control-label text-right">经纬度</label>
+								<div class="col-xs-6">
+									<div class="input-group bj_nr">
+										<input type="text" class="form-control" placeholder="" id="longitude"
+											   name="longitude" value="{$data.longitude}" required>
+										<span class="input-group-addon">经度</span>
+										<input type="text" class="form-control" placeholder="" id="latitude"
+											   name="latitude" value="{$data.latitude}" required>
+										<span class="input-group-addon">纬度</span>
+									</div>
+								</div>
+							</div>
+						</div>
+
+						<div class="form-group">
+							<label class="col-xs-2 control-label text-right">商家名称</label>
+							<div class="col-xs-6">
+								<input type="text" class="form-control" placeholder="请输入商家名称" id="redbag_name"
+									   name="shop_name" value="{$data.shop_name}" required>
+							</div>
+						</div>
+
+
+						<div class="form-group">
+							<label class="col-xs-2 control-label text-right">用户营业时间（周几到周几）</label>
+							<div class="col-xs-6" style="line-height:38px">
+								<div class="col-xs-5" style="padding-left:0">
+									<select name="week1" class="form-control" id="s_money" lay-filter="s_money">
+										<volist name="week" id="vo">
+											<option value="{$vo}"
+											<if condition="$data['week1'] eq $vo">selected</if>
+											>{$vo}</option>
+										</volist>
+									</select>
+								</div>
+								<div class="col-xs-1" style="line-height:35px">
+									—
+								</div>
+								<div class="col-xs-5">
+									<select name="week2" class="form-control" lay-filter="year">
+										<volist name="week" id="vo">
+											<option value="{$vo}"
+											<if condition="$data['week2'] eq $vo">selected</if>
+											>{$vo}</option></volist>
+									</select>
+								</div>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-xs-2 control-label text-right">用户营业时间（几点到几点）</label>
+							<div class="col-xs-6" style="line-height:38px">
+								<div class="col-xs-5" style="padding-left:0">
+									<input type="text" class="form-control" id="s_time" name="business_hours1" value="{$data['business_hours1']}" placeholder="请选择时间" autocomplete="off" data-types="datetime" lay-key="3">
+
+								</div>
+								<div class="col-xs-1" style="line-height:35px">
+									—
+								</div>
+								<div class="col-xs-5">
+									<input type="text" class="form-control" id="e_time" name="business_hours2" value="{$data['business_hours2']}" placeholder="请选择时间" autocomplete="off" data-types="datetime" lay-key="4">
+
+								</div>
+							</div>
+						</div>
+
+						<div class="form-group">
+							<label class="col-xs-2 control-label"></label>
+							<div class="col-xs-8">
+
+								<button class="layui-btn layui-btn-sm layui-btn-normal" type="submit">提交</button>
+
+								<a href="javascript:history.go(-1);" class="layui-btn layui-btn-sm layui-btn-primary">返回</a>
+							</div>
+						</div>
+
+					</form>
+					<div id="di"
+						 style="display:none;width: 1002px;height: 800px;background: #ffffff;top: 100px;left: 400px;position: fixed;z-index: 1000;border: 2px solid #ddd">
+
+						<div style="margin-top: 20px">
+							地址：<input type="text" name="address" id="address" value="" disabled="disabled">
+							经度：<input type="text" name="lng" id="lng" value="" disabled="disabled">
+							纬度：<input type="text" name="lat" id="lat" value="" disabled="disabled">
+							<input type="button" value="确定" onclick="guanbi()">
+							<div style="float: right;margin: 2px 52px 0 0 ">
+
+								<input type="text" placeholder="输入地址" id="dizhi" onchange="searchMap()" style="">
+								<dl class="select-child" id="information">
+
+								</dl>
+
+
+							</div>
+						</div>
+
+						<div id="allmap" style="width:1000px;height:743px;margin-top: 15px"></div>
+					</div>
+
+
+					<!-- page end -->
+
+					<!-- Footer -->
+					<include file="Public/footer"/>
+					<!-- /footer -->
+
+				</div>
+				<!-- /content area -->
+
+			</div>
+			<!-- /main content -->
+
+		</div>
+		<!-- /page content -->
+
+	</div>
+</div>
+	<!-- /page container -->
+	<!--腾讯地图js-->
+	<script charset="utf-8" src="https://map.qq.com/api/js?v=2.exp&key=2AQBZ-IUJLF-GMSJR-NRL27-2RTBF-MSFMV"></script>
+
+	<script>
+		var searchService, map, markers = [];
+
+		function createMap() {
+			var center = new qq.maps.LatLng(35.42, 116.58);
+			map = new qq.maps.Map(allmap, {
+				center: center,
+				zoom: 15
+			});
+			qq.maps.event.addListener(
+					map,
+					'click',
+					function (event) {
+						console.log(event)
+						console.log()
+						// var latLn = new qq.maps.LatLng(event.latlng.lat, event.latlng.lng);
+						// geocoder.getAddress(latLn);
+
+
+					}
+			)
+			var latlngBounds = new qq.maps.LatLngBounds();
+			//调用Poi检索类
+			searchService = new qq.maps.SearchService({
+				complete: function (results) {
+
+					var pois = results.detail.pois;
+					console.log(pois)
+					var table = ""
+					for (var i = 0, l = pois.length; i < l; i++) {
+						var poi = pois[i];
+						//扩展边界范围，用来包含搜索到的Poi点
+						latlngBounds.extend(poi.latLng);
+						(function (n) {
+							var marker = new qq.maps.Marker({
+								map: map
+							});
+							marker.setPosition(pois[n].latLng);
+							marker.setTitle(i + 1);
+							markers.push(marker);
+							table += "<dd lay-value='" + i + "' onclick='info(\"" + pois[n].latLng + "\",\"" + pois[n].name + "\")'>" + pois[n].name + "</dd>";
+
+							qq.maps.event.addListener(marker, 'click', function () {
+								$("#information").css('display', 'none');
+								infoWin.open();
+								infoWin.setContent('<div style="width:200px;height:70px;"><p>' + pois[n].name + '</p><p>地址：' + pois[n].address + '</p></div>');
+								infoWin.setPosition(pois[n].latLng);
+							});
+						})(i);
+					}
+
+
+					$("#information").html(table)
+
+					map.fitBounds(latlngBounds);
+				}
+			})
+
+			//调用地址解析类，根据地址定位
+			geocoder = new qq.maps.Geocoder({
+				complete: function (result) {
+					console.log(result);
+					console.log(11)
+					map.setCenter(result.detail.location);
+					map.zoomBy(12);//设置指定等级
+					var marker = new qq.maps.Marker({
+						map: map,
+						position: result.detail.location
+					});
+					var infoWindow = new qq.maps.InfoWindow({
+						map: map,
+						position: result.detail.location,
+						offset: {x: -8, y: -32}, //设置信息窗相对position偏移像素
+						content: "<div style='width:200px;height:70px;'><p>" + result.detail.nearPois[0].name + "</p><p>地址：" + result.detail.nearPois[0].address + "</p></div>",
+						visible: true
+					});
+
+				}
+			});
+
+		}
+
+
+		createMap();
+
+
+		function guanbi() {
+			var state = $('#di').css('display');
+
+			if (state == 'none') {
+				$('#di').css('display', 'block')
+
+			} else {
+				$('#di').css('display', 'none')
+				$('#diz').attr('checked', false)
+				var address = $('#address').val();
+				var lng = $("#lng").val();
+				var lat = $("#lat").val();
+				$('#add').val(address)
+				$('#longitude').val(lng)
+				$('#latitude').val(lat)
+
+				layui.use('form', function () {
+
+
+					var form = layui.form;
+					form.render();
+				})
+
+			}
+		}
+
+		function searchMap() {
+
+			var di = $("#dizhi").val();
+			searchService.search(di)
+
+			searchService.setLocation('济宁');
+		}
+
+		//清除地图上的marker
+		function clearOverlays(overlays) {
+			var overlay;
+			while (overlay = overlays.pop()) {
+				overlay.setMap(null);
+			}
+		}
+
+		//点击搜索结果显示信息窗口
+		function info(latLng, name) {
+
+
+			clearOverlays(markers);
+			$("#information").empty('display', 'none');
+			$("#dizhi").val(name);//下拉地址显示在输入框
+
+			var latlngStr = latLng.split(",", 2);
+			var lat = parseFloat(latlngStr[0]);
+			var lng = parseFloat(latlngStr[1]);
+			var latLn = new qq.maps.LatLng(lat, lng);
+			$('#address').val(name);
+			$('#lng').val(lng);
+			$('#lat').val(lat)
+			//方法获取位置信息值
+			geocoder.getAddress(latLn);
+		}
+
+		//点击其他位置隐藏下拉框
+		$(".body").bind("click", function () {
+			$("#information").empty();
+		});
+		layui.use('form', function() {
+			var form = layui.form;
+			var table = layui.table;
+			var $ = layui.jquery;
+			form.render();
+			form.on('switch(dizhi)', function(data) {
+				var state = $('#di').css('display');
+				if (state == 'none') {
+					$('#di').css('display', 'block');
+				}
+			})
+
+
+		})
+		/* 活动时间插件 */
+		laydate.render({
+			elem: '#s_time',
+			type: 'time'
+			,format: 'HH:mm'
+			,btns: ['clear', 'confirm']
+			,ready: formatminutes
+		});
+		laydate.render({
+			elem: '#e_time',
+			type: 'time'
+			,format: 'HH:mm'
+			,btns: ['clear', 'confirm']
+			,ready: formatminutes
+		});
+		function  formatminutes(date) {
+			var showtime = $($(".laydate-time-list li ol")[1]).find("li");
+			$($(".laydate-time-list li ol")[2]).find("li").remove();  //清空秒
+		}
+
+		layui.use('upload', function(){
+			var upload = layui.upload;
+
+			//执行实例
+			var uploadInst = upload.render({
+				elem: '#upimg' 							//绑定元素
+				,url: '/index.php/Admin/Common/uploads' 	//上传接口
+				,data:{handlename:"headimg"}			// 接口接收值
+				,field:"headimg"						// input name，与接口接收值 一致
+				,done: function(res)
+				{
+					//上传完毕回调-不一定成功，需要判断
+					console.log(res);
+					if (res.status > 0)
+					{
+						// 异常提示
+						layer.alert(res.result);
+					}
+					else
+					{
+						$(".headimgurl").val(res.result);
+						$(".img_headimgurl").attr("src", res.result);
+					}
+				}
+				,error: function(e)
+				{
+					//请求异常回调
+					console.log(e);
+				}
+			});
+		});
+
+	</script>
+	<!-- 上传图片 -->
+
+</body>
+</html>

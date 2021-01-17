@@ -1,0 +1,32 @@
+<?php
+namespace Api\Controller;
+use Think\Controller;
+
+class TimingController extends CommonController {
+
+	/**
+	 * 用户每日返还 
+	 * @zd
+	 */
+	public function user_back()
+	{
+
+	}
+
+    /**
+     * Created by PhpStorm.
+     * User: Administrator
+     * Date: 2020/8/25
+     * Time: 10:16
+     * 定时删除runtime 文件夹
+     */
+    public function del_dir()
+    {
+        $file = $_SERVER['DOCUMENT_ROOT'] . '/Bin/Runtime/';
+        removeDir($file);
+    }
+
+
+
+	
+}

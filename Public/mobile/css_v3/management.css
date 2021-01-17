@@ -1,0 +1,124 @@
+.manage_cont {
+    overflow: hidden;
+    margin-top: 3.33vw;
+}
+
+.manage_list {
+    display: block;
+    width: 92.59vw;
+    background-color: #ffffff;
+    border-radius: 2.78vw;
+    margin: 0 auto 3.33vw;
+    padding: 3.7vw;
+    overflow: hidden;
+}
+
+.manage_list .product_img {
+    width: 22.22vw;
+    height: 22.22vw;
+    border-radius: 1vw;
+    float: left;
+}
+
+.manage_list_lr {
+	width: calc(100% - 25vw);
+    float: right;
+}
+
+.list_lr_h2 {
+	width: 100%;
+	height: 5vw;
+	font-size: 3.7vw;
+    color: #333333;
+    margin-bottom: 2vw;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+
+.inventory {
+    margin-bottom: 2.5vw;
+    font-size: 3.33vw;
+    color: #999999;
+}
+
+.inventory .inv02 {
+    margin-left: 6vw;
+}
+
+.shelves {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+}
+
+.shelves .number {
+    font-size: 3.15vw;
+    color: #fe4543;
+}
+
+.shelves .number .size {
+    font-size: 3.89vw;
+    font-weight: bold;
+}
+
+.shelves .button {
+    width: 20.37vw;
+    height: 8.15vw;
+    background-color: #fe4543;
+    font-size: 3.52vw;
+    color: #ffffff;
+    text-align: center;
+    border: 0;
+    border-radius: 4.07vw;
+}
+
+.empty_data {
+    width: 90vw;
+    margin: 0 auto;
+    padding-top: 30vw;
+}
+
+.empty_data_t1 {
+    width: 100%;
+    text-align: center;
+    font-size: 3.89vw;
+    color: #a1adbd;
+    padding-top: 2vw;
+}
+
+.empty_cart_img_1 {
+    width: 72.87vw;
+    height: 45.37vw;
+    margin: 0 auto;
+    display: block;
+}
+
+.empty_data_t2 {
+    width: 100%;
+    text-align: center;
+    padding-top: 5vw;
+}
+
+.load_more {
+    font-size: 3.33vw;
+    text-align: center;
+    padding-top: 5vw;
+    padding-bottom: 5vw;
+    color: #999999;
+}
+
+.load_more_red {
+    color: #fe4543;
+}
+.h_ic_I{
+    position: fixed;
+    width: 13.58vw;
+    height: 13.58vw;
+    right: 2vw;
+    bottom: 16%;
+    background: url(../../mobile/images_v3/h_ic_I.png) no-repeat center center;
+    background-size: contain;
+
+}

@@ -1,0 +1,25 @@
+/**页面样式 **/
+body{background:#f5f5f5 !important}
+.order-case{width:100%; background:#ff0036; padding:1vw 0 2vw 0; display:table}
+.order-case ul{margin:0; padding:0}
+.order-case ul li{width:16%; float:left; text-align:center; margin-top:2vw;}
+.order-case ul li a{font-size:3.4vw; padding:2vw 0; color:#fff; line-height:35px; }
+.order-case ul li a.cut{border-bottom:2px solid #fff558; font-size:4vw;}
+.order-list{width:100%;}
+.order-list ul{margin:0; padding:0}
+.order-list ul li{margin-top:10px; background:#fff; padding:0 3vw; position:relative}
+.order-list ul li .xmname{width:100%; font-size:4vw; color:#000; display:flex; align-items:center; line-height:150%; padding:2vw 0}
+.order-list ul li .xmname .del{margin-left:auto; color:#4a4949}
+.order-list ul li .xmname span{margin-left:auto; color:#d82209; font-size:3.4vw}
+.order-list ul li  .goods-li{display:flex; align-items:center; padding:1vw 0; overflow-x: auto;}
+.order-list ul li  .goods-li a{display:flex; align-items:center; color:#333}
+.order-list ul li  .goods-li img{width:20vw; height:20vw; margin-right:2vw;}
+.order-list ul li .price-div{width:100%; text-align:right; padding:2vw 0; border-bottom:1px solid #e9e9e9; font-size:3.4vw; }
+.order-list ul li .price-div span{font-size:4.2vw; font-weight:500}
+.order-list ul li .but-div{width:100%; display:flex; align-items:center; justify-content:flex-end; padding:2vw 0}
+.order-list ul li .but-div .but-evel{ padding: 6px 15px; color:#d82209; border:1px solid #d82209; font-size:3.4vw; margin-left:2vw; border-radius:20px }
+.order-list ul li .but-div .but-wul{ padding: 6px 15px; color:#878787; border:1px solid #c0c0c0; font-size:3.4vw; margin-left:2vw; border-radius:20px }
+.order-list ul li .rightbz{width:16vw; position:absolute; top:0; right:10vw;}
+.order-list ul li .goods-title{width:72vw; font-size:3.4vw; color:#333; line-height:170%;}
+.case_ul{float: right;width: 91%;}
+.case_left{float: left;margin-top: 3.6vw;margin-left: 3vw;}

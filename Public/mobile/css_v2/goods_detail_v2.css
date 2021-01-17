@@ -1,0 +1,444 @@
+/*banner上的返回箭头*/
+
+.goods_return {
+	position: relative;
+	height: 100vw
+}
+.goods_return .return_ground {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	z-index: 999;
+}
+.goods_return .return_ground .return_content {
+	width: 100%;
+	padding: 4vw 3vw;
+	box-sizing: border-box;
+	display: flex;
+	justify-content: space-between;
+}
+.goods_return .return_ground .return_content .return_price span {
+	display: table;
+	font-size: 3.5vw;
+}
+/*轮播开始*/
+
+.goods-img {
+	width: 100%;
+	position: relative
+}
+.swiper-container {
+	width: 100%;
+}
+.swiper-container img {
+	display: block;
+	width: 100%;
+	height: 100vw
+}
+/*banner往下主要内容*/
+
+.goods-jb {
+	width: 100%;
+	overflow: hidden;
+	color: #333;
+}
+.pad_z {
+	padding: 4.2vw 4vw 5vw 4vw;
+	background-color: #fff;
+	border-radius: 0 0 3vw 3vw;
+}
+/*第一块价格部分*/
+
+.price_one {
+	overflow: hidden;
+	margin-bottom: 3.2vw;
+}
+
+.price_one_top {
+	overflow: hidden;
+	margin-bottom: 1vw;
+}
+
+.price_one_top .lf {
+	width: 80%;
+	float: left;
+	margin-bottom: 4vw;
+}
+
+.price_one_top .lf .lf_red {
+	font-size: 4.5vw;
+	color: #FF4F4F;
+	font-weight: bold;
+	width: 32%;
+	float: left;
+}
+
+.price_one_top .lf .lf_red em {
+	font-size: 3.5vw;
+}
+
+.price_one_top .lf .delete {
+	font-size: 3.5vw;
+	color: #999999;
+	float: left;
+	margin-top: 0.8vw;
+	text-decoration: line-through;
+}
+.price_one_top .lf .sold {
+	font-size: 3vw;
+	color: #999;
+	margin-top: 2.5vw;
+}
+.price_one_top .lr {
+	width: 8%;
+	float: right;
+}
+.price_one_top .lr .sc_title {
+	font-size: 3vw;
+	color: #333;
+	display: block;
+	margin-top: 1.2vw;
+}
+.price_one_bot .h2 {
+	font-size: 4vw;
+	font-weight: bold;
+	margin-bottom: 1.8vw;
+	height: 5vw;
+	overflow: hidden;
+}
+.price_bot_mail {
+	font-size: 3vw;
+	color: #999;
+	display: flex;
+	justify-content: space-between;
+}
+.price_bot_mail .headset {
+	font-size: 3.8vw;
+}
+/*第二块规格部分*/
+.price_two {
+	overflow: hidden;
+	margin-bottom: 3.2vw;
+}
+.price_two_top {
+	overflow: hidden;
+}
+
+.price_two .speci {
+	font-size: 3.2vw;
+	color: #333;
+	display: block;
+}
+.price_two_top .list {
+	display: flex;
+	justify-content: space-between;
+	margin-bottom: 8.5vw;
+	font-weight: bold;
+}
+.increase_cont {
+	width: 21%;
+	float: right;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+.increase_cont img {
+	width: 5.7vw;
+	height: 5.7vw;
+}
+.increase_cont .input {
+	width: 5vw;
+	margin-top: 0.5vw;
+	font-size: 4.2vw;
+	color: #333;
+	display: inline-block;
+	text-align: center;
+}
+.price_two_bot {
+	overflow: hidden;
+	border-top: 1px solid #ddd;
+	padding-top: 4.5vw;
+}
+.price_two_bot .speci {
+	width: 75%;
+	float: left;
+	font-weight: bold;
+}
+/*第三块*/
+.price_three {
+	overflow: hidden;
+	margin-bottom: 3.2vw;
+}
+
+.three_top {
+	margin-bottom: 2.5vw;
+	overflow: hidden;
+}
+.three_top .trad {
+	width: 12vw;
+	height: 12vw;
+	border-radius: 50%;
+	float: left;
+	margin-right: 1.2vw;
+}
+.three_top_tit {
+	width: 80%;
+	float: left;
+	margin-top: 2vw;
+}
+.three_top_tit h2 {
+	font-size: 3.2vw;
+	color: #333;
+	font-weight: bold;
+	margin-bottom: 0.8vw;
+}
+.three_top_tit span {
+	font-size: 3.2vw;
+	color: #999;
+}
+.three_ul {
+	overflow: hidden;
+	display: flex;
+	justify-content: space-between;
+}
+
+.three_ul .three_li {
+	width: 33.3%;
+	text-align: center;
+}
+.three_ul .three_li .trad {
+	width: 29vw;
+	height: 32vw;
+	display: block;
+	margin: 0 auto;
+}
+.three_ul .three_li h2 {
+	font-weight: bold;
+	font-size: 3.2vw;
+	color: #333;
+}
+/*联系客服*/
+.service_cont {
+	overflow: hidden;
+	width: 80%;
+	margin: 0 auto;
+	display: flex;
+	justify-content: space-between;
+	margin-top: 6vw;
+}
+.service_cont .service_list {
+	width: 35.06vw;
+	height: 9.06vw;
+	line-height: 9.06vw;
+	border: 1px solid #979797;
+	border-radius: 35px;
+	text-align: center;
+}
+.service_list .kf {
+	width: 2.8vw;
+	height: 2.7vw;
+}
+.service_list span {
+	font-size: 3.2vw;
+	color: #333;
+}
+/*第四块规格部分*/
+
+.price_return {
+	overflow: hidden;
+	font-size: 3.2vw;
+	color: #333;
+	font-weight: bold;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	margin-bottom: 3.2vw;
+}
+.price_return .fh {
+	width: 1.8vw;
+	height: 2.8vw;
+}
+/*详情的具体内容*/
+
+.gd_detail {
+	width: 100%;
+	overflow: hidden;
+	margin-bottom: 14vw;
+}
+.gd_cont {
+	padding: 4vw;
+	overflow: hidden;
+	background-color: #fff;
+}
+.gd_cont .details_title {
+	font-size: 3.8vw;
+	text-align: center;
+	font-weight: bold;
+	height: 12vw;
+	line-height: 12vw;
+	background: url(../../images/titlebj.png) no-repeat center center;
+	background-size: 36.5vw 9vw;
+}
+.gd_detail .container {
+	overflow: hidden;
+}
+.gd_detail .container img {
+	width: 100%;
+	height: 100%;
+}
+/*详情页底部*/
+
+.details_footer {
+	width: 100%;
+	display: flex;
+	justify-content: space-between;
+	background-color: #fff;
+	padding: 4vw 3vw;
+	position: fixed;
+	bottom: 0;
+	left: 0;
+	box-shadow: 0px -2px 5px 0px rgba(0, 0, 0, 0.06);
+}
+.details_footer .foot_lf {
+	width: 40%;
+	float: left;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+.foot_lf_list {
+	text-align: center;
+}
+.foot_lf_list .gwc {
+	width: 5.1vw;
+	height: 5vw;
+	display: block;
+	margin: 0 auto;
+	margin-bottom: 0.5vw;
+}
+.foot_lf_list span {
+	font-size: 2.4vw;
+	color: #333;
+}
+
+.details_footer .foot_lr {
+	width: 53%;
+	display: flex;
+	justify-content: space-between;
+}
+
+.details_footer .foot_lr .button {
+	width: 23.5vw;
+	height: 9.3vw;
+	background-color: #FFBF00;
+	box-shadow: 0px -2px 5px 0px rgba(0, 0, 0, 0.06);
+	border-radius: 35px;
+	font-weight: 500;
+	font-size: 3.2vw;
+	color: #fff;
+	text-align: center;
+	line-height: 9.3vw;
+	border: 1px solid #FFBF00;
+	padding: 0 1vw;
+}
+.but_red {
+	background-color: #FF2857!important;
+	border: 1px solid #FF2857!important;
+}
+/*选择产品规格*/
+.choose_cont {
+	padding: 4.8vw;
+	margin-bottom: 20vw;
+	overflow: hidden;
+	border-radius: 5vw 5vw 0 0;
+}
+
+.choose_cont .choose_top {
+	overflow: hidden;
+}
+.choose_cont .choose_top .cpt {
+	width: 29vw;
+	height: 29vw;
+	float: left;
+	margin-right: 7vw;
+}
+.choose_price {
+	overflow: hidden;
+	margin-top: 14vw;
+}
+.choose_price .price {
+	color: rgba(255, 79, 79, 1);
+	font-size: 4.8vw;
+	margin-bottom: 1.2vw;
+	font-weight: bold;
+}
+.choose_price .price em {
+	font-size: 3.5vw;
+}
+
+.choose_price .inventory {
+	font-size: 3.2vw;
+	color: #999;
+}
+
+.off_product {
+	width: 100%;
+	overflow: hidden;
+	margin-top: 3.5vw;
+	color: #333;
+}
+.off_product h3 {
+	width: 50%;
+	float: left;
+	font-size: 3.2vw;
+	font-weight: bold;
+	margin-bottom: 5vw;
+}
+.pro_cont {
+	width: 100%;
+	overflow: hidden;
+}
+.pro_cont .active {
+	background: rgba(255, 40, 87, 0.1)!important;
+	border: 1px solid rgba(255, 40, 87, 1);
+	color: #FF2857;
+}
+.pro_cont .pro_cont_list {
+	width: 66%;
+	padding-left: 4vw;
+	height: 7.5vw;
+	line-height: 7.5vw;
+	background: rgba(246, 246, 246, 1);
+	border-radius: 26px;
+	margin-bottom: 2.5vw;
+}
+.off_product .add_red {
+	width: 20%;
+	float: right;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+.add_red img {
+	width: 5.7vw;
+	height: 5.7vw;
+	float: left;
+}
+.add_red span {
+	font-size: 4.2vw;
+	color: #333;
+}
+/*确定按钮*/
+
+.button_f {
+	width: 91vw;
+	height: 11.7vw;
+	border-radius: 44px;
+	background: rgba(255, 40, 87, 1);
+	text-align: center;
+	color: #fff;
+	font-size: 4.2vw;
+	border: 1px solid #ff2857;
+	margin-top: 11vw;
+}

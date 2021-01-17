@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>api文档</title>
+	<script type="text/javascript" src="__PUBLIC__/js/jquery.min.js"></script>
+	<style type="text/css">
+	body { font-size:12px;}
+	input[type='text'] { width: 300px;}
+	.style1 table {border-collapse: collapse; border: none;}
+	.style1 td{border: solid #ccc 1px;}
+	</style>
+	<script type="text/javascript">
+	function addTr(id){
+		var tr = $("#" + id);
+		var h = tr.html();
+		var len = tr.parent().children('tr').length - 1;
+		if (id == 'reqTr') {
+			h = h.replace(/\[1\]/g, '[' + len + ']');
+		} else {
+			h = h.replace(/\[3\]/g, '[' + len + ']');
+		}
+		tr.parent().append('<tr>' + h + '</tr>');
+	}
+	</script>
+</head>
+
+<body>
+<strong>添加接口</strong><a href="{:U('Doc/index')}">返回接口列表</a>
+<form method="post" action="{:U('Doc/addAct')}" accept-charset="utf-8">
+	<table align="center" cellpadding="5">
+		<tr>
+			<td>接口说明</td>
+			<td><input type="text" name="title" /></td>
+		</tr>
+		<tr>
+			<td>URL</td>
+			<td><input type="text" name="url" /></td>
+		</tr>
+		<tr>
+			<td>分类</td>
+			<td>
+				<select name="classify">
+					<foreach name="classify" item="vo" >
+					<option value="{$vo}">{$vo}</option>
+					</foreach>
+				</select>
+			</td>
+		</tr>
+		<tr>
+			<td>版本</td>
+			<td><input type="text" name="version" value="v2" readonly="readonly" /></td>
+		</tr>
+		<tr>
+			<td>请求方式</td>
+			<td>
+				<input type="radio" name="method" value="POST,GET" checked="checked" />不限 
+				<input type="radio" name="method" value="POST" />POST  
+				<input type="radio" name="method" value="GET" />GET</td>
+		</tr>
+		<tr>
+			<td colspan="2">请求参数 &nbsp; &nbsp; <input type="button" value="继续追加" onClick="addTr('reqTr')" /></td>
+		<tr>
+		<tr>
+			<td colspan="2" class="style1">
+				<table border="0" cellpadding="5" cellspacing="0">
+					<tr>
+						<th>参数名称</th>
+						<th>是否必须</th>
+						<th>参数类型</th>
+						<th>描述</th>
+					</tr>
+					<!--
+					<tr>
+						<td><input type="text" name="req_parameter[]" value="user_id" /></td>
+						<td>
+							<input type="radio" name="req_ismust[0]" value="必须" checked="checked" />必须
+							<input type="radio" name="req_ismust[0]" value="可选" />可选</td>
+						<td>
+							<input type="radio" name="req_para_type[0]" value="string" />string
+							<input type="radio" name="req_para_type[0]" value="int" checked="checked" />int
+							<input type="radio" name="req_para_type[0]" value="image" />image
+						</td>
+						<td><input type="text" name="req_miaoshu[]" value="用户id" /></td>
+					</tr>
+					
+					<tr>
+						<td><input type="text" name="req_parameter[]" value="token" /></td>
+						<td>
+							<input type="radio" name="req_ismust[1]" value="必须" checked="checked" />必须
+							<input type="radio" name="req_ismust[1]" value="可选" />可选</td>
+						<td>
+							<input type="radio" name="req_para_type[1]" value="string" checked="checked" />string
+							<input type="radio" name="req_para_type[1]" value="int" />int
+							<input type="radio" name="req_para_type[1]" value="image" />image
+						</td>
+						<td><input type="text" name="req_miaoshu[]" value="登录返回的token,只要是会员权限访问的都要传，有效期1个小时" /></td>
+					</tr>
+					
+					<tr>
+						<td><input type="text" name="req_parameter[]" value="session_id" /></td>
+						<td>
+							<input type="radio" name="req_ismust[0]" value="必须" checked="checked" />必须
+							<input type="radio" name="req_ismust[0]" value="可选" />可选</td>
+						<td>
+							<input type="radio" name="req_para_type[0]" value="string" checked="checked" />string
+							<input type="radio" name="req_para_type[0]" value="int" />int
+							<input type="radio" name="req_para_type[0]" value="image" />image
+						</td>
+						<td><input type="text" name="req_miaoshu[]" value="登录返回的session_id,只要是会员权限访问的都要传" /></td>
+					</tr>
+					-->
+					
+					<tr>
+						<td><input type="text" name="req_parameter[]" value="user_id" /></td>
+						<td>
+							<input type="radio" name="req_ismust[0]" value="必须" checked="checked" />必须
+							<input type="radio" name="req_ismust[0]" value="可选" />可选</td>
+						<td>
+							<input type="radio" name="req_para_type[0]" value="string" checked="checked" />string
+							<input type="radio" name="req_para_type[0]" value="int" />int
+							<input type="radio" name="req_para_type[0]" value="image" />image
+						</td>
+						<td><input type="text" name="req_miaoshu[]" value="未登录传0，登录后传相应用户ID" /></td>
+					</tr>
+
+					<tr id="reqTr">
+						<td><input type="text" name="req_parameter[]" /></td>
+						<td>
+							<input type="radio" name="req_ismust[1]" value="必须" />必须
+							<input type="radio" name="req_ismust[1]" value="可选" />可选</td>
+						<td>
+							<input type="radio" name="req_para_type[1]" value="string" />string
+							<input type="radio" name="req_para_type[1]" value="int" />int
+							<input type="radio" name="req_para_type[1]" value="image" />image
+						</td>
+						<td><input type="text" name="req_miaoshu[]" /></td>
+					</tr>
+					
+			  </table>
+			</td>
+		</tr>
+		<tr>
+			<td>返回类型</td>
+			<td>
+				<input type="radio" name="resp_type" value="json" checked="checked" />json 
+				<input type="radio" name="resp_type" value="XML" />XML 
+				<input type="radio" name="resp_type" value="HTML" />HTML 
+				<input type="radio" name="resp_type" value="text" />text  </td>
+		</tr>
+		<tr>
+			<td colspan="2">返回参数  &nbsp; &nbsp; <input type="button" value="继续追加" onClick="addTr('resqTr')" /></td>
+		</tr>
+		<tr>
+			<td colspan="2" class="style1">
+				<table border="0" cellpadding="5" cellspacing="0">
+					<tr>
+						<th>参数名称</th>
+						<th>参数类型</th>
+						<th>描述</th>
+					</tr>
+					<tr>
+						<td><input type="text" name="resp_parameter[]" value="err" /></td>
+						<td>
+							<input type="radio" name="resp_para_type[0]" value="string" />string
+							<input type="radio" name="resp_para_type[0]" value="int" checked="checked" />int
+							<input type="radio" name="resp_para_type[0]" value="boolean" />boolean
+						</td>
+						<td><input type="text" name="resp_miaoshu[]" value="0:OK,1:有错误" /></td>
+					</tr>
+					<tr>
+						<td><input type="text" name="resp_parameter[]" value="msg" /></td>
+						<td>
+							<input type="radio" name="resp_para_type[1]" value="string" checked="checked" />string
+							<input type="radio" name="resp_para_type[1]" value="int" />int
+							<input type="radio" name="resp_para_type[1]" value="boolean" />boolean
+						</td>
+						<td><input type="text" name="resp_miaoshu[]" value="如果错误，返回错误信息。" /></td>
+					</tr>
+					<tr>
+						<td><input type="text" name="resp_parameter[]" value="result" /></td>
+						<td>
+							<input type="radio" name="resp_para_type[2]" value="string" />string
+							<input type="radio" name="resp_para_type[2]" value="int" />int
+							<input type="radio" name="resp_para_type[2]" value="boolean" />boolean
+							<input type="radio" name="resp_para_type[2]" value="object" checked="checked" />object
+							<input type="radio" name="resp_para_type[2]" value="object[]" />object[]
+						</td>
+						<td><input type="text" name="resp_miaoshu[]" value="返回的具体数据" /></td>
+					</tr>
+					<tr id="resqTr">
+						<td><input type="text" name="resp_parameter[]" /></td>
+						<td>
+							<input type="radio" name="resp_para_type[3]" value="string" checked="checked" />string
+							<input type="radio" name="resp_para_type[3]" value="int" />int
+							<input type="radio" name="resp_para_type[3]" value="boolean" />boolean
+							<input type="radio" name="resp_para_type[3]" value="object" />object
+							<input type="radio" name="resp_para_type[3]" value="object[]" />object[]
+						</td>
+						<td><input type="text" name="resp_miaoshu[]" /></td>
+					</tr>
+			  </table>
+			</td>
+		</tr>
+		<tr>
+			<td>备注说明</td>
+			<td><input type="text" name="note" style="width:600px;" /></td>
+		</tr>
+		<tr>
+			<td><input type="hidden" value="{$pwd}" name="pwd" /></td>
+			<td><input type="submit" value="  提交  " /></td>
+		</tr>
+	</table>
+</form>
+</body>
+</html>

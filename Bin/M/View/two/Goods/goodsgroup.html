@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>购物拼团</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="stylesheet" href="__PUBLIC__/css/mui.min.css">
+    <link rel="stylesheet" href="__PUBLIC__/css/swiper.min.css">
+    <link rel="stylesheet" href="__PUBLIC__/css/together_group.css">
+    <link rel="stylesheet" href="__PUBLIC__/mobile/style/goods_detail.css">
+    <!--上拉加载-->
+    <link rel="stylesheet" href="__PUBLIC__/mobile/style/dropload.css">     
+    <script type="text/javascript" src="__PUBLIC__/layer/mobile/layer.js"></script>
+    <script src="__PUBLIC__/js/mui.min.js"></script>  
+    <script src="__PUBLIC__/js/swiper.min.js"></script>
+	</head>
+	<body style="background: #fff;">
+		<header class="mui-bar mui-bar-nav" style="background: #FE274E;">
+		    <span >
+		        <a class="mui-pull-left mui-icon mui_turn" href="javascript:history.go(-1)"><img src="__PUBLIC__/img/return.png" width="20vw" height="20vw"/></a>
+		    </span>
+		    <h1 class="mui-title tit_login" style="color: #fff;">购物拼团</h1>
+        </header>
+        <div class="mui-content" style="background: #fff;">
+        	<div class="money_save" id="money_save">
+        		<!-- <img src="__PUBLIC__/images/save_money.png"width="100%"height="100%"/> -->
+        	</div>
+        	<div class="money_list">
+        		<div class="swiper-container">
+				  <div class="swiper-wrapper" id="category">
+				    <div class="swiper-slide active" onclick="goodsgroup(0, 1, 0, 0);">全部</div>
+				    <!-- <div class="swiper-slide">智能家电</div>
+				    <div class="swiper-slide">修行必备</div>
+				    <div class="swiper-slide">书法作品</div>
+				    <div class="swiper-slide">玉翠珠宝</div> -->  
+				  </div>
+				</div>
+        	</div>
+        	<div class="product_list">
+        		<ul class="inx-like" id="inx_id">
+        			<!-- <li class="clearfix">
+        				<div class="product_left"><img src="__PUBLIC__/images/n_baner.png"width="100%"height="100%"/></div>
+        				<div class="product_right">
+        					<p>2018新茶 茶叶毛尖绿茶信阳原产毛尖春茶绿茶散装礼盒</p>
+        					<div class="product_money">￥<h6>120</h6><span>50人团</span></div>
+        					<div class="price_span"><p>单买价 ￥78    |    已拼：5842</p><span>拼团</span></div>
+        				</div>        				
+        			</li> -->        			
+        		</ul>
+        	</div>
+            <!-- <div class="guess_like">好物优选</div> -->
+            <!-- <div class="inx-like">
+                <ul id="inx_id" class="clearfix"></ul>                  
+            </div> -->
+        </div>
+        <script src="__PUBLIC__/js/jquery-3.3.1.min.js"></script>
+        <script src="__PUBLIC__/mobile/js/dropload.min.js"></script>
+        <script type="text/javascript">
+        	 var mySwiper = new Swiper('.swiper-container',{
+			  slidesPerView : 5,
+			  slidesPerGroup : 1,
+			})
+            goodsgroup(0, 1, 0, 1);
+            groupCate();
+            function goodsgroup(index,page,cat_id,type) {
+            	$('#category .swiper-slide').eq(index).addClass('active');
+            	$('#category .swiper-slide').eq(index).siblings().removeClass('active');  
+                // 页数                     
+                var html = '';
+                var dpage = page + 1;
+                var displaypage = page - 1;
+                if (cat_id != 0) {
+                    var data = {page:page, cat_id:cat_id};
+                } else {
+                    var data = {page:page};
+                }   
+                $.ajax({
+                    type: 'GET',
+                    url:"/index.php/api/Goodsout/groupList",
+                    data: data,
+                    dataType: 'json',
+                    success:function(data){
+                        //console.log(data)
+                        if(data.status == 0) {
+                            var arrLen = data.result.list.length;
+                            if(arrLen > 0){
+                                $.each(data.result.list,function(index,item) {
+                                    html+='<li class="clearfix" onclick="linkdetail('+ item.id + ',' + 1 +')"><div class="product_left">';
+                                    html+='<img src="' + item.thumb + '"width="100%"height="100%"/></div><div class="product_right">'; 
+                                    html+='<p>'+item.name +'</p><div class="product_money">￥' +'<h6>'+item.group_price+'</h6><span>'+ item.team_people_num +'人团</span></div>';
+                                    html+='<div class="price_span clearfix"><div class="price_left"><p>单买价 ￥' + item.price + '</p><p>已拼：' + item.group_num + '</p></div><span class="dump_right">拼团</span></div>';
+                                    html+='</div></li>';
+                                });
+                                html+='<span class="btn_out_r" id="page'+ page +'" onclick="goodsgroup('+ index + ','+ dpage + ',' + cat_id +',1)" >浏览下一页</span>';
+                            }else{
+                            	
+                            }
+                        }else{
+                            layer.open({
+                                content: data.msg
+                                ,skin: 'msg'
+                                ,time: 2
+                            });
+                        }
+                        if (type == 0) {
+                            $('#inx_id').html("");
+                        } else {
+                            $('#page'+displaypage).hide();
+                        }
+                        $('#inx_id').append(html);
+                    },
+                    error: function(xhr, type){
+                        alert('Ajax error!');  // 即使加载出错，也得重置
+                    }
+                });
+            }
+
+            function groupCate(index) {
+                var html = '';
+                var html1 = '';
+                $.ajax({
+                    type: 'GET',
+                    url:"/index.php/M/Goods/groupCate",
+                    dataType: 'json',
+                    success:function(data){
+                        console.log(data)
+                        if(data.status == 0) {
+                            var bannerLen = data.result.banner.length;
+                            var categoryLen = data.result.catelist.length;
+                            if(bannerLen > 0){
+                                //alert(bannerLen);
+                                $.each(data.result.banner,function(index,banner) {
+                                    html+='<img src="'+ banner.photo +'"width="100%"height="100%"/>';
+                                });
+                            }
+                            if(categoryLen > 0){
+                                //alert(categoryLen);
+                                $.each(data.result.catelist,function(index,category) {                           	
+                                   	html1+='<div class="swiper-slide " style="width: 75px;" onclick="goodsgroup('+(index+1)+','+ 1 + ',' + category.cat_id +',0)">'+ category.name +'</div>';
+                                 	                                    
+                                });
+                            }
+
+                        }else{
+                            layer.open({
+                                content: data.msg
+                                ,skin: 'msg'
+                                ,time: 2
+                            });
+                        }
+                        $('#money_save').append(html);
+                        $('#category').append(html1);
+                    },
+                    error: function(xhr, type){
+                        alert('Ajax error!');  // 即使加载出错，也得重置
+                    }
+                });
+            }
+
+            function linkdetail(id,goods_kind) {
+                location.href = "{:U('Goods/detail')}?id=" + id + "&goods_kind=" + goods_kind;
+            }
+        </script>	       
+	</body>
+</html>

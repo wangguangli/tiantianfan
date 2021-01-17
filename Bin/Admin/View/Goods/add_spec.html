@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!--<meta name="viewport" content="width=device-width, initial-scale=1">-->
+    <title>添加规格</title>
+    <include file="Public/asset_top_page"/>
+</head>
+
+<body>
+<div class="page-container">
+
+    <div class="page-content">
+        <div class="content-wrapper">
+            <div>
+                <form id="spec_form">
+                    <table class="table table-bordered">
+                        <tbody>
+                        <tr>
+                            <td>规格名称：</td>
+                            <td>
+                                <input type="text" value="{$goods_spec.name}" name="name">
+                                <span id="err_name" style="color:#F00; display:none;"></span>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>规格项：</td>
+                            <td>
+                                <textarea rows="5" cols="30" name="spec_item">{$spec_items}</textarea>
+                                一行为一个规格项
+                                <span id="err_items" style="color:#F00; display:none;"></span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>排序：</td>
+                            <td>
+                                <input type="number" value="{$goods_spec.order}" name="order">
+
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2" style="text-align: center">
+                                <input type="hidden" name="type_id" value="{$type_id}">
+                                <input type="hidden" name="spec_id" value="{$goods_spec.id}">
+                                <button id="add_btn" style="    width: 20%;
+    border-radius: 1vw;
+    border: none;
+    background: teal;
+    color: white;
+    height: 5vw;
+    line-height: 5vw;">添加</button>
+                            </td>
+
+                        </tr>
+                        </tbody>
+                    </table>
+                </form>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+<!-- /page container -->
+
+<script>
+    $(function () {
+        $('#add_btn').click(function () {
+            var data = $("#spec_form").serialize();
+            $.post('', data, function (res) {
+                if (res.status == 0) {
+                    layer.msg('添加成功');
+                    setTimeout(function () {
+                        parent.layer.close(window.parent.index);
+                        var t={$type_id};
+                        parent.$("#type_id").trigger('change',t);
+                    }, 1000);
+
+                } else {
+                    layer.msg('添加失败');
+                }
+            }, 'json');
+            return false;
+        });
+    });
+</script>
+</body>
+</html>
+
+
+

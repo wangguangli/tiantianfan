@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>商品管理</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="Keywords" content="">
+    <meta name="description" content="">
+    <!-- UC强制全屏 -->
+    <meta name="full-screen" content="yes">
+    <!-- QQ强制全屏 -->
+    <meta name="x5-fullscreen" content="true">
+    <link rel="stylesheet" href="__PUBLIC__/mobile/css_v3/addItem.css">
+    <!--上拉加载-->
+</head>
+<body style="background-color: #f7f8fa;">
+<div class="h_vh">
+    <textarea class="DetailBox" maxlength="300" placeholder="商品详情"></textarea>
+</div>
+<div class="nextStep">
+    <a class="nextStepBtn_01" href="">提交</a>
+</div>
+<script src="__PUBLIC__/mobile/js/jquery-2.1.4.js"></script>
+</body>
+</html>

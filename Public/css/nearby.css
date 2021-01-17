@@ -1,0 +1,89 @@
+/*********初始化样式--------附近首页页面************/
+.header_swiper{width: 100%;position: relative;border-bottom: 2vw solid #EFEFF4;overflow: hidden;}
+.header_swiper .swiper_header{width: 100%}
+.header_swiper .swiper_header ul{width: 100%}
+.header_swiper .swiper_header ul li img{width: 100%;height: 60vw;float: left}
+.swiper-pagination-bullet{background:#93908F;width: 3vw;height: 3vw;border-radius: 1.5vw}
+.swiper-pagination-bullet-active{background:#3E3D3D;border: .75vw solid #C7C7C7;}
+
+.header_search{width: 100%;height: 11vw;position: absolute;top: 0;left: 0;z-index: 50}
+.header_search img.position{width: 6.2vw;height: 7vw;margin: 2vw 0 0  3vw;float: left}
+.header_search p.city{height: 11vw;display: table;float: left;line-height: 11vw;color: white;font-size: 4vw;padding: 0 2vw}
+
+.header_search button.search{width: 15vw;height: 7vw;font-size: 3.3vw;color: #525250;border:none;background: white;letter-spacing: 1px;border-radius: 1vw;float: right;outline: 0;margin: 2vw 3vw 0 0}
+.header_search div.search_div{position: absolute;top: 2vw;left: 25%;width: 50%;height: 7vw;background: none}
+.header_search div.search_div input{ display: table;width: 82%;height: 7vw;border: none;border-radius: 3vw;outline: 0;background: rgba(255,255,255,.5);color: white;font-size: 3vw;position: relative;padding: 0 0 0 8vw;margin: 0}
+input::-webkit-input-placeholder { /* WebKit browsers */
+	color:white;
+	font-weight: 300;
+}
+	:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+	color:white;
+	font-weight: 300;
+}
+	::-moz-placeholder { /* Mozilla Firefox 19+ */
+	color:white;
+	font-weight: 300;
+}
+	:-ms-input-placeholder { /* Internet Explorer 10+ */
+	color:white;
+	font-weight: 300;
+}
+.header_search div.search_div img.search{width: 5vw;height: 5vw;position: absolute;top: .8vw;left: 1vw;}
+
+.section_nav{width: 100%;border-bottom: 2vw solid #EFEFF4;padding:  2vw 0 4vw;overflow: hidden;}
+.section_nav ul{width: 100%; }
+.section_nav ul li{width: 25%;float: left;text-align: center}
+.section_nav ul li img.nav{width: 10vw;height: 10vw;margin: 3vw 0 0 }
+.section_nav ul li p.title{font-size: 3.6vw;line-height: 6vw;color: #666;font-weight: 400 }
+
+.section_new{width: 100%;padding: 2vw 0;background: #e0e0e0}
+.section_new .div_containner{width: 90%;margin: 0 auto;height: 10vw;border: 6vw;background: white;border-radius: 5vw}
+.section_new .div_containner p.title{width: 25%;line-height: 10vw;color: #666;font-size: 3.2vw;float: left;padding-left: 3vw}
+.section_new .div_containner p.title span{color:red;font-size: 5vw }
+.section_new .div_containner h2.containner{width: 55%;line-height: 10vw;font-weight: 600;float: left;overflow:hidden;white-space:nowrap; text-overflow:ellipsis;font-size: 4vw }
+.section_new .div_containner a.more {float: right;display: table;height: 6vw;line-height: 6vw;margin: 2vw 4vw 0 0vw;font-size: 3.5vw;border-left: 1px solid #999;padding-left: 2vw}
+
+.section_nav_pic{width: 100%;margin: 2vw auto 0; border-bottom: 2vw solid #EFEFF4;}
+.section_nav_pic img.sport{width: 50%;float: left;height: 50vw}
+.section_nav_pic .div_nav_pic{width: 50%;float: left}
+.section_nav_pic .div_nav_pic img.jiadian{width: 100%;height: 20vw}
+.section_nav_pic .div_nav_pic img.food{width: 50%;float: left;height: 30vw}
+.section_nav_pic .div_nav_pic img.hotel{width: 50%;float: left;height: 30vw}
+.section_nav_pic img.dingzhi,.section_nav_pic  img.tuijian{width: 50%;float: left;height: 23vw}
+
+.section_hot_product{width: 100%;margin: 0 auto;}
+.section_hot_product  .div_hot_title{width: 100%;height: 10vw;}
+.section_hot_product  .div_hot_title img.title {width: 70%;height: 10vw;float: left;}
+.section_hot_product  .div_hot_title p.more{font-size: 3vw;line-height: 10vw;float: right;color:#f02b2b;text-align: right;}
+.section_hot_product  .div_hot_title img.right{width: 5vw;height: 5vw;float:right;margin: 2.5vw 5vw 0  1vw}
+
+.div_product_shop{width: 95%;margin: 0 auto;border-top:1px solid #ede9e6;}
+.div_product_shop ul{width: 100%}
+.div_product_shop ul li{width: 33.33%;float: left;text-align: center;margin: 2vw 0;border-left: 1px solid  #ede9e6;}
+.div_product_shop ul li:first-child{border-left:none}
+.div_product_shop ul li img.product{width: 85%;height: 30vw;margin: 2vw 0}
+.div_product_shop ul li img.title{width: 75%;height: 4.8vw;text-align: left;}
+.div_product_shop ul li h2.good_name{font-size: 3.5vw;color: #676767;line-height:7vw;font-weight: 600;overflow:hidden;white-space:nowrap; text-overflow:ellipsis;padding-bottom: 2vw;padding: 0 1vw;}
+
+.section_near_product{width:100%;}
+.section_near_product .section_near_title{width: 100%;height: 20vw;color: #efeff4;background: #efeff4;position: relative}
+.section_near_product .section_near_title h2.title{font-size: 5vw;background: #efeff4;display: table;margin: 0 auto;line-height:8vw;font-weight: 600;color:#656565;padding:3vw  5vw 0; position: relative;z-index: 2;letter-spacing: 3px;}
+.section_near_product .section_near_title p.note{font-size: 3vw;display: table;margin: 0 auto;line-height:4vw;font-weight: 100;color:#9e9ea0;padding-top:.5vw;  }
+.section_near_product .section_near_title h2.title span{color:#fa4a84 }
+.section_near_product .section_near_title hr{position: absolute;top: 4.9vw;left: 25%;width: 50%;z-index: 1}
+
+.section_near_product .ul_near_product{width: 100%;}
+.section_near_product .ul_near_product li{width:95%;margin: 3vw auto;padding: 2vw;background: #f6f6f6 }
+.section_near_product .ul_near_product li img.product{width: 25vw;height: 25vw;float: left}
+.section_near_product .ul_near_product li .div_product_info{width: 70%;float: right}
+.div_product_info h2.good_name{font-size: 4vw;color: #140704;line-height: 10vw;font-weight: 600;overflow:hidden;white-space:nowrap; text-overflow:ellipsis;}
+.div_product_info h2.good_name font{background:#ea2244;color: white;border-radius: 5px;font-size: 12px;font-weight: 300;padding: 0 3px; }
+.div_product_info h3.address{font-size: 3.5vw;color: #6c6b6b; background: url(../image/nearby/weizhi_img.png) no-repeat 0 1.5vw;background-size: 4vw 4vw;padding-left: 6vw;line-height: 8vw}
+.div_product_info p.recomment{color:#b7b7b7;font-size: 3vw;line-height: 7vw;width: 80%;float: left;overflow:hidden;white-space:nowrap; text-overflow:ellipsis;}
+.div_product_info p.distance{width: 20%;float: left;text-align: right;font-size: 3vw;color: #ff0024;line-height: 7vw;}
+
+.section_near_product .more{width: 100%;height:11vw;background: #eeeeee;color: #646464;line-height: 10vw;text-align: center;border-top:1vw solid #e0e0e0;border-bottom:1vw solid #e0e0e0;margin-bottom: 3vw;font-size: 4vw;font-weight: 300; }
+
+
+

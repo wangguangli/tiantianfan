@@ -1,0 +1,196 @@
+/*清理浮动的方法*/
+.clearfix:after {
+	content: " ";
+	display: block;
+	clear: both;
+	height: 0;
+}
+
+.clearfix {
+	zoom: 1;
+}
+
+/***************************************************地址********************************************************************/
+.address_cont {
+	width: 100%;
+	background-color: #fff;
+	border-radius: 2.78vw;
+	padding: 1.66vw 3.7vw 0 3.7vw;
+	height: auto;
+	display: table;
+	margin-top: 3.33vw;
+	margin-bottom: 20vw;
+}
+
+.name_dd {
+	width: 100%;
+	height: auto;
+	display: table;
+	border-bottom: 1px solid #ddd;
+	padding-bottom: 4.54vw;
+	margin-top: 4.54vw;
+}
+
+.name_dd:last-child {
+	border-bottom: 0;
+}
+
+.add_right {
+	float: right;
+	margin-top: 3vw;
+}
+
+.add_right .add-icon {
+	color: #fff;
+}
+
+.name {
+	width: 84%;
+	float: left;
+	padding-left: 4.07vw;
+}
+
+.name_phone {
+	margin-bottom: 2.69vw;
+}
+
+.details_dz {
+	font-size: 3.52vw;
+	line-height: 5.56vw;
+	color: #555555;
+}
+
+.default {
+	width: 12.04vw;
+	height: 5.37vw;
+	background-color: #fef4f3;
+	border: 1px solid #fe4543;
+	font-size: 3.33vw;
+	text-align: center;
+	color: #fe4543;
+	border-radius: 2.69vw;
+	display: inline-block
+}
+
+.xie_img {
+	width: 4.81vw;
+	height: 4.72vw;
+	float: right;
+	margin-top: 8vw;
+	margin-right: 2.5vw;
+}
+
+.name_dd .name .name_phone h5 {
+	color: #333;
+	font-size: 4.44vw;
+	display: inline-block;
+}
+
+.name_dd .name .name_phone p {
+	display: inline-block;
+	color: #999;
+	font-size: 3.7vw;
+	margin: 0;
+	margin-left: 3.06vw;
+}
+
+/*弹窗*/
+.modal {
+	display: none;
+	position: fixed;
+	z-index: 999;
+	padding-top: 100px;
+	left: 0;
+	top: 0;
+	width: 100%;
+	height: 100%;
+	overflow: auto;
+	background-color: rgb(0, 0, 0);
+	background-color: rgba(0, 0, 0, 0.4);
+}
+
+/* 弹窗内容 */
+.modal-content {
+	position: fixed;
+	bottom: 0;
+	left: 2vw;
+	margin: auto;
+	padding: 0;
+	width: 96%;
+	-webkit-animation-name: animatetop;
+	-webkit-animation-duration: 0.4s;
+	animation-name: animatetop;
+	animation-duration: 0.4s
+}
+
+/* 添加动画 */
+@-webkit-keyframes animatetop {
+	from {
+		bottom: -300px;
+		opacity: 0
+	}
+	to {
+		bottom: 0;
+		opacity: 1
+	}
+}
+
+@keyframes animatetop {
+	from {
+		bottom: -300px;
+		opacity: 0
+	}
+	to {
+		bottom: 0;
+		opacity: 1
+	}
+}
+
+/* 关闭按钮 */
+.close {
+	color: #2D77EB !important;
+	margin-top: 3vw;
+	margin-bottom: 3vw;
+}
+
+.close:hover, .close:focus {
+	color: #000;
+	text-decoration: none;
+	cursor: pointer;
+}
+
+.modal_header {
+	background: #fff;
+	width: 100%;
+	height: 8vw;
+	color: #000;
+	border-radius: 2vw;
+	text-align: center;
+	line-height: 8vw;
+	margin-bottom: 1vw;
+}
+
+/*添加新地址*/
+.dingwei {
+	width: 100%;
+	position: fixed;
+	bottom: 0;
+	left: 0;
+	height: 20vw;
+	display: flex;
+	padding-top: 3vw;
+	background: #FFFFFF;
+}
+
+.new_address {
+	width: 92.59vw;
+	height: 10.19vw;
+	background-color: #fe4543;
+	border-radius: 5.09vw;
+	font-size: 3.7vw;
+	color: #fff;
+	text-align: center;
+	display: block;
+	border: 1px solid #fe4543;
+	margin: 0 auto;
+}

@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>商品列表</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="Keywords" content="">
+    <meta name="description" content="">
+    <link rel="stylesheet" href="__PUBLIC__/mobile/style/jquery-weui.min.css">
+    <link rel="stylesheet" href="__PUBLIC__/mobile/css_v3/weui.min.css">
+    <link rel="stylesheet" href="__PUBLIC__/mobile/style/main_style.css">
+    <link rel="stylesheet" href="__PUBLIC__/mobile/css_v3/goods_index.css?n=2">
+    <link rel="stylesheet" href="__PUBLIC__/layui/css/layui.css">
+    <link href="__PUBLIC__/css/shopindex.css" rel="stylesheet" type="text/css" />
+    <link href="__PUBLIC__/css/category.css" rel="stylesheet" type="text/css" />
+    <link href="__PUBLIC__/css/footer.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="__PUBLIC__/mobile/css_v3/property.css">
+    <script src="__PUBLIC__/js/jquery.min.js"></script>
+    <script type="text/javascript" src="__PUBLIC__/layer/mobile/layer.js"></script>
+    <script type="text/javascript" src="__PUBLIC__/layui/layui.js"></script>
+
+</head>
+
+<body ontouchstart>
+
+
+<!--导航-->
+<div class="goods_nav">
+    <div class="goods_nav_kuan">
+        <a href="{:U('Goods/waitGoodsList',array('type'=>0,))}">
+            <div <if condition="$type eq '0'"> class="nav_title f_active"<else/> class="nav_title"</if>>
+            默认
+            <if condition="$type eq '0'">
+                <span class="active_span"></span>
+            </if>
+
+    </div>
+    </a>
+    <a href="{:U('Goods/waitGoodsList',array('type'=>1,))}">
+        <div <if condition="$type eq '1'"> class="nav_title f_active"<else/> class="nav_title"</if>>
+        销量
+        <if condition="$type eq '1'">
+            <span class="active_span"></span>
+        </if>
+</div>
+
+</a>
+<a href="{:U('Goods/waitGoodsList',array('type'=>2))}">
+    <div <if condition="$type eq '2'"> class="nav_title f_active"<else/> class="nav_title"</if>>
+    价格
+    <if condition="$type eq '2'">
+        <span class="active_span"></span>
+    </if>
+    </div>
+
+</a>
+
+
+
+</div>
+</div>
+
+<if condition="empty($list)">
+    <div class="empty_data">
+        <div class="empty_data_t0">
+            <img src="__PUBLIC__/mobile/images_v3/empty_cart_img_1.png" class="empty_cart_img_1">
+        </div>
+        <div class="empty_data_t1">暂无数据</div>
+    </div>
+    <else/>
+    <div class="goods-list">
+        <ul id="goods_list">
+            <volist name="list" id="vo">
+                <li>
+                    <div class="proshow">
+                        <a href="{:U('Goods/detail', array('id'=>$vo['id']))}">
+                            <img class="product_img" src="{$vo.thumb}" />
+                            <div class="pro-info">
+                                <p class="cakes_tit">
+                                    <span class="cakes">{$vo.tags}</span>
+                                    {$vo.name}
+                                </p>
+
+                                <div class="buy_cont">
+                                    <span class="price">{$vo.price}<span class="symbol">积分</span></span>
+                                    <img class="gwc" src="__PUBLIC__/mobile/images_v3/f_dm26.png" />
+                                </div>
+
+                            </div>
+                        </a>
+                    </div>
+                </li>
+            </volist>
+
+        </ul>
+
+    </div>
+    <div class="load_more_content"></div>
+    <div class="load_more">
+        <if condition="$max_page gt 1">
+            <span class="load_more_red">点击</span>加载更多
+            <else/>
+            数据已全部加载
+        </if>
+    </div>
+</if>
+</body>
+
+</html>
+<script>
+    //注意：导航 依赖 element 模块，否则无法进行功能性操作
+    layui.use('element', function() {
+        var element = layui.element;
+        //…
+    });
+    // 加载更多
+    var page = 2; // 当前页码，默认从第2页开始，因为刚进来已经输出一次了
+    var max_page = "{$max_page}"; // 最大页码
+    var type = "{$type}"; // 当前类型
+    $(".load_more").on("click", function() {
+        if (page > max_page) {
+            layer.open({
+                type: 2,
+                content: '数据已全部加载',
+                time: 1
+            });
+            $(".load_more").text("数据已全部加载");
+            return;
+        }
+        layer.open({
+            type: 2,
+            content: '加载中'
+        });
+        $(".load_more_content").load("{:U('waitGoodsList')}", {
+            page: page,type:type,
+        }, function(response, status) {
+
+            if (status == "success") {
+                var html = $(".load_more_content").html();
+                console.log(html);
+                $("#goods_list").append(html);
+                $(".load_more_content").html("");
+                page = parseInt(page) + 1; // 在本页自增
+            }
+            layer.closeAll();
+        });
+    });
+</script>

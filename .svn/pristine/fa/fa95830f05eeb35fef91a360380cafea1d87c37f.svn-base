@@ -1,0 +1,699 @@
+<!DOCTYPE html>
+<html>
+  <head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>我的订单</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"> 
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+	<link rel="stylesheet" href="__PUBLIC__/css/mui.min.css">
+	<link rel="stylesheet" href="__PUBLIC__/css/order.css">
+	<script src="__PUBLIC__/js/mui.min.js"></script>
+	<link rel="stylesheet" href="__PUBLIC__/css/idangerous.swiper.css">
+	<script src="__PUBLIC__/layer/mobile/layer.js"></script>
+	<style>
+		.order_all::-webkit-scrollbar {/*隐藏滚轮*/
+		   display: none;
+		}
+		.order_all{
+			-webkit-overflow-scrolling: touch;
+		}
+	</style>
+</head>
+<body style="">
+	<header class="mui-bar mui-bar-nav" style="background: #FE274E;">
+		<a class="mui-pull-left mui-icon mui_turn" href="{:U('User/index')}"><img src="__PUBLIC__/img/return.png" width="20vw"height="20vw"/></a>
+		<h1 class="mui-title tit_login" style="color: #fff;">我的订单</h1>
+	</header>
+  <div class="mui-content" style="background: #fff; overflow-x: hidden;"> 
+
+	   <div class="order_all" style="overflow: auto;" >
+			<ul class="clearfix" style="display: table;width: 151vw;" >
+				<li  class="active" onclick="allOrders()">全部</li>
+				<li onclick="pament()">待付款</li>
+				<li onclick="deliver()">待发货</li>
+				<li onclick="receive()">待收货</li>
+				<li onclick="comment()">已完成</li>
+				<li onclick="cancel()">已取消</li>
+			</ul>
+		</div>
+		<div class="swiper-container">
+		  <div class="swiper-wrapper" id="orderIds">
+				<!--全部-->
+				<div class="swiper-slide swiper-slide-visible swiper-slide-active" id="allOrders">
+					<!--1-->
+					<div class="goods_list">
+						<div class="goods_con">
+							<h6>自营</h6>
+							<p>全部</p>
+						</div>
+						<div class="shop_list clearfix">
+							<div class="shop_pic"><img src="" width="100%" height="100%"/></div>
+							<div class="shop_left"><p>桂圆</p></div>
+						</div>
+						<div class="out_poc clearfix">
+							<p>实付：<span>￥0.00</span></p>
+						</div>
+						<div class="can_detail">
+							<span>查看详情</span>
+							<span>取消订单</span>
+							<span>去付款</span>
+						</div>
+					  </div>
+					   <!--end-->
+				</div>
+				<!--待付款-->
+				<div class="swiper-slide" id="orders">
+					<!--<div class="goods_list">-->
+						<!--<div class="goods_con">-->
+							<!--<h6>自营</h6>-->
+							<!--<p>等待付款</p>-->
+						<!--</div>	-->
+						<!--<div class="shop_list clearfix">-->
+							<!--<div class="shop_pic"><img src="" width="100%" height="100%"/></div>-->
+							<!--<div class="shop_left"><p>桂圆</p></div>-->
+						<!--</div>-->
+						<!--<div class="out_poc clearfix">-->
+							<!--<p>实付：<span>￥0.00</span></p>		    				    		-->
+						<!--</div>-->
+						<!--<div class="can_detail">-->
+							<!--<span>查看详情</span>-->
+							<!--<span>取消订单</span>-->
+							<!--<span>去付款</span>-->
+						<!--</div>-->
+					   <!--</div>-->
+				</div>
+				<!--待发货-->
+				<div class="swiper-slide" id="deliver">
+					<div class="goods_list">
+						<div class="goods_con">
+							<h6>自营</h6>
+							<p>等待发货</p>
+						</div>
+						<div class="shop_list clearfix">
+							<div class="shop_pic"><img src="" width="100%" height="100%"/></div>
+							<div class="shop_left"><p>桂圆</p></div>
+						</div>
+						<div class="out_poc clearfix">
+							<p>实付：<span>￥0.00</span></p>
+						</div>
+					   </div>
+
+				</div>
+				<!--待收货-->
+				  <div class="swiper-slide" id="receive">
+					<div class="goods_list">
+						<div class="goods_con">
+							<h6>自营</h6>
+							<p>待收货</p>
+						</div>
+						<div class="shop_list clearfix">
+							<div class="shop_pic"><img src="" width="100%" height="100%"/></div>
+							<div class="shop_left"><p>桂圆</p></div>
+						</div>
+						<div class="out_poc clearfix">
+							<p>实付：<span>￥0.00</span></p>
+						</div>
+						<div class="can_detail">
+							<span>查看详情</span>
+							<span>取消订单</span>
+							<span>去付款</span>
+						</div>
+					   </div>
+				</div>
+				<!--已完成-->
+				  <div class="swiper-slide" id="comment">
+					<div class="goods_list">
+						<div class="goods_con">
+							<h6>自营</h6>
+							<p>已完成</p>
+						</div>
+						<div class="shop_list clearfix">
+							<div class="shop_pic"><img src="" width="100%" height="100%"/></div>
+							<div class="shop_left"><p>桂圆</p></div>
+						</div>
+						<div class="out_poc clearfix">
+							<p>实付：<span>￥0.00</span></p>
+						</div>
+						<div class="can_detail">
+							<span>查看详情</span>
+							<span>删除订单</span>
+						</div>
+					   </div>
+				</div>
+				<!--已取消-->
+			   <div class="swiper-slide" id="cancel">
+					<div class="goods_list">
+						<div class="goods_con">
+							<h6>自营</h6>
+							<p>已取消</p>
+						</div>
+						<div class="shop_list clearfix">
+							<div class="shop_pic"><img src="" width="100%" height="100%"/></div>
+							<div class="shop_left"><p>桂圆</p></div>
+						</div>
+						<div class="out_poc clearfix">
+							<p>实付：<span>￥0.00</span></p>
+						</div>
+						<div class="can_detail">
+							<span>查看详情</span>
+							<span>删除订单</span>
+						</div>
+					   </div>
+				</div>
+				<!--end-->
+		  </div>
+		</div>
+  </div>
+	</body>
+	<script src="__PUBLIC__/mobile/js/jquery-2.1.4.js"></script>
+	<script src="__PUBLIC__/mobile/js/jquery-weui.min.js"></script>
+	<script src="__PUBLIC__/mobile/js/swiper.min.js"></script>
+	<script src="__PUBLIC__/mobile/js/dropload.min.js"></script>
+  <script src="__PUBLIC__/js/idangerous.swiper.min.js"></script>
+	<script type="text/javascript">	  	
+	  var tabsSwiper = new Swiper('.swiper-container',{
+		speed:500,
+		onSlideChangeStart: function(){
+		  $(".order_all ul .active").removeClass('active')
+		  $(".order_all ul li").eq(tabsSwiper.activeIndex).addClass('active')  
+		}
+	  })
+	  $(".order_all ul li").on('touchstart mousedown',function(e){
+		
+		$(".order_all ul .active").removeClass('active')
+		$(this).addClass('active')
+		tabsSwiper.swipeTo( $(this).index() )
+	  })
+	  $(".order_all ul li").click(function(e){
+		
+	  })
+		var search=location.search;
+	//	console.log(search)
+		function parse(search){
+			//从第二个字符开始截取   ，获取到第二个开始后面所有的字符
+			var str=search.substring(1);
+			//console.log(str)
+			var result={};
+			//分割字符串  -->产生字符串数组
+			var strs=str.split("&");
+			//console.log(strs)
+			//遍历数组中的每一个元素
+			strs.forEach(function(v){
+			 //console.log(v)
+				//伪代码：v="age=18"
+				var keyvalue=v.split("=");
+			//console.log(keyvalue)
+				var name=keyvalue[0];
+		
+				var value=keyvalue[1];
+						console.log(name)
+				result[name]=value;
+			})
+			return result;
+		}
+		var r=parse(search);//上一个页面传来的参数
+		var orders_status = r.order_status;
+		var user_id = r.user_id;
+		//console.log(orders_status);
+		//console.log(user_id);
+		$.ajax({
+			type : 'POST',
+			url : "{:U('Api/Orderout/orderList')}",
+			dataType:"json",
+			data : r,
+			success:function (data) {
+				console.log(data);
+				var html = '';
+				var status = data.status;
+				if(orders_status == 0){ //代付款
+					if(status == 0) {
+						$.each(data.result.list, function (index, item) {
+							html += "<div class=\"swiper-slide\" id=\"orders\">";
+							html += "<div class='goods_list'>";
+							html += "<div class='goods_con'>";
+							html += "<h6>"+item.shop_name+"</h6><p>等待付款</p>";
+							html += "</div>";
+							html += "<div class=\"shop_list clearfix\">";
+							$.each(item.goods,function (index,goods) {
+								html += "<div class=\"shop_pic\">";
+								html += "<img src='"+goods.goods_thumb+"' width=\"100%\" height=\"100%\"/></div> ";
+								html += "<div class=\"shop_left\"><p>"+goods.goods_name+"</p></div>";
+							});
+							html += "<div class=\"out_poc clearfix\">";
+							html += "<p>实付：<span>￥"+item.total_commodity_price+"</span></p></div>";
+							html += "<div class=\"can_detail\">";
+							html += "<span>查看详情</span>";
+							html += "<span>取消订单</span>";
+							html += "<span>去付款</span>";
+							html += "</div></div>";
+							html += "</div>";
+						});
+						$('#orders').html(html);
+					}else{
+
+					}
+				}else if(orders_status == 1){ //待发货
+					if(status == 0) {
+						$.each(data.result.list, function (index, item) {
+							html += "<div class='goods_list'><div class='goods_con'>";
+							html += "<h6>"+item.shop_name+"</h6><p>等待发货</p>";
+							html += "</div><div class=\"shop_list clearfix\"><div class=\"shop_pic\">";
+							$.each(item.goods,function (index,goods) {
+								html += "<img src='"+goods.goods_thumb+"' width=\"100%\" height=\"100%\"/></div> ";
+								html += "<div class=\"shop_left\"><p>"+goods.goods_name+"</p></div>";
+							})
+							html += "<div class=\"out_poc clearfix\">";
+							html += "<p>实付：<span>￥"+item.total_commodity_price+"</span></p></div>";
+							html += "</div>";
+						});
+						$('#deliver').html(html);
+					}else{
+
+					}
+				}
+				else if(orders_status == 2){ //待收货
+					if(status == 0) {
+						$.each(data.result.list, function (index, item) {
+							html += "<div class='goods_list'><div class='goods_con'>";
+							html += "<h6></h6><p>等待收货</p>";
+							html += "</div><div class=\"shop_list clearfix\"><div class=\"shop_pic\">";
+							$.each(item.goods,function (index,goods) {
+								html += "<img src='"+goods.goods_thumb+"' width=\"100%\" height=\"100%\"/></div> ";
+								html += "<div class=\"shop_left\"><p>"+goods.goods_name+"</p></div>";
+							})
+							html += "<div class=\"out_poc clearfix\">";
+							html += "<p>实付：<span>￥"+item.total_commodity_price+"</span></p></div>";
+							html += "<div class=\"can_detail\">";
+							html += "<span>查看详情</span>";
+							html += "<span>确认收货</span>";
+							html += "</div></div>";
+						});
+						$('#receive').html(html);
+					}else{
+
+					}
+				}else if(orders_status == 3){ //已完成
+					if(status == 0) {
+						$.each(data.result.list, function (index, item) {
+							html += "<div class=\"goods_list\"><div class=\"goods_con\">";
+							if(item.shop_name!=null){
+								html += "<h6>" + item.shop_name + "</h6>";
+							}else{
+								html += "<h6></h6>";
+							}
+							html += "<p>已完成</p></div>";
+							html += "<div class=\"shop_list clearfix\"><div class=\"shop_pic\">";
+							$.each(item.goods, function (index, goods) {
+								html += "<img src=\"" + goods.goods_thumb + "\" width=\"100%\" height=\"100%\"/></div>";
+								html += "<div class=\"shop_left\">";
+								html += "<p>" + goods.goods_name + "</p></div></div>"
+							})
+							html += "<div class=\"out_poc clearfix\">";
+							html += "<p>实付：<span>￥" + item.total_commodity_price + "</span></p>";
+							html += "</div><div class=\"can_detail\">";
+							html += "<span>查看详情</span>";
+							html += "<span>删除订单</span>";
+							html += "</div></div>";
+						});
+						$('#comment').html(html);
+					}else{
+
+					}
+				}else if(orders_status == 4){ //已取消
+					if(status == 0) {
+						$.each(data.result.list, function (index, item) {
+							html += "<div class=\"goods_list\">";
+							html += "<div class=\"goods_con\">";
+							if(item.shop_name!=null){
+								html += "<h6>" + item.shop_name + "</h6>";
+							}else{
+								html += "<h6></h6>";
+							}
+							html += "<p>已取消</p></div>";
+							html += "<div class=\"shop_list clearfix\">";
+							$.each(item.goods, function (index, goods) {
+								html += "<div class=\"shop_pic\"><img src=\""+goods.goods_thumb+"\" width=\"100%\" height=\"100%\"/></div>";
+								html += "<div class=\"shop_left\">";
+								html += "<p>"+goods.goods_name+"</p></div>";
+							})
+							html += "</div>";
+							html += "<div class=\"out_poc clearfix\">";
+							html += "<p>实付：<span>￥"+item.total_commodity_price+"</span></p>";
+							html += "</div><div class=\"can_detail\">";
+							html += "<span>查看详情</span>";
+							html += "<span>删除订单</span>";
+							html += "</div></div>";
+						});
+						$('#cancel').html(html);
+					}else{
+
+					}
+				}
+
+			}
+		});
+		//待付款
+		function pament() {
+			var arr = {order_status:0,user_id:user_id};
+			$.ajax({
+				type: 'POST',
+				url: "{:U('Api/Orderout/orderList')}",
+				dataType: "json",
+				data: arr,
+				success:function (data) {
+					console.log(data);
+					var status = data.status;
+					if(status == 0) {
+						var html = '';
+						$.each(data.result.list, function (index, item) {
+							html += "<div class='goods_list'><div class='goods_con'>";
+							html += "<h6>"+item.shop_name+"</h6><p>等待付款</p>";
+							html += "</div><div class=\"shop_list clearfix\"><div class=\"shop_pic\">";
+							$.each(item.goods,function (index,goods) {
+								html += "<img src='"+goods.goods_thumb+"' width=\"100%\" height=\"100%\"/></div> ";
+								html += "<div class=\"shop_left\"><p>"+goods.goods_name+"</p></div>";
+							})
+							html += "<div class=\"out_poc clearfix\">";
+							html += "<p>实付：<span>￥"+item.total_commodity_price+"</span></p></div>";
+							html += "<div class=\"can_detail\">";
+							html += "<span onclick='orderDetail()'>查看详情</span>";
+							html += "<input type='hidden' value='"+item.id+"' id='orders_id'>";
+							html += "<input type='hidden' value='"+item.order_status+"' id='order_status'>";
+							html += "<span onclick='quxiao()'>取消订单</span>";
+							html += "<span>去付款</span>";
+							html += "</div></div>";
+						});
+
+						$('#orders').html(html);
+					}else{
+
+					}
+				}
+			})
+		}
+		//查看订单详情
+		function orderDetail() {
+			var orders_id = $("#orders_id").val();
+			var order_status = $("#order_status").val();
+			location.href = "{:U('order/detail')}?user_id="+user_id+"&orders_id="+orders_id+"&order_status="+order_status;
+		}
+		function quxiao() {
+			var orders_id = $("#orders_id").val();
+			$.ajax({
+				type : "POST",
+				dataType: "json",
+				url : "{:U('Api/Orderin/cancelOrder')}",
+				data : {order_id:orders_id,user_id:user_id},
+				success:function (data) {
+					layer.open({
+						content: "取消成功"
+						,skin: 'msg'
+						,time: 2
+					});
+				}
+			});
+
+		}
+		//待发货
+		function deliver() {
+			var arr = {order_status:1,user_id:user_id};
+			$.ajax({
+				type: 'POST',
+				url: "{:U('Api/Orderout/orderList')}",
+				dataType: "json",
+				data: arr,
+				success:function (data) {
+					console.log(data);
+					var status = data.status;
+					if(status == 0) {
+						var html = '';
+
+						$.each(data.result.list, function (index, item) {
+							html += "<div class='goods_list'><div class='goods_con'>";
+							html += "<h6>"+item.shop_name+"</h6><p>等待发货</p>";
+							html += "</div><div class=\"shop_list clearfix\"><div class=\"shop_pic\">";
+							$.each(item.goods,function (index,goods) {
+								html += "<img src='"+goods.goods_thumb+"' width=\"100%\" height=\"100%\"/></div> ";
+								html += "<div class=\"shop_left\"><p>"+goods.goods_name+"</p></div>";
+							})
+							html += "<div class=\"out_poc clearfix\">";
+							html += "<p>实付：<span>￥"+item.total_commodity_price+"</span></p></div>";
+							html += "</div>";
+						});
+
+						$('#deliver').html(html);
+					}else{
+
+					}
+				}
+			})
+		}
+		//	待收货
+		function receive() {
+			var arr = {order_status:2,user_id:user_id};
+			$.ajax({
+				type: 'POST',
+				url: "{:U('Api/Orderout/orderList')}",
+				dataType: "json",
+				data: arr,
+				success:function (data) {
+					console.log(data);
+					var status = data.status;
+					if(status == 0) {
+						var html = '';
+						$.each(data.result.list, function (index, item) {
+							html += "<div class='goods_list'><div class='goods_con'>";
+							html += "<h6></h6><p>等待收货</p>";
+							html += "</div><div class=\"shop_list clearfix\"><div class=\"shop_pic\">";
+							$.each(item.goods,function (index,goods) {
+								html += "<img src='"+goods.goods_thumb+"' width=\"100%\" height=\"100%\"/></div> ";
+								html += "<div class=\"shop_left\"><p>"+goods.goods_name+"</p></div>";
+							})
+							html += "<div class=\"out_poc clearfix\">";
+							html += "<p>实付：<span>￥"+item.total_commodity_price+"</span></p></div>";
+							html += "<div class=\"can_detail\">";
+							html += "<span>查看详情</span>";
+							html += "<span>确认收货</span>";
+							html += "</div></div>";
+						});
+
+						$('#receive').html(html);
+					}else{
+
+					}
+				}
+			})
+		}
+		//待评价（已完成）
+		function comment() {
+			var arr = {order_status:3,user_id:user_id};
+			$.ajax({
+				type: 'POST',
+				url: "{:U('Api/Orderout/orderList')}",
+				dataType: "json",
+				data: arr,
+				success: function (data) {
+					console.log(data);
+					var html ='';
+					if (status == 0) {
+						$.each(data.result.list, function (index, item) {
+							html += "<div class=\"goods_list\"><div class=\"goods_con\">";
+							if(item.shop_name!=null){
+								html += "<h6>" + item.shop_name + "</h6>";
+							}else{
+								html += "<h6></h6>";
+							}
+							html += "<p>已完成</p></div>";
+							html += "<div class=\"shop_list clearfix\"><div class=\"shop_pic\">";
+							$.each(item.goods, function (index, goods) {
+								html += "<img src=\"" + goods.goods_thumb + "\" width=\"100%\" height=\"100%\"/></div>";
+								html += "<div class=\"shop_left\">";
+								html += "<p>" + goods.goods_name + "</p></div></div>"
+							})
+							html += "<div class=\"out_poc clearfix\">";
+							html += "<p>实付：<span>￥" + item.total_commodity_price + "</span></p>";
+							html += "</div><div class=\"can_detail\">";
+							html += "<span>查看详情</span>";
+							html += "<span>删除订单</span>";
+							html += "</div></div>";
+
+						})
+						$('#comment').html(html);
+					}
+				}
+			})
+		}
+		//已取消
+		function cancel() {
+			var arr = {order_status:4,user_id:user_id};
+			$.ajax({
+				type: 'POST',
+				url: "{:U('Api/Orderout/orderList')}",
+				dataType: "json",
+				data: arr,
+				success: function (data) {
+					console.log(data);
+					var html ='';
+					if (status == 0) {
+						$.each(data.result.list, function (index, item) {
+							html += "<div class=\"goods_list\">";
+							html += "<div class=\"goods_con\">";
+							if(item.shop_name!=null){
+								html += "<h6>" + item.shop_name + "</h6>";
+							}else{
+								html += "<h6></h6>";
+							}
+							html += "<p>已取消</p></div>";
+							html += "<div class=\"shop_list clearfix\">";
+							$.each(item.goods, function (index, goods) {
+								html += "<div class=\"shop_pic\"><img src=\""+goods.goods_thumb+"\" width=\"100%\" height=\"100%\"/></div>";
+								html += "<div class=\"shop_left\">";
+								html += "<p>"+goods.goods_name+"</p></div>";
+							})
+							html += "</div>";
+							html += "<div class=\"out_poc clearfix\">";
+							html += "<p>实付：<span>￥"+item.total_commodity_price+"</span></p>";
+							html += "</div><div class=\"can_detail\">";
+							html += "<span>查看详情</span>";
+							html += "<span onclick='deleteorder()'>删除订单</span>";
+							html += "</div></div>";
+						})
+						$('#cancel').html(html);
+					}
+				}
+			})
+		}
+function deleteorder() {
+	var orders_id = $("#orders_id").val();
+	$.ajax({
+		type : "POST",
+		dataType: "json",
+		url : "{:U('Api/Orderin/deleteOrder')}",
+		data : {order_id:orders_id},
+		success:function (data) {
+			layer.open({
+				content: "删除成功"
+				,skin: 'msg'
+				,time: 2
+			});
+		}
+	});
+
+}
+		// 全部订单
+		function allOrders() {
+			var arr = {order_status:-1,user_id:user_id};
+			$.ajax({
+				type: 'POST',
+				url: "{:U('Api/Orderout/orderList')}",
+				dataType: "json",
+				data: arr,
+				success: function (data) {
+					console.log(data);
+					var status = data.status;
+					if(status == 0){
+						var html = '';
+						$.each(data.result.list, function (index, item) {
+							var orders_status = item.order_status;
+							if(orders_status==0){ //代付款
+
+									html += "<div class='goods_list'><div class='goods_con'>";
+									html += "<h6>"+item.shop_name+"</h6><p>等待付款</p>";
+									html += "</div><div class=\"shop_list clearfix\"><div class=\"shop_pic\">";
+									$.each(item.goods,function (index,goods) {
+										html += "<img src='"+goods.goods_thumb+"' width=\"100%\" height=\"100%\"/></div> ";
+										html += "<div class=\"shop_left\"><p>"+goods.goods_name+"</p></div>";
+									})
+									html += "<div class=\"out_poc clearfix\">";
+									html += "<p>实付：<span>￥"+item.total_commodity_price+"</span></p></div>";
+									html += "<div class=\"can_detail\">";
+									html += "<span>查看详情</span>";
+									html += "<span>取消订单</span>";
+									html += "<span>去付款</span>";
+									html += "</div></div>";
+
+							}
+							else if(orders_status==1){ //待发货
+								html += "<div class='goods_list'><div class='goods_con'>";
+								html += "<h6>"+item.shop_name+"</h6><p>等待发货</p>";
+								html += "</div><div class=\"shop_list clearfix\"><div class=\"shop_pic\">";
+								$.each(item.goods,function (index,goods) {
+									html += "<img src='"+goods.goods_thumb+"' width=\"100%\" height=\"100%\"/></div> ";
+									html += "<div class=\"shop_left\"><p>"+goods.goods_name+"</p></div>";
+								})
+								html += "<div class=\"out_poc clearfix\">";
+								html += "<p>实付：<span>￥"+item.total_commodity_price+"</span></p></div>";
+								html += "</div>";
+
+							}
+							else if(orders_status==2){
+								html += "<div class='goods_list'><div class='goods_con'>";
+								html += "<h6></h6><p>等待收货</p>";
+								html += "</div><div class=\"shop_list clearfix\"><div class=\"shop_pic\">";
+								$.each(item.goods,function (index,goods) {
+									html += "<img src='"+goods.goods_thumb+"' width=\"100%\" height=\"100%\"/></div> ";
+									html += "<div class=\"shop_left\"><p>"+goods.goods_name+"</p></div>";
+								})
+								html += "<div class=\"out_poc clearfix\">";
+								html += "<p>实付：<span>￥"+item.total_commodity_price+"</span></p></div>";
+								html += "<div class=\"can_detail\">";
+								html += "<span>查看详情</span>";
+								html += "<span>确认收货</span>";
+								html += "</div></div>";
+
+							}
+							else if(orders_status == 3){ //待评价
+								html += "<div class=\"goods_list\"><div class=\"goods_con\">";
+								if(item.shop_name!=null){
+									html += "<h6>" + item.shop_name + "</h6>";
+								}else{
+									html += "<h6></h6>";
+								}
+								html += "<p>已完成</p></div>";
+								html += "<div class=\"shop_list clearfix\"><div class=\"shop_pic\">";
+								$.each(item.goods, function (index, goods) {
+									html += "<img src=\"" + goods.goods_thumb + "\" width=\"100%\" height=\"100%\"/></div>";
+									html += "<div class=\"shop_left\">";
+									html += "<p>" + goods.goods_name + "</p></div></div>"
+								})
+								html += "<div class=\"out_poc clearfix\">";
+								html += "<p>实付：<span>￥" + item.total_commodity_price + "</span></p>";
+								html += "</div><div class=\"can_detail\">";
+								html += "<span>查看详情</span>";
+								html += "<span>删除订单</span>";
+								html += "</div></div>";
+								$('#allOrders').html(html);
+							}
+							else if(orders_status == 4){ //已取消
+								html += "<div class=\"goods_list\">";
+								html += "<div class=\"goods_con\">";
+								if(item.shop_name!=null){
+									html += "<h6>" + item.shop_name + "</h6>";
+								}else{
+									html += "<h6></h6>";
+								}
+								html += "<p>已取消</p></div>";
+								html += "<div class=\"shop_list clearfix\">";
+								$.each(item.goods, function (index, goods) {
+									html += "<div class=\"shop_pic\"><img src=\""+goods.goods_thumb+"\" width=\"100%\" height=\"100%\"/></div>";
+									html += "<div class=\"shop_left\">";
+									html += "<p>"+goods.goods_name+"</p></div>";
+								})
+								html += "</div>";
+								html += "<div class=\"out_poc clearfix\">";
+								html += "<p>实付：<span>￥"+item.total_commodity_price+"</span></p>";
+								html += "</div><div class=\"can_detail\">";
+								html += "<span>查看详情</span>";
+								html += "<span>删除订单</span>";
+								html += "</div></div>";
+							}
+						})
+						$('#allOrders').html(html);
+					}
+				}
+			})
+		}
+	</script>
+</html>

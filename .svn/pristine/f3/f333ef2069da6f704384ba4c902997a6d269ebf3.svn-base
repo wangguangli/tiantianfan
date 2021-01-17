@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>商品管理</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="Keywords" content="">
+    <meta name="description" content="">
+    <!-- UC强制全屏 -->
+    <meta name="full-screen" content="yes">
+    <!-- QQ强制全屏 -->
+    <meta name="x5-fullscreen" content="true">
+    <link rel="stylesheet" href="__PUBLIC__/mobile/css_v3/addItem.css">
+    <!--上拉加载-->
+</head>
+<body style="background-color: #f7f8fa;">
+<div class="h_vh">
+    <div class="h_addBxo">
+        <div class="h_addImg" data-type="1">
+            <img class="addActive" style="display: none">
+            <img class="addDefault" src="__PUBLIC__/mobile/images_v3/h_add.png" alt="">
+        </div>
+        <p class="h_addTitle">商品封面图片</p>
+        <p class="h_addTips">（请上传大于450px的正方形, 非正方形会导致变形）</p>
+    </div>
+    <div class="h_addBxo">
+        <div class="h_addImg" data-type="2">
+            <img class="addDefault" src="__PUBLIC__/mobile/images_v3/h_add.png" alt="">
+        </div>
+        <p class="h_addTitle">商品轮播图片</p>
+        <p class="h_addTips">（请上传大于450px的正方形, 非正方形会导致变形）</p>
+        <ul class="h_cover"></ul>
+    </div>
+    <input type="file" class="upAdd_1" style="display: none">
+    <input type="file" class="upAdd_2" style="display: none">
+</div>
+<div class="nextStep">
+    <a class="nextStepBtn_01" href="">下一步</a>
+</div>
+<script src="__PUBLIC__/mobile/js/jquery-2.1.4.js"></script>
+<script>
+    $('.h_addImg').on("click", function() {
+        var TYPE = $(this).attr('data-type');
+        if(TYPE == 1){
+            $('.upAdd_1').click();
+        }else if(TYPE == 2){
+            $('.upAdd_2').click();
+        }
+    });
+    $('.upAdd_1').change(function(){
+        upAdd(this.files,1);
+    });
+    $('.upAdd_2').change(function(){
+        upAdd(this.files,2);
+    });
+    //解析列表函数
+    function upAdd(upFiles,TYPE){
+        //如果没有文件
+        if( upFiles.length<1 ){
+            return false;
+        }
+        for( var i=0;i<upFiles.length;i++ ){
+            var file_obj = upFiles[i];		//单个文件
+            var name = file_obj.name;	//文件名
+            var imageType = /^image\//;
+            //是否是图片
+            if(!imageType.test(file_obj.type)) {
+                layer.open({content: '请上传图片文件',skin: 'msg',time: 1});
+                return false;
+            }
+            var filePath = URL.createObjectURL(file_obj);
+            if(TYPE == 1){
+                $('.addActive').attr('src',filePath).show().siblings().hide();
+            }else if(TYPE == 2){
+                console.log(filePath)
+                var html = '';
+                html += '<li>' +
+                    '<img src='+filePath+' >' +
+                    '<i></i>' +
+                    '</li>';
+                $('.h_cover').append(html);
+            }
+        }
+    }
+    //删除
+    // $('.fileSpan').on('click','.file_del',function () {
+    //     $(this).parent().remove()
+    // })
+</script>
+</body>
+</html>

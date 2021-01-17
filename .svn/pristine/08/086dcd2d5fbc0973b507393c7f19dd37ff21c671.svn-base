@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<title>评价</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<link rel="stylesheet" href="__PUBLIC__/mobile/css_v3/mui.min.css">
+		<link rel="stylesheet" href="__PUBLIC__/mobile/css_v3/bank_card.css">
+		<link rel="stylesheet" href="__PUBLIC__/mobile/style/main_style.css">
+		<link rel="stylesheet" href="__PUBLIC__/css/swiper.min.css">
+		<script src="__PUBLIC__/js/mui.min.js"></script>
+		<script src="__PUBLIC__/js/swiper.min.js"></script>
+		<script src="__PUBLIC__/js/jquery.min.js"></script>
+		<script src="__PUBLIC__/layer/mobile/layer.js"></script>
+	</head>
+
+	<body style="background: #f7f8fa;">
+		<div class="mui-content">
+			<div class="evaluate_dd">
+				<ul>
+					<volist name="comment" id="vo">
+						<li>
+							<div class="clearfix comment_top">
+								<div class="ping_lf">
+									<img class="eva_img" src="{$vo.headimage}" width="100%" height="100%" />
+									<div class="ping_lf_xx">
+										<h6 class="eva_h6">{$vo.user_name}</h6>
+										<div class="Satisfied">
+											<div class="star_eva">
+												<if condition="$vo.commodity_quality eq 1">
+													<img src="__PUBLIC__/mobile/images_v3/z_spxq_img_8.jpg" />
+													<elseif condition="$vo.commodity_quality eq 2" />
+													<img src="__PUBLIC__/mobile/images_v3/z_spxq_img_8.jpg" />
+													<img src="__PUBLIC__/mobile/images_v3/z_spxq_img_8.jpg" />
+													<elseif condition="$vo.commodity_quality eq 3" />
+													<img src="__PUBLIC__/mobile/images_v3/z_spxq_img_8.jpg" />
+													<img src="__PUBLIC__/mobile/images_v3/z_spxq_img_8.jpg" />
+													<img src="__PUBLIC__/mobile/images_v3/z_spxq_img_8.jpg" />
+													<elseif condition="$vo.commodity_quality eq 4" />
+													<img src="__PUBLIC__/mobile/images_v3/z_spxq_img_8.jpg" />
+													<img src="__PUBLIC__/mobile/images_v3/z_spxq_img_8.jpg" />
+													<img src="__PUBLIC__/mobile/images_v3/z_spxq_img_8.jpg" />
+													<img src="__PUBLIC__/mobile/images_v3/z_spxq_img_8.jpg" />
+													<elseif condition="$vo.commodity_quality eq 5" />
+													<img src="__PUBLIC__/mobile/images_v3/z_spxq_img_8.jpg" />
+													<img src="__PUBLIC__/mobile/images_v3/z_spxq_img_8.jpg" <img src="__PUBLIC__/mobile/images_v3/z_spxq_img_8.jpg" />
+													<img src="__PUBLIC__/mobile/images_v3/z_spxq_img_8.jpg" />
+													<img src="__PUBLIC__/mobile/images_v3/z_spxq_img_8.jpg" />
+												</if>
+
+											</div>
+											<div class="star_yi">满意</div>
+										</div>
+									</div>
+								</div>
+								<!--日期-->
+								<div class="ping_lr">
+									2020-07-07 15:37
+								</div>
+							</div>
+							<p class="introduce">{$vo.content}</p>
+							<div class="pic_eva">
+								<div class="swiper-wrapper">
+									<if condition="!empty($vo['image'][0])">
+										<volist name="vo.image" id="image">
+											<div class="swiper-slide"><img src="{$image}" width="100%" height="100%" /></div>
+										</volist>
+									</if>
+
+								</div>
+							</div>
+							<div class="eva_st">
+
+							</div>
+						</li>
+					</volist>
+				</ul>
+			</div>
+		</div>
+		<script type="text/javascript">
+			var mySwiper = new Swiper('.pic_eva', {
+				slidesPerView: 3,
+				slidesPerGroup: 1,
+			})
+		</script>
+	</body>
+
+</html>

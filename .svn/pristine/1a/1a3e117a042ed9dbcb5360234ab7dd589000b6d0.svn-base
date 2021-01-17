@@ -1,0 +1,149 @@
+<!doctype html>
+<html class="pixel-ratio-2 retina ios ios-11 ios-11-0 ios-gt-10 ios-gt-9 ios-gt-8 ios-gt-7 ios-gt-6">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="Generator" content="tpshop v1.1">
+    <meta name="viewport" content="width=device-width">
+    <meta http-equiv="keywords" content="">
+    <meta name="description" content="">
+    <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <title>选择位置</title>
+    <script src="__PUBLIC__/js/jquery.min.js"></script>
+    <link href="__PUBLIC__/mobile/style/user_index.css" rel="stylesheet" type="text/css">
+    <link href="__PUBLIC__/mobile/style/sel.css" rel="stylesheet" type="text/css">
+    <script src="https://webapi.amap.com/maps?v=1.4.14&key=41c11c3ad52409c170a7b014990285a1"></script>
+    <style type="text/css">
+        #container {
+            width: 100%;
+            min-height: 700px;
+        }
+    </style>
+</head>
+
+<body style="background-color: #fff;">
+<header class="headsrs" style="background: #FE274E;">
+    <a class="mui-pull-left mui-icon mui_turn" href="javascript:history.back();"><img src="__PUBLIC__/img/return.png"  width="20vw" height="20vw"/></a>
+    <h1 class="mui-title tit_login" style="color: #fff;">选择位置</h1>
+    <div></div>
+</header>
+<div class="locats">
+    <div class="xuswes">
+        <form action="{:U('Shopcenter/shop')}" method ='get'>
+        <ul>
+            <li>
+                <label>城市：</label>
+                <input type="text" name="city" placeholder="请输入城市位置" value="{$shop.city}" class="loctiosr">
+            </li>
+            <li>
+                <label>按关键字搜索：</label>
+                <input type="text" name="" placeholder="请输入关键字进行搜索" value="" class="loctiosr" id="loctiosr">
+            </li>
+
+            <li>
+                <label>地址：</label>
+                <input type="text" name="address" placeholder="" value="{$shop.address}" class="loctiosr" id="address1">
+            </li>
+            <li>
+                <label>经纬度：</label>
+                <input type="hidden" value="{$shop.longitude}" id="longitude" name="longitude">
+                <input type="hidden" value="{$shop.latitude}" id="latitude" name="latitude">
+                <input type="text" name="" placeholder="" value="{$shop.longitude},{$shop.latitude}" class="loctiosr" id="lnt">
+            </li>
+        </ul>
+    </div>
+
+    <div class="aniutj">
+        <input type="submit" name="" value="保存" class="bgrs">
+    </div>
+    </form>
+</div>
+<div id="container"></div>
+<div id="li" class="adderss_lst"></div>
+<script type="text/javascript" src="http://webapi.amap.com/maps?v=1.3&key=41c11c3ad52409c170a7b014990285a1&plugin=AMap.PlaceSearch"></script>
+<script type="text/javascript">
+    var shop= getParam('shop');
+    //获取url参数的值  输入参数  值得键名
+    function getParam(paramName) {
+        paramValue = "", isFound = !1;
+        if (this.location.search.indexOf("?") == 0 && this.location.search.indexOf("=") > 1) {
+            arrSource = unescape(this.location.search).substring(1, this.location.search.length).split("&"), i = 0;
+            while (i < arrSource.length && !isFound) arrSource[i].indexOf("=") > 0 && arrSource[i].split("=")[0].toLowerCase() == paramName.toLowerCase() && (paramValue = arrSource[i].split("=")[1], isFound = !0), i++
+        }
+        return paramValue == "" && (paramValue = null), paramValue
+    }
+    if(shop==1){
+        $('form').attr('action',"{:U('Shopcenter/applyshop')}")
+    }
+    var longitude = {$shop.longitude};
+    var latitude = {$shop.latitude};
+    map(longitude,latitude );
+    function map(longitude,latitude) {
+        var map = new AMap.Map('container', {
+            center: [longitude, latitude],
+            zoom: 15
+        });
+        var marker = new AMap.Marker({
+            position: new AMap.LngLat(longitude, latitude),   // 经纬度对象，也可以是经纬度构成的一维数组[116.39, 39.9]
+        });
+        // 将创建的点标记添加到已有的地图实例：
+        map.add(marker);
+    }
+
+    // AMap.plugin('AMap.Autocomplete', function(){
+    // 	// 实例化Autocomplete
+    // 	var autoOptions = {
+    // 		//city 限定城市，默认全国
+    // 		city: '全国'
+    // 	}
+    // 	var autoComplete= new AMap.Autocomplete(autoOptions);
+    // 	autoComplete.search(keyword, function(status, result) {
+    // 		// 搜索成功时，result即是对应的匹配数据
+    // 	})
+    // })
+    var placeSearch = new AMap.PlaceSearch({
+        // city 指定搜索所在城市，支持传入格式有：城市名、citycode和adcode
+        city: ''
+    })
+    var vid = document.getElementById('loctiosr');
+    vid.oninput = function () {
+        var aa = $(this).val();
+        console.log(aa);
+        placeSearch.search(aa, function(status,result) {
+        	if(!result.poiList){
+        		return;
+        	}
+        	console.log(result);
+            html = '';
+            $.each(result.poiList.pois, function (index, item) {
+                html+='<div id="address"><span>'+item.address+'</span><input type="hidden" value="'+item.location.lng+'" id="longitude1" name="longitude1">';
+                html+='<input type="hidden" value="'+item.location.lat+'" id="latitude1" name="latitude1"></div>';
+            })			
+            $('#li').html(html);
+			if(aa==""){
+				$('#li').hide("slow");
+			}else{
+				$('#li').show("slow");
+			}
+        })
+		
+    }
+
+    $(document).on('click touchstart','#address',function () {
+        var address = $(this).children(":first").text();
+        console.log(address);
+        $('#address1').val(address);
+        $('#li').hide("slow");
+        var longitude =  $(this).children().eq(1).val();
+        console.log( );
+        var latitude=  $(this).children(":last").val();
+        console.log(latitude);
+        var  lnt =  longitude+','+latitude
+        $('#lnt').val(lnt);
+        $('#longitude').val(longitude);
+        $('#latitude').val(latitude);
+        map(longitude,latitude)
+    })
+
+</script>
+</body>
+</html>

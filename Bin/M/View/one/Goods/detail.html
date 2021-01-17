@@ -1,0 +1,1412 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>{$goods.name}</title>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+	<meta name="Keywords" content="">
+	<meta name="description" content="">
+	<link rel="stylesheet" href="__PUBLIC__/mobile/style/jquery-weui.min.css">
+	<link rel="stylesheet" href="__PUBLIC__/mobile/style/weui.min.css">
+	<link rel="stylesheet" href="__PUBLIC__/mobile/style/main_style.css">
+	<link rel="stylesheet" href="__PUBLIC__/mobile/style/goods_detail.css">
+	<link rel="stylesheet" href="__PUBLIC__/layui/css/layui.css">
+	<script src="__PUBLIC__/mobile/js/jquery-2.1.4.js"></script>
+	<script src="__PUBLIC__/mobile/js/jquery-weui.min.js"></script>
+	<script src="__PUBLIC__/mobile/js/fastclick.js"></script>
+	<script src="__PUBLIC__/mobile/js/swiper.min.js"></script>
+	<script type="text/javascript" src="__PUBLIC__/layer/mobile/layer.js"></script>
+	<script type="text/javascript" src="__PUBLIC__/layui/layui.js"></script>
+
+	<script type="text/javascript" src="__PUBLIC__/mobile/js/clipboard.min.js"></script>
+</head>
+<body ontouchstart>
+<input type="hidden" value="" id="price_goods_kind" name="">
+<input type="hidden" id="goods_id" value="{$goods.id}">
+<input type="hidden" id="spec" value="{$spec}">
+<div class="goods-img">
+	<div class="goods_return">
+		<div class="swiper-container">
+			<div class="swiper-wrapper">
+				<!--<if condition="$video neq ''">-->
+				<!--<div class="swiper-slide">-->
+				<!--<video src="{$video}" controls="controls"/>-->
+				<!--</div>-->
+				<!--</if>-->
+				<foreach name="images" item="vo" key="k">
+					<if condition="$video neq ''" >
+						<if condition="$k==0">
+							<div class="swiper-slide"><video style="width: 360px;" src="{$vo}" controls="controls"/></div>
+						</if>
+						<else/>
+					</if>
+					<div class="swiper-slide"><img src="{$vo}"/></div>
+				</foreach>
+			</div>
+			<div class="swiper-pagination"></div>
+		</div>
+		<div class="return_ground">
+			<div class="return_content">
+				<a href="javascript:history.back(-1)"><img src="__PUBLIC__/images/return_3.png" style="width: 8vw;height: 8vw;"/></a>
+				<div class="return_price" id="focus">
+					<!-- <if condition="$fav==1">
+						<img src="__PUBLIC__/images/collect_4.png"style="width:8vw;height:8vw;"/>
+					<else/>
+						<img src="__PUBLIC__/images/collect_3.png"style="width:8vw;height:8vw;"/>
+					</if>
+					<span>收藏</span> -->
+				</div>
+			</div>
+		</div>
+	</div>
+	<!--拼团价格说明-->
+	<if condition="$goods_kind eq 1">
+		<div class="group_books">
+			<div class="group_unit">
+				<div class="grounp_left">
+					<div class="ground_money">￥<h4>{$goods.group_price}</h4>
+						<div class="ground_pp"><span>{$goods.team_people_num}人团</span></div>
+					</div>
+					<p>单买价:￥{$goods.price}</p>
+				</div>
+				<div class="ground_right">拼团立减:￥{$goods.diff_price}</div>
+				<div style="clear: both;"></div>
+			</div>
+		</div>
+	</if>
+	<!--拼团价格说明end-->
+	<!--秒杀价格说明-->
+	<if condition="$goods_kind eq 2">
+		<div class="explain_time">
+			<div class="explain_price">
+				<div class="explain_mer">
+					<h4 class="hour_price_1">￥<strong>{$goods.hour_price}</strong><span class="stro_span">秒杀价</span></h4>
+					<p class="mer_span">原价:<span class="hour_price_2">￥{$goods.price}</span><b>已售:{$goods.sell_count}件</b>
+					<div class="clear"></div>
+					</p>
+				</div>
+			</div>
+			<div class="explain_right"><b style="margin-right: 1vw;">距结束</b><strong id="distime"></strong></div>
+			<div class="clear"></div>
+		</div>
+	</if>
+	<!--秒杀价格说明end-->
+	<!--限时购价格说明-->
+	<if condition="$goods_kind eq 3">
+		<div class="explain_time">
+			<div class="explain_price">
+				<div class="explain_mer">
+					<h4>￥<strong>{$goods.time_price}</strong><span class="stro_span">限时购价</span></h4>
+					<p class="mer_span">原价:<span>￥{$goods.price}</span><b>已售:{$goods.sell_count}件</b>
+					<div class="clear"></div>
+					</p>
+				</div>
+			</div>
+			<div class="explain_right"><b style="margin-right: 1vw;">距结束</b><strong id="distime"></strong></div>
+			<div class="clear"></div>
+		</div>
+	</if>
+	<!--限时购价格说明end-->
+	<div class="goods-jb">
+		<!-- 拼团商品 -->
+		<if condition="$goods_kind eq 1 || $goods_kind eq 2 || $goods_kind eq 3">
+			<div class="price-div">
+				<div class="goods-title">{$goods.name}</div>
+				<div class="sharelo">
+					<div class="share" id="btn_share">
+						<img src="__PUBLIC__/img/share.png" width="20" height="20"/><br/>
+						<span style="color: #000;">分享</span>
+					</div>
+				</div>
+			</div>
+			<!-- 拼团商品 end -->
+			<else/>
+			<!-- 普通商品 -->
+			<div class="price-div">
+				<h3><span class="rmb">￥</span><span class="spec_price gmoney">{$goods.price}</span></h3>
+				<span class="ordpr">￥{$goods.market_price}</span>
+				<div class="sharelo">
+					<div class="share" id="btn_share">
+						<img src="__PUBLIC__/img/share.png" width="20" height="20"/><br/>
+						<span style="color: #000;">分享</span>
+					</div>
+				</div>
+			</div>
+			<div class="goods-title">
+				{$goods.name}
+			</div>
+		</if>
+
+		<!-- 普通商品 end -->
+
+		<script type="text/javascript">
+//			$("#btn_share").on("click", function () {
+//				var user_id = "{$user_id}";
+//				<!-- if (user_id < 1) { -->
+//					<!-- layer.open({ -->
+//						<!-- content: '请登录后操作', -->
+//						<!-- btn: ['登录', '不要'], -->
+//						<!-- yes: function (index) { -->
+//							<!-- layer.close(index); -->
+//							<!-- location.href = "{:U('Index/login')}?source=1&goods_id=" + goods_id; -->
+//						<!-- } -->
+//					<!-- }); -->
+//					<!-- return; -->
+//				<!-- } -->
+//
+//				var goods_kind = "{$goods_kind}";
+//				var goods_id = "{$goods.id}";
+//				if (goods_kind == 1) {
+//					var price = "{$goods.group_price}";
+//				} else if (goods_kind == 2) {
+//					var price = "{$goods.hour_price}";
+//				}else if (goods_kind == 3) {
+//					var price = "{$goods.time_price}";
+//				}else{
+//					var price = "{$goods.price}";
+//				}
+//				$.ajax({
+//					type: 'POST',
+//					data: {"goods_id": goods_id, "price": price,user_id:user_id,goods_kind:goods_kind},
+//					url: "{:U('/index.php/Api/Goodsout/goods_poster')}",
+//					dataType: 'json',
+//					success: function (data) {
+//						if (data.status == 0) {
+//							$('#sharemodal').css('display','block');
+////							alert(data.result);
+//						} else {
+//							layer.open({
+//								content: "生成失败",
+//								skin: 'msg',
+//								time: 1
+//							});
+//						}
+//						location.reload();
+//					}
+//				});
+//			});
+		</script>
+		<div class="youfee">
+			<span>已售：{$goods.sell_count}件</span>
+			<span class="youfi">邮费：{$goods.shipping_fee|default=0}元</span>
+		</div>
+		<if condition="$spec==1">
+			<div class="spec">
+				<div class="choice">
+					已选<span class="yx"></span>
+				</div>
+				<if condition="$goods_kind eq 1">
+					<div class="specicon iconfont" onclick="specicon(2, 1)">&#xe60e;</div>
+				<elseif condition="$goods_kind eq 2"/>
+					<div class="specicon iconfont" onclick="specicon(2, 2)">&#xe60e;</div>
+				<elseif condition="$goods_kind eq 3"/>
+					<div class="specicon iconfont" onclick="specicon(2, 3)">&#xe60e;</div>
+				<else/>
+					<div class="specicon iconfont" onclick="specicon(2)">&#xe60e;</div>
+				</if>
+			</div>
+		</if>
+		<!--领劵-->
+		<div class="securities" style="display: none;">领劵<span class="securities_span">满100减50</span><img src="__PUBLIC__/images/dotes.png" style="width:6vw;height:1.7vw;float: right;margin-top: 2vw;"/>
+			<div class="clear"></div>
+		</div>
+		<!--极速退款-->
+		<div class="postage">
+			<span> 极速退款 • 全场包邮 • 7天退换 • 48小时发货 </span>
+			<img src="__PUBLIC__/images/right707070.png" style="width: 4vw;height: 3vw;"/>
+		</div>
+		<!--领取优惠卷-->
+		<empty name="de_yhq">
+			<div class="postage" id="tageCoupon" style="pointer-events: none;">
+			<else />
+				<div class="postage" id="tageCoupon">
+		</empty>
+			<span>领取优惠卷</span>
+			<empty name="de_yhq">
+			<p class="coupon"><span>该商品暂无可领取优惠券</span><img src="__PUBLIC__/images/right707070.png" style="width: 4vw;height: 3vw;"/></p>
+				<else />
+				<p class="coupon"><span>立即领取</span><img src="__PUBLIC__/images/right707070.png" style="width: 4vw;height: 3vw;"/></p>
+			</empty>
+		</div>
+		<div class="adpl-div">
+			购买数量
+			<div class="num-div">
+				<div class="stepper">
+					<span onclick="changeNum(-1)">-</span>
+					<input name="num" id="num" type="number" value='1'></input>
+					<span onclick="changeNum(1)">+</span>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<!--拼团-->
+<if condition="$goods_kind eq 1">
+	<div class="pack_cluster">
+		<div class="pack_part">
+			<span>{$total_group_num}人在拼单，可直接参与</span>
+			<span class="btn_group_list" onclick="check_more({$goods.id}, {$goods_kind});"> 查看更多 > </span>
+		</div>
+		<!--1-->
+		<foreach name="group_list" item="value">
+			<div class="in_group" id="order_group_id">
+				<input type="hidden" value="{$value.user_id}" id="user_id">
+				<div class="inoup_pic">
+					<if condition="empty($value['headimgurl'])">
+						<img src="__PUBLIC__/images/profile.png" style="width: 12vw;height: 12vw;border-radius: 50%;"/>
+						<else/>
+						<img src="{$value['headimgurl']}" style="width: 12vw;height: 12vw;border-radius: 50%;"/>
+					</if>
+					<span>{$value.name}</span>
+				</div>
+				<div class="inoup_right">
+					<div class="short_of">
+						<p>还差<span>{$value.diff_num}人</span>拼成</p>
+						<input type="hidden" value="{$value.end_time}" id="time">
+						<p id="group_time"></p>
+					</div>
+					<span class="inoup_span btn_group" gid="{$value.order_id}" gpic="{$value.headimgurl}"
+					      gpdiff_num="{$value.diff_num}" gname="{$value.name}" group_end_time="{$value.group_time_end_dis}">去拼团{$value.group_time_end_display}</span>
+				</div>
+			</div>
+		</foreach>
+
+	</div>
+
+</if>
+<!--end-->
+<div class="shop-header">
+	<div class="title">
+		<a href="#" onclick="return false"><img src="{$shop.logo}"/></a>
+		{$shop.name}
+	</div>
+	<div class="follow">
+		<ul>
+			<li>
+				<h3>{$shop.like_count}</h3>
+				收藏数量
+			</li>
+			<li>
+				<h3>{$shop.goods_count}</h3>
+				全部商品
+			</li>
+			<li>
+				<h3>{$shop.sell_count}</h3>
+				店铺销量
+			</li>
+		</ul>
+	</div>
+	<div class="lxus">
+		<a href="tel:{$shop.phone}"><i class="iconfont">&#xe659;</i>联系客服</a>
+		<input	 type="hidden" id="saveShop" value="{$shop.shop_id}">
+		<span onclick="saveShop()"
+		      style="width: 47%;height: 45px;display:flex;overflow:hidden;justify-content:center;align-items:center;border:1px solid #737373;color:#333;font-size:3.6vw;padding: 3.2vw 0;border-radius: 5px;"><i
+				class="iconfont">&#xe63c;</i>查看店铺</span>
+	</div>
+</div>
+<if condition="empty($comment)">
+	<div class="evaluate">
+		<div class="evaltitle">
+			<span>评价</span>
+			<div>
+				好评度<span></span><i class="iconfont">&#xe632;</i>
+			</div>
+		</div>
+	</div>
+	<else/>
+	<div class="evaluate">
+		<div class="evaltitle">
+			<span>评价（{$comment.num}）</span>
+			<div>
+				好评度<span>99%</span>
+				<a href="{:U('Goods/evaluate','goods_id='.$goods['id'])}">
+					<i class="iconfont">&#xe632;</i>
+				</a>
+			</div>
+		</div>
+		<div class="eveldiv">
+			<ul>
+				<li>
+					<div class="user-header">
+						<img src="{$comment.headImg}"/>
+						{$comment.user_name}
+						<div class="star-div">
+							<if condition="$comment['commodity_quality']==1">
+								<i class="iconfont">&#xe601;</i>
+								<elseif condition="$comment['commodity_quality']==2"/>
+								<i class="iconfont">&#xe601;</i><i class="iconfont">&#xe601;</i>
+								<elseif condition="$comment['commodity_quality']==3"/>
+								<i class="iconfont">&#xe601;</i><i class="iconfont">&#xe601;</i><i class="iconfont">&#xe601;</i>
+								<elseif condition="$comment['commodity_quality']==4"/>
+								<i class="iconfont">&#xe601;</i><i class="iconfont">&#xe601;</i><i class="iconfont">&#xe601;</i><i
+									class="iconfont">&#xe601;</i>
+								<else/>
+								<i class="iconfont">&#xe601;</i><i class="iconfont">&#xe601;</i><i class="iconfont">&#xe601;</i><i
+									class="iconfont">&#xe601;</i><i class="iconfont">&#xe601;</i>
+							</if>
+						</div>
+					</div>
+					<div class="concent">
+						{$comment.content}
+					</div>
+					<div class="evelimg">
+						<volist name="comment_image" id="vo">
+							<div class="img-div">
+								<img src="{$vo}"/>
+							</div>
+						</volist>
+
+					</div>
+					<!--<a href="" class="link"><i class="iconfont">&#xe60c;</i> 新缤纷纯净水嫩套装10片</a>-->
+				</li>
+			</ul>
+			<a href="{:U('Goods/evaluate','goods_id='.$goods['id'])}" class="more">查看更多</a>
+
+		</div>
+	</div>
+</if>
+
+<div class="goodsinfo">
+	<div class="btitle">
+		<div class="line"></div>
+		<span>产品详情</span>
+		<div class="line"></div>
+	</div>
+	<div class="concent">
+		{$content}
+	</div>
+</div>
+<div class="goodsbuy">
+	<div class="goshop">
+		<span class="iconfont" onclick="saveShop()">&#xe63c;</span>
+	</div>
+	<div class="goshop">
+		<a href="{:U('Cart/index')}" class="iconfont car">&#xe65d;</a> <!--查看购物车-->
+	</div>
+	<if condition="$goods_kind eq 1">
+		<!--发起拼团-->
+		<div class="buybut addcar" onclick="specicon(2)" style="line-height: 5vw;padding-top: 1vw;">
+			<if condition="$spec==0">
+				<form action="{:U('Cart/confirm')}" method="post">
+					<input type="hidden" value="" id="confirm" name="goods">
+					<input type="hidden" value="{$goods_kind}" name="goods_kind">
+					<button class="buybut nowbuy" type="submit">立即购买</button>
+				</form>
+				<else/>
+				<span style="display: table;margin: 0 auto;">￥{$goods.price}</span>
+				<span>单独购买</span>
+			</if>
+		</div>
+		<div class="buybut  nowbuy" onclick="specicon(2, 1)" style="line-height: 5vw;padding-top: 1vw;">
+			<span style="display: table;margin: 0 auto;" class="hour_price_1">￥{$goods.group_price}</span>
+			<span>发起拼团</span>
+		</div>
+		<elseif condition="$goods_kind eq 2"/>
+			<!--秒杀购买-->
+				<div class="buybut addcar" onclick="specicon(2, 2);" style="width: 71vw;background: #ff4444;">
+					<if condition="$spec==0">
+						<form action="{:U('Cart/confirm')}" method="post">
+							<input type="hidden" value="" id="confirm" name="goods">
+							<input type="hidden" value="{$goods_kind}" name="goods_kind">
+							<button class="buybut nowbuy" type="submit">￥{$goods.hour_price} {$hour_str}</button>
+						</form>
+						<else/>
+						<span class="hour_price_1">￥{$goods.hour_price}</span>
+						<span>{$hour_str}</span>
+					</if>
+				</div>
+
+		<elseif condition="$goods_kind eq 3"/>
+		<!--限时购买-->
+		<div class="buybut addcar" onclick="specicon(2, 3);" style="width: 71vw;background: #ff4444;">
+			<if condition="$spec==0">
+				<form action="{:U('Cart/confirm')}" method="post">
+					<input type="hidden" value="" id="confirm" name="goods">
+					<input type="hidden" value="{$goods_kind}" name="goods_kind">
+					<button class="buybut nowbuy" type="submit">￥{$goods.time_price} 立即购买</button>
+				</form>
+				<else/>
+				<span class="hour_price_1">￥{$goods.time_price}</span>
+				<span>立即购买</span>
+			</if>
+		</div>
+		<else/>
+		<!--单独购买-->
+		<div class="buybut addcar" onclick="specicon(1)">
+			加入购物车
+		</div>
+		<div class="buybut nowbuy" onclick="specicon(2)">
+			<if condition="$spec==0">
+				<form action="{:U('Cart/confirm')}" method="post">
+					<input type="hidden" value="" id="confirm" name="goods">
+					<input type="hidden" value="{$goods_kind}" name="goods_kind">
+					<button class="buybut nowbuy" type="submit">立即购买</button>
+				</form>
+				<else/>
+				立即购买
+			</if>
+		</div>
+	</if>
+	<!--end-->
+</div>
+<!-- 规格div start -->
+<div class="spec-div">
+	<div class="iconfont colse" onclick="scolse()">&#xe658;</div>
+	<div class="sgoods-div">
+		<img src="{$def_spec_price.img}" class="spec_img"/>
+		<div class="sgoods-info">
+			<p class="sprice">￥<span class="spec_price">0.00</span></p>
+			<p class="snum">库存<span class="spec_num">0</span>件</p>
+			<p id="yxspec" style="color: #ff0000;">请选择规格</p>
+			<input type="hidden" value="{$fav}" id="fav">
+		</div>
+
+	</div>
+	<div class="spec-select">
+		<div class="spec-ul">
+			<volist name="spec_list" id="vo">
+				<div class="specone">
+					<div class="spec-case">{$vo.name}</div>
+					<volist name="vo['goods_spec_item']" id="vo2">
+						<div class="specli">
+							<span gspid="{$vo2.id}">{$vo2.item}</span>
+						</div>
+					</volist>
+				</div>
+			</volist>
+		</div>
+		<div class="adpl-div">
+			购买数量
+			<div class="num-div">
+				<div class="stepper">
+					<span onclick="changeNum(-1)">-</span>
+					<input name="num" id="num" type="number" value='1'></input>
+					<span onclick="changeNum(1)">+</span>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div id="sumt">
+		<form action="{:U('Cart/confirm')}" method="post">
+			<input type="hidden" value="" id="confirm" name="goods">
+			<input type="hidden" value="{$goods_kind}" name="goods_kind">
+			<input type="hidden" value="0" name="group_order_id">
+			<button class="button-buy" type="submit">立即购买</button>
+		</form>
+	</div>
+</div>
+
+<!--优惠卷弹窗-->
+ <div id="myModal" class="modal">
+	  <!-- 弹窗内容 -->
+		<div class="modal-content">
+		   <h6 class="content_h6">优惠卷
+		        <img src="__PUBLIC__/images/cross.png" style="width: 6vw;height: 6vw;" class="cont_img" />
+		   </h6>
+		   <ul class="volume">
+		   	<!--已使用-->
+			   <volist name="de_yhq" id="vo">
+		   	  <li>
+
+				  <if condition="$vo['is_have'] eq 1 ">
+		   	  	 <div class="volume_left" style="background: url(__PUBLIC__/images/back_gray.png) no-repeat top center;">
+					 <else />
+					 <div class="volume_left" style="background: url(__PUBLIC__/images/back_yellow.png) no-repeat top center;">
+						 </if>
+		   	  	 	<h6 class="left_h6">￥<span class="left_span">{$vo.money}</span></h6>
+		   	  	 	<p class="money_pp">{$vo.conditions_cn}</p>
+		   	  	 </div>
+		   	  	<div class="volume_right">
+		   	  		<p class="right_pp"><span class="shop_volume">{$vo.coupon_type}</span>{$vo.shop_name}</p>
+		   	  		<div class="right_time">
+		   	  			<span class="time_sp">{$vo.use_start_time|date="Y.m.d",###} - {$vo.use_end_time|date="Y.m.d",###}</span>
+						<if condition="$vo['is_have'] eq 1 ">
+		   	  			<img src="__PUBLIC__/images/received.png" style="width:14vw;height: 12vw;" class="received_right"/>
+							<else />
+							<span class="received_go" value="{$vo.id}" uid="{$user_id}">立即领取</span>
+						</if>
+		   	  			<div class="clear"></div>
+		   	  		</div>
+		   	  	</div>
+		   	  	<div class="clear"></div>
+		   	  </li>
+			   </volist>
+
+
+		   </ul>
+		</div>
+ </div>
+ <!--分享弹出窗-->
+  <div id="shareModal" class="sharemodal">
+	  <!-- 弹窗内容 -->
+		<div class="share-content">
+		   <h6 class="share_h6">------- 分享到  --------</h6>
+		   <ul class="share_ul">
+			   	<li class="wx">
+			   	    <img src="__PUBLIC__/images/share/wechat.png" style="width: 12vw;height: 12vw;"/>
+			   	    <p>微信好友</p>
+			   	</li>
+			   	<li class="pyq">
+			   	    <img src="__PUBLIC__/images/share/circle.png" style="width: 12vw;height: 12vw;"/>
+			   	    <p>朋友圈</p>
+			   	</li>
+
+			   	<li id="fuzhi">
+			   	    <img src="__PUBLIC__/images/share/copylink.png" style="width: 12vw;height: 12vw;"/>
+			   	    <p>复制链接</p>
+			   	</li>
+
+
+
+			   	<li id="fenxiang" value="{$goods.group_price}" onclick="fenxiang({$user_id},{$goods_id},{$goods_kind})" >
+			   	    <img src="__PUBLIC__/images/share/share_pictures.png" style="width: 12vw;height: 12vw;"/>
+			   	    <p>分享海报</p>
+			   	</li>
+
+
+		   	<div class="clear"></div>
+		   </ul>
+		   <p class="share_pp" onclick="closeClick();">取消</p>
+
+		</div>
+ </div>
+<!-- 规格div end -->
+<script type="text/javascript" src="http://res.wx.qq.com/open/js/jweixin-1.4.0.js"></script>
+<script>
+	//领取优惠卷弹窗
+	var model = document.getElementById('myModal');
+	var close = document.getElementsByClassName('cont_img')[0];
+	var myBtn = document.getElementById('tageCoupon');
+	 myBtn.onclick = function(){model.style.display="block";}
+	 close.onclick = function(){model.style.display="none";}
+		    window.onclick = function(event){
+		    	if (event.target == model) {
+		           modal.style.display = "none";
+		      }
+		    }
+	var goods_kind = "{$goods_kind}";
+	if (goods_kind == 1) {
+		var time = "{$goods.end_time}";
+	} else if (goods_kind == 2 ||goods_kind == 3) {
+		var time = "{$goods.end_time}";
+	}
+	if(time){
+		var maxtime = time;
+		timer = setInterval("CountDown('#distime',"+ maxtime +")", 1000);
+
+	}
+
+	//一个小时，按秒计算，自己调整!
+	function CountDown(a, maxtime) {
+		var tmp = Date.parse( new Date() ).toString();
+		tmp = tmp.substr(0,10);
+		maxtime = maxtime-tmp;
+		if (maxtime >= 0) {
+			hour = Math.floor(maxtime / 3600);
+			minutes = Math.floor((maxtime - hour * 3600) / 60);
+			seconds = Math.floor(maxtime % 60);
+
+			var minutes = "" + minutes;
+			if (minutes.length > 1) {
+				msg = hour + ":" + minutes + ":" + seconds;
+			} else {
+				msg = hour + ":" + "0" + minutes + ":" + seconds;
+			}
+
+			$(a).html(msg);
+
+			--maxtime;
+		} else {
+			clearInterval(timer);
+			msg = '0' + ':' + '0' + '0' + ':' + '0';
+			$(a).html(msg);
+			//alert("时间到，结束!");
+		}
+	}
+
+	$(".swiper-container").swiper({
+		loop: true,
+		autoplay: 3000
+	});
+	var goods_id = "{$goods.id}";
+	var fav = "{$fav}";
+	output(goods_id, fav);
+	var goods_kind_over = "{$goods_kind}";
+	var noc = "";   // now or cart or empty
+
+    var hour_status = "{$hour_status}";
+
+	function specicon(type, goods_kind = 0, gord = 0) {
+		layer.closeAll();
+
+		if (hour_status == 0)
+		{
+            layer.open({
+                content: "秒杀还未开始，请稍后再买",
+                skin: 'msg',
+                time: 1
+            });
+            return;
+		}
+		else if (hour_status == 2)
+		{
+            layer.open({
+                content: "秒杀已结束，请选购其他商品",
+                skin: 'msg',
+                time: 1
+            });
+            return;
+		}
+
+		// 如果 gord=0 表示不是参与别人的拼团，那么group_order_id重置为0，如果gord=1 表示参与别人的拼团，则group_order_id值>0
+		if (gord < 1)
+		{
+			$("input[name='group_order_id']").val(0);
+		}
+
+		console.log("---cls_name----");
+		console.log(event.currentTarget.className);
+		var clsName = event.currentTarget.className;
+		if(clsName.indexOf("nowbuy")>0 && goods_kind>0)
+		{
+			noc = "now";
+		}
+		if(clsName.indexOf("addcar")>0 && goods_kind>0)
+		{
+			noc = "car";
+		}
+
+
+		console.log("--specicon---");
+		console.log(goods_kind_over);
+
+		if(goods_kind_over > 0)
+		{
+			console.log("---goods_kind----");
+			// 如果非普通商品，则每次弹出时，都重置规格数据
+			$('#yxspec').html('请选择规格');
+			$('.yx').html("请选择规格");
+			$('.spec_price').text("0.00");
+			$('.spec_num').text("0");
+			$(".spec-ul .specone span").removeClass("cur");
+		}
+
+
+		var user_id = "{$user_id}";
+		if (user_id < 1) {
+			layer.open({
+				content: '请登录后操作',
+				btn: ['登录', '不要'],
+				yes: function (index) {
+					layer.close(index);
+					location.href = "{:U('Index/login')}?source=1&goods_id=" + goods_id;
+				}
+			});
+			return;
+		}
+
+		if (type == 1) {
+			var spec = $("#spec").val();
+			if (spec == 0) { //没有规格直接添加
+				var num = $('#num').val(); //数量
+				var goods_id = $('#goods_id').val(); //商品id
+				var goods = {
+					"cart_id": 0,
+					"goods_id": goods_id,
+					"goods_num": num,
+					"goods_spec_id": 0,
+					"user_id": user_id,
+				};
+				var add = "add";
+				$.ajax({
+					type: 'POST',
+					data: {"goods": goods, "type": add},
+					url: "{:U('M/Order/makeCart')}",
+					dataType: 'json',
+					success: function (data) {
+						if (data.status == 0) {
+							layer.open({
+								content: "添加成功",
+								skin: 'msg',
+								time: 1
+							});
+						} else {
+							layer.open({
+								content: "添加失败",
+								skin: 'msg',
+								time: 1
+							});
+						}
+						location.reload();
+					}
+				});
+			} else {
+				$('#sumt').html('<button class="button-buy" type="submit" onclick="return sumbs(' + type + ')">加入购物车</button>');
+				$(".spec-div").css('height', '120vw');
+			}
+		} else {
+			var spec = $("#spec").val();
+			if (spec == 0) { //没有规格直接购买
+				var num = $('#num').val(); //数量
+				var goods_id = $('#goods_id').val(); //商品id
+				var arr = [{"cart_id": 0, "goods_num": num, "goods_id": goods_id, "goods_spec_id": 0}];
+				var json = JSON.stringify(arr);
+				$('#confirm').val(json);
+			} else {
+				$('.button-buy').html('<button class="button-buy" type="submit" onclick="return sumbs(' + type + ')">立即购买</button>');
+				$(".spec-div").css('height', '120vw');
+			}
+		}
+		$('#price_goods_kind').val(goods_kind);
+
+
+
+	}
+
+	function scolse() {
+		$(".spec-div").css('height', '0');
+	}
+
+	function sumbs(type) {
+		var num = $('#num').val(); //数量
+		var goods_id = $('#goods_id').val(); //商品id
+		var user_id = "{$user_id}";
+
+		if (user_id < 1) {
+			layer.open({
+				content: '请登录后操作',
+				btn: ['登录', '不要'],
+				yes: function (index) {
+					layer.close(index);
+					location.href = "{:U('Index/login')}?source=1&goods_id=" + goods_id;
+				}
+			});
+			return;
+		}
+		if (type == 1) {
+			//加入购物车
+			var specs = "";
+			var gspArr = new Array();
+			$(".spec-ul .specone").each(function (index) {
+				var spectext = $(this).find(".cur").html();
+				var gspid = $(this).find(".cur").attr("gspid");
+				if (typeof (spectext) === 'undefined') {
+					spectext = '';
+					gspid = 0;
+				}
+				specs += " " + spectext + " ";
+				gspArr[index] = gspid;
+				$('#yxspec').html('已选规格' + specs)
+				$('.yx').html(specs)
+			})
+			gspArr = gspArr.sort(sortNumber);
+			if (gspArr[0] > 0) {
+				var goods_spec_id = gspArr.join('_');
+				var goods = {"cart_id": 0, "goods_id": goods_id, "goods_num": num, "goods_spec_id": goods_spec_id};
+				var add = "add";
+				$.ajax({
+					type: 'POST',
+					data: {"goods": goods, "type": add},
+					url: "{:U('M/Goods/makeCart')}",
+					dataType: 'json',
+					success: function (data) {
+						if (data.status == 0) {
+							layer.open({
+								content: "添加成功",
+								skin: 'msg',
+								time: 1
+							});
+
+						} else {
+							layer.open({
+								content: "添加失败",
+								skin: 'msg',
+								time: 1
+							});
+							return false;
+						}
+						location.reload();
+					}
+				});
+			} else {
+				layer.open({
+					content: "请选择规格",
+					skin: 'msg',
+					time: 1
+				});
+			}
+
+
+			// window.location.href="/index.php/M/cart/index";
+		} else {
+			// 立即购买
+			var specs = "";
+			var gspArr = new Array();
+			$(".spec-ul .specone").each(function (index) {
+				var spectext = $(this).find(".cur").html();
+				var gspid = $(this).find(".cur").attr("gspid");
+				if (typeof (spectext) === 'undefined') {
+					spectext = '';
+					gspid = 0;
+				}
+				specs += " " + spectext + " ";
+				gspArr[index] = gspid;
+				$('#yxspec').html('已选规格' + specs)
+				$('.yx').html(specs)
+			})
+			gspArr = gspArr.sort(sortNumber);
+			if (gspArr[0] > 0) {
+				var goods_spec_id = gspArr.join('_');
+				var arr = [{"cart_id": 0, "goods_num": num, "goods_id": goods_id, "goods_spec_id": goods_spec_id}];
+				var json = JSON.stringify(arr);
+				$('#confirm').val(json);
+			} else {
+				// alert('请选择规格');
+				layer.open({
+					content: "请选择规格",
+					skin: 'msg',
+					time: 1
+				});
+				return false;
+			}
+		}
+	}
+
+	$(".spec-ul .specone").each(function () {
+		var i = $(this);
+		var p = i.find("span");
+		p.click(function () {
+			if (!!$(this).hasClass("cur")) {
+				$(this).removeClass("cur");
+			} else {
+				$(this).addClass("cur");
+				$(this).parent().siblings(".specli").find("span").removeClass("cur");
+			}
+			onshowSpec();
+		})
+	})
+
+	function onshowSpec() {
+		var specs = "";
+		var gspArr = new Array();
+
+		var goods_kind = $('#price_goods_kind').val();
+		var goods_id = $("#goods_id").val();
+
+		$(".spec-ul .specone").each(function (index) {
+			var spectext = $(this).find(".cur").html();
+			var gspid = $(this).find(".cur").attr("gspid");
+			if (typeof (spectext) === 'undefined') {
+				spectext = '';
+				gspid = 0;
+			}
+			specs += " " + spectext + " ";
+			gspArr[index] = gspid;
+			$('#yxspec').html('已选规格' + specs)
+			$('.yx').html(specs)
+		})
+		gspArr = gspArr.sort(sortNumber);
+		console.log("----xxx--------");
+		console.log(gspArr);
+		if (gspArr[0] > 0) {
+			// 请求商品规格的价格
+
+			var key = gspArr.join('_');
+			var arr = {goods_id: goods_id, key: key};
+			$("input[name='goods_kind']").val(goods_kind);
+
+			$.ajax({
+				type: 'POST',
+				url: "{:U('M/Goods/get_spec_goods_price')}",
+				data: arr,
+				dataType: 'json',
+				success: function (data) {
+					// 单个赋值
+					if (data.status > 0) {
+						layer.open({
+							content: data.msg,
+							skin: 'msg',
+							time: 1
+						});
+					}
+
+					console.log("goods_kind:"+goods_kind);
+
+					if (goods_kind == 1) {
+						var price = data.result.group_price;
+					} else if (goods_kind == 2) {
+						var price = data.result.hour_price;
+					} else if (goods_kind == 3) {
+						var price = data.result.time_price;
+					} else {
+						var price = data.result.price;
+					}
+					$(".spec_img").attr("src", data.result.img);
+					$(".spec_price").text(price);
+					$(".spec_num").text(data.result.store_count);
+
+					if (goods_kind == 2)
+					{
+						// 整点秒杀
+						$(".hour_price_1").text(price);
+						$(".hour_price_2").text(data.result.price);
+					}
+					if (goods_kind == 1 && noc != "")
+					{
+						// 团购
+						if (noc == "car")
+						{
+							// 单独购买
+						}
+
+						if (noc == "now")
+						{
+							// 拼团
+						}
+
+						$(".hour_price_1").text(price);
+						$(".hour_price_2").text(data.result.price);
+					}
+
+
+				}
+			});
+
+		}
+	}
+
+	function shoucang(goods_id, fav) {
+		var fav_id = goods_id;
+		var user_id = "{$user_id}";
+		if (user_id == 0) {
+			layer.open({
+				content: "请登录后操作",
+				skin: 'msg',
+				time: 1
+			});
+		}
+		if (fav == 0) {
+			$.ajax({
+				type: 'POST',
+				url: "{:U('User/addFavorites')}",
+				data: {'fav_id': fav_id, 'type': 1},
+				dataType: 'json',
+				success: function (data) {
+
+					if (data.status == 0) {
+						$(".sc_hover").css("color", "red");
+						layer.open({
+							content: data.msg,
+							skin: 'msg',
+							time: 1
+						});
+						output(goods_id, 1);
+					} else {
+						layer.open({
+							content: data.msg,
+							skin: 'msg',
+							time: 1
+						});
+					}
+				}
+			});
+		} else {
+			$.ajax({
+				type: 'POST',
+				url: "{:U('M/User/deleteFavorites')}",
+				data: {'id': fav_id, 'type': 1, source: 1, user_id: user_id},
+				dataType: 'json',
+				success: function (data) {
+					if (data.status == 0) {
+						layer.open({
+							content: '取消成功',
+							skin: 'msg',
+							time: 1
+						});
+						output(goods_id, 0);
+					} else {
+						layer.open({
+							content: data.msg,
+							skin: 'msg',
+							time: 1
+						});
+					}
+				}
+			});
+		}
+	}
+
+	function output(goods_id, fav) {
+		if (fav == 0) {
+			var html = '<img src="__PUBLIC__/images/collect_3.png" style="width:8vw;height:8vw;" onClick="shoucang(' + goods_id + ',' + fav + ');"/><span>收藏</span>';
+		} else {
+			var html = '<img src="__PUBLIC__/images/collect_4.png" style="width:8vw;height:8vw;" onClick="shoucang(' + goods_id + ',' + fav + ');"/><span>收藏</span>';
+		}
+		$('#focus').html("");
+		$('#focus').append(html);
+	}
+
+
+	function changeNum(i) {
+		var intNumber = $('input[name=num]').val();
+		intNumber = parseInt(intNumber) + parseInt(i);
+		if (intNumber == 0) {
+			layer.open({
+				content: "购买数量不可为0",
+				skin: 'msg',
+				time: 1
+			});
+		} else {
+			if (intNumber <= 0) {
+				$('input[name=num]').val(0)
+			} else {
+				$('input[name=num]').val(intNumber)
+			}
+		}
+	}
+
+	function saveShop() {
+		//	查看店铺链接
+		var shopid = $('#saveShop').val();
+		if (shopid == 0) {
+			layer.open({
+				content: "该店铺为平台自营,无法查看",
+				skin: 'msg',
+				time: 1
+			});
+		} else {
+			location.href = "{:U('Shop/shopdetail')}?shop_id=" + shopid;
+		}
+	}
+
+	$("#num").change(function () {
+		var num = $("#num").val();
+		var data = /^[1-9]\d*$/;
+		if (num != '') {
+			if (!data.test(num)) {
+				$("#num").val(1);
+			}
+		}
+	});
+
+	$(".btn_group").on("click", function () {
+		var gid = 0;	//订单ID
+		var gpic = "";	// 头像
+		var gname = ""; // 昵称
+		var gpdiff_num = "";// 拼单所差人数
+		var gpdiff_num = ""; //结束数据
+		gid = $(this).attr("gid");
+		gpic = $(this).attr("gpic");
+		gname = $(this).attr("gname");
+		gpdiff_num = $(this).attr("gpdiff_num");
+		group_end_time = $(this).attr("group_end_time");
+		$("input[name='group_order_id']").val(gid);
+		go_grounds(gid, gpic, gname, gpdiff_num, group_end_time);
+
+	});
+
+	//去拼团弹出窗
+	function go_grounds(gid, gpic, gname, gpdiff_num, group_end_time) {
+		//判断是否参与的自己的单
+		$.ajax({
+			'type': 'post',
+			'dataType': 'json',
+			'url': '{:U("Goods/isMyGroupOrder")}',
+			'data': {'order_id': gid},
+			success: function (res) {
+				if(res.status==-1){
+					layer.open({
+						content: res.msg
+						, skin: 'msg'
+						, time: 2
+					});
+				}else{
+					layer.open({
+						title: '参与' + gname + '的拼单',
+						type: 1,
+						area: ['150vw', '50vw'], //宽高
+						content: '<div class="take_bill">仅剩<span>' + gpdiff_num + '</span>个名额, 结束时间'+ group_end_time +'</div><div class="take_end"><div class="end_moster"><img src="' + gpic + '" width="100%"height="100%"style="border-radius:50%;"/><span class="ground_moster">拼主</span></div><img src="__PUBLIC__/images/question.png" style="width:12.5vw;height:12.5vw""/></div><input type="submit"name="go_ground" onClick="specicon(2, 1, 1);" class="change_input" value="参与拼单"/>'
+					});
+				}
+			}
+		});
+
+	}
+
+	//查看更多
+	function check_more(id, goods_kind) {
+
+		var html = "";
+		$.ajax({
+			type: 'GET',
+			url: "/index.php/M/Goods/group_detail",
+			data: {id: id, goods_kind: goods_kind},
+			dataType: 'json',
+			success: function (data) {
+				console.log(data)
+				if (data.status == 0) {
+					var arrLen = data.result.group_list.length;
+					if (arrLen > 0) {
+						$.each(data.result.group_list, function (index, item) {
+
+
+							html += '<div class="con_en"><ul class="content_div"><li><div class="content_img">';
+							html += '<img src="' + item.headimgurl + '" width="100%"height="100%"/></div>';
+							html += '<div class="content_ter"><p>' + item.name + ' <span>还差' + item.diff_num + '人</span></p>';
+
+							html += '<span id="end_time">结束时间 ' + item.group_time_end_dis + '</span></div><span class="input_share btn_group" gid="'+item.order_id+'" gpic="'+item.headimgurl+'" gname="'+item.name+'" gpdiff_num="'+item.diff_num+'" group_end_time="'+item.group_time_end_dis+'" onclick="return checkBuy(this)" >去拼单</span>';
+							html += '<div class="clear"></div></li></ul></div>';
+						});
+						html += '<p class="groun_pp">仅显示10个正在拼团的人</p>';
+
+						layer.open({
+							title: '正在拼单',
+							type: 1,
+							area: ['180vw', '90vw'], //宽高
+							content: html
+						});
+
+					}
+				} else {
+					layer.open({
+						content: data.msg
+						, skin: 'msg'
+						, time: 2
+					});
+				}
+
+				$('#inx_id').append(html);
+			},
+			error: function (xhr, type) {
+				alert('Ajax error!');  // 即使加载出错，也得重置
+			}
+		});
+	}
+	//分享弹窗
+	$('#btn_share').click(function(){
+		$('#shareModal').css('display','block');
+	})
+	function closeClick(){
+		$('#shareModal').css('display','none');
+	}
+
+	$('.received_go').click(function(){
+		var yhq_id = $(this).attr("value");
+		var uid = $(this).attr("uid");
+		$.ajax({
+			url:"/index.php/Api/Couponin/getCoupon",
+			data:{id:yhq_id,user_id:uid},
+			dataType:"json",
+			success:function(data){
+				if(data.status == "0"){
+					layer.open({
+						content: data.msg
+						, skin: 'msg'
+						, time: 2
+					});
+					window.location.reload();
+				}else{
+					layer.open({
+						content: data.msg
+						, skin: 'msg'
+						, time: 2
+					});
+				}
+			}
+
+
+		})
+	})
+
+
+	// ---------复制链接功能----------
+	$("#fuzhi").click(function () {
+		var user_id = "{$user_id}";
+		var clipboard = new ClipboardJS('#fuzhi');
+		var fzurl = "{$fzurl}";
+		$(this).attr('data-clipboard-text', fzurl);
+		clipboard.on('success', function(e) {
+			layer.open({
+				content: "复制成功"
+				, skin: 'msg'
+				, time: 2
+			});
+		});
+		clipboard.on('error', function(e) {
+			layer.open({
+				content: "复制失败"
+				, skin: 'msg'
+				, time: 2
+			});
+		});
+	});
+
+
+
+
+
+	$(".wx").click(function () {
+		var user_id = "{$user_id}";
+		if (user_id < 1) {
+			layer.open({
+				content: '请登录后操作',
+				btn: ['登录', '不要'],
+				yes: function (index) {
+					layer.close(index);
+					location.href = "{:U('Index/login')}?source=1&goods_id=" + goods_id;
+				}
+			});
+			return;
+		}
+		layer.open({
+			content: "请点击右上角发送给朋友!"
+			, skin: 'msg'
+			, time: 3
+		});
+		$("#shareModal").css('display','none');
+	})
+
+	$(".pyq").click(function () {
+		var user_id = "{$user_id}";
+		if (user_id < 1) {
+			layer.open({
+				content: '请登录后操作',
+				btn: ['登录', '不要'],
+				yes: function (index) {
+					layer.close(index);
+					location.href = "{:U('Index/login')}?source=1&goods_id=" + goods_id;
+				}
+			});
+			return;
+		}
+		layer.open({
+			content: "请点击右上角分享到朋友圈!"
+			, skin: 'msg'
+			, time: 3
+		});
+		$("#shareModal").css('display','none');
+	})
+
+	wx.config({
+		debug: false,
+		appId: '{$wxjssign.appId}',
+		timestamp: '{$wxjssign.timestamp}', // 必填，生成签名的时间戳
+		nonceStr: '{$wxjssign.nonceStr}', // 必填，生成签名的随机串
+		signature: '{$wxjssign.signature}', // 必填，签名，见附录1
+		jsApiList: ['onMenuShareTimeline', 'onMenuShareAppMessage', 'onMenuShareQQ', 'onMenuShareQZone', 'openLocation', 'getLocation'] // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
+	});
+	wx.ready(function () {
+		var shareObj = {
+			title: "{$share.title}",
+			desc: "{$share.desc}",
+			link: "{$share.url}",
+			imgUrl: "{$share.thumb}"
+		};
+		wx.onMenuShareTimeline({
+			title: shareObj.title, // 分享标题
+			desc: shareObj.desc, // 分享描述
+			link: shareObj.link, // 分享链接
+			imgUrl: shareObj.imgUrl,
+			success: function () {
+				share_inst()
+			}
+		});
+		wx.onMenuShareAppMessage({
+			title: shareObj.title, // 分享标题
+			desc: shareObj.desc, // 分享描述
+			link: shareObj.link, // 分享链接
+			imgUrl: shareObj.imgUrl,
+			success: function () {
+				share_inst()
+			}
+		});
+		wx.onMenuShareQQ({
+			title: shareObj.title, // 分享标题
+			desc: shareObj.desc, // 分享描述
+			link: shareObj.link, // 分享链接
+			imgUrl: shareObj.imgUrl,
+			success: function () {
+				share_inst()
+			}
+		});
+		wx.onMenuShareQZone({
+			title: shareObj.title, // 分享标题
+			desc: shareObj.desc, // 分享描述
+			link: shareObj.link, // 分享链接
+			imgUrl: shareObj.imgUrl,
+			success: function () {
+				share_inst();
+			}
+		})
+	});
+
+	function fenxiang(uid,gid,gkind){
+        var user_id = "{$user_id}";
+        var pwd_url = "{$pwd_url}";
+
+		if (user_id < 1) {
+			layer.open({
+				content: '请登录后操作',
+				btn: ['登录', '不要'],
+				yes: function (index) {
+					layer.close(index);
+					location.href = "{:U('Index/login')}?source=1&goods_id=" + goods_id;
+				}
+			});
+			return;
+		}
+
+		var price = $(".gmoney").text();
+
+		$.ajax({
+			type:"POST",
+			url:"/index.php/Api/Goodsout/goods_poster",
+			data:{"goods_id":gid,"user_id":uid,"price":price,"goods_kind":gkind},
+			dataType:"json",
+			success:function(data){
+				if(data.status == "0"){
+					var img = "<img style='width:300px;' src='" + 'http://'+pwd_url+'/'+ data.result + "' /><div>";
+					layer.open({
+						content: img,
+						btn: '关闭',
+						shadeClose: false,
+					});
+					$("#shareModal").css('display','none');
+					$(".gbfx").click(function () {
+						layer.close(layer.index);
+					})
+				}else{
+					layer.open({
+						content: data.msg
+						, skin: 'msg'
+						, time: 2
+					});
+				}
+			}
+		})
+	}
+
+    function sortNumber(a,b)
+    {
+        return a - b;
+    }
+
+    // 在弹出的拼团列表中，检查能否下单
+	function checkBuy(obj) {
+        var gid = 0;	//订单ID
+        var gpic = "";	// 头像
+        var gname = ""; // 昵称
+        var gpdiff_num = "";// 拼单所差人数
+        var group_end_time = ""; //结束数据
+        gid = obj.getAttribute("gid");
+        gpic = obj.getAttribute("gpic");
+        gname = obj.getAttribute("gname");
+        gpdiff_num = obj.getAttribute("gpdiff_num");
+        group_end_time = obj.getAttribute("group_end_time");
+        go_grounds(gid, gpic, gname, gpdiff_num, group_end_time);
+    }
+
+</script>
+</body>
+</html>

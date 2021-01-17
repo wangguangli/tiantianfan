@@ -1,0 +1,160 @@
+<!doctype html>
+<html class="pixel-ratio-2 retina ios ios-11 ios-11-0 ios-gt-10 ios-gt-9 ios-gt-8 ios-gt-7 ios-gt-6">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="Generator" content="tpshop v1.1">
+    <meta name="viewport" content="width=device-width">
+    <meta http-equiv="keywords" content="">
+    <meta name="description" content="">
+    <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <title>申请提现</title>
+    <link rel="stylesheet" href="__PUBLIC__/css/mui.min.css">
+    <link href="__PUBLIC__/mobile/style/user_index.css" rel="stylesheet" type="text/css">
+    <link href="__PUBLIC__/mobile/style/sel.css" rel="stylesheet" type="text/css">
+    <script src="__PUBLIC__/js/mui.min.js"></script>
+</head>
+<body>
+<header class="mui-bar mui-bar-nav" style="background: #FE274E;">
+    <a class="mui-pull-left mui-icon mui_turn" href="javascript:history.back()"><img src="__PUBLIC__/img/return.png"
+                                                                                     width="20vw" height="20vw"/></a>
+    <h1 class="mui-title tit_login" style="color: #fff;">提现</h1>
+</header>
+<div class="mui-content">
+    <div class="cashalls">
+        <div class="cashtop">
+            <a href="javascript:bank()">
+
+                <img src="__PUBLIC__/mobile/images/tx_yinhangka_img.png" class="cash_1">
+                <if condition="empty($bank)">
+                    <p>点击选择银行卡</p>
+                    <else/>
+                    <p>{$bank.cart_no}
+                        <input type="hidden" value="{$bank.id}" id='bank_id'>
+                    </p></if>
+                <img src="__PUBLIC__/mobile/images/spxq_pintuan_more.png" class="cash_2">
+            </a>
+        </div>
+        <div class="cashtwo">
+            <p>提现金额</p>
+            <div class="amount">
+                <h1>￥</h1>
+                <input type="text" placeholder="请输入金额" name="money" class="qsue">
+            </div>
+            <div class="amot">
+                <h2>可提现额度<span id="agent_money">{$agent.agent_money}</span>元</h2>
+                <a onclick="all_fun()"><h3>全部提现</h3></a>
+            </div>
+        </div>
+        <div class="dunse">
+            <p id="t_content"></p>
+        </div>
+        <div class="annius">
+            <input type="button" name="" value="提交" class="annsys">
+        </div>
+    </div>
+</div>
+</body>
+<script src="__PUBLIC__/mobile/js/jquery-2.1.4.js"></script>
+<script src="__PUBLIC__/layer/layer.js"></script>
+<script>
+    var user_id = "{$user_id?$user_id:0}";
+
+    $.ajax({
+        url: '/index.php/M/User/moneyOutNotice',
+        type: 'post',
+        data: {user_id: user_id, type: 3},
+        dataType: 'json',
+        success: function (res) {
+            console.log(res);
+            if (res.status == 0) {
+                var result = res.result;
+
+                $('#t_content').html(result);
+            } else {
+                layer.alert(res.msg);
+            }
+        },
+        error: function () {
+            layer.alert('发送失败');
+        }
+    })
+    //银行卡
+    function bank() {
+        var user_id = {$user_id};
+        location.href = "{:U('User/bank_card')}?agent=1&user_id=" + user_id;
+    }
+    //全部提现
+    function all_fun() {
+        var money = $('#agent_money').html();
+        $('.qsue').val(money);
+    }
+    $('.annsys').click(function () {
+        var money = $('.qsue').val();
+        var user_money = {$agent.agent_money};
+
+        if (money <= 0) {
+            layer.msg('金额应大于0');
+        }
+        else {
+            password();
+        }
+    })
+    function password() {
+        var is_psw = {$is_psw};
+        if (is_psw == 1) {
+            layer.prompt({title: '请输入支付密码', formType: 1, closeBtn: false}, function (pass, index) {
+                pay_password = pass;
+                var html = '<input type="hidden" name="pay_password" id="password" value="' + pass + '">';
+                $('.amot').after(html);
+                layer.close(index);
+                var password = $('#password').val();
+                var tx_money = $('.qsue').val();
+                var bank_id = $('#bank_id').val();
+
+                $.ajax({
+                    //几个参数需要注意一下
+                    type: "post",//方法类型
+                    dataType: "json",//预期服务器返回的数据类型
+                    url: "{:U('Agent/moneyout')}",//url
+                    data: {'user_id':user_id,'type':3,'tx_money':tx_money,'bank_id':bank_id,'pay_password':password},
+                    success: function (data) {
+                        console.log(data);
+                        if(data.status==0) {
+                            // alert('已经是最大了');
+                            layer.msg(data.msg);
+                            return false;
+                        }else{
+                            // layer.open({
+                            //     content: data.msg,
+                            //     skin: 'msg',
+                            //     time: 1
+                            // });
+                            layer.msg(data.msg);
+                            return false;
+                        }
+
+
+                    },
+
+                });
+
+            })
+
+        } else {
+            layer.open({
+                content: "请先设置支付密码",
+                btn: ['确定', '取消'],
+                shadeClose: false,
+                closeBtn: false,
+                yes: function () {
+                    location.href = "{:U('User/rep_password')}" + "?" + "user_id=" + user_id;
+                }, no: function () {
+                    layer.closeAll();
+                }
+            });
+
+        }
+        ;
+    }
+</script>
+</html>

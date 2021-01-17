@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>消息中心</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <script src="__PUBLIC__/js/mui.min.js"></script>
+    <script src="__PUBLIC__/js/jquery-1.11.1.min.js"></script>
+    <link rel="stylesheet" href="__PUBLIC__/css/mui.min.css">
+    <link rel="stylesheet" href="__PUBLIC__/mobile/style/near.css">
+    <script src="__PUBLIC__/layer/mobile/layer.js"></script>
+</head>
+<body>
+<header class="mui-bar mui-bar-nav dis_ea"style="background: #FE274E;">
+    <a class="mui-pull-left mui-icon mui_turn"  href="javascript:history.go(-1)"><img src="__PUBLIC__/img/return.png" width="20vw"height="20vw"/></a>
+
+    <!--<input type="text" name="content" id="search" value="" placeholder="请输入商品名称"/>-->
+    <!--<p id="search_id" onclick="search()">搜索</p>-->
+
+</header>
+<div class="mui-content" style="background: #fff;">
+
+    <!--商品列表-->
+    <div class="good_list" >
+        <ul class="ul_c">
+            <volist name="goods" id="goods">
+                <li class="clearfix">
+                 <a href="{:U('Goods/detail','id='.$goods['id'])}">
+                    <div class="good_img"><img src="{$goods.thumb}"  alt="" width="100%" /></div>
+                    <div class="good_right">
+                        <h6>{$goods.name}</h6>
+                        <p><span>￥{$goods.price}</span></p>
+                        <span class="good_sp" style="color:#999999;">库存{$goods.store_count}个</span>
+                    </div>
+                    </a>
+                </li>
+            </volist>
+        </ul>
+    </div>
+    <!--end-->
+</div>
+
+</body>
+</html>

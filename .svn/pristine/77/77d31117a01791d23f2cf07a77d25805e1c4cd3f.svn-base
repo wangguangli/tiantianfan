@@ -1,0 +1,42 @@
+/**页面样式 **/
+body{background:#f5f5f5 !important}
+.order-state{width:100%; height:22vw; background:url(../images/order/orderbg.png); background-size:100% 100%; color:#fff; font-size:4.5vw; padding-left:10vw; line-height:22vw; }
+.order-li{width:100%; border-top:10px solid #f5f5f5; background:#fff;}
+.order-li .shop-name{width:100%; padding:2vw 3vw 0 3vw; font-size:4vw; display:flex; align-items:center}
+.order-li .shop-name i{margin-right:1vw}
+.order-li .goods-div{width:100%; padding:0 3vw;}
+.order-li .goods-div ul{margin:0; padding:0}
+.order-li .goods-div ul li{width:100%; border-bottom:1px solid #e9e9e9; padding:3vw 0;display:flex; align-items:center;}
+.order-li .goods-div ul li  a{ color:#333}
+.order-li .goods-div ul li img{width:20vw; height:20vw; margin-right:2vw;}
+.order-li .goods-div ul li .goods-title{width:72vw; font-size:3.4vw; color:#333;}
+.order-li .goods-div ul li .goods-title .title{width:100%; overflow:hidden; white-space:nowrap; text-overflow:ellipsis;}
+.order-li .goods-div ul li .goods-title span{background:#fe274e; font-size:12px; padding:3px 10px; border-radius:20px; margin-right:1vw; color:#fff }
+.order-li .goods-div ul li .goods-title .share{width:100%; display:flex; align-items:center; margin-top:2vw;}
+.order-li .goods-div ul li .goods-title .share .pricenum{line-height:170%; width:30%;}
+.order-li .goods-div ul li .goods-title .share .pricenum .pri{font-size:3.8vw; font-weight:600}
+.order-li .goods-div ul li .goods-title .share .but{width:70%; margin-left:auto;display:flex;}
+.order-li .lxkf{width:100%; padding:2vw 0; color:#686868; font-size:3.4vw; display:flex; align-items:center; justify-content:center}
+.order-li .lxkf i{margin-right:5px;}
+.text-div{ width:100%; padding:0 3vw;}
+.litext{width:100%; border-bottom:1px solid #e9e9e9;line-height:200%; padding:3vw 0 2vw 0; font-size:3.4vw;}
+.litext:last-child{border:none}
+.litext label{font-size:3.8vw; font-weight:600}
+.litext p span{font-size:12px; padding:3px 10px; border:1px solid #999999; color:#2a2a2a; border-radius:20px; margin-left:1vw; }
+.address{width:100%; padding:3vw; display: flex; align-items:flex-start; font-size:3.4vw; color:#2a2a2a}
+.address i{margin-right:2vw}
+.address .add-xq{font-size:3.4vw; line-height:180%;}
+.address .add-xq .title{font-size:3.8vw; font-weight:600}
+.address .add-xq .addinfo{font-size:3.4vw; color:#666}
+.price-div{width:100%; padding:2vw 3vw; border-bottom:1px solid #e9e9e9}
+.price-div .priceli{width:100%; padding:1vw 0; display:flex; align-items:center; font-size:3.8vw; font-weight:600;}
+.price-div .priceli span{font-size:3.4vw; font-weight:400; margin-left:auto}
+.price-div .priceli span .iconfont{font-size:4vw !important; }
+.zprice{width:100%; padding:3vw; text-align:right; font-size:4vw; font-weight:600}
+.zprice span{color:#fe274e}
+.bottom-div{height:14vw; display:table; width:100%;}
+.bottom{width:100%; height:13vw; background:#fff; position:fixed; left:0; bottom:0; border-top:1px solid #e9e9e9; display:flex; align-items:center; font-size:3.4vw; padding:0 3vw}
+.bottom .del{color:#666}
+.bottom .but-div{ margin-left:auto; display:flex; align-items:center;}
+.but-evel{ padding: 0.6vw 2vw; color:#fff; background:#d82209; border:1px solid #d82209; font-size:3.4vw; margin-left:2vw; border-radius:3vw }
+.but-wul{ padding: 0.6vw 2vw; color:#878787 !important; border:1px solid #c0c0c0; font-size:3.4vw; margin-left:2vw; border-radius:3vw }

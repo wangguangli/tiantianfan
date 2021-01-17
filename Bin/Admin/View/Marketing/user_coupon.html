@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<!--<meta name="viewport" content="width=device-width, initial-scale=1">-->
+	<title>{:GC('web_title')}管理后台-优惠券管理</title>
+	<include file="Public/asset_top_page"/>
+</head>
+
+<body>
+<!-- header -->
+<include file="Public/header"/>
+<!-- /header -->
+<!-- Page container -->
+<div class="page-container">
+	<!-- Page content -->
+	<div class="page-content">
+		<!-- main sidebar -->
+		<include file="Public/left"/>
+		<!-- /main sidebar -->
+
+		<!-- Main content -->
+		<div class="content-wrapper">
+
+			<!-- Content area -->
+			<div class="content" style="padding-top: 10px;">
+				<!-- Pagination types -->
+				<div class="v-container">
+					<div class="alert alert-tips alert-dismissible" role="alert">
+						<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span
+								aria-hidden="true">×</span></button>
+						本页用户优惠券管理
+					</div>
+
+					<div class="panel panel-flat">
+						<div class="panel-heading">
+							<!--<form class="v-filter-container" action="" method="POST">
+
+								<div class="filter-fields-wrap">
+							<div class="filter-item clearfix">
+								<div class="filter-item__field">
+									<div class="v__control-group padd_left_11">
+
+										<div class="v__controls">
+											<a href="{:U('couponDetail')}"><input type="button" value="添加" class="btn btn-primary search" style="width:100px;height: 35px;"></a>
+											<a class="btn btn-success ml-15 dataExcel" style="display: none;">导出订单</a>
+										</div>
+									</div>
+								</div>
+							</div>
+								</div>
+							</form>-->
+
+							<!--搜索框-->
+							<div class="heading-elements">
+
+							</div>
+						</div>
+						<div class="dataTables_wrapper no-footer mini-space">
+							<table class="table datatable-tools-basic basic_table">
+								<thead>
+								<tr>
+									<th style="width: 1px;">
+									</th>
+									<th class="">ID</th>
+									<th class="">名称</th>
+									<th class="">订单id</th>
+									<th class="">使用会员</th>
+									<th class="">领取时间</th>
+									<th class="">使用时间</th>
+									<th class="text-center">操作</th>
+								</tr>
+								</thead>
+
+
+								<foreach name="list" item="vo">
+
+									<tr class="tt_color" style="">
+										<td style="width: 1px;">
+										</td>
+
+
+										<td class="">{$vo.id}</td>
+
+										<td class="">
+											<div class="ed_stand">
+												<p>{$vo.name} </p>
+											</div>
+										</td>
+
+										<td class="">
+											<div class="ed_stand">
+												<p>{$vo.order_id} </p>
+											</div>
+										</td>
+
+										<td class="">
+											<div class="ed_stand">
+												<p>{$vo.phone} </p>
+											</div>
+										</td>
+
+
+										<td class="">
+											<div class="ed_stand">
+												<p>{$vo.cre_date} </p>
+											</div>
+										</td>
+										<td class="">
+											<div class="ed_stand">
+												<p>{$vo.use_date} </p>
+											</div>
+										</td>
+
+
+										<td class="text-center col-xs-2">
+											<div class="tt_stand">
+												<a title="删除" href="{:U('userCouponDel', array('id'=>$vo['id']))}"
+												   class="layui-btn layui-btn-sm layui-btn-danger btn_detail" onclick="return confirm('确定要删除吗?');">删除</a>
+											</div>
+										</td>
+									</tr>
+								</foreach>
+							</table>
+
+<!--							 分页-->
+							<div class="page_1028" >
+								{$show}
+								<div class="clear"></div>
+							</div>
+
+						</div>
+						<!-- /pagination types -->
+					</div>
+				</div>
+				<!--end-->
+				<!-- Footer -->
+				<include file="Public/footer"/>
+				<!-- /footer -->
+			</div>
+			<!-- /content area -->
+		</div>
+		<!-- /main content -->
+
+	</div>
+	<!-- /page content -->
+
+</div>
+<!-- /page container -->
+
+
+</body>
+</html>

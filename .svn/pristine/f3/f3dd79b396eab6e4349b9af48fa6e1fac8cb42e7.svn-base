@@ -1,0 +1,834 @@
+<?php
+
+namespace M\Controller;
+header("Content-type: text/html; charset=utf-8");
+
+use Clas\Orderin;
+use Think\Controller;
+use Clas\Orderout;
+use Clas\Jssdk;
+
+class OrderController extends CommonController
+{
+
+	// 订单列表
+	public function index()
+	{
+		// -1全部订单 0未支付订单 1已支付未发货订单 2已发货未收货待收获订单 3已收货未评价订单
+		$order_status = I("order_status", -1);
+		$user_id = session("user_id");
+		if (!$user_id)
+		{
+			$this->error("请重新登录查看订单");
+		}
+		$page = I("page", 1);
+		$page = $page < 1 ? 1 : $page;
+		$data["user_id"] = $user_id;
+		$data["order_status"] = $order_status;
+		$data["order_type"] = array('not in','1,2,3,4');
+		$data['page_size'] = 10; // wap,N条，不再分页
+		$data['page'] = $page;   // 页码
+		$Orderout = new Orderout();
+		$data = $Orderout->userOrderList($data);
+		foreach ($data['list'] as $k => $v)
+		{
+			$data['list'][$k]['count'] = count($v['goods']);
+			foreach ($data['list'][$k]['goods'] as $kk => $vv)
+			{
+				$data['list'][$k]['goods'][$kk]['goods_thumb'] = full_pre_url($vv['goods_thumb']);
+			}
+		}
+		$page = $page + 1;    // 为了加载下一页
+		$this->assign("list", $data["list"]);
+		$this->assign("max_page", $data["max_page"]);
+		$this->assign("order_status", $order_status);
+		$this->assign("page", $page);
+		if ($page == 2)
+		{
+			// 表示第一页，第一次请求的时候
+			$this->display();
+		}
+		else
+		{
+			$this->display("index_load");
+		}
+	}
+
+	// 订单详情
+	public function detail()
+	{
+		$order_id = I("order_id", 0);
+		$shop_id = I("shop_id");
+		if (!$order_id)
+		{
+			$this->error("参数异常，请核实");
+		}
+
+		$Orderout = new Orderout();
+		$data = $Orderout->orderDetail($order_id,$shop_id);
+
+        $order_end_time = get_config('order_end_time');//获取倒计时时间
+		$order = $data["order"];
+		if (!$order)
+		{
+			$this->error("订单异常，请联系客服核实");
+		}
+        $time = $order['add_time'] + $order_end_time*60;
+		$new_time = $time - time();
+		if($new_time < 0){
+		    $new_time = 0;
+        }
+		$order["order_status_cn"] = get_order_status($order["order_status"]);
+		$order["add_date"] = get_time($order["add_time"], "Y-m-d H:i:s");
+		$order["payment_type_cn"] = payment_type_cn($order["payment_type"]);
+		$order["pay_date"] = get_time($order["pay_time"], "Y-m-d H:i:s");
+
+		$goods = $data["goods_list"];
+
+
+		if ($goods[0]['goods_list'][0]['tracking_number'] != 0)
+		{
+//            $goods[0]['goods_list'][0]['tracking_number'] = '';
+			$goods[0]['goods_list'][0]['express_name'] = get_express($goods[0]['goods_list'][0]['express_id'])['name'];
+		}
+
+		foreach ($goods as $key => &$value)
+		{
+
+			foreach ($value['goods_list'] as &$ogs)
+			{
+				$ogs["order_status_cn"] = get_order_status($ogs["order_status"]);
+				$refund_id = M('order_refund')->where('order_goods_id=' . $ogs['id'])->getField('id');
+				if ($refund_id)
+				{
+					$ogs['refund_id'] = $refund_id;
+				}
+				else
+				{
+					$ogs['refund_id'] = 0;
+				}
+			}
+		}
+//	    echo "<pre>";
+//	    print_r($goods);
+//	    die();
+
+		foreach ($goods as $k => $v)
+		{
+			foreach ($v['goods_list'] as $kk => $vv)
+			{
+
+				$goods[$k]['goods_list'][$kk]['goods_thumb'] = full_pre_url($vv['goods_thumb']);
+			}
+		}
+		$order_status = $order['order_status'];
+		$this->assign("order", $order);
+		$this->assign("data", $data);
+		$this->assign("score_pay_mode", get_config('score_pay_mode'));
+		$this->assign('order_status', $order_status);
+		$this->assign("goods", $goods);
+		$this->assign("new_time", $new_time);//倒计时结束
+		$this->assign("shop_id", $shop_id);//倒计时结束
+		$this->assign("order_id", $order_id);//倒计时结束
+		$this->display();
+	}
+
+	/**
+	 * 拼团
+	 */
+	public function pintuan()
+	{
+		$order_id = I('id');
+
+		$order = M('order')->where('id=' . $order_id)->find();
+
+		if ($order['order_type'] == 5)
+		{
+			$num = $order['group_people_num'] - $order['group_people_num_have'];
+
+			if (time() < $order['group_time_end'] && $num > 0)
+			{
+				$order['is_share'] = 1;
+			}
+			else
+			{
+				$order['is_share'] = 0;
+			}
+		}
+		else
+		{
+			$order['is_share'] = 0;
+		}
+
+		$pt_map['order_type'] = 5;
+		$pt_map['group_order_id'] = $order['group_order_id'];
+		$pt_map['order_status'] = 1;
+		$pt_map['pay_stauts'] = 1;
+
+		$pt_data = M('order')->where($pt_map)->select();
+		$rem_time = $order['group_time_end'] - time();
+//        $rem_time = Sec2Time($rem_time);
+		$Orderout = new Orderout();
+		$data = $Orderout->orderDetail($order_id);
+		$order['number'] = $num;
+		$order['rem_time'] = $rem_time;
+		$js = new Jssdk();
+		$this->assign('wxjssign', $js->getSign(1));
+		$this->assign('order', $order);
+		$this->assign('share', $data['order']['share']);
+		$this->assign('pt_data', $pt_data);
+		$this->assign('pt_share', $data['order']['share']);
+		$this->assign('goods', $data['goods_list'][0]['goods_list']);
+		$this->display();
+	}
+
+	/**
+	 * 获取购买信息
+	 */
+	public function getBuyInfo()
+	{
+		$address = $this->getAddressInfo();
+		if (!$address)
+		{
+			$address = array('address_id' => 0);
+		}
+		$userId = session('user_id');
+		$Orderout = new Orderout($userId);
+		$array = I();
+		$goods['goods_id'] = $array['goods_id'];
+		$goods['goods_num'] = $array['num'];
+		$spec = implode('_', $array['pid']);
+		$goods['goods_spec_id'] = $spec;
+
+		$data = $Orderout->getBuyInfo($goods);
+
+		foreach ($data['goods_list'] as $k => $v)
+		{
+			if ($k)
+			{
+				$shop = $Orderout->getShop($k);
+				$allGoodsList[$k]['shop_name'] = $shop['shop_name'];
+				$allGoodsList[$k]['shop_thumb'] = full_pre_url($shop['shop_thumb']);
+				$allGoodsList[$k]['shop_id'] = $shop['user_id'];
+			}
+			else
+			{
+				$allGoodsList[$k]['shop_name'] = '平台自营';
+				$allGoodsList[$k]['shop_thumb'] = C("C_DF_SHOP_LOGO");
+				$allGoodsList[$k]['shop_id'] = 0;
+			}
+			$allGoodsList[$k]['goods'] = $v;
+		}
+		$allGoodsList = array_values($allGoodsList);
+		$result = array(
+			'goods' => $allGoodsList,
+			'total_price' => $data['total_price'],
+			'address' => $address,
+			'total_express_fee' => $data['total_express_fee'],
+		);
+		jsonout('购买信息', 0, $result);
+	}
+
+	/**
+	 * 获取地址信息
+	 * @param where      查询条件
+	 * @param table      查询表
+	 * @return  array
+	 */
+	public function getAddressInfo()
+	{
+		$userId = session('user_id');
+		$where['user_id'] = $userId;
+		$where['is_default'] = 1;
+		$data = get_address($where, 'user_address');
+		return $data;
+	}
+
+	/**
+	 * 取消订单  仅修改订单状态
+	 */
+	public function cancelOrder()
+	{
+		$orderId = I('order_id');
+		$Orderin = new Orderin();
+		$data = $Orderin->cancelOrder($orderId);
+		if ($data == 1)
+		{
+			$this->success('取消成功');
+		}
+		else
+		{
+			$this->error('取消失败');
+		}
+	}
+
+	/**
+	 * 删除订单
+	 */
+	public function deleteOrder()
+	{
+		$orderId = I('order_id');
+		$shop_id = I('shop_id');
+		$Orderin = new Orderin();
+		$data = $Orderin->deleteOrder($orderId,$shop_id);
+		if ($data == 1)
+		{
+			jsonout('删除成功', 0, '删除成功');
+		}
+		else
+		{
+			jsonout('删除成功', 1, $data);
+		}
+	}
+
+	/**
+	 * 确认收货
+	 */
+	public function takeDelivery()
+	{
+		$Orderin = new Orderin();
+		$data = $Orderin->takeDelivery();
+		if ($data == 1)
+		{
+			jsonout('收货结果', 0, '收货成功');
+		}
+		else
+		{
+			jsonout('收货结果', 1, $data);
+		}
+	}
+
+	/**
+	 * 单个商品查看物流
+	 */
+	public function express()
+	{
+		$user_id = I('user_id');//用户id
+		$order_id = I('order_id');
+		$Orderout = new Orderout($user_id);
+		$order = $Orderout->orderDetail($order_id);
+		$goods = $order["goods_list"][0]["goods_list"];
+		$data = $Orderout->getViewLogistics();
+		$express = json_decode($data['newset_message'], true);
+		$this->assign('data', $data);
+		$this->assign('goods', $goods);
+		$this->assign('express', $express);
+		$this->display();
+		//缺少物流页面
+	}
+
+	/**
+	 * 单个商品确认收货
+	 */
+	public function receive()
+	{
+		$user_id = I('user_id');//用户id
+		$Orderin = new Orderin($user_id);
+		$data = $Orderin->takeDelivery();
+		if ($data == 1)
+		{
+			$this->success('收货成功', U('Order/index'));
+		}
+		else
+		{
+			$this->error('收货失败');
+		}
+	}
+
+
+	/**
+	 * 退换货
+	 */
+	public function sale()
+	{
+		$arr = I();
+		$order_id = $arr['order_id'];
+		if (empty($order_id))
+		{
+			$this->error('请传入order_id');
+		}
+		$goods_id = $arr['goods_id'];
+		if (empty($goods_id))
+		{
+			$this->error('请传入goods_id');
+		}
+		$order_goods = M('order_goods')->where('order_id=' . $order_id . ' and goods_id=' . $goods_id)->find();
+		$order = M('order')->find($order_id);
+		$reason = refund_reason();
+		$this->assign('order', $order);
+		$this->assign('order_goods', $order_goods);
+		$this->assign('goods_id', $goods_id);
+		$this->assign('reason', $reason);
+		$this->display();
+	}
+
+
+	//买家回寄页面
+	public function refund_express()
+	{
+		$refund_id = I('refund_id', 0);
+
+		if ($refund_id == 0)
+		{
+			$this->error('请传入refund_id');
+		}
+
+		if (IS_POST)
+		{
+			$user_id = $this->user_id;
+			$order = new Orderin($user_id);
+			$rs = $order->userRefundExpress();
+			if (is_string($rs))
+			{
+				$this->error($rs);
+				exit();
+			}
+			else
+			{
+				$this->success('提交成功', U('Order/refund_index'));
+				exit();
+			}
+		}
+		$Orderout = new Orderout();
+		$data = $Orderout->orderRefundDetail($refund_id);
+		$order = $data["order"];
+		if (!$order)
+		{
+			$this->error("订单异常，请联系客服核实");
+		}
+		//买家地址  用于换货
+		$address_id = I('address_id', 0);
+		$address = M('user_address')->find($address_id);
+		if (!$address)
+		{
+			$address = array();
+		}
+		$address['address'] = get_region_name($address['province']) . get_region_name($address['city']) . get_region_name($data['district']) . $address['address'];
+		$process = get_refund_process_by_id($refund_id);
+
+		$refund_adderss = M('shop_refund_address')->find($order['refund_address_id']);
+		$this->assign("order", $order);
+		$this->assign('refund_address', $refund_adderss);
+		$this->assign("process", $process);
+		$this->assign("address", $address);
+		$this->display();
+	}
+
+	/**
+	 * 提交售后
+	 */
+	public function addSale()
+	{
+
+
+		$images = I('images');
+		$userId = session('user_id');
+		$Orderin = new Orderin($userId);
+		$data = $Orderin->refundOrder($images);
+
+		if ($data)
+		{
+			jsonout('申请已提交,请等待客服处理', 0, $data);
+		}
+		else
+		{
+			jsonout('申请失败,请联系客服', 1);
+		}
+	}
+
+	/**
+	 * 进行商品评论
+	 */
+	public function comment()
+	{
+		$list['user_id'] = session('user_id');
+		$list['order_id'] = I('order_id');
+		$list['goods_id'] = I('goods_id');
+		$this->assign('list', $list);
+		$this->display();
+	}
+
+	/**
+	 * 提交订单评论
+	 */
+	public function addComment()
+	{
+		$userId = session('user_id');
+		$Orderin = new Orderin($userId);
+		$data = $Orderin->getEvaluate();
+		if ($data == 1)
+		{
+			jsonout('评价成功', 0, null);
+		}
+		else
+		{
+			jsonout($data, 1);
+		}
+	}
+
+	/**
+	 * 购物车列表
+	 */
+	public function cartList()
+	{
+		$id = I('user_id');
+		$Orderout = new Orderout($this->user_id);
+		$data = $Orderout->cartList();
+
+		if ($data)
+		{
+			jsonout('加载完成', 0, $data);
+		}
+		else
+		{
+			jsonout('加载完成', 1);
+		}
+	}
+
+	/**
+	 * 加入购物车
+	 * @return  array
+	 * @author  史超
+	 * 说明：加入购物车
+	 */
+	public function makeCart()
+	{
+		$goods = I("goods");
+		$goods = htmlspecialchars_decode($goods);
+		$goods = json_decode($goods, true);
+		$Orderin = new Orderin($this->user_id);
+		$data = $Orderin->makeCart();
+
+		if ($data == 1)
+		{
+			jsonout('操作购物车', 0, '操作成功');
+		}
+		else
+		{
+			jsonout('操作购物车', 1, $data);
+		}
+	}
+
+	/**
+	 * 售后列表
+	 */
+	public function refund_index()
+	{
+
+		$user_id = session("user_id");
+		if (!$user_id)
+		{
+			$this->error("请重新登录查看订单");
+		}
+		$data["user_id"] = $user_id;
+		$Orderout = new Orderout();
+		$data = $Orderout->orderRefundList($data);
+
+		$this->assign("list", $data["list"]);
+		$this->assign("num", count($data["list"]));
+		$this->assign("order_status", 4);//用于前台样式突出
+
+		$this->display('index');
+	}
+
+	/**
+	 *
+	 * 售后管理员审核页面
+	 */
+
+
+	public function sale_trial()
+	{
+		$refund_id = I("refund_id", 0);
+		if (!$refund_id)
+		{
+			$this->error("参数异常，请核实");
+		}
+
+		$Orderout = new Orderout();
+		$data = $Orderout->orderRefundDetail($refund_id);
+		$order = $data["order"];
+		if (!$order)
+		{
+			$this->error("订单异常，请联系客服核实");
+		}
+
+		$process = get_refund_process_by_id($refund_id);
+
+		// echo "<pre>";
+		// print_r($goods);
+		// die();
+		$order['images'] = json_decode($order['images'], true);
+		$this->assign("order", $order);
+		$this->assign("process", $process);
+		$this->display();
+	}
+
+	/*
+	 * 退款
+	 * 申请退款或退货时可用，换货时不可用
+	 * @zd
+	 * */
+	public function refund_money()
+	{
+		$refund_id = I("refund_id", 0);
+		if (!$refund_id)
+		{
+			$this->error("参数异常，请核实");
+		}
+		$Orderout = new Orderout();
+		$data = $Orderout->orderRefundDetail($refund_id);
+		$order = $data["order"];
+		if (!$order)
+		{
+			$this->error("订单异常，请联系客服核实");
+		}
+		if ($order['refund_type'] == 2)
+		{
+			$this->error("换货商品，无退款步骤");
+		}
+//        $process  =get_refund_process([1,2]);
+//
+//        if ($order['refund_type'] == 1) {
+//            $process  =array_merge($process,get_refund_process([4]));
+//        }
+//        $process  =array_merge($process,get_refund_process([6]));
+		$process = get_refund_process_by_id($refund_id);
+		$order['images'] = json_decode($order['images'], true);
+		$refund_status = get_refund_status($order['refund_status']);
+		$this->assign("order", $order);
+		$this->assign("refund_status", $refund_status);
+		$this->assign("process", $process);
+		$this->display();
+	}
+
+	/*
+	* 商家发货
+	* 申请退款或退货时可用，换货时不可用
+	*
+	* */
+	public function shop_express()
+	{
+		$refund_id = I("refund_id", 0);
+		if (!$refund_id)
+		{
+			$this->error("参数异常，请核实");
+		}
+		$Orderout = new Orderout();
+		$data = $Orderout->orderRefundDetail($refund_id);
+		$order = $data["order"];
+		if (!$order)
+		{
+			$this->error("订单异常，请联系客服核实");
+		}
+
+//        $process = get_refund_process([1,2,4,6]);
+//
+//
+//        if ($order['refund_status'] == 7) {
+//            $process = array_merge($process,get_refund_process([7])) ;
+//        }
+		$process = get_refund_process_by_id($refund_id);
+
+		$order['shop_express_name'] = get_express($order['shop_express_id'])['name'];
+		$address = M('user_address')->find($order['user_address_id']);
+		$address['address'] = get_region_name($address['province']) . get_region_name($address['city']) . get_region_name($data['district']) . $address['address'];
+		$refund_status = get_refund_status($order['refund_status']);
+		$this->assign("order", $order);
+		$this->assign("address", $address);
+		$this->assign("process", $process);
+		$this->assign("refund_status", $refund_status);
+		$this->assign("goods", $data['goods_list']['goods_list']);
+		$this->display();
+	}
+
+	/**
+	 * 买家换货确认收货
+	 */
+	public function refund_receipt()
+	{
+		$refund_id = I("refund_id", 0);
+		if (!$refund_id)
+		{
+			$this->error("参数异常，请核实");
+		}
+		$Orderout = new Orderin($this->user_id);
+		$data = $Orderout->userRefundReceipt($refund_id);
+		if (is_string($data))
+		{
+			$this->error($data);
+			exit();
+		}
+		else
+		{
+			$this->success('提交成功', U('Order/refund_index'));
+			exit();
+		}
+	}
+
+	/*
+	 * 售后进度 日志
+	 */
+	public function refund_log()
+	{
+		$refund_id = I("refund_id", 0);
+		$source = I("source", 0);   // 0 默认网页打开，1 APP打开
+		if (!$refund_id)
+		{
+			$this->error("参数异常，请核实");
+		}
+		$data = M('order_refund_log')->where('refund_id=' . $refund_id)->order('id DESC')->select();
+		$this->assign('data', $data);
+		$this->assign('source', $source);
+		$this->display();
+	}
+
+	/**
+	 * 买家回寄完商家收货中
+	 */
+	public function refund_express_detail()
+	{
+		$refund_id = I("refund_id", 0);
+		if (!$refund_id)
+		{
+			$this->error("参数异常，请核实");
+		}
+		$Orderout = new Orderout();
+		$data = $Orderout->orderRefundDetail($refund_id);
+		$order = $data["order"];
+		if (!$order)
+		{
+			$this->error("订单异常，请联系客服核实");
+		}
+
+		$address = M('user_address')->find($order['user_address_id']);
+		if (!$address)
+		{
+			$address = array();
+		}
+		$address['address'] = get_region_name($address['province']) . get_region_name($address['city']) . get_region_name($data['district']) . $address['address'];
+		$refund_adderss = M('shop_refund_address')->find($order['refund_address_id']);
+//        $process =get_refund_process([1,2,4]);
+//        if($order['refund_status']==5){
+//            $process = array_merge($process,get_refund_process([5]));
+//        }
+		$process = get_refund_process_by_id($refund_id);
+		$this->assign('refund_address', $refund_adderss);
+		$this->assign('process', $process);
+		$this->assign('order', $order);
+		$this->assign('address', $address);
+		$this->assign("goods", $data['goods_list']['goods_list']);
+		$this->display();
+	}
+
+	/**
+	 * 买家确认售后完成
+	 */
+	public function sale_complete()
+	{
+		$refund_id = I("refund_id", 0);
+		if (!$refund_id)
+		{
+			$this->error("参数异常，请核实");
+		}
+		$Orderout = new Orderin($this->user_id);
+		$data = $Orderout->userRefundComplete($refund_id);
+		if (is_string($data))
+		{
+			$this->error($data);
+			exit();
+		}
+		else
+		{
+			$this->success('提交成功', U('Order/refund_index'));
+			exit();
+		}
+
+	}
+
+    /**
+     * Notes:买单报单列表
+     * User: WangSong
+     * Date: 2020/9/10
+     * Time: 11:16
+     */
+	public function declaration_order(){
+        $page = I('page',1);
+        $page = $page < 1 ? 1 : $page;
+        $Orderout = new Orderout($this->user_id);
+        $data = $Orderout->declaration_order_list(I());
+        /*echo '<pre>';
+        print_r($data);exit();*/
+        foreach ($data['list'] as $k => $v)
+        {
+            $data['list'][$k]['count'] = count($v['goods']);
+            foreach ($data['list'][$k]['goods'] as $kk => $vv)
+            {
+                $data['list'][$k]['goods'][$kk]['goods_thumb'] = full_pre_url($vv['goods_thumb']);
+            }
+        }
+        $page = $page + 1;    // 为了加载下一页
+        $this->assign("list", $data["list"]);
+        $this->assign("max_page", $data["max_page"]);
+        $this->assign("page", $page);
+        $this->assign("type", I('type'));
+        if ($page == 2)
+        {
+            // 表示第一页，第一次请求的时候
+            $this->display();
+        }
+        else
+        {
+            $this->display("declaration_order_load");
+        }
+    }
+
+    /**
+     * Notes:充值订单
+     * User: WangSong
+     * Date: 2020/9/11
+     * Time: 15:14
+     */
+    public function recharge_order(){
+        $page = I('page',1);
+        $page = $page < 1 ? 1 : $page;
+        $Orderout = new Orderout($this->user_id);
+        $data = $Orderout->recharge_order_list(I());
+        foreach ($data['list'] as $k => $v)
+        {
+            $data['list'][$k]['count'] = count($v['goods']);
+            foreach ($data['list'][$k]['goods'] as $kk => $vv)
+            {
+                $data['list'][$k]['goods'][$kk]['goods_thumb'] = full_pre_url($vv['goods_thumb']);
+            }
+        }
+        $page = $page + 1;    // 为了加载下一页
+        $this->assign("list", $data["list"]);
+        $this->assign("max_page", $data["max_page"]);
+        $this->assign("page", $page);
+        if ($page == 2)
+        {
+            // 表示第一页，第一次请求的时候
+            $this->display();
+        }
+        else
+        {
+            $this->display("recharge_order_load");
+        }
+    }
+
+    /**
+     * Notes:物流界面
+     * User: WangSong
+     * Date: 2020/9/18
+     * Time: 9:40
+     */
+    public function logistics(){
+        $data = I();
+        $orderout = new Orderout();
+        $list = $orderout->get_logistics($data);
+        $this->assign('list',$list);
+        $this->display();
+    }
+
+}

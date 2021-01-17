@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>确认订单</title>
+	<meta name="viewport"
+		  content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+	<link rel="stylesheet" href="__PUBLIC__/mobile/css_v3/mui.min.css">
+	<link rel="stylesheet" href="__PUBLIC__/mobile/css_v3/confirm.css?n=5">
+	<script src="__PUBLIC__/js/mui.min.js"></script>
+	<script src="__PUBLIC__/js/jquery.min.js"></script>
+	<script type="text/javascript" src="__PUBLIC__/layer/layer.js"></script>
+</head>
+<body>
+<header class="mui-bar mui-bar-nav">
+	<a class="mui-pull-left mui-icon mui_turn" href="javascript:history.go(-1);"><img
+			src="__PUBLIC__/mobile/images_v3/f_fanhui.png" style="width: 2vw;height: 3vw;"/></a>
+	<h1 class="mui-title tit_login">确认订单</h1>
+</header>
+<div class="change_shipping" style="width: 112px;">
+<!--	<div class="btn_ship <if condition='$shiptype eq 1'>btn_ship_active</if>" id="btn_ship1"  >快递发货</div>-->
+<!--<div class="btn_ship <if condition='$shiptype eq 2'>btn_ship_active</if>" id="btn_ship2" <if condition="$is_pick eq 1">onclick="change_shipping(2)"</if>>到店自提</div>-->
+</div>
+<div class="mui-content">
+	<form action="{:U('Cart/sure_pay')}" method="post" enctype="multipart/form-data">
+		<input type="hidden" name="address_id" value="{$result.address.id}">
+		<input type="hidden" name="picksite_id" id="picksite_id" value="{$result.picksite.id}">
+		<input type="hidden" name="pick_date" id="pick_date" value="">
+		<input type="hidden" name="pick_time" id="pick_time" value="">
+		<input type="hidden" name="json_date" value='{$goods}'>
+		<input type="hidden" id='user_id' value='{$Think.session.user_id}'>
+		<input type="hidden" name="goods_kind" value="{$goods_kind}">
+		<input type="hidden" name="group_order_id" value="{$group_order_id}">
+		<input type="hidden" id="shipping_type" name="shipping_type" value="{$shiptype}">
+
+		<div class="name_dd">
+			<div class="name clearfix" id="clearfix1" style="display: block">
+			<if condition="$result['address']['id'] lt 1">
+				<a href="{:U('User/location')}?cart=1&user_id={$Think.session.user_id}&shipping_type={$shiptype}&picksite_id={$result.picksite.id}">
+					<div class="cenview">
+						<div class="name_left" style="position: absolute;left: 0; width: 100%;padding-bottom: 2.28vw;display: flex;align-items: center;font-size: 4vw;"><img
+								src="__PUBLIC__/mobile/images_v3/address_add.png" class="name_left_img_13">请选择地址
+						</div>
+						<div class="name_right"><img src="__PUBLIC__/mobile/images_v3/z_qrdd_img_2.jpg" class="z_qrdd_img_2"/>
+						</div>
+					</div>
+				</a>
+				<else/>
+				<a href="{:U('User/location')}?cart=1&user_id={$Think.session.user_id}">
+					<div class="cenview">
+						<div class="name_left">
+							<div class="name_phone_add">{$result.address.address}</div>
+						</div>
+						<div class="name_right"><img src="__PUBLIC__/mobile/images_v3/z_qrdd_img_2.jpg" class="z_qrdd_img_2"/></div>
+					</div>
+				</a>
+				<div class="name_phone">
+					<h5>收货人</h5>
+					<p>{$result.address.consignee} <span>{$result.address.phone}</span></p>
+				</div>
+			</if>
+		</div>
+		<div class="name clearfix" id="clearfix2" style="display: none;">
+		<if condition="$result['picksite'] eq ''">
+			<a href="{:U('User/since')}?cart=1&user_id={$Think.session.user_id}">
+				<div class="cenview" style="padding: 3.5vw 3.5vw 2.28vw">
+					<div class="name_left" style="position: absolute; left: 0; width: 100%;display: flex;align-items: center;font-size: 4vw;">
+						<img src="__PUBLIC__/mobile/images_v3/address_add.png" class="name_left_img_13">
+						请选择自提点
+					</div>
+					<div class="name_right"><img src="__PUBLIC__/mobile/images_v3/z_qrdd_img_2.jpg" class="z_qrdd_img_2"/>
+					</div>
+				</div>
+			</a>
+			<else />
+			<div class="cenview">
+				<div class="name_left">
+					<div class="name_phone">
+						<h5>
+							<span class="address_type">自提点</span>
+							{$result.picksite.title}
+						</h5>
+					</div>
+				</div>
+			</div>
+			<a href="{:U('User/since')}?cart=1&user_id={$Think.session.user_id}">
+				<div class="cenview">
+					<div class="name_left">
+						<div class="name_phone_add">{$result.picksite.address}</div>
+					</div>
+					<div class="name_right"><img src="__PUBLIC__/mobile/images_v3/z_qrdd_img_2.jpg" class="z_qrdd_img_2"/></div>
+				</div>
+			</a>
+			<a href="javascript:;" onclick="to_location()">
+				<div class="cenview" style="border-bottom: 1px solid #f2f2f2;">
+					<div class="name_left">
+						<div class="name_phone">
+							<h5>
+								<!--<span class="address_type">门店配送</span>-->
+								提货人
+							</h5>
+							<if condition="$result['address']['consignee']">
+								<p>{$result.address.consignee} {$result.address.phone}</p>
+								<else/>
+								<p style="color: #fe4543">请选择提货人</p>
+							</if>
+
+						</div>
+					</div>
+					<div class="name_right"><img src="__PUBLIC__/mobile/images_v3/z_qrdd_img_2.jpg" class="z_qrdd_img_2"/></div>
+				</div>
+			</a>
+			<div class="cenview" onclick="sitemyBtn()">
+				<div class="name_left">
+					<div class="name_phone">
+						<h5>
+							提货时间
+						</h5>
+						<p id="time" style="display: none"></p>
+						<p id="time1" style="color: #fe4543">请选择提货时间</p>
+					</div>
+				</div>
+				<div class="name_right"><img src="__PUBLIC__/mobile/images_v3/z_qrdd_img_2.jpg" class="z_qrdd_img_2"/></div>
+			</div>
+		</if>
+</div>
+<div class="name_dd_btm"></div>
+</div>
+
+<div class="shop_dd">
+	<foreach name="result.goods" item='i'>
+		<div class="name_shop">
+			<div class="test_shop">
+				<div class="test_pic"><img src="{$i.shop_thumb}" width="100%" height="100%"/></div>
+				<h5>{$i.shop_name}</h5>
+			</div>
+		</div>
+		<!--商品列表-->
+		<div class="shop_des">
+			<ul class="ul_near_product " id="inx_id">
+				<foreach name='i.goods' item='ii'>
+					<li class="clearfix">
+						<div class="clearfix">
+							<img src="{$ii.goods_thumb}" class="product">
+							<div class="div_product_info">
+								<div>
+									<h5 class="good_name">{$ii.goods_name}</h5>
+									<h5 class="good_name_2">{$ii.spec_name}</h5>
+								</div>
+								<p class="address address_black_icon">
+									<if condition="$ii['product_type'] eq 1">
+										<span style="color: #f00;">{$ii.goods_price} 积分</span>
+										<else/>
+										<span style="color: #f00;">￥{$ii.goods_price}</span>
+									</if>
+									<span class="buy_goods_num">×{$ii.goods_num}</span>
+								</p>
+							</div>
+						</div>
+					</li>
+				</foreach>
+			</ul>
+			<div class="h_stay">
+				<span>买家留言</span>
+				<input type="text" name="user_note[]" maxlength="200" placeholder="请输入你的备注信息">
+			</div>
+		</div>
+	</foreach>
+</div>
+
+
+<div class="empty_div_1"></div>
+
+<div class="div_radius_1">
+	<!--拼团优惠-->
+	<if condition="$result['goods_total_leader_money'] gt 0">
+		<div class="freight">
+			<span>拼团优惠</span>
+			<span class="yf freight_right_txt">-￥{$result.goods_total_leader_money}</span>
+		</div>
+	</if>
+	<!--运费-->
+	<div class="freight" onclick="yunFei()">
+		<span class="h_yunfei">运费</span>
+		<if condition="$is_score_pay eq 1">
+			<span class="freight_right_txt">{$result.total_express_fee}积分</span>
+			<else/>
+			<span class="freight_right_txt">￥{$result.total_express_fee}</span>
+		</if>
+	</div>
+	<!--优惠券-->
+	<empty name="yhq_arr">
+		<div class="freight" style="display: none">
+			<div id="tageCoupon"></div>
+			<else/>
+			<div class="freight" id="tageCoupon">
+	</empty>
+	<span>优惠券</span>
+
+	<present name="yhq_money">
+		<span>优惠{$yhq_money}元 ></span>
+		<input type="hidden" name="user_coupon_id" value="{$yhq_id}"/>
+		<else/>
+		<empty name="yhq_arr">
+			<span class="freight_right_txt">没有可用优惠券</span>
+			<else/>
+			<span class="freight_right_txt">请选择 ></span>
+		</empty>
+	</present>
+</div>
+
+<volist name="auto_arr" id="vo">
+	<div class="freight">
+		<span>立减</span>
+		<input type="hidden" name="user_coupon_id_auto" value="{$vo.id}"/>
+		<span class="yhq_auto freight_right_txt">立减{$vo.money}元</span>
+	</div>
+</volist>
+<!--自提点-->
+</div>
+
+
+<div style="height: 21vw;"></div>
+<div class="platform">
+	<div class="plat_money">
+		<if condition="$product_type eq 1">
+			<if condition="$is_score_pay eq 1">
+				<p><span class="sfk">{$result.total_price}<span class="plat_rmb">积分</span></span></p>
+				<else/>
+				<p><span class="sfk">{$result.total_money}<span class="plat_rmb">积分</span>+<span class="plat_rmb">￥</span>{$result.total_express_fee}</span></p>
+			</if>
+
+			<else/>
+			<p><span class="plat_rmb">￥</span><span class="sfk">{$result.total_price}</span></p>
+		</if>
+
+		<button type="submit" onclick="return submit_for()">提交订单</button>
+	</div>
+</div>
+<!--优惠卷弹窗-->
+<div id="myModal" class="modal">
+	<!-- 弹窗内容 -->
+	<div class="modal-content" style="top: 2%;">
+		<h6 class="content_h6">优惠卷
+			<img src="__PUBLIC__/images/cross.png" style="width: 6vw;height: 6vw;" class="cont_img"/>
+		</h6>
+		<ul class="volume" style="height: 90%;overflow-y:auto;">
+			<!--已使用-->
+			<volist name="yhq_arr" id="vo">
+				<li>
+					<div class="volume_left"
+						 style="background: url(__PUBLIC__/images/back_yellow.png) no-repeat top center;">
+						<h6 class="left_h6">￥<span class="left_span">{$vo.money}</span></h6>
+						<p class="money_pp">{$vo.conditions_cn}</p>
+					</div>
+					<div class="volume_right">
+						<p class="right_pp"><span class="shop_volume">{$vo.coupon_type}</span>{$vo.shop_name}</p>
+						<div class="right_time">
+							<span class="time_sp">{$vo.use_start_time|date="Y.m.d",###} - {$vo.use_end_time|date="Y.m.d",###}</span>
+							<span class="received_go" value="{$vo.id}"
+								  onclick="window.location.href='{:U('cart/confirm',array('yhq_id'=>$vo['id'],'yhq_money'=>$vo['money']))}'">立即使用</span>
+							<div class="clear"></div>
+						</div>
+					</div>
+					<div class="clear"></div>
+				</li>
+			</volist>
+			<div style="text-align:center">
+				<button type="button" style="width:40%" class="layui-btn"
+						onclick="window.location.href ='{:U(index/idnex)}'">取消选择
+				</button>
+			</div>
+
+		</ul>
+	</div>
+</div>
+<!--自提点弹窗-->
+<div id="mySite" class="model">
+	<!-- 弹窗内容 -->
+	<div class="model-content">
+		<h6 class="content_h6">请选择自提点
+			<img src="__PUBLIC__/images/cross.png" style="width: 6vw;height: 6vw;" class="conts_img"/>
+		</h6>
+		<div class="blw_content">
+			<div class="ztdate_left">
+				<volist name="date_time" id="vo" key="key">
+					<div class="dateday <if condition='$key eq 1'>active</if> " dindex="{$key}" >{$vo.data}</div>
+				</volist>
+			</div>
+			<div class="ztdate_right" id="time_list">
+				<volist name="time_list" id="vo" key="key">
+					<div class="dateli <if condition='$key eq 1'>active</if>" dindex="{$key}">{$vo}</div>
+				</volist>
+			</div>
+		</div>
+		<div class="blw_btn">
+			<button type="button" class="btn_ok">完成</button>
+		</div>
+	</div>
+</div>
+<!--运费详情弹窗-->
+<div class="h_freight">
+	<div class="h_hui"></div>
+	<div class="h_fare">
+		<p class="h_fare_top">运费详情</p>
+		<ul class="h_fare_list">
+			<li>
+				<p class="h_fare_txt"><span>平台自营</span><span>基础运费:￥8.00</span></p>
+				<div class="h_fare_con">
+					<img src="__PUBLIC__/images/cross.png" alt="">
+					<img src="__PUBLIC__/images/cross.png" alt="">
+					<img src="__PUBLIC__/images/cross.png" alt="">
+					<img src="__PUBLIC__/images/cross.png" alt="">
+					<img src="__PUBLIC__/images/cross.png" alt="">
+					<img src="__PUBLIC__/images/cross.png" alt="">
+					<img src="__PUBLIC__/images/cross.png" alt="">
+				</div>
+			</li>
+			<li>
+				<p class="h_fare_txt"><span>平台自营</span><span>基础运费:￥8.00</span></p>
+				<div class="h_fare_con">
+					<img src="__PUBLIC__/images/cross.png" alt="">
+					<img src="__PUBLIC__/images/cross.png" alt="">
+					<img src="__PUBLIC__/images/cross.png" alt="">
+				</div>
+			</li>
+		</ul>
+		<div class="h_fare_btn">我知道了</div>
+	</div>
+</div>
+</form>
+
+<script>
+	//领取优惠卷弹窗
+
+	var model = document.getElementById('myModal');
+	var close = document.getElementsByClassName('cont_img')[0];
+	var myBtn = document.getElementById('tageCoupon');
+	myBtn.onclick = function () {
+		model.style.display = "block";
+	}
+	close.onclick = function () {
+		model.style.display = "none";
+	}
+	window.onclick = function (event) {
+		if (event.target == model) {
+			model.style.display = "none";
+		}
+	}
+
+
+	//自提点弹窗
+	var sitemodel = document.getElementById('mySite');
+	var siteclose = document.getElementsByClassName('conts_img')[0];
+	function sitemyBtn() {
+		sitemodel.style.display = "block";
+		$('.model-content').slideToggle(300)
+	}
+	siteclose.onclick = function () {
+		$('.model-content').slideToggle(300);
+		setTimeout(function () {
+			sitemodel.style.display = "none";
+		},500)
+	}
+
+	window.onclick = function (event) {
+		if (event.target == sitemodel) {
+			model.style.display = "none";
+		}
+	}
+
+
+	// var user_id = $("#user_id").val();
+	// $(".name_dd").click(function () {
+	// 	location.href = "{:U('User/location')}?cart=" + 1 + '&user_id=' + user_id;
+	// })
+
+
+	var total_money = $(".sfk").text();
+	var kaiguan = 1;
+	//自提点选中
+	$(".ztd").click(function () {
+		if (kaiguan) {
+			var sfk_money = $(".sfk").text();
+			var yf_money = ($(".yf").text()).substring(1);
+			var money = sfk_money - yf_money;
+			var sfk_money = $(".sfk").text(money);
+			$("#mySite").css('display', 'none');
+			var ztd_name = $("#ztd_name").text();
+			var ztd_id = $("#ztd_name").attr("value");
+			$("#picksite_id").val(ztd_id);
+			$(".xzztd").text(ztd_name);
+			kaiguan = 0;
+		} else {
+			$("#mySite").css('display', 'none');
+			var ztd_name = $("#ztd_name").text();
+			var ztd_id = $("#ztd_name").attr("value");
+			$("#picksite_id").val(ztd_id);
+			$(".xzztd").text(ztd_name);
+		}
+
+	});
+
+
+	//取消选择自提点
+	$(".cancel_ztd").click(function () {
+		var sfk_money = $(".sfk").text(total_money);
+		kaiguan = 1;
+		$("#mySite").css('display', 'none');
+		$("#picksite_id").val("");
+		$(".xzztd").text("取消选择自提点");
+	})
+	//送货上门 到店自提切换
+	/*$(function(){
+		function tabs(tabTit,on,tabCon){
+			$(tabTit).children().hover(function(){
+				$(this).addClass(on).siblings().removeClass(on);
+				var index = $(tabTit).children().index(this);
+				$(tabCon).children().eq(index).show().siblings().hide();
+			});
+		};
+		tabs(".change_shipping","btn_ship_active",".name_dd");
+	});*/
+	function change_shipping(type) {
+		if(type == 1){
+			$("#clearfix1").show();
+			$("#clearfix2").hide();
+			$("#btn_ship2").removeClass('btn_ship_active')
+			$("#btn_ship1").addClass('btn_ship_active')
+		}else {
+			$("#clearfix2").show();
+			$("#clearfix1").hide();
+			$("#btn_ship1").removeClass('btn_ship_active')
+			$("#btn_ship2").addClass('btn_ship_active')
+		}
+		$("#shipping_type").val(type)
+	}
+	var list = '{$date_time_list}';
+	var index1=0;
+	var index2=0;
+	$(document).on('click', '.dateday', function() {
+		$('.dateday').removeClass('active')
+		$(this).addClass('dateday active');
+		var index = $(this).index();
+		index1 = index;
+		var time_list = JSON.parse( list );
+		var new_time_list = time_list[index].date_time;
+		var html=''
+		$.each(new_time_list,function (index,item) {
+			if(index == 0){
+				html += '<div class="dateli active">'+item+'</div>'
+			}else {
+				html += '<div class="dateli">'+item+'</div>'
+			}
+
+		})
+		$('#time_list').html(html);
+	})
+	$(document).on('click', '.dateli', function() {
+		var index = $(this).index();
+		index2 = index;
+		$('.dateli').removeClass('active')
+		$(this).addClass('dateli active');
+	})
+	$('.btn_ok').click(function () {
+		var time_list = JSON.parse( list );
+		var new_time_list = time_list[index1].date_time;
+		var time = time_list[index1]['data'] + new_time_list[index2];
+		$('#time').html(time);
+		$('#time').show();
+		$('#time1').hide();
+		$('#mySite').hide();
+		$('#pick_date').val(time_list[index1]['data']);
+		$('#pick_time').val(new_time_list[index2]);
+		$('.model-content').hide()
+
+	})
+	function submit_for() {
+		var shiptype = $("#shipping_type").val();
+		var time = $('#time').html();
+		if(shiptype == 2){
+			if(time == ''){
+				alert('请选择提货时间');return false
+			}
+		}
+
+
+	}
+	function to_location() {
+		var cart=1;
+		var picksite_id = $('#picksite_id').val();
+		var shipping_type = $('#shipping_type').val();
+		window.location.href = "{:U('User/location')}?cart=1&user_id="+{$Think.session.user_id}+"&picksite_id="+picksite_id+"&shipping_type="+shipping_type
+	}
+	//运费
+	function yunFei() {
+		// $('.h_freight').show()
+	}
+	$('.h_fare_btn,.h_hui').click(function () {
+		$('.h_freight').hide()
+	})
+</script>
+</div>
+</body>
+</html>

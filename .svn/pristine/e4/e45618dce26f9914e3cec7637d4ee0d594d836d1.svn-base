@@ -1,0 +1,756 @@
+<?php
+
+namespace Admin\Controller;
+
+use Think\Page;
+
+class AccountController extends CommonController
+{
+
+	// 提现列表
+	public function tixian()
+	{
+		$ischeck = I('ischeck', 0, 'intval');
+		if ($ischeck < 1)
+		{
+			$where['ischeck'] = $ischeck;
+		}
+		else
+		{
+			$where['ischeck'] = array("gt", 0);
+		}
+		$type = I('cate');
+		$content = I('data');
+		$sTime = I('startTime');
+		$eTime = I('endTime');
+		if ($sTime && !$eTime)
+		{
+
+			$this->error('开始/结束时间必须都有');
+
+		}
+		if (!$sTime && $eTime)
+		{
+
+			$this->error('开始/结束时间必须都有');
+
+		}
+		if ($sTime && $eTime)
+		{
+			$sTime = strtotime($sTime);
+			$eTime = strtotime($eTime) + 86399;
+			$where['cre_time'] = array('between', array($sTime, $eTime));
+		}
+		if ($type == 0)
+		{
+			if (!empty($content))
+			{
+				$where['name'] = array('eq', $content);
+			}
+		}
+		else
+		{
+			if ($type == 1)
+			{
+				if (!empty($content))
+				{
+					$where['bank_name'] = array('eq', $content);
+				}
+			}
+			else
+			{
+				if ($type == 2)
+				{
+					if (!empty($content))
+					{
+						if ($content == '商家')
+						{
+							$where['utype'] = 2;
+						}
+						else
+						{
+							if ($content == '消费者')
+							{
+								$where['utype'] = 1;
+							}
+							else
+							{
+								if ($content == '代理')
+								{
+									$where['utype'] = 3;
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+
+		$count = M("tx_log")->where($where)->count();
+		$page = new Page($count, 10);
+		$list = M("tx_log")->where($where)->order('id desc')->limit($page->firstRow . ',' . $page->listRows)->select();
+		$page = $page->show();
+
+		foreach ($list as $k => &$v)
+		{
+			if ($v['utype'] == 1)
+			{
+				$user_role = '消费者';
+				$where_u["id"] = $v["user_id"];
+				$userInfo = get_user_info($where_u);
+				if ($userInfo)
+				{
+					$v["phone"] = $userInfo["phone"];
+					$v["realname"] = $userInfo["realname"];
+				}
+				else
+				{
+					$v["phone"] = "-";
+					$v["realname"] = "-";
+				}
+			}
+			elseif ($v['utype'] == 2)
+			{
+				$user_role = '商家';
+				$where_u["user_id"] = $v["user_id"];
+				$userInfo = get_user_info($where_u, "*", 0, 2);
+				if ($userInfo)
+				{
+					$v["phone"] = $userInfo["tel"];
+					$v["realname"] = $userInfo["shop_name"];
+				}
+				else
+				{
+					$v["phone"] = "-";
+					$v["realname"] = "-";
+				}
+			}
+			elseif ($v['utype'] == 3)
+			{
+				$user_role = '代理';
+				$where_u["user_id"] = $v["user_id"];
+				$userInfo = get_user_info($where_u, "*", 0, 3);
+				if ($userInfo)
+				{
+					$v["phone"] = $userInfo["phone"];
+					$v["realname"] = $userInfo["realname"];
+				}
+				else
+				{
+					$v["phone"] = "-";
+					$v["realname"] = "-";
+				}
+			}
+			else
+			{
+				$user_role = '未知 ';
+			}
+			$v['user_role'] = $user_role;
+		}
+
+		// 提现统计
+		$where1['ischeck'] = 1;
+		$all = M('tx_log')->where($where1)->sum('tx_money');
+
+		$day = strtotime(date("Y-m-d", time()));
+		$today = $day + 86400;
+		$where1['cre_time'] = array("between", array($day, $today));
+		$today_money = M('tx_log')->where($where1)->sum('tx_money');
+
+		$this->assign('today_money', abs($today_money));
+		$this->assign('all_money', abs($all));
+
+		$this->assign('list', $list);
+		$this->assign('show', $page);
+
+		$this->display();
+	}
+
+	// 确认提现
+	public function confirm_tixian()
+	{
+		$id = I('id', 0, 'intval');
+		$log = M('tx_log')->find($id);
+
+		if ($log['ischeck'] != 0)
+		{
+			$this->error('已经审核过');
+		}
+
+		$model = M();
+		$model->startTrans();
+
+		$data['ischeck'] = 1;
+		$data['remark'] = '提现-通过';
+		$data['up_time'] = time();
+		$data['up_date'] = date("Y-m-d H:i:s");
+		$data['auditor'] = $this->_admin_id;
+		M('tx_log')->where("id=$id")->save($data);
+
+
+
+		$accountData['remark'] ='提现-通过';
+		$accountData['cre_time'] = time();
+		$accountData['cre_date'] = date("Y-m-d H:i:s");
+//        M('account_log')->where("deal_type=5 and order_id=" . $id)->save($accountData);
+        M('account_log')->where("id=" . $log['log_id'])->save($accountData);//使用存在表中的account_log的id进行修改
+
+		// 是否自动下发
+		// $log["utype"]
+		$txInfo = get_config_tx($log["utype"]);
+		if (!$txInfo)
+		{
+			$model->commit();
+			M('tx_log')->where("id=$id")->setField("auto", 0);
+			$this->success('操作完成，请 线下转账');
+		}
+		if ($txInfo["tx_autopay"] == 2)
+		{
+			$model->commit();
+			M('tx_log')->where("id=$id")->setField("auto", 0);
+			$this->success('自动下发已关闭，请 线下转账');
+		}
+
+		// 自动下发转账
+		if ($txInfo["tx_autopay"] == 1)
+		{
+			if ($log["sjzz_money"] > $txInfo["tx_autopay_max"])
+			{
+				$model->commit();
+				M('tx_log')->where("id=$id")->setField("auto", 2);
+				$this->success('转账金额大于最大限制，请 线下转账');
+			}
+
+			// 配置处可自动下发
+			if ($log["bank_type"] < 1)
+			{
+				// 选择银行支付 且是自动下发
+				$res_xf = SNXF($log["sjzz_money"], $log['name'], $log['cart_no'], "用户提现", $log['ordernum'], $log['user_id']);
+				if ($res_xf["status"] == "0000")
+				{
+					$logSave["auto"] = 1;
+					$logSave["ischeck"] = 3;
+					$rs2 = M("tx_log")->where("id=" . $id)->save($logSave);
+					if ($rs2 !== false)
+					{
+						$model->commit();
+						$this->success('已提交自动下发，请耐心等待');
+					}
+				}
+				else
+				{
+					$model->rollback();
+					M('tx_log')->where("id=$id")->setField("auto", 2);
+					$this->error($res_xf["msg"]);
+				}
+			}
+			else
+			{
+				$model->commit();
+				M('tx_log')->where("id=$id")->setField("auto", 2);    // 配置可自动，但实际情况不允许
+				$this->success('转账金额大于最大限制，请 线下转账');
+			}
+
+		}
+
+
+	}
+
+	// 提现拒绝，返还账户 
+	public function delete()
+	{
+
+		$id = I('id', 0, 'intval');
+		$log = M('tx_log')->find($id);
+		if (!$log)
+		{
+			$this->error('此记录异常');
+
+		}
+		if ($log['ischeck'] != 0)
+		{
+			$this->error('此订单不是审核订单');
+			exit();
+		}
+		$model = M();
+		$model->startTrans();
+
+		$remark = "提现拒绝，返还账户";
+
+		$data['ischeck'] = 2;
+		$data['remark'] = $remark;
+		$data['up_time'] = time();
+		$data['up_date'] = date("Y-m-d H:i:s");
+		$data['auditor'] = $this->_admin_id;
+		$rs = M('tx_log')->where("id=$id")->save($data);
+
+//		$accountData['remark'] = "提现拒绝，返还账户";
+//        $accountData['op_type'] = 1;
+//        $accountData['cre_time'] = time();
+//		$accountData['cre_date'] = date("Y-m-d H:i:s");
+//        M('account_log')->where("deal_type=5 and order_id=$id")->save($accountData);   提现拒绝不在修改，变为生成一条新数据
+
+		// ### 这里要进行返还 -- 根据扣除来源 amt_type ，直接返还
+		$tx_money = abs($log["tx_money"]);    // 实际扣除的额度
+		if ($log["utype"] == 1)
+		{
+			// 是消费者，并且是余额账户 ，直接返
+			if ($log["amt_type"] == 1)
+			{
+				$field = "money";
+				$type = 1;
+			}elseif ($log["amt_type"] == 18)
+            {
+                $field = "price";
+                $type = 18;
+            }
+		}
+		elseif ($log["utype"] == 2)
+		{
+		    //返还待返金额
+			// 是商家，并且是商家收益账户 ，直接返
+			if ($log["amt_type"] == 18)
+			{
+				$field = "price";
+				$type = 18;
+			}
+		}
+		elseif ($log["utype"] == 3)
+		{
+			// 是代理，并且是代理收益账户 ，直接返
+			if ($log["amt_type"] == 3)
+			{
+				$field = "agent_money";
+				$type = 3;
+			}
+		}
+
+		if ($field && $type)
+		{
+
+			$rs2 = change_money_log($log["user_id"], 1, $field, 0, $tx_money, $type, 8, $remark, 1, $log["utype"], 1, $log["id"]);
+		}
+		else
+		{
+
+			$rs2 = true;
+		}
+
+		if ($rs !== false && $rs2)
+		{
+			$model->commit();
+			$this->success('操作成功！');
+		}
+		else
+		{
+			$model->rollback();
+			$this->error('操作失败！');
+		}
+
+	}
+
+	//统计
+	public function statistics()
+	{
+		$wxpay = 'wxpay';
+		$zhifu = 'alipay';
+		$yue = 'yepay';
+		if ($_POST)
+		{
+			$sTime = strtotime(I('startTime'));
+			$eTime = strtotime(I('endTime')) + 86399;
+			$where['pay_time'] = array('between', array($sTime, $eTime));
+			$where1['pay_time'] = array('between', array($sTime, $eTime));
+			$where2['pay_time'] = array('between', array($sTime, $eTime));
+			$where3['pay_time'] = array('between', array($sTime, $eTime));
+			$tx['cre_time'] = array('between', array($sTime, $eTime));
+			$tx1['cre_time'] = array('between', array($sTime, $eTime));
+			$acc['cre_time'] = array('between', array($sTime, $eTime));
+		}
+		$where['pay_status'] = array('eq', 1);
+		$z_money = M('order')->where($where)->sum('total_commodity_price');
+		$where['user_coupon_auto_money'] = array('gt', 0);
+		$where1['pay_status'] = array('eq', 1);
+		$where1['user_coupon_money'] = array('gt', 0);
+		$z_yh_money = M('order')->where($where)->sum('user_coupon_auto_money') + M('order')->where($where1)->sum('user_coupon_money');
+		$where2['pay_status'] = array('eq', 1);
+		$where2['order_status'] = array('in', '1,2,3,5');
+		$order = M('order')->where($where2)->select();
+		$s_money = 0;
+		$p_money = 0;
+		foreach ($order as $key => $val)
+		{
+			$order_goods = M('order_goods')->where('order_no=' . $val['order_no'])->select();
+
+			foreach ($order_goods as $k => $v)
+			{
+				if ($order_goods['shop_id'] != 0 && $order_goods['order_type'] == 0 || $order_goods['order_type'] == 2)
+				{
+					$s_money += $order_goods['goods_total'];
+				}
+				else
+				{
+					$p_money += $order_goods['goods_total'];
+				}
+			}
+		}
+		$tx['ischeck'] = array('eq', 1);
+
+		$z_tx_money = M('tx_log')->where($tx)->sum('sjzz_money');
+		$z_tx_sxf = M('tx_log')->where($tx)->sum('sxf_money');
+		$tx1['utype'] = array('eq', 1);
+		$tx1['ischeck'] = array('eq', 1);
+		$yh_tx_money = M('tx_log')->where($tx1)->sum('sjzz_money');
+		$yh_tx_sxf = M('tx_log')->where($tx1)->sum('sxf_money');
+		$tx1['utype'] = array('eq', 2);
+		$sj_tx_money = M('tx_log')->where($tx1)->sum('sjzz_money');
+		$sj_tx_sxf = M('tx_log')->where($tx1)->sum('sxf_money');
+		$tx1['utype'] = array('eq', 3);
+		$dl_tx_money = M('tx_log')->where($tx1)->sum('sjzz_money');
+		$dl_tx_sxf = M('tx_log')->where($tx1)->sum('sxf_money');
+		$acc['type'] = array('eq', 1);
+		$acc['op_type'] = array('eq', 1);
+		$up_money = M('account_log')->where($acc)->sum('amount');
+		$acc['op_type'] = array('eq', 2);
+		$de_money = M('account_log')->where($acc)->sum('amount');
+		$where3['pay_status'] = array('eq', 1);
+		$where3['payment_type'] = array('eq', $wxpay);
+		$w_money = M('order')->where($where3)->sum('total_commodity_price');
+		$where3['payment_type'] = array('eq', $zhifu);
+		$zf_money = M('order')->where($where3)->sum('total_commodity_price');
+		$where3['payment_type'] = array('eq', $yue);
+		$ye_money = M('order')->where($where3)->sum('total_commodity_price');
+
+		$data['z_money'] = $z_money;
+		$data['z_yh_money'] = $z_yh_money;
+		$data['s_money'] = $s_money;
+		$data['p_money'] = $p_money;
+		$data['z_tx_money'] = $z_tx_money;
+		$data['z_tx_sxf'] = $z_tx_sxf;
+		$data['yh_tx_money'] = $yh_tx_money;
+		$data['yh_tx_sxf'] = $yh_tx_sxf;
+		$data['sj_tx_money'] = $sj_tx_money;
+		$data['sj_tx_sxf'] = $sj_tx_sxf;
+		$data['dl_tx_money'] = $dl_tx_money;
+		$data['dl_tx_sxf'] = $dl_tx_sxf;
+		$data['up_money'] = $up_money;
+		$data['de_money'] = $de_money;
+		$data['w_money'] = $w_money;
+		$data['zf_money'] = $zf_money;
+		$data['ye_money'] = $ye_money;
+		$this->assign('data', $data);
+		$this->display();
+	}
+
+	//经营概况
+	public function management()
+	{
+		if ($_POST)
+		{
+			$cate = I('cate');
+			if ($cate == 1)
+			{
+				$where['shop_id'] = array('eq', 0);
+				$where1['shop_id'] = array('eq', 0);
+				$where2['shop_id'] = array('eq', 0);
+			}
+			elseif ($cate == 2)
+			{
+				$where['shop_id'] = array('gt', 0);
+				$where1['shop_id'] = array('gt', 0);
+				$where2['shop_id'] = array('gt', 0);
+			}
+			$sTime = I('startTime');
+			if ($sTime)
+			{
+
+				$data = explode(' - ', $sTime);
+				$sdata = strtotime($data[0]);
+				$edata = strtotime($data[1]) + 86399;
+				$count = round(($edata - $sdata) / 86400) - 1;
+				$star_time = $edata - 86399;
+				$end_time = $edata;
+			}
+		}
+		else
+		{
+			//当天开始时间
+			$star_time = strtotime(date("Y-m-d H:i:s", mktime(0, 0, 0, date('m'), date('d'), date('Y'))));
+			//当天结束时间
+			$end_time = strtotime(date("Y-m-d H:i:s", mktime(0, 0, 0, date('m'), date('d') + 1, date('Y')) - 1));
+			$count = 6;
+		}
+
+		$sum_money = 0; //总金额
+		$sum_order = 0; //总订单
+		$sum_f_order = 0; //付款总订单
+		$sum_s_order = 0; //售后总订单
+		for ($i = 0; $i <= $count; $i++)
+		{
+			$where['pay_status'] = array('eq', 1);
+			$where['order_status'] = array('in', '1,2,3,5,6,8');
+			$where['pay_time'] = array('between', array($star_time, $end_time));
+			$where1['pay_status'] = array('eq', 1);
+			$where1['order_status'] = array('in', '1,2,3,5,8');
+			$where1['pay_time'] = array('between', array($star_time, $end_time));
+			$where2['pay_status'] = array('eq', 1);
+			$where2['order_status'] = array('eq', 6);
+			$where2['pay_time'] = array('between', array($star_time, $end_time));
+			$z_order[$i] = M('order')->where($where)->count();
+			$z_order_money[$i] = M('order')->where($where)->sum('total_commodity_price');
+			if (!$z_order_money[$i])
+			{
+				$z_order_money[$i] = 0;
+			}
+			$sum_money += $z_order_money[$i];
+			$sum_order += $z_order[$i];
+
+			$f_order[$i] = M('order')->where($where1)->count();
+			$sum_f_order += $f_order[$i];
+			$s_order[$i] = M('order')->where($where2)->count();
+			$sum_s_order += $sum_order[$i];
+			$data[$i] = date('Y-m-d', $star_time);
+			$star_time -= 86400;
+			$end_time -= 86400;
+		}
+		$this->assign('sum_money', $sum_money);
+		$this->assign('sum_order', $sum_order);
+		$this->assign('sum_f_order', $sum_f_order);
+		$this->assign('sum_s_order', $sum_s_order);
+		$this->assign('z_order_money', json_encode(array_reverse($z_order_money)));
+		$this->assign('z_order', json_encode(array_reverse($z_order)));
+		$this->assign('f_order', json_encode(array_reverse($f_order)));
+		$this->assign('s_order', json_encode(array_reverse($s_order)));
+		$this->assign('data', json_encode(array_reverse($data)));
+		$this->display();
+	}
+
+	//会员统计
+	public function memberstatistics()
+	{
+
+		if ($_POST)
+		{
+			$sTime = I('startTime');
+			$sTime = explode(' - ', $sTime);
+			$sta_time = strtotime($sTime[0]);
+			$star_time = strtotime($sTime[1]);
+			$end_time = strtotime($sTime[1]) + 86399;
+			$count = round(($end_time - $sta_time) / 86399);
+		}
+		else
+		{
+			//当天开始时间
+			$star_time = strtotime(date("Y-m-d H:i:s", mktime(0, 0, 0, date('m'), date('d'), date('Y'))));
+			//当天结束时间
+			$end_time = strtotime(date("Y-m-d H:i:s", mktime(0, 0, 0, date('m'), date('d') + 1, date('Y')) - 1));
+			$count = 6;
+		}
+
+		for ($i = 0; $i <= $count; $i++)
+		{
+			$where['cre_time'] = array('between', array($star_time, $end_time));
+			$user[$i] = M('user')->where($where)->count();
+			$data[$i] = date('Y-m-d', $star_time);
+			$star_time -= 86400;
+			$end_time -= 86400;
+
+		}
+		//获取本月开始的时间戳
+		$beginThismonth = mktime(0, 0, 0, date('m'), 1, date('Y'));
+		//获取本月结束的时间戳
+		$endThismonth = mktime(23, 59, 59, date('m'), date('t'), date('Y'));
+		$where1['cre_time'] = array('between', array($beginThismonth, $endThismonth));
+		$count = M('user')->count();
+		$j_count = M('user')->where($where)->count();
+		$y_count = M('user')->where($where1)->count();
+		$this->assign('y_count', $y_count);
+		$this->assign('count', $count);
+		$this->assign('j_count', $j_count);
+		$this->assign('user', json_encode(array_reverse($user)));
+		$this->assign('data', json_encode(array_reverse($data)));
+		$this->display();
+	}
+
+	//商品分析
+	public function commodityanalysis()
+	{
+		if ($_POST)
+		{
+			$name = I('name');
+			if ($name)
+			{
+				$wh['name'] = array('like', '%' . $name . '%');
+				$wh['is_on_sale'] = array('eq', 1);
+				$wh['isdel'] = array('eq', 0);
+				$id = M('goods')->where($wh)->field('id')->select();
+
+				$result = array_reduce(
+					$id, function ($result, $value)
+				{
+					return array_merge($result, array_values($value));
+				}, array()
+				);
+
+				$where1['goods_id'] = array('in', $result);
+
+			}
+
+
+			$cate = I('cate');
+			if ($cate == 1)
+			{
+				$where1['shop_id'] = array('eq', 0);
+			}
+			if ($cate == 2)
+			{
+				$where1['shop_id'] = array('gt', 0);
+			}
+			$pai1 = I('pai1');
+			$pai2 = I('pai2');
+			if ($pai1)
+			{
+				$order = 'goods_num desc';
+			}
+			if ($pai2)
+			{
+				$order = 'goods_tital desc';
+			}
+			if (!$pai1 && !$pai2)
+			{
+				$order = 'goods_num desc';
+			}
+			$sTime = I('startTime');
+			if ($sTime)
+			{
+
+
+				$sTime = explode(' - ', $sTime);
+				$stime = strtotime($sTime[0]);
+
+				$end_time = strtotime($sTime[1] + 86399);
+				$where1['add_time'] = array('between', array($stime, $end_time));
+			}
+		}
+		else
+		{
+			$order = 'goods_num desc';
+		}
+		$where1['order_status'] = array('in', '1,2,3,5,8');
+		$where1['pay_status'] = array('eq', 1);
+		$where1['isdel'] = array('eq', 0);
+
+		$goods = M('order_goods')->where($where1)->field('goods_id,sum(goods_num) as goods_num,sum(goods_total) as goods_tital,goods_name,goods_thumb')
+			->order($order)->group('goods_id')->limit(20)->select();
+		foreach ($goods as $k => $v)
+		{
+			$goods[$k]['paim'] = $k + 1;
+		}
+
+		$order_where['order_status'] = array('in', '1,2,3,5,8');
+		$order_where['pay_status'] = array('eq', 1);
+		$where['is_on_sale'] = array('eq', 1);
+		$where['isdel'] = array('eq', 0);
+		$count = M('goods')->where($where)->count();
+		$sell_count = M('order_goods')->where($order_where)->sum('goods_num');
+		$order_money = M('order_goods')->where($order_where)->sum('goods_total');
+		$this->assign('goods', $goods);
+		$this->assign('order_money', $order_money);
+		$this->assign('sell_count', $sell_count);
+		$this->assign('count', $count);
+		$this->display();
+	}
+
+
+	/**
+	 * Title： 导出表格
+	 * Note：
+	 * User： zd
+	 * Date： 2020/6/20 11:20
+	 */
+	public function export_excel()
+	{
+		$ischeck = I('ischeck', 0, 'intval');
+		$sTime = I('startTime');
+		$eTime = I('endTime');
+		$content = I('data');
+		$cate = I("cate");
+		if ($ischeck < 1)
+		{
+			$where['ischeck'] = $ischeck;
+		}
+		else
+		{
+			$where['ischeck'] = array("gt", 0);
+		}
+		if ($sTime && !$eTime)
+		{
+			jsonout('开始/结束时间必须都有', 1);
+		}
+		if (!$sTime && $eTime)
+		{
+			jsonout('开始/结束时间必须都有', 1);
+		}
+		if ($sTime && $eTime)
+		{
+			$sTime = strtotime($sTime);
+			$eTime = strtotime($eTime) + 86399;
+			$where['cre_time'] = array('between', array($sTime, $eTime));
+		}
+		if ($cate == 0)
+		{
+			if (!empty($content))
+			{
+				$where['name'] = array('eq', $content);
+			}
+		}
+		else
+		{
+			if ($cate == 1)
+			{
+				if (!empty($content))
+				{
+					$where['bank_name'] = array('eq', $content);
+				}
+			}
+			else
+			{
+				if ($cate == 2)
+				{
+					if (!empty($content))
+					{
+						if ($content == '商家')
+						{
+							$where['utype'] = 2;
+						}
+						else
+						{
+							if ($content == '消费者')
+							{
+								$where['utype'] = 1;
+							}
+							else
+							{
+								if ($content == '代理')
+								{
+									$where['utype'] = 3;
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+		$tempID = 7;        // 导出模板ID
+		$res = exportExcel($where, 'id desc', 0, $tempID, '', 0);
+		if ($res['err'] == 0)
+		{
+			jsonout('数据导出', 0, $res['result']);
+		}
+		else
+		{
+			jsonout($res['msg'], 1);
+		}
+	}
+
+}

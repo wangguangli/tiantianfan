@@ -1,0 +1,118 @@
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font-size:3.5vw;
+  color:#555;
+  vertical-align: baseline;
+  box-sizing: border-box;
+  text-decoration: none;
+  list-style: none;
+  
+}
+small { font-size: 12px; } /* 小于 12px 的中文很难阅读，让 small 正常化 */
+*{
+  padding: 0;
+  margin: 0;
+  
+}
+a{text-decoration: none;color: black}
+a:hover{color: black}
+ul{list-style: none}
+.fl{float:left}
+.fr{float:right}
+.clear{clear:both}
+.tal{text-align: left;}
+.tac{text-align: center;}
+.tar{text-align: right;}
+        .order-title{
+    		width:100%;
+    		background: white;
+            border-bottom: 1px solid #eee;
+    	}
+    	.order-title .order-title-back{
+    		width:15%;
+    		text-align: center;
+    		float: left;
+    	}
+		.order-title .order-title-back a{ color:#999}
+    	.order-title .order-title-back img{
+    		margin-top:2vw ;
+    		width: 8vw;
+    		height: 8vw;
+    	}
+    	.order-title  p{
+    		width: 70%;
+    		font-size: 5vw;
+    		font-weight: 300;
+            line-height: 12vw;
+    		color: #000;
+    		float: left;
+    		text-align: center;
+    	}
+.order-address{width:100%; display:inline-block; box-sizing:border-box; padding:1em 1em 1.5em; background:url(../images/order/address_bottom.png) bottom no-repeat; background-size:100%}
+.address-icon{width:7vw; height:11vw; background:url(../images/order/address.png) no-repeat; background-size:100% 100%; float:left; margin-right:2vw; margin-top:2vw}
+.order-address .font16{font-size:3.5vw;}
+.order-address .yell{color:#ff6400; font-size:3vw;}
+.order-pro{width:100%; display:inline-block; box-sizing:border-box; padding-top:.5em;}
+.order-pro ul{margin:0; padding:0}
+.order-pro ul li{width:100%; border-bottom:1px solid #ddd; padding:.7em 1em; float:left;}
+.order-pro ul li:last-child{border-bottom:none}
+.order-pro ul li img{width:6em; height:6em; float:left; margin-right:2vw; border:1px solid #eee; border-radius:2px}
+.order-pro ul li p{line-height:150%}
+.order-pro ul li p.title{/*height:3em; overflow:hidden*/}
+.order-pro ul li span{color:#999}
+.yell{color:#ff6400;}
+.order-down{width:100%; border-top:.5em solid #f0f0f0; float:left; padding:.5em 0}
+.order-d-list{width:100%; border-bottom:1px solid #ddd; padding:.3em 1em 0; line-height:2.4em; float:left;}
+.order-d-list span{width:15%;}
+.order-d-list label{width:20%; float:left}
+.order-d-list .inpt{border:0;width:79%; padding:0 .5em; box-sizing:border-box; font-size:3vw;}
+.order-but{border:1px solid #ff6400; -webkit-appearance: none; font-size:15px; background:#ff6400; text-align:center; color:#fff; width:100%; height:40px; line-height:40px; position:fixed; bottom:0; left:0}
+.address-add{width:100%; height:6em; line-height:6em; font-size:16px; background:url(../images/order/address_bottom.png) bottom no-repeat #f0f0f0; background-size:100%; position:relative; display:flex; align-items:center; justify-content:center;}
+.address-add .address-icon{width:2em; height:2em; margin:0 .7em 0 0 ; display:inline-block; background:url(../images/order/add.png)no-repeat; background-size:100% 100%;}
+.address-add .add-but{opacity: 0; filter: alpha(opacity=0); width: 100%; height: 5em; z-index: 99; position: absolute; left: 0px; top: 0px;}
+.buy-address{width:82vw; float:right}
+.buy-address p{font-size:3.2vw; line-height:150%;}
+.buy-price{width:69.4vw; float:right}
+/*user添加地址style*/
+.address-d-list{width:100%; border-bottom:1px solid #ddd; padding:.7em 1em 0; float:left; line-height:2.3em; position:relative}
+.address-d-list .inpt{border:0; outline:none; width:100%; padding:0 .5em; box-sizing:border-box; font-size:14px; box-sizing:border-box; padding-left:2em}
+.address-d-list .adsicon{width:1.5rem; height:1.5em; position:absolute; left:.8em; top:1em}
+.address-d-list .adsicon.img1{background:url(../images/order/add2.png) no-repeat; background-size:100% 100%}
+.address-d-list .adsicon.img2{background:url(../images/order/add3.png) no-repeat; background-size:100% 100%}
+.address-d-list .adsicon.img3{background:url(../images/order/add1.png) no-repeat; background-size:100% 100%}
+.address-d-list .adsicon.img4{background:url(../images/order/add4.png) no-repeat; background-size:100% 100%}
+.pl24{padding-left:3em}
+.address-d-list select{border:none; background:url(../images/order/downicon.png) 95% center no-repeat #fff; padding-right:6.5%; box-sizing:border-box; font-size:14px; background-size:.7em .7em; -webkit-appearance: none; outline:none;}
+.address-d-list select:nth-child(2){width:35%}
+.address-d-list select:nth-child(3){width:30%}
+.address-d-list select:nth-child(4){width:30%}
+/*用户支付style*/
+.pay-div{width:100%; border-bottom:.5em solid #f0f0f0; float:left}
+.pay-div ul, .pay-sec{margin:0; padding:0}
+.pay-div ul li{width:100%; border-bottom:1px solid #ddd; padding:1em .7em .7em; line-height:1.5em; float:left}
+.pay-div ul li:last-child{border-bottom:none;}
+.pay-div ul li .payicon{width:1.5rem; height:1.5em; float:left; margin-right:.5em}
+.pay-div ul li .payicon.img1{background:url(../images/order/app1.png) no-repeat; background-size:100% 100%;}
+.pay-div ul li .payicon.img2{background:url(../images/order/app2.png) no-repeat; background-size:100% 100%;}
+.pay-div ul li .payicon.img3{background:url(../images/order/app3.png) no-repeat; background-size:100% 100%;}
+.pay-div ul li .payicon.img4{background:url(../images/order/app4.png) no-repeat; background-size:100% 100%;}
+.pay-sec{width:100%; float:left; }
+.pay-sec ul li{width:100%; border-bottom:1px solid #ddd; padding:1em .7em .7em; line-height:2.2em; float:left}
+.pay-sec ul li .payicon{width:2.2rem; height:2.2em; float:left; margin-right:.7em}
+.pay-sec ul li .payicon.img1{background:url(../images/order/app.png) no-repeat; background-size:100% 100%;}
+.pay-sec ul li .payicon.img2{background:url(../images/order/wxzf.png) no-repeat; background-size:100% 100%;}

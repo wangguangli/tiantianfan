@@ -1,0 +1,3 @@
+<div class="footer text-muted">
+	&copy; {:GC('web_title')}
+</div>

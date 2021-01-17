@@ -1,0 +1,33 @@
+html,body{min-height:100%;font-size:0.9em;}
+body{margin:0px; padding:0px; font-family:"Microsoft YaHei","simsun","Helvetica Neue", Arial, Helvetica, sans-serif; font-size:0.9em;color:#333; background:#fff;}
+a:hover{text-decoration:none;}
+a{color:#666;text-decoration:none;}
+img{border:0}
+ul,li{list-style:none;padding: 0;margin: 0;}
+ul,li,div{box-sizing:border-box}
+/*清理浮动的方法*/
+.clearfix:after {content: " ";display: block;clear: both;height: 0;}
+.clearfix {zoom: 1;}
+/*************************************************我的资产************************************************************************/
+.consume{padding: 2.5vw;}
+.consume ul{background: #ffff;}
+.consume ul li{width: calc(100% / 2);float: left;text-align: center;padding: 2vw 0;letter-spacing: 1px;font-size: 3.5vw;}
+.consume ul li.active{border-bottom: 1px solid #FF0006;color: #FF0006;}
+.expense{padding: 0 3vw;}
+.expense .time_ex{float: left;width: 50%;}
+.expense .time_right{float: right;width: 44%;text-align: right;}
+.expense .time_right p{margin: 0;}
+.expense ul li{display: flex;align-items: center;padding: 2vw 0;border-bottom: 1px solid #eee;}
+
+
+
+.load_more{
+	font-size: 3.33vw;
+	text-align: center;
+	padding-top: 5vw;
+	padding-bottom: 5vw;
+	color: #999999;
+}
+.load_more_red{
+	color: #fe4543;
+}

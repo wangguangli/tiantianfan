@@ -1,0 +1,24 @@
+            .product-title{
+				width: 100%;
+                background: #1c1c1e;
+			}
+			.product-title p{
+				width: 70%;
+			    font-size: 5vw;
+			    font-weight: 300;
+			    line-height: 12vw;
+			    color: #000;
+			    float: left;
+			    height: 12vw;
+			    text-align: center;
+			}
+			.product-title-back{
+				width: 15%;
+			    text-align: center;
+			    float: left;
+			}
+			.product-title-back img{
+				margin-top: 2vw;
+			    width: 8vw;
+			    height: 8vw;
+			}

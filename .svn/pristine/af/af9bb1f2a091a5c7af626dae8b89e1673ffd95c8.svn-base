@@ -1,0 +1,24 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>商品详情</title>
+<style>
+	body{background:#fff; margin:0;padding:0; display: block; font-family:"Microsoft YaHei","simsun","Helvetica Neue", Arial, Helvetica, sans-serif; font-size:3.5vw; color:#555}
+	div{box-sizing:border-box}
+	.show{width:100%; padding:3vw;}
+	.title{width:100%; text-align:left; padding-bottom:2vw; font-size:4.5vw; color:#fb3838; font-weight:500}
+	.con-div{font-size:3.3vw; color:#777; padding:2vw 0; line-height:150%}
+	img {width:100%}
+</style>
+</head>
+<body>
+	<div class="show">
+		<div class="con-div">
+			{$content|htmlspecialchars_decode}
+		</div>
+	</div>
+</body>
+</html>

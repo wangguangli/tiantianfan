@@ -1,0 +1,31 @@
+html,body{min-height:100%;font-size:0.9em;}
+body{margin:0px; padding:0px; font-family:"Microsoft YaHei","simsun","Helvetica Neue", Arial, Helvetica, sans-serif; font-size:0.9em;color:#333; background:#fff;}
+a:hover{text-decoration:none;}
+a{color:#666;text-decoration:none;}
+img{border:0}
+ul,li{list-style:none}
+ul,li,div{box-sizing:border-box}
+/*清理浮动的方法*/
+.clearfix:after {content: " ";display: block;clear: both;height: 0;}
+.clearfix {zoom: 1;}
+/**************************************************我的订单*************************************************************/
+.order_all{width: 100%;height: 10vw;line-height:10vw;color: #000;background: #fff;}
+.order_all ul{padding: 0;margin: 0;} 
+.order_all ul li{width:25vw;float: left;height: 10vw;line-height: 10vw;text-align: center;font-size: 3.5vw;}
+.order_all ul li.active{color: #FE274E;border-bottom: 1px solid #FE274E;}
+
+.goods_list{border-bottom: 1.3vw solid #F5F5F5;}
+.goods_list .goods_con{padding: 1vw 2.5vw;display: flex;justify-content: space-between;}
+.goods_list .goods_con h6{color: #000;font-size: 3.8vw;}
+.goods_list .goods_con p{color:#FE274E;margin: 0;font-size: 3.5vw;}
+.goods_list .shop_list{padding: 2.5vw 2vw;background: #F5F5F5;}
+.goods_list .shop_list .shop_pic{width:20vw;height: 20vw;background: #DDDCDC;border-radius: 2vw;float: left;}
+.goods_list .shop_list .shop_pic img{border-radius:2vw;}
+.goods_list .shop_list .shop_left{float: left;margin-left: 3vw;}
+.goods_list .shop_list .shop_left p{margin: 0;color: #000;margin-top: 2vw;}
+.out_poc{padding: 1vw 0;margin: 0 2.5vw;border-bottom: 1px solid #eee;}
+.out_poc p{float: right;margin: 0;color: #000;}
+.out_poc p span{color: #FE274E;}
+.can_detail{padding: 2vw 2.5vw;display: flex;justify-content: flex-end;}
+.can_detail span{border: 1px solid #C3C3C3;color: #C3C3C3;border-radius: 20vw;height:  7vw;line-height: 7vw;width: 20vw;text-align: center;margin-left: 2vw;}
+.can_detail span:last-child{color: #FE274E;border: 1px solid #FE274E;}

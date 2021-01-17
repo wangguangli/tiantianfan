@@ -1,0 +1,1471 @@
+<?php
+
+namespace M\Controller;
+header("Content-type: text/html; charset=utf-8");
+
+use Clas\Address;
+use Clas\Jssdk;
+use Clas\User;
+use Clas\Orderout;
+use Clas\Fans;
+use Clas\Account;
+
+class UserController extends CommonController
+{
+	/**
+	 * 个人中心页面
+	 */
+	public function index()
+	{
+		set_time_limit(0);
+		$userId = $this->user_id;
+		// 查询具体信息
+		$userInfo = array();
+		$fav_num = 0;   // 收藏数量
+		if ($userId)
+		{
+			// 获取所有未结算收益的订单，然后循环处理收益
+//			$where_og['user_id'] = $userId;
+//			$where_og['isdel'] = 0;
+//			$where_og['is_profit_1|is_profit_2|is_profit_3'] = 0;
+//			$where_og['order_status'] = array("in", "1,2,3,5");
+//			$orderList = M("order")->where($where_og)->field("id")->select();
+//			foreach ($orderList as $key => $value)
+//			{
+//				order_logic($value['id']);
+//			}
+
+			$where['id'] = $userId;
+			$userInfo = get_user_info($where, "*", 1);
+			if (!$userInfo)
+			{
+				session('user_id', null);
+				session(null);
+				$this->error('没有此用户请重新登录', U('Index/login'));
+			}
+			if ($userInfo["is_del"] || $userInfo["status"] > 1)
+			{
+				session('user_id', null);
+				session(null);
+				$this->error('账户异常，请重新登录或联系客服', U('Index/login'));
+			}
+
+			$userInfo['cre_date'] = date("Y-m-d H:i:s", $userInfo['cre_time']);
+			if ($userInfo['pay_password'])
+			{
+				$userInfo["is_paypwd"] = "1";
+			}
+			else
+			{
+				$userInfo["is_paypwd"] = "0";
+			}
+			// 删除密码
+			unset($userInfo["password"]);
+			unset($userInfo["pay_password"]);
+			$userInfo["share_url"] = C("C_HTTP_HOST") . "/index.php/M/Index/reg?tuijian=" . $userInfo["phone"];
+
+			$where_u['user_id'] = $userId;
+			if ($userInfo["is_shop"])
+			{
+				$shopinfo = get_user_info($where_u, "*", 0, 2);    // 这里通过接口取值
+				$userInfo["shopinfo"] = $shopinfo;
+			}
+			if ($userInfo["is_agent"])
+			{
+				$agentinfo = get_user_info($where_u, "*", 0, 3);    // 这里通过接口取值
+				$userInfo["agentinfo"] = $agentinfo;
+			}
+			$userInfo['level_name'] = user_level_name($userInfo['level']);
+
+			$fav_num = M("favorites")->where("user_id=".$userId)->count();
+
+			//查询订单的相关数量
+            $orderWhere["user_id"] = $userId;
+            $orderWhere["order_status"] = 0;
+            $orderWhere["isdel"] = 0;
+            $orderWhere['order_type'] = array('not in','1,2,3,4,10');
+            $payOrder = M('order')->where($orderWhere)->count();//待付款的订单数量
+            if($payOrder > 9){
+                $payOrder = 9;
+            }
+            $orderWhere['order_status'] = 1;
+            $ship = M('order')->where($orderWhere)->count();//待发货的订单数量
+            if($ship > 9){
+                $ship = 9;
+            }
+            $orderWhere['order_status'] = 2;
+            $receipt = M('order')->where($orderWhere)->count();//待收货的订单数量
+            if($receipt > 9){
+                $receipt = 9;
+            }
+            $orderWhere['order_status'] = 3;
+            $comment = M('order')->where($orderWhere)->count();//待评论的订单数量
+            if($comment > 9){
+                $comment = 9;
+            }
+
+
+
+
+            $this->assign('payOrder',$payOrder);
+            $this->assign('ship',$ship);
+            $this->assign('comment',$comment);
+            $this->assign('receipt',$receipt);
+		}
+		if (!$userInfo['nickname'] && $userInfo['phone'])
+		{
+			$userInfo['nickname'] = $userInfo['phone'];
+		}
+
+		$kefu['qq'] = get_config("qq");
+		$kefu['phone'] = get_config("kefu_mobile");
+		$this->assign('user', $userInfo);
+		$this->assign('menu_center', 'cut');
+		$this->assign('fav_num', $fav_num);
+		$this->assign('kefu', $kefu);
+		$this->display();
+	}
+
+
+    /**
+     * Notes:会员升级
+     * ToUser:王小溜
+     * Date: 2020/10/24
+     * Time: 15:28
+     */
+    public function upgrade()
+    {
+        $user_id = session('user_id');
+        $where['id'] = $user_id;
+        $userInfo = get_user_info($where, "id,headimgurl,nickname,phone,level,pay_password", 1);
+        $level = $userInfo['level'];
+        $list = M("config_user_level")->where(" is_del=0 and status=1 and level_ranking>" . 0)->order("level_ranking asc")->field("id,level_name,up_auto_self_money,up_level_money")->select();
+
+
+        foreach ($list as $key => &$value)
+        {
+            $value['remark'] = "会员专属服务<br>福利、保障";
+        }
+        if (empty($userInfo['pay_password']))
+        {
+            $is_psw = 0;
+        }
+        else
+        {
+            $is_psw = 1;
+        }
+        // 支付方式展示
+        $is_alipay = get_config("is_alipay");
+        $is_wx_pay = get_config("is_wx_pay");
+        $is_ye_pay = get_config("is_ye_pay");
+
+
+        $this->assign('userInfo', $userInfo);
+        $this->assign('is_psw', $is_psw);
+        $this->assign('list', $list);
+        $this->assign('is_alipay', $is_alipay);
+        $this->assign('is_wx_pay', $is_wx_pay);
+        $this->assign('is_ye_pay', $is_ye_pay);
+        $this->display();
+    }
+
+
+	public function stock_center()
+	{
+		$userId = $this->user_id;
+		$yhq_data = $this->couponList($userId);
+
+		$this->assign('yhq_arr', $yhq_data);
+		$this->assign('user_id', $userId);
+		$this->display();
+	}
+
+
+	public function myCoupon($user_id, $type)
+	{
+
+		if (!$user_id)
+		{
+			jsonout("缺少主要参数");
+		}
+		$join = " left join __COUPON__ as c on cu.cid=c.id";
+		if ($type == 1)
+		{
+			$where = "cu.is_hide=0 and cu.order_id=0 and cu.use_end_time>=" . time();
+		}
+		elseif ($type == 2)
+		{
+			$where = "cu.is_hide=0 and cu.order_id>0 ";
+		}
+		elseif ($type == 3)
+		{
+			$where = "cu.is_hide=0 and cu.order_id=0 and cu.use_end_time<" . time();
+		}
+		else
+		{
+			$where = "cu.is_hide=0";
+		}
+		$where .= " and user_id=" . $user_id;
+		$field = "cu.*,c.name,c.money,c.conditions,c.goods_id,c.shop_id,c.to_new_user,c.same_time,c.status,c.is_del";
+		$list = M("coupon_user")->alias("cu")->join($join)->field($field)->where($where)->order("cu.id desc")->select();
+		foreach ($list as $key => &$value)
+		{
+			// 不可用优惠券，去除
+			if (!$value['status'])
+			{
+				unset($list[$key]);
+				continue;
+			}
+			if ($value['is_del'] == 1)
+			{
+				unset($list[$key]);
+				continue;
+			}
+			// 满减提示
+			$value['conditions_cn'] = "满" . $value['conditions'] . "元可用";
+			$shopName = "全平台通用优惠券";
+			$couponType = "平台券";
+			$newUser = "";            // 是否仅新用户可用 -- 即以前未使用过优惠券的
+			$effectiveTime = "";    // 有效时间
+			if ($value['shop_id'])
+			{
+				$shopName = M("shop")->where("id=" . $value['shop_id'])->getField("shop_name");
+				$shopName = $shopName ? $shopName : "平台商家";
+				$shopName = "仅限" . $shopName . "使用";
+				$couponType = "商家券";
+			}
+			if ($value['goods_id'])
+			{
+				$shopName = M("goods")->where("id=" . $value['goods_id'])->getField("name");
+				$shopName = $shopName ? $shopName : "指定商品";
+				$shopName = "仅限" . $shopName . "使用";
+				$couponType = "商品券";
+			}
+			$value['shop_name'] = $shopName;
+			$value['coupon_type'] = $couponType;
+			if ($value['to_new_user'])
+			{
+				$newUser = "[新用户]";
+			}
+			$value['to_new_user_cn'] = $newUser;
+
+			$effectiveTime = date("Y.m.d", $value['use_start_time']) . " - " . date("Y.m.d", $value['use_end_time']);
+			$value['effective_time'] = $effectiveTime;
+
+			// 赋值优惠券真实状态
+			// $type 		类型，0全部，1未使用，2已使用，3已过期
+			if ($type == 2)
+			{
+				$value['use_status'] = 0;
+			}
+			elseif ($type == 3)
+			{
+				$value['use_status'] = 0;
+			}
+			elseif ($type == 1)
+			{
+				$value['use_status'] = 1;
+			}
+			else
+			{
+				if ($value['order_id'] > 0 || $value['use_end_time'] < time())
+				{
+					$value['use_status'] = 0;
+				}
+				else
+				{
+					$value['use_status'] = 1;
+				}
+			}
+		}
+		$list = array_values($list);
+		if (!$list)
+		{
+			//jsonout("暂无优惠券，可去领券中心领取", 1);
+		}
+		else
+		{
+			return $list;
+		}
+	}
+
+
+	public function my_coupon()
+	{
+		$userId = $this->user_id;
+		$yhq_w = $this->myCoupon($userId, 1);
+		$yhq_y = $this->myCoupon($userId, 2);
+		$yhq_g = $this->myCoupon($userId, 3);
+		$this->assign('yhq_w', $yhq_w);
+		$this->assign('yhq_y', $yhq_y);
+		$this->assign('yhq_g', $yhq_g);
+		$this->display();
+
+	}
+
+
+	/**
+	 *
+	 * 签到
+	 * @param int $user_id 用户ID
+	 * @return json 结果集
+	 * @mgl
+	 */
+	public function signIn()
+	{
+		$user_id = session('user_id');//用户id
+		$start = strtotime(date("Y-m-d"));
+		$end = $start + 86400;
+
+		$where["user_id"] = $user_id;
+		$where["deal_type"] = 9;    // 签到日志
+		$where["cre_time"] = array("between", array($start, $end));
+		$count = M("account_log")->where($where)->count();
+		if ($count > 0)
+		{
+			jsonout("今天已签到");
+		}
+		$amount = get_config_project("sign_points");
+		$rs = change_money_log($user_id, 1, "score", 0, $amount, 16, 9, "每日签到账户积分", 1, 1, 1);
+		if ($rs)
+		{
+			jsonout("签到成功", 0);
+		}
+		else
+		{
+			jsonout("签到失败，请重新签到");
+		}
+	}
+
+	/**
+	 * 修改用户信息页面呈现
+	 */
+	public function header()
+	{
+		$userId = session('user_id');
+		$userInfo = M('user')->find($userId);
+		$userInfo['level_name'] = user_level_name($userInfo['level']);
+		$this->assign('userInfo', $userInfo);
+        //查询上级
+        if($userInfo['first_leader']){
+            $top = M('user')->find($userInfo['first_leader']);
+        }else{
+            $top = array();
+        }
+        $this->assign('top',$top);
+		$this->display();
+	}
+
+	/**
+	 * 修改的操作
+	 */
+	public function editInfo()
+	{
+		$arr = I();
+		$head = $arr['img'];
+		if (!empty($head))
+		{
+			$data['headimgurl'] = $head;//头像
+		}
+
+		$data['nickname'] = $arr['user_name'];//昵称
+		$where['id'] = $arr['user_id'];
+		$user = M('user')->where($where)->save($data);
+		if ($user)
+		{
+			jsonout('修改成功', 0);
+		}
+		else
+		{
+			jsonout('修改失败', 1);
+		}
+	}
+
+
+	/**
+	 * 积分详情
+	 */
+	public function accountDetail()
+	{
+		$type = I('type', 0);   // 0余额，1积分 -1佣金的明细（一级 二级 三级等）
+		$user_id = session('user_id');
+		$page = I("page", 1);
+
+		$User = new User($user_id);
+		$pageNum = 10;
+		if($type == -1){
+            //佣金明细  根据当前项目需求修改本条件
+            $where['type'] = 1;
+            $where['deal_type'] = array('in',array(16,17,18,19,20));
+        }else{
+            $where['type'] = $type;
+        }
+
+
+		$where['user_id'] = $user_id;
+		$pageWhere['page'] = $page;
+		$list = $User->accountLog($where, 'id desc', $pageNum, $pageWhere);
+
+		if ($page < 2)
+		{
+			$pageRes = $User->getAccountLogNums($where, $pageNum);
+			$max_page = $pageRes['max_page'];
+		}
+		$this->assign('type', $type);
+		$this->assign('user_id', $user_id);
+		$this->assign('list', $list);
+		$this->assign('max_page', $max_page);
+		if ($page == 1)
+		{
+			$this->display();
+		}
+		else
+		{
+			$this->display("account_load_more");
+		}
+	}
+
+
+	/**
+	 * 用户的订单列表
+	 */
+	public function orderList()
+	{
+		$userId = session('user_id');
+		$Orderout = new Orderout($userId);
+		$date = I();
+		$data = $Orderout->orderList($date);
+		jsonout('订单列表', 0, $data);
+	}
+
+	/**
+	 * 我的粉丝列表
+	 * type 必须  int 类型 1一级 2二级 3三级
+	 */
+	public function fansList()
+	{
+		$user_id = session('user_id');
+		$type = I('type');
+		$obj = new Fans();
+		$result = $obj->fanList($user_id);
+		$data = $result[2];
+		if (!empty($data))
+		{
+			foreach ($data as $k => $v)
+			{
+				$data[$k]['time'] = date('Y-m-d H:i:s', $v['cre_time']);
+			}
+		}
+		$this->assign('type', $type);
+		$this->assign('fans', $data);
+		$this->display();
+	}
+
+	/**
+	 * 我的二维码
+	 */
+	// public function code(){
+	// $this->_user_id = session('user_id');
+	// $where['id'] = session('user_id');
+	// $user_no = get_user_info($where);
+	// if(!$user_no['qrcode']){
+	// Vendor('phpqrcode.phpqrcode');
+	// $url = C("C_HTTP_HOST") . U('Index/reg') . '?tuijian=' . $user_no['phone'];
+	// $url = urldecode($url);
+	// $filename = 'upload/qrcode/' . $this->_user_id . '_' . time() . '.png';
+	// $object = new \QRcode();
+	// // // ob_clean();//这个一定要加上，清除缓冲区
+	// $object->png($url,$filename,'Q','6','2');
+	// $data['qrcode'] = '/'.$filename;
+	// M('user')->where(array('id ='.$this->_user_id))->save($data);
+	// $qrcode = M('user')->where(array('id ='.$this->_user_id))->getField('qrcode');
+
+	// $this->assign('qrcode',$qrcode);
+	// }else{
+	// $this->assign('qrcode',$user_no['qrcode']);
+	// }
+	// $this->display();
+	// }
+	public function code()
+	{
+		$this->_user_id = session('user_id');
+		$where['id'] = session('user_id');
+		$user_no = get_user_info($where);
+		if ($user_no['qrcode'])
+		{
+			$this->assign('qrcode', $user_no['qrcode']);
+		}
+		else
+		{
+            $code = $this->make_qrcode();
+            $this->assign('qrcode', $code);
+		}
+		$this->display();
+	}
+
+	/**
+	 * 推广二维码合成
+	 */
+	public function make_qrcode()
+	{
+		header("Content-Type: text/html; charset=UTF-8");
+		$this->_user_id = session('user_id');
+		$where['id'] = session('user_id');
+		$data = get_user_info($where);
+		if(empty($data['qrcode'])){
+
+            Vendor('phpqrcode.phpqrcode');
+            $url = C("C_HTTP_HOST") . U('Index/reg') . '?tuijian=' . $data['phone'];
+            $url = urldecode($url);
+            $time = time();
+            $filename = 'upload/qrcode/' . $data['id'] . '_' . $time . '.png';
+            $object = new \QRcode();
+            // // ob_clean();//这个一定要加上，清除缓冲区
+            $object->png($url, $filename, 'Q', '6', '2');
+            $qrcode = '/' . $filename;
+            $code = 'upload/qrcode/' . $data['id'] . '_' . $time . '.png';
+            $this->createSharePng($qrcode, $code);
+            $date['qrcode'] = '/' . $code;
+
+            M('user')->where(array('id =' . $this->_user_id))->save($date);
+        }
+
+        $js = new Jssdk();
+		//分享的推荐
+        $share = array(
+            'title' => '快来加入我们',
+            'url' => C('C_HTTP_HOST') . 'M/Index/reg?tuijian='.$data['phone'],
+            'thumb' => $data['headimgurl'],
+            'desc' => '淼返',
+        );
+        $this->assign('share', $share);
+        $this->assign('wxjssign', $js->getSign(1));//获取分享数据
+        $data = get_user_info($where);
+		$this->assign('qrcode',$data['qrcode']);
+		$this->display('code');
+
+	}
+
+	/**
+	 * 分享图片生成
+	 * @param $codeName 二维码图片
+	 * @param $fileName string 保存文件名,默认空则直接输入图片
+	 */
+	public function createSharePng($codeName, $fileName = '')
+	{
+		header("Content-Type: text/html; charset=UTF-8");
+		//原始图像
+		$dst = get_config_poster('tuiguang_haibao');
+		$preg = "/^http(s)?:\\/\\/.+/";
+		if (preg_match($preg, $dst))
+		{
+			$dst = get_config_poster('tuiguang_haibao');
+		}
+		else
+		{
+			$dst = $_SERVER['DOCUMENT_ROOT'] . get_config_poster('tuiguang_haibao');
+		}
+		$data = (pathinfo($dst));
+		if ($data['extension'] == 'png')
+		{
+			$dst_im = imagecreatefrompng($dst);
+		}
+		elseif ($data['extension'] == 'jpg' || $data['extension'] == 'jpeg')
+		{
+			$dst_im = imagecreatefromjpeg($dst);
+		}
+		elseif ($data['extension'] == 'gif')
+		{
+			$dst_im = imagecreatefromgif($dst);
+		}
+		$dst_info = getimagesize($dst);
+		//二维码图像
+		$src = $_SERVER['DOCUMENT_ROOT'] . $codeName;
+		$src_im = imagecreatefrompng($src);
+		$src_info = getimagesize($src);
+		$w = get_config_poster('ewm_width');//二维码宽度
+		$h = get_config_poster('ewm_height');//二维码高度
+		$ewm_top = get_config_poster('ewm_top');//二维码上边距
+		$ewm_left = get_config_poster('ewm_left');//二维码左边距
+		$image = imagecreatetruecolor($w, $h);
+		imagecopyresampled($image, $src_im, 0, 0, 0, 0, $w, $h, $src_info['0'], $src_info['1']);
+		imagecopymerge($dst_im, $image, $ewm_left, $ewm_top, 0, 0, $w, $h, 100);//合并二维码
+		//合并水印图片
+		//输出图片
+		if ($fileName)
+		{
+			imagepng($dst_im, $fileName);   // 生成图片之后，保存
+		}
+		else
+		{
+			Header("Content-Type: image/png");  // 生成图片之后，展示出来
+			imagepng($dst_im);
+		}
+		/*imagejpeg($dst_im); //  这里控制输出jpg图片
+		imagedestroy($dst_im);
+		imagedestroy($src_im);*/
+	}
+
+
+	/**
+	 * 二维码图片
+	 */
+	public function qrcode($url = "", $level = 3, $size = 4)
+	{
+		$user_id = session('user_id');
+		if (empty($url))
+		{
+			$url = C("C_HTTP_HOST") . U('Index/reg') . '?user_id=' . $user_id;
+		}
+		Vendor('phpqrcode.phpqrcode');
+		$errorCorrectionLevel = intval($level);//容错级别
+		$matrixPointSize = intval($size);//生成图片大小
+		//生成二维码图片
+		$object = new \QRcode();
+		$object->png($url, false, $errorCorrectionLevel, $matrixPointSize, 2);
+	}
+
+
+	/**
+	 * 添加收藏（商品或商家）
+	 * @param int $user_id 分页数量
+	 * @param int $fav_id 商品ID或商家UID
+	 * @param int $type 1商品 2商家
+	 * @return  array               成功或失败
+	 * @zd
+	 */
+	public function addFavorites()
+	{
+		$obj = new User();
+		$data = I();
+		$data['user_id'] = $this->user_id;
+		$result = $obj->addFavorites($data);
+		jsonout($result[0], $result[1]);
+
+	}
+
+	/**
+	 * 我的收藏
+	 */
+	public function collect()
+	{
+		$type = I('type');
+		$page = I('page',1);
+		$user_id = session('user_id');
+		$obj = new User($user_id);
+		$result = $obj->favorites();
+        $maxPage = 0;
+        $total = 0;
+        $user = new User();
+        if($page < 2){
+            $where['f.user_id'] = $user_id;
+            $where['f.type'] = $type;
+            $numArr = $user->getFavorites($where, 10);
+            $maxPage = $numArr['max_page'];
+            $total = $numArr['total'];
+        }
+
+		$this->assign('type', $type);
+		$this->assign('list', $result['result']);
+		$this->assign('maxPage', $maxPage);
+		$this->assign('total', $total);
+        if($page == 1){
+            $this->display();
+        }else{
+            $this->display("collect_more");
+        }
+	}
+
+	/**
+	 * 我的银行卡列表
+	 */
+	public function bank_card()
+	{
+		$user_id = session('user_id');
+		$data['user_id'] = $user_id;
+		$obj = new Account();
+		$result = $obj->bank_list($data);
+		$this->assign('list', $result[2]);
+		$this->display();
+	}
+
+	/**
+	 * 添加银行卡
+	 */
+	public function add_card()
+	{
+        $cur_q=parse_url($_SERVER["REQUEST_URI"],PHP_URL_QUERY);
+        parse_str($cur_q,$myArray);
+        $new_array = array_keys($myArray);
+		if (IS_POST)
+		{
+			$data = I();
+			$user_id = session('user_id');
+			$data['user_id'] = $user_id;
+			$obj = new Account();
+			$result = $obj->add_bank($data);
+			if ($result)
+			{
+				if ($result[1] == 1)
+				{
+					$this->error($result[0]);
+				}
+			    if($new_array[0]=='cart'){
+                    $this->success('添加成功', "/M/User/bank_card?cart=1");
+                }elseif ($new_array[0]=='agent'){
+                    $this->success('添加成功', "/M/User/bank_card?agent=1");
+                }elseif ($new_array[0]=='user'){
+                    $this->success('添加成功', "/M/User/bank_card?user=1");
+                }else{
+                    $this->success('添加成功', U('User/bank_card'));
+                }
+
+			}
+			else
+			{
+				$this->error('添加失败');
+			}
+		}
+		else
+		{
+		    $id = I('bank_id',0);
+		    $bank = M('user_bank')->where('id='.$id)->find();
+		    $this->assign('bank',$bank);
+			$this->display();
+		}
+	}
+
+	/**
+	 * 用户删除银行卡
+	 */
+	public function deleteBank()
+	{
+		$data = I();
+		$obj = new Account();
+		$user_id = session('user_id');
+		$data['user_id'] = $user_id;
+		$result = $obj->delete_bank($data);
+		jsonout($result[0], $result[1], $result[2]);
+	}
+
+
+	/**
+	 * 用户收货地址列表
+	 */
+	public function location()
+	{
+       $da = I();
+       if(!$da['cart']){
+           $da['cart'] = 'undefined';
+       }
+       if(!$da['refund_id']){
+           $da['refund_id'] = 0;
+       }
+		$data['user_id'] = session('user_id');
+
+		$obj = new Address();
+		$result = $obj->address($data);
+
+		if ($result)
+		{
+			$list = $result[2];
+		}
+		$this->assign('list', $list);
+		$this->assign('cart', $da['cart']);
+		$this->assign('refund_id', $da['refund_id']);
+		$this->display();
+	}
+
+	/**
+	 * 用户添加收货地址
+	 */
+	public function addAddress($data = null)
+	{
+		if (!$data)
+		{
+			$data = I();
+		}
+		$obj = new Address();
+		$result = $obj->add_address($data);
+		jsonout($result[0], $result[1], $result[2]);
+	}
+
+	/**
+	 * 个人中心设置界面
+	 */
+	public function setting()
+	{
+		$this->display();
+	}
+
+	/**
+	 * 个人中心----设置----修改手机号
+	 */
+	public function updatephone()
+	{
+		$userId = $this->user_id;
+		if (IS_POST)
+		{
+			$obj = new User($userId);
+			$ok = $obj->changePhone();
+			if (!is_numeric($ok))
+			{
+				$this->error($ok);
+			}
+			else
+			{
+				$this->success('修改成功', U('User/index'));
+			}
+		}
+		else
+		{
+			$info = M('user')->find($userId);//用户信息
+			//查询验证码功能是否开启
+			$where['name'] = 'code_status';
+			$code = M('config')->where($where)->find();
+			if (!$code)
+			{
+				$type = 0;
+			}
+			else
+			{
+				if ($code['val'] == 0)
+				{
+					$type = 0;
+				}
+				else
+				{
+					$type = 1;
+				}
+			}
+			$this->assign('info', $info);
+			$this->assign('type', $type);
+			$this->display();
+		}
+
+	}
+
+	/**
+	 * 个人中心----设置----修改登陆密码
+	 */
+	public function updateloginpassword()
+	{
+		$userId = $this->user_id;
+		if (IS_POST)
+		{
+			$obj = new User($userId);
+			$ok = $obj->editPassword();
+			if (!is_numeric($ok))
+			{
+				$this->error($ok);
+			}
+			$this->success('修改成功', U('Index/login'));
+		}
+		else
+		{
+			$userInfo = M('user')->find($userId);
+			if (empty($userInfo['password']))
+			{
+				$password = 0;
+			}
+			else
+			{
+				$password = 1;
+			}
+			$this->assign('password', $password);
+			$this->display();
+		}
+
+	}
+
+
+	/**
+	 *用户退出
+	 */
+	public function logout()
+	{
+		session('user_id', null);
+		session(null);
+		jsonout('退出成功', 0, null);
+	}
+
+	/**
+	 * 实名认证
+	 */
+	public function rep_account()
+	{
+		$where['id'] = session("user_id");
+		$user = get_user_info($where);
+		$this->assign('user', $user);
+		$this->display();
+	}
+
+	// 修改支付密码
+	public function rep_password()
+	{
+		$user_id = session('user_id');
+		$order_id = I("order_id", 0);
+		$userInfo = M('user')->find($user_id);
+		if (IS_POST)
+		{
+			$old_password = I("old_password", '');
+			$old_password = get_pwd($old_password);
+			$new_password = I("new_password", '');
+			$new_password1 = I("new_password1", '');
+			$order_id = I("order_id", '');
+
+			$where["id"] = $user_id;
+			if (!empty($userInfo['pay_password']))
+			{
+				if ($userInfo['pay_password'] && !$old_password)
+				{
+					$this->error("请输入原密码");
+				}
+				if ($userInfo['pay_password'] && $userInfo['pay_password'] != $old_password)
+				{
+					$this->error("旧密码与原设置密码不符");
+				}
+			}
+			if (!$userInfo)
+			{
+				$this->error("用户信息异常，请联系客服");
+			}
+			if (strlen($new_password) < 6)
+			{
+				$this->error("新密码至少6位以上数字");
+			}
+			if ($new_password != $new_password1)
+			{
+				$this->error("两次新密码不一致");
+			}
+			$code = I('code');//验证码
+
+			if ($code == 1)
+			{
+				$phone_code = I('open_code');
+				if (empty($phone_code))
+				{
+					$this->error("请输入验证码");
+				}
+				else
+				{
+					$code_status = get_config("code_status");
+					if (!$phone_code && $code_status)
+					{
+						$this->error("请输入验证码");
+					}
+					if (!check_phone_code($userInfo['phone'], $phone_code) && $code_status)
+					{
+						$this->error("请输入验证码");
+					}
+				}
+			}
+
+			$data["pay_password"] = get_pwd($new_password);
+			$rs = M("user")->where("id=" . $user_id)->save($data);
+			if ($rs !== false)
+			{
+				if ($order_id)
+				{
+					$url = U('Cart/sure_pay', array('order_id' => $order_id));
+				}
+				else
+				{
+					$url = U("index");
+				}
+				$this->success("设置成功", $url);
+			}
+			else
+			{
+				$this->error("设置失败，请重新设置");
+			}
+			exit();
+		}
+		else
+		{
+			//判断是否开启手机验证码
+			$code_status = get_config("code_status");
+			//判断原密码是否为空，第一次修改没有原密码
+			if (empty($userInfo['pay_password']))
+			{
+				$pay = 0;
+			}
+			else
+			{
+				$pay = 1;
+			}
+
+		}
+		$this->assign("order_id", $order_id);
+		$this->assign("pay", $pay);
+		$this->assign("phone", $userInfo['phone']);
+		$this->assign("code", $code_status);
+		$this->display();
+	}
+
+	/**
+	 * 编辑地址
+	 */
+	public function edit_location()
+	{
+		$address = I('address_id');
+		$addressInfo = M('user_address')->find($address);
+		$where['level'] = 1;
+		$province = M('region')->where($where)->select();
+		$province_id = $addressInfo['province'];//省id
+		$city_id = $addressInfo['city'];//市id
+		$district_id = $addressInfo['district'];//区id
+		$provinve = M('region')->find($province_id);//省
+		$addressInfo['province_name'] = $provinve['name'];
+		$city = M('region')->find($city_id); //市
+		$addressInfo['city_name'] = $city['name'];
+		$district = M('region')->find($district_id);
+		$addressInfo['district_name'] = $district['name'];
+		$this->assign('address', $addressInfo);
+		$this->assign('province', $province);
+		$this->assign('user_id', session('user_id'));
+		$this->display();
+	}
+
+	/**我的地址
+	 *
+	 * @param int $user_id 用户ID
+	 * @param string $consignee 收货人
+	 * @param string $phone 手机号码
+	 * @param string $zipcode 邮政编码
+	 * @param string $address 地址
+	 * @return  string      $is_default   默认收货地址
+	 * @return  string
+	 * @lz
+	 */
+	public function address($data = null)
+	{
+		if (!$data)
+		{
+			$data = I();
+		}
+		$obj = new Address();
+		$result = $obj->address($data);
+
+
+		jsonout($result[0], $result[1], $result[2]);
+	}
+
+	/*
+	 * @param   string    省
+	 * @lz
+	*/
+	public function province()
+	{
+		$obj = new Address();
+		$result = $obj->province();
+		jsonout($result[0], $result[1], $result[2]);
+	}
+
+	/*
+	 * @param   string   市
+	 * @lz
+	*/
+	public function city()
+	{
+		$obj = new Address();
+		$result = $obj->city();
+		jsonout($result[0], $result[1], $result[2]);
+	}
+
+	/*
+	 * @param   string    县
+	 * @lz
+	*/
+	public function district()
+	{
+		$obj = new Address();
+		$result = $obj->district();
+		jsonout($result[0], $result[1], $result[2]);
+
+	}
+
+	/**修改地址
+	 *
+	 * @param int $user_id 用户ID
+	 * @return  string
+	 * @zd
+	 */
+	public function editAddress($data = null)
+	{
+		if (!$data)
+		{
+			$data = I();
+		}
+
+		$obj = new Address();
+		$result = $obj->edit_address($data);
+		jsonout($result[0], $result[1], $result[2]);
+
+	}
+
+	/**
+	 * 实名认证
+	 * @param int $user_id 用户ID
+	 * @param string $id_card 身份证号
+	 * @param string $bank_name 持卡人姓名
+	 * @param string $phone 原手机号 -- 真实名时用
+	 * @param string $bank_no 银行卡号 -- 真实名时用
+	 * @return  string
+	 * @zd
+	 */
+	public function nameVerify()
+	{
+		$obj = new User();
+		$ok = $obj->nameVerify();
+		if (!is_numeric($ok))
+		{
+			jsonout($ok);
+		}
+		jsonout("认证成功", 0);
+	}
+
+	/**
+	 * 提现说明
+	 * @param int $type 1消费者，2商家，3代理
+	 * @return  json            用户基本信息
+	 * @zd
+	 */
+	public function moneyOutNotice()
+	{
+		$type = I("type", 1);
+		$type = $type ? $type : 1;
+		$info = M("config_tx")->where("type=" . $type)->order("id desc")->find();
+		$res = array('notice' => '', 'money' => '0.00');
+		if (!$info)
+		{
+			jsonout("没有提现说明，不用操作", 0, $res);
+		}
+
+		$notice = "最小提现金额为" . $info['tx_min'];
+		$notice .= "，最大提现金额为" . $info['tx_max'];
+		if ($info['tx_min_type'] == 2)
+		{
+			$notice .= "，提现金额必须为" . $info['tx_min_type_val'] . "倍数。";
+		}
+		if ($info['tx_num'] > 0)
+		{
+			if ($info['tx_num_type'] == 2)
+			{
+				$notice .= "每月提现" . $info['tx_num'] . "次。";
+			}
+			else
+			{
+				$notice .= "每日提现" . $info['tx_num'] . "次。";
+			}
+		}
+		if ($info['tx_fee_type'] == 2)
+		{
+			$notice .= "每笔手续费" . $info['tx_fee'] . "%。";
+		}
+		else
+		{
+			$notice .= "每笔手续费" . $info['tx_fee'] . "元。";
+		}
+		if ($info['notice'])
+		{
+			$notice .= $info['notice'];
+		}
+		jsonout("提现说明", 0, $notice);
+	}
+
+	/**
+	 * 删除收藏
+	 * @param int $user_id 用户ID
+	 * @param int $type 收藏类型 1商品 2商家
+	 * @param int $source 来源，1商品界面，2商家界面，3收藏列表
+	 * @param int $id 当source=1时，ID是商品ID，当source=2时，ID是商家user_id，当source=3时，ID是本记录的ID
+	 * @return  string
+	 * @zd
+	 */
+	public function deleteFavorites()
+	{
+		$obj = new User();
+		$result = $obj->delFavorites();
+		jsonout($result[0], $result[1]);
+	}
+
+
+	//返回可用的优惠券
+	public function couponList($user_id, $goods_id, $shop_id)
+	{
+		$where = "status= 1 and is_del=0 and type in (1,2,3,4) and money>0";
+		if ($goods_id)
+		{
+			$where .= " and goods_id=" . $goods_id;
+		}
+		if ($shop_id)
+		{
+			$where .= " and shop_id=" . $shop_id;
+		}
+		$list = M("coupon")->where($where)->field("cre_date,cre_time,ip,status,is_del", true)->order("id desc")->select();
+		foreach ($list as $key => &$value)
+		{
+			// 该用户是否领取过此优惠券
+			if ($user_id)
+			{
+				$where_uc['cid'] = $value['id'];
+				$where_uc['user_id'] = $user_id;
+				$userCoupon = M("coupon_user")->where($where_uc)->find();
+				if ($userCoupon)
+				{
+					$value['is_have'] = 1;    // 已领取过
+				}
+				else
+				{
+					$value['is_have'] = 0;    // 未领取过
+				}
+			}
+			else
+			{
+				$value['is_have'] = 0;    // 未领取过
+			}
+
+			// 满减提示
+			$value['conditions_cn'] = "满" . $value['conditions'] . "元可用";
+			$shopName = "全平台通用优惠券";
+			$couponType = "平台券";
+			$newUser = "";            // 是否仅新用户可用 -- 即以前未使用过优惠券的
+			$effectiveTime = "";    // 有效时间
+			if ($value['shop_id'])
+			{
+				$shopName = M("shop")->where("id=" . $value['shop_id'])->getField("shop_name");
+				$shopName = $shopName ? $shopName : "平台商家";
+				$shopName = "仅限" . $shopName . "使用";
+				$couponType = "商家券";
+			}
+			if ($value['goods_id'])
+			{
+				$shopName = M("goods")->where("id=" . $value['goods_id'])->getField("name");
+				$shopName = $shopName ? $shopName : "指定商品";
+				$shopName = "仅限" . $shopName . "使用";
+				$couponType = "商品券";
+			}
+			$value['shop_name'] = $shopName;
+			$value['coupon_type'] = $couponType;
+			if ($value['to_new_user'])
+			{
+				$newUser = "[新用户]";
+			}
+			$value['to_new_user_cn'] = $newUser;
+
+			if ($value['start_type'] == 1)
+			{
+				$effectiveTime = "领取后{$value['use_days']}天有效期";
+			}
+			else
+			{
+				$effectiveTime = date("Y.m.d", $value['use_start_time']) . " - " . date("Y.m.d", $value['use_end_time']);
+			}
+			$value['effective_time'] = $effectiveTime;
+
+			// 是否被全部领取完了
+			if ($value['send_num'] > $value['get_num'])
+			{
+				$value['sell_out'] = 0;    // 还没有被抢完
+			}
+			else
+			{
+				$value['sell_out'] = 1;    // 已被抢完
+			}
+
+		}
+		if (!$list)
+		{
+			return json_encode("暂无可用优惠券");
+		}
+		else
+		{
+			return $list;
+		}
+
+	}
+
+
+	/**
+	 * Title：我的分销
+	 * Note：
+	 * User： zd
+	 * Date： 2020/7/10 14:40
+	 */
+	public function distributionCenter()
+	{
+	    $user_id = session('user_id');
+	    $userInfo = M('user')->find($user_id);
+	    if($userInfo['first_leader']){
+	        $top = M('user')->find($userInfo['first_leader']);
+	        $this->assign('nickname',$top['nickname']);
+        }
+
+	    //已提金额
+        $txWhere['user_id'] = $user_id;
+        $txWhere['utype'] = 1;
+        $txWhere['ischeck'] = 1;
+        $price = M('tx_log')->where($txWhere)->sum('tx_money');
+        if(!$price){
+            $price = 0;
+        }
+        //预得佣金
+        $rebateWhere['user_id'] = $user_id;
+        $rebateWhere['is_profit'] = 0;
+        $rebateMoney = M('distribution_log')->where($rebateWhere)->sum('money');
+        if(!$rebateMoney){
+            $rebateMoney = 0;
+        }
+	    $this->assign('user',$userInfo);
+	    $this->assign('price',$price);
+	    $this->assign('rebateMoney',$rebateMoney);
+        $this->assign('menu_center', 'cut');
+        $this->display();
+	}
+
+
+    /**
+     * 用户分销订单
+     * @author lty
+     */
+    public function distributionOrder(){
+
+        //查询新表  查询时根据订单相关状态修改数据表的状态
+        $user_id = session('user_id');
+        $orderOut = new Orderout($user_id);
+        $res = $orderOut->distributionOrder();
+        $page = $res['page'];
+
+        //根据相关状态 查询出相关的订单列表
+        if ($page < 2)
+        {
+            $max_page = $res['max_page'];
+        }
+		$this->assign('user_id', $user_id);
+		$this->assign('max_page', $max_page);
+		$this->assign('list', $res['list']);
+		$this->assign('type', $res['type']);
+		if ($page == 1)
+        {
+            $this->display();
+        }
+        else
+        {
+            $this->display("distributionOrder_load_more");
+        }
+    }
+
+
+	//会员升级
+	public function levelup(){
+	    $this->display();
+    }
+
+    /**
+     * Notes:浏览记录
+     * User: WangSong
+     * Date: 2020/7/11
+     * Time: 15:53
+     */
+    public function browsing_history(){
+        $user_id = session('user_id');
+        $page = I('page',1);
+        $paging['page'] = $page;
+        $num = 10;
+        $where['f.user_id'] = array('eq',$user_id);
+        $user = new User();
+        $list = $user->footprint($where, "f.id desc", $num, $paging);
+        $maxPage = 0;
+        if($page < 2){
+            $numArr = $user->getFootprintNums($where, $num);
+            $maxPage = $numArr['max_page'];
+        }
+        $this->assign('goods',$list);
+        $this->assign('maxPage',$maxPage);
+        if($page == 1){
+            $this->display();
+        }else{
+            $this->display("browsing_history_more");
+        }
+
+    }
+
+    /**
+     * 普通用户的提现
+     * @author lty
+     */
+    public function moneyout(){
+        $user = M('user')->find($this->user_id);
+        if (IS_POST)
+        {
+            $data = I();
+            $data["user_id"] = $this->user_id;
+            $obj = new User($this->user_id);
+            $ok = $obj->Tixian($data);
+            if (is_array($ok)) {
+                jsonout($ok[0], $ok[1], $ok[2]);
+            }
+            jsonout($ok);
+        }
+        $bank_id = I("bank_id", 0);
+        $bank = M('user_bank')->find($bank_id);
+        if (empty($user['pay_password'])) {
+            $is_psw = 0;
+        } else {
+            $is_psw = 1;
+        }
+        $this->assign('user_id', $this->user_id);
+        $this->assign('bank', $bank);
+        $this->assign('is_psw', $is_psw);
+        $this->assign('user', $user);
+        $this->display();;
+    }
+    public function since(){
+        //查询本市全部自提点
+        $name = I('title');
+        $name = trim($name);
+        $city_id = I('city_id',0);
+        if(empty($lat)){
+            //根据城市id查询
+            if($city_id){
+                $whereCity['city'] = $city_id;
+            }
+        }else{
+            $lat = I('lat');
+            $lng = I('lng');
+            $url = "http://api.map.baidu.com/geocoder?location={$lat},{$lng}";
+            $ch = curl_init($url);
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+            curl_setopt($ch, CURLOPT_BINARYTRANSFER, true);
+            $output = curl_exec($ch);
+            curl_close($ch);
+            //返回xml格式  转化为数组
+            $output = xmlToArr($output);
+            $city = $output['result']['addressComponent']['city'];
+            $where['name'] = array('like','%' . $city . '%');
+            $cityInfo = M('region')->where($where)->find();
+
+            $whereCity['city'] = $cityInfo['id'];
+        }
+        if($name){
+            $whereCity['title'] = array('like','%'.$name.'%');
+        }
+        $whereCity['is_del'] = 0;
+        $picksiteList = M('goods_picksite')->where($whereCity)->select();
+        foreach ($picksiteList as $k => $v){
+            $kil = get_distance($lat,$lng,$v['lat'],$v['lng']);
+            $picksiteList[$k]['kil'] = round($kil/1000);
+        }
+        $this->assign('list',$picksiteList);
+        $this->display();
+    }
+    //    签到-韩
+    public function sign(){
+        $sing_config = M('config_signin')->find();
+        //print_r(htmlspecialchars_decode($sing_config['sign_rules']));exit();
+        $this->assign('user_id', $this->user_id);
+        $this->assign('rules', htmlspecialchars_decode($sing_config['sign_rules']));
+        $this->display();
+    }
+}

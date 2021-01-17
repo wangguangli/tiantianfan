@@ -1,0 +1,32 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>信息详情</title>
+<meta http-equiv="keywords" content="新闻动态" />
+<meta name="description" content="新闻动态" />
+<style>
+	body{background:#fff; margin:0;padding:0; display: block; font-family:"simsun","Helvetica Neue", Arial, Helvetica, sans-serif; font-size:3.5vw; color:#555}
+	div{box-sizing:border-box}
+	.show{width:100%; padding:2vw;}
+	.title{width:100%; text-align:center; border-bottom:1px solid #e9e9e9; padding-bottom:2vw;}
+	.title h1{font-size:4.5vw; font-weight:500; line-height:180%; margin:0; padding:0}
+	.title span{font-size:3vw; color:#aaa}
+	.con-div{font-size:3.5vw; color:#777; padding:2vw; line-height:150%}
+	img {width:100%}
+</style>
+</head>
+<body>
+	<div class="show">
+		<div class="title">
+			<h1>{$article.title}</h1>
+			<span>{$article.time|get_date}</span>
+		</div>
+		<div class="con-div">
+			{$article.content|htmlspecialchars_decode}
+		</div>
+	</div>
+</body>
+</html>

@@ -1,0 +1,19 @@
+ .win_cont{background-color: #f7f8fa;border-radius: 6vw 6vw 0 0;width: 100%;}
+ .win_top{overflow: hidden;position: relative;padding-top: 6vw;margin-bottom: 5vw;}
+ .win_top h3{font-size: 4.26vw;color: #333333;text-align: center;}
+ .win_top img{width: 4vw;height: 4vw;position: absolute;top: 6vw;right: 6vw;}
+ /*内容部分*/
+.win_container{overflow: hidden;}
+.win_list{width: 93vw;background-color: #fff;border-radius: 2vw;padding: 3vw;margin: 0 auto;margin-bottom: 3vw;}
+.win_list .top_tit{overflow: hidden;display: flex;align-items: center;justify-content: space-between;margin-bottom: 5vw;}
+.top_tit_lf{width: 50%;display: flex;align-items: center;}
+.top_tit_lf .tb{width: 4vw;height: 4vw;margin-right: 2vw;}
+.top_tit_lf h2{color: #333333;font-size: 4.07vw;}
+.top_tit a{color: #999999;font-size: 3.15vw;}
+.top_tit a .fanhui{width: 2vw;height: 3vw;margin-left: 2.13vw;}
+/*内容部分*/
+.win_product{overflow: hidden;display: flex;justify-content: space-around;align-items: center;}
+.win_product li{width: 33.3%;text-align: center;}
+.win_product li img{width: 27vw;height: 27vw;display: table;margin: 0 auto;display: block;}
+.f_price{color: #fe4543;font-size: 3.15vw;text-align: center;display: block;margin-top: 2vw;}
+.f_symbol{font-size: 3.89vw;font-weight: bold;}

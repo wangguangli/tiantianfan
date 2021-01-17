@@ -1,0 +1,325 @@
+<!DOCTYPE html >
+<html>
+<head>
+	<meta name="Generator" content="tpshop v1.1" />
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width">
+	<title>个人中心</title>
+	<meta http-equiv="keywords" content="{$tpshop_config['shop_info_store_keyword']}" />
+	<meta name="description" content="{$tpshop_config['shop_info_store_desc']}" />
+	<meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
+	<link rel="stylesheet" href="__PUBLIC__/mobile/style/main_style.css">
+	<link rel="stylesheet" type="text/css" href="__PUBLIC__/mobile/style/user_index.css"/>
+	<link href="__PUBLIC__/css/footer.css" rel="stylesheet" type="text/css" />
+	<script src="__PUBLIC__/layer/mobile/layer.js"></script>
+</head>
+<body>
+<header class="user_header">
+    <div class="user_info">
+		<a href="{:U('user/header')}">
+		    <img class="head_img" src="{$user.headimgurl}">
+			<div class="user_text">
+				<h2>{$user.nickname} </h2>
+				 <input type="hidden" value="{$user.id}" id="user_id">
+				<if condition="$user.level==0">
+				 <img src="__PUBLIC__/mobile/images/vipchuangye.png" class="rank">
+					<else/>
+					<img src="__PUBLIC__/mobile/images/vipputong.png" class="rank">
+				</if>
+			</div>
+		</a>
+		<div class="scan_shao" onclick="scan()">
+		    <span class="icon_sm message_icon scan-white-icon"></span>
+		    <p>扫一扫</p>
+		</div>
+		<div class="scan_shao" onclick="signIn()">
+		    <span class="icon_sm message_icon sign-white-icon"></span>
+		    <p>签到</p>
+		</div>
+		<div class="clear"></div>
+    </div>
+    <div class="money_info money-background-icon">
+        <div class="title">
+        	<div class="title_mo">
+			  <p class="title_ac">账户余额</p>
+				<a href="{:U('User/accountDetail','type=1')}">
+					<h3 class="money" >{$user.money}</h3>
+				</a>
+			</div>
+			<div class="title_ey" style="display: none;">
+			   <p class="title_aa">账户积分</p>
+				<a href="{:U('User/accountDetail','type=16')}"><h3 class="money"  >{$user.score}</h3></a>
+
+			</div>
+			<div class="clear"></div>
+    	</div>    	   	
+    </div>    
+    <div class="role_center" >
+        <div class="shangjia_center" onclick="shangjia()">
+            <div class="content" >
+				<span class="icon_tubiao shop-icon " ></span>
+				<p class="title">商家中心</p>
+   		        <div class="clear"></div>
+    		</div>
+    	</div>
+    	<div class="shangjia_center" onclick="agent()">
+    	    <div class="content" >
+				<span class="icon_tubiao agent-icon"></span>
+				<p class="title agent">代理中心</p>
+				<div class="clear"></div>
+			</div>	
+    	</div>
+    	<div class="clear"></div>
+    </div>
+</header>
+<div class="order_ul">
+	<ul>
+		<li>
+			<a href="{:U('Order/index','order_status=0')}">
+			<span class="order_icon dfk-icon" ></span>
+			<p>待付款</p>
+			</a>
+
+		</li>
+		<li>
+			<a href="{:U('Order/index','order_status=1')}">
+			<span class="order_icon dfh-icon" ></span>
+			<p>待发货</p>
+			</a>
+		</li>
+		<li >
+			<a href="{:U('Order/index','order_status=2')}">
+			<span class="order_icon dsh-icon" ></span>
+			<p>待收货</p>
+			</a>
+		</li>
+		<li >
+			<a href="{:U('Order/index','order_status=3')}">
+			<span class="order_icon dxh-icon" ></span>
+			<p>已完成</p>
+			</a>
+		</li>
+		<div class="clear"></div>
+	</ul>
+	
+</div>
+<div class="function_ul" >
+	<ul>
+		<a href="{:U('User/accountDetail','type=1')}">
+			<li >
+				<div class="fun_left">
+					<span class="function_icon shdz-icon" ></span>
+					<p>我的资产</p>
+				</div>
+				<img src="__PUBLIC__/img/return1.png" width="16" height="16"/>
+				<div class="clear"></div>
+			</li>
+		</a>
+		<a href="{:U('User/fansList','type=1')}">
+			<li>
+				<div class="fun_left" >
+					<span class="function_icon wdfs-icon" ></span>
+					<p>我的粉丝</p>
+				</div>
+				<img src="__PUBLIC__/img/return1.png" width="16" height="16"/>
+				<div class="clear"></div>
+			</li>
+		</a>
+
+		<a href="{:U('User/code')}">
+			<li >
+				<div class="fun_left">
+					<span class="function_icon wdewm-icon" ></span>
+					<p>我的二维码</p>
+				</div>
+				<img src="__PUBLIC__/img/return1.png" width="16" height="16"/>
+				<div class="clear"></div>
+			</li>
+		</a>
+
+		<a href="{:U('User/collect','type=1')}">
+			<li>
+				<div class="fun_left">
+					<span class="function_icon wdsc-icon" ></span>
+					<p>我的收藏</p>
+				</div>
+				<img src="__PUBLIC__/img/return1.png" width="16" height="16"/>
+				<div class="clear"></div>
+			</li>
+		</a>
+		<a href="{:U('User/my_coupon')}">
+			<li>
+				<div class="fun_left">
+					<span class="function_icon wdyhq-icon" ></span>
+					<p>我的优惠卷 </p>
+				</div>
+				<img src="__PUBLIC__/img/return1.png" width="16" height="16"/>
+				<div class="clear"></div>
+			</li>
+		</a>
+		<a href="{:U('User/stock_center')}">
+			<li>
+				<div class="fun_left">
+					<span class="function_icon lqzx-icon" ></span>
+					<p>领劵中心 </p>
+				</div>
+				<img src="__PUBLIC__/img/return1.png" width="16" height="16"/>
+				<div class="clear"></div>
+			</li>
+		</a>
+		<a href="{:U('User/bank_card')}">
+			<li >
+				<div class="fun_left">
+					<span class="function_icon wdyhk-icon" ></span>
+					<p>我的银行卡</p>
+				</div>
+				<img src="__PUBLIC__/img/return1.png" width="16" height="16"/>
+				<div class="clear"></div>
+			</li>
+		</a>
+		<li onclick="address()">
+			<div class="fun_left">
+				<span class="function_icon yjfk-icon" ></span>
+				<p>收货地址</p>
+			</div>
+			<img src="__PUBLIC__/img/return1.png" width="16" height="16"/>
+			<div class="clear"></div>
+		</li>
+		<li onclick="setting()">
+			<div class="fun_left">
+				<span class="function_icon sz-icon" ></span>
+				<p>设置</p>
+			</div>
+			<img src="__PUBLIC__/img/return1.png" width="16" height="16"/>
+			<div class="clear"></div>
+		</li>
+		<div class="clear"></div>
+	</ul>
+</div>
+<div class="login_out" >
+	<button onclick="logout()">
+		退出登陆
+	</button>
+</div>
+<div class="foot-box" ></div>
+<include file="Public/tabbar"/>
+<script src="__PUBLIC__/mobile/js/vue.min.js"></script>
+<script src="__PUBLIC__/mobile/js/jquery-2.1.4.js"></script>
+<script src="__PUBLIC__/mobile/js/jquery-weui.min.js"></script>
+<script src="__PUBLIC__/mobile/js/swiper.min.js"></script>
+<script src="__PUBLIC__/mobile/js/dropload.min.js"></script>
+<script type="text/javascript">
+
+	var user_id = $("#user_id").val();
+	function shangjia() {
+		var is_shop = {$user.is_shop};
+		if (is_shop == 0) {
+			layer.open({
+				content: '您现在还不是商家,请去申请',
+				btn: ['确定', '取消'],
+				yes: function(index)
+				{
+					layer.close(index);
+					location.href = "{:U('Shopcenter/applyshop')}";
+				}
+			});
+
+		} else if (is_shop == 2) {
+			layer.open({
+				content: '你的账号已被冻结,请联系客服'
+				, skin: 'msg'
+				, time: 1.5
+			});
+		} else if (is_shop == 3) {
+			layer.open({
+				content: '你的账号正在审核中,请联系客服'
+				, skin: 'msg'
+				, time: 1.5
+			});
+		} else {
+			var shop_id = "{$user['shopinfo']['id']}";
+			location.href = "{:U('Shopcenter/index')}"+"?shop_id="+shop_id;
+		}
+	}
+	function agent() {
+		var is_agent = {$user.is_agent};
+		console.log(is_agent);
+		if (is_agent == 0) {
+			layer.open({
+				content: '您现在还不是代理,请去申请',
+				btn: ['确定', '取消'],
+				yes: function(index)
+				{
+					layer.close(index);
+					location.href = "{:U('Agent/applyagent')}";
+				}
+			});
+
+		} else if (is_agent == 2) {
+			layer.open({
+				content: '你的账号已被冻结,请联系客服'
+				, skin: 'msg'
+				, time: 1.5
+			});
+		} else if (is_agent == 3) {
+			layer.open({
+				content: '你的账号正在审核中,请联系客服'
+				, skin: 'msg'
+				, time: 1.5
+			});
+		} else {
+			location.href = "{:U('Agent/index')}?user_id="+user_id;
+		}
+
+	}
+	function signIn() {
+		//签到
+		$.ajax({
+			type : 'POST',
+			url :"{:U('User/signIn')}",
+			dataType:'json',
+			success:function(data){
+				layer.open({
+					content: data.msg
+					,skin: 'msg'
+					,time: 1
+				});
+
+			}
+		});
+	}
+
+	function logout() {
+	//	退出登陆
+		$.ajax({
+			type:"Get",
+			url :"{:U('User/logout')}",
+			dataType:"json",
+			success:function (data) {
+				layer.open({
+					content: data.msg
+					,skin: 'msg'
+					,time: 2
+				});
+				if(data.status==0){
+					location.href = "{:U('Index/index')}";
+				}
+			}
+		});
+	}
+	function address() {
+	//	用户地址列表
+		location.href = "{:U('User/location')}?user_id="+user_id;
+	}
+
+	//设置
+	function setting() {
+		location.href="{:U('User/setting')}?user_id="+user_id;
+	}
+
+
+</script>
+</body>
+</html>
+
+

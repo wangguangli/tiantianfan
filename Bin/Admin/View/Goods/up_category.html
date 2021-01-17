@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<!--<meta name="viewport" content="width=device-width, initial-scale=1">-->
+	<title>{:GC('web_title')}管理后台</title>
+	<include file="Public/asset_top_page"/>
+</head>
+<body>
+<!-- header -->
+<include file="Public/header"/>
+<!-- /header -->
+<!-- Page container -->
+<div class="page-container">
+	<!-- Page content -->
+	<div class="page-content">
+		<!-- main sidebar -->
+		<include file="Public/left"/>
+		<!-- /main sidebar -->
+
+		<!-- Main content -->
+		<div class="content-wrapper">
+
+			<!-- Content area -->
+			<div class="content" style="padding-top: 10px;">
+				<!-- Pagination types -->
+				<div class="v-container">
+
+					<!-- page -->
+					<form class="form-horizontal pt-15" method="post" action="" enctype="multipart/form-data">
+						<input type="hidden" name="id" value="{$id}">
+
+
+						<div class="form-group">
+							<label class="col-xs-2 control-label text-right">分类名称</label>
+							<div class="col-xs-5">
+								<input type="text" class="form-control" value="{$name}" placeholder="请输入名称"
+									   name="name" required>
+							</div>
+						</div>
+
+
+							<div class="form-group">
+								<label class="col-xs-2 control-label text-right">分类图片</label>
+								<div class="col-xs-5">
+									<img src="{$img}" width="50" height="50"/>
+								</div>
+							</div>
+
+
+						<div class="form-group">
+							<label class="col-xs-2 control-label text-right">上传分类图片</label>
+							<div class="col-xs-5">
+								<input type="file" class="form-control" name="img" value="">*
+								请上传宽度和高度1:1的图片
+							</div>
+						</div>
+
+
+						<if condition="$pid gt 0">
+							<div class="form-group">
+								<label class="col-xs-2 control-label text-right">上级分类</label>
+								<div class="col-xs-5 ">
+									<select name="pid" class="form-control select-form-control inline-block">
+										<volist name="categorys" id="vo">
+											<option value="{$vo['id']}"
+											<eq name="pid" value="$vo['id']">selected="selected"</eq>
+											>{$vo['name']}</option>
+										</volist>
+									</select>
+								</div>
+							</div>
+						</if>
+
+
+
+
+
+
+						<!-- 多行文本 文本域 -->
+						<!--<div class="form-group">
+                            <label class="col-xs-2 control-label text-right">备注</label>
+                            <div class="col-xs-5  control-label">
+                                <textarea class="form-control" name="test" rows="3"></textarea>
+                            </div>
+                        </div>-->
+
+
+						<div class="form-group">
+							<label class="col-xs-2 control-label"></label>
+							<div class="col-xs-8">
+								<button class="layui-btn layui-btn-sm layui-btn-normal" type="submit">提交</button>
+								<a href="javascript:history.go(-1);" class="layui-btn layui-btn-sm layui-btn-primary">返回</a>
+							</div>
+						</div>
+					</form>
+
+					<!-- page end -->
+
+					<!-- Footer -->
+					<include file="Public/footer" />
+					<!-- /footer -->
+
+				</div>
+				<!-- /content area -->
+
+			</div>
+			<!-- /main content -->
+
+		</div>
+		<!-- /page content -->
+
+	</div>
+	<!-- /page container -->
+
+	<!-- 上传图片 -->
+	<script>
+		layui.use('upload', function(){
+			var upload = layui.upload;
+
+			//执行实例
+			var uploadInst = upload.render({
+				elem: '#upimg' 							//绑定元素
+				,url: '/index.php/Admin/Common/uploads' 	//上传接口
+				,data:{handlename:"headimg"}			// 接口接收值
+				,field:"headimg"						// input name，与接口接收值 一致
+				,done: function(res)
+				{
+					//上传完毕回调-不一定成功，需要判断
+					console.log(res);
+					if (res.status > 0)
+					{
+						// 异常提示
+						layer.alert(res.result);
+					}
+					else
+					{
+						$(".headimgurl").val(res.result);
+						$(".img_headimgurl").attr("src", res.result);
+					}
+				}
+				,error: function(e)
+				{
+					//请求异常回调
+					console.log(e);
+				}
+			});
+		});
+	</script>
+	<!-- 上传图片 -->
+
+</body>
+</html>

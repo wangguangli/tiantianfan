@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!--<meta name="viewport" content="width=device-width, initial-scale=1">-->
+    <title>{:GC('web_title')}管理后台</title>
+    <include file="Public/asset_top_page"/>
+</head>
+<body>
+<!-- header -->
+<include file="Public/header"/>
+<!-- /header -->
+<!-- Page container -->
+<div class="page-container">
+    <!-- Page content -->
+    <div class="page-content">
+        <!-- main sidebar -->
+        <include file="Public/left"/>
+        <!-- /main sidebar -->
+
+        <!-- Main content -->
+        <div class="content-wrapper">
+
+            <!-- Content area -->
+            <div class="content" style="padding-top: 10px;">
+                <!-- Pagination types -->
+                <div class="v-container">
+                    <div class="alert alert-tips alert-dismissible" role="alert">
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
+                        添加用户</div>
+
+                    <div class="panel panel-flat">
+                        <div class="panel-heading">
+                        </div>
+                    </div>
+                    <!-- page -->
+                    <form class="form-horizontal pt-15" method="post" action="{:U('')}">
+                        <input type="hidden" class="form-control" name="user_id" value="{$data['id']}">
+
+                        <div class="form-group">
+                            <label class="col-xs-2 control-label text-right">用户头像</label>
+                            <div class="col-xs-5 control-label">
+                                <div class="placeholder">
+                                    <img src="{$data['headimgurl']}" class="img_headimgurl">
+                                </div>
+                                <button type="button" class="layui-btn layui-btn-sm" id="upimg">
+                                    <i class="layui-icon">&#xe67c;</i>上传图片
+                                </button>
+
+                                <input type="hidden" name="headimgurl" class="headimgurl"  value="{$data['headimgurl']}">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-xs-2 control-label text-right">姓名</label>
+                            <div class="col-xs-5">
+                                <input type="text" class="form-control" name="realname"  required>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-xs-2 control-label text-right">用户级别</label>
+                            <div class="col-xs-5">
+                                <select name="level" class="form-control select-form-control inline-block">
+                                    <option value="0" >请选择</option>
+                                   <volist name="level" id="vo">
+                                    <option value="{$vo.id}" >{$vo.level_name}</option>
+                                   </volist>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-xs-2 control-label text-right">手机号</label>
+                            <div class="col-xs-5">
+                                <input type="text" maxlength="11"  class="form-control" name="phone"  required>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-xs-2 control-label text-right">密码</label>
+                            <div class="col-xs-5">
+                                <input type="password" class="form-control" name="password"  required>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-xs-2 control-label text-right">确认密码</label>
+                            <div class="col-xs-5">
+                                <input type="password" class="form-control" name="password1"  required>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-xs-2 control-label text-right">推荐人手机号</label>
+                            <div class="col-xs-5">
+                                <input type="text" maxlength="11" class="form-control" name="phone1"  required>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-xs-2 control-label"></label>
+                            <div class="col-xs-8">
+                                <button class="layui-btn layui-btn-sm layui-btn-normal" type="submit">提交</button>
+                                <a href="javascript:history.go(-1);" class="layui-btn layui-btn-sm layui-btn-primary">返回</a>
+                            </div>
+                        </div>
+                    </form>
+
+                    <!-- page end -->
+
+                    <!-- Footer -->
+                    <include file="Public/footer" />
+                    <!-- /footer -->
+
+                </div>
+                <!-- /content area -->
+
+            </div>
+            <!-- /main content -->
+
+        </div>
+        <!-- /page content -->
+
+    </div>
+    <!-- /page container -->
+
+    <!-- 上传图片 -->
+    <script>
+        layui.use('upload', function(){
+            var upload = layui.upload;
+
+            //执行实例
+            var uploadInst = upload.render({
+                elem: '#upimg' 							//绑定元素
+                ,url: '/index.php/Admin/Common/uploads' 	//上传接口
+                ,data:{handlename:"headimg"}			// 接口接收值
+                ,field:"headimg"						// input name，与接口接收值 一致
+                ,done: function(res)
+                {
+                    //上传完毕回调-不一定成功，需要判断
+                    console.log(res);
+                    if (res.status > 0)
+                    {
+                        // 异常提示
+                        layer.alert(res.result);
+                    }
+                    else
+                    {
+                        $(".headimgurl").val(res.result);
+                        $(".img_headimgurl").attr("src", res.result);
+                    }
+                }
+                ,error: function(e)
+                {
+                    //请求异常回调
+                    console.log(e);
+                }
+            });
+        });
+    </script>
+    <!-- 上传图片 -->
+
+</body>
+</html>

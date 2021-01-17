@@ -1,0 +1,58 @@
+/*********初始化样式************/
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video { margin: 0;padding: 0;border: 0;font-size: 100%; vertical-align: baseline;box-sizing: border-box;text-decoration: none;list-style: none;-webkit-tap-highlight-color: rgba(0,0,0,0); -webkit-tap-highlight-color: transparent;   }
+input{-webkit-user-select:auto;}input[type=button], input[type=submit], input[type=file], button { cursor: pointer; -webkit-appearance: none; } 
+small { font-size: 12px; } /* 小于 12px 的中文很难阅读，让 small 正常化 */
+.clear{clear: both;}.fl{float:left}.fr{float:right}.tal{text-align: left;}.tac{text-align: center;}.tar{text-align: right;}
+/*********END************/
+
+/*************************公共样式********************************/
+.footer_nav{ width: 100%;height:15vw;position: fixed;bottom: 0;left: 0;background: #f9f9f9;z-index:100;}
+.footer_nav ul{width: 100%;height: 100%;}
+.footer_nav ul li{width: 25%;float: left;}
+.footer_nav ul li span{width: 7vw;height:7vw;margin: 2vw auto 0;display: table;background-repeat: no-repeat;background-position: center center;background-size:100% 100%;}
+.footer_nav ul li .title{text-align: center;color: #999;font-size: 12px;line-height: 6vw}
+.footer_nav ul li .index_icon{background-image: url(../image/nav/shouye_img.png)}
+.footer_nav ul li .near_icon{background-image: url(../image/nav/fujin_img.png)}
+.footer_nav ul li .recom_icon{background-image: url(../image/nav/shangcheng_img.png)}
+.footer_nav ul li .person_icon{background-image: url(../image/nav/gerenzhongxin_img.png)}
+
+.footer_nav ul li.on .index_icon{background-image: url(../image/nav/shouyexuanzhong_img.png)}
+.footer_nav ul li.on .near_icon{background-image: url(../image/nav/fujinxuanzhong_img.png)}
+.footer_nav ul li.on .recom_icon{background-image: url(../image/nav/shangcgengxuanzhong_img.png)}
+.footer_nav ul li.on .person_icon{background-image: url(../image/nav/gerenzhongxinxuanzhong_img.png)}
+.footer_nav ul li.on .title{color: #EF1933}
+.footer_stance{width: 100%;height: 15vw;}
+
+
+
+
+.header_title{width: 100%;height: 12vw;position: fixed;top:0;left: 0;background:#f6f6f6;z-index: 99; }
+.header_title img.left{width: 2.5vw;height: 5vw;margin: 3.5vw 0 0 3vw ;float: left}
+.header_title h1.title{ width: 60%;position: absolute;top: 0;left: 20%;line-height: 13vw;color:#565656;text-align:center;font-size: 5vw;font-weight: 300}
+.header_stance{width: 100%;height: 12vw;}
+.header_title a.right{ height: 12vw;line-height: 12vw;margin: 0vw 3vw 0 0 ;float: right;display: table;font-size: 3.5vw}
+
+
+
+
+
+
+
+
+
+
+
+
+

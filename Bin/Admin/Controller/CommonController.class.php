@@ -1,0 +1,197 @@
+<?php
+
+namespace Admin\Controller;
+header("Content-type: text/html; charset=utf-8"); // tp输出的编码不是utf8，模板编码是。
+use Think\Controller;
+
+class CommonController extends Controller
+{
+
+	protected $_admin_id = 0;
+	protected $_role = 'admin';
+	protected $_user = array();
+	protected $_user_id = 0;
+
+	public function __construct()
+	{
+		parent::__construct();
+
+		$aid = session('admin_id');
+		if (empty($aid))
+		{
+			redirect(U('Login/index'));
+			exit;
+		}
+		$this->_admin_id = $this->_user_id = $aid;
+
+		$this->_info();
+
+		$actionName = ACTION_NAME;
+		$controllerName = CONTROLLER_NAME;
+
+		$act_list = session('act_list');
+		$menu_list = getMenuList($act_list);
+
+
+		$this->assign('menu_list', $menu_list);
+		$admin_info = M('admin')->find($aid);
+		$this->assign('admin_info', $admin_info);
+		$this->assign('actionName', $actionName);
+		$this->assign('controllerName', $controllerName);
+		$data = __SELF__;
+
+		$de = getUrlMethod($data);
+		$this->assign('cccname', $de);
+	}
+
+
+	private function _info()
+	{
+		/*
+		if (CONTROLLER_NAME == 'Account') {
+			$this->assign('menu_a', 'class="open"');
+		} else if (CONTROLLER_NAME == 'User') {
+			$this->assign('menu_u', 'class="open"');
+		} else if (CONTROLLER_NAME == 'Order') {
+			$this->assign('menu_o', 'class="open"');
+		}else if (CONTROLLER_NAME == 'Goods') {
+			$this->assign('menu_g', 'class="open"');
+		} else if (CONTROLLER_NAME == 'Weixin') {
+			$this->assign('menu_w', 'class="open"');
+		} else if (CONTROLLER_NAME == 'Article') {
+			$this->assign('menu_ar', 'class="open"');
+		} else if (CONTROLLER_NAME == 'Message') {
+			$this->assign('menu_me', 'class="open"');
+		} else if (CONTROLLER_NAME == 'Shop') {
+			$this->assign('menu_s', 'class="open"');
+		} else if (CONTROLLER_NAME == 'Agent') {
+			$this->assign('menu_ag', 'class="open"');
+		} else {}
+		 *
+		 */
+		if (CONTROLLER_NAME == 'Ad')
+		{
+			$this->assign('menu_ad', 'class="open"');
+		}
+		else
+		{
+			if (CONTROLLER_NAME == 'Index' && ACTION_NAME != 'index')
+			{
+				$this->assign('menu', CONTROLLER_NAME);
+			}
+		}
+	}
+
+	public function logout()
+	{
+		session('[start]');
+		session(null);
+		redirect(U('Login/index'));
+	}
+
+	/**
+	 * 图片上传
+	 * @param string      handlename    控件名称
+	 * @return  json
+	 * @zd
+	 */
+	public function uploads()
+	{
+
+		$video = M('config')->where('name="video"')->getField('val');
+
+		$video1 = ($video + '5') . "M";
+		$video2 = ($video + '') . "M";
+
+
+		@ini_set('post_max_size', $video1);
+		@ini_set('upload_max_filesize', $video2);
+
+		$handlename = I("handlename");
+
+		if (!$handlename)
+		{
+			jsonout("缺少主要参数");
+		}
+		$video = I('video');
+		//判断是否为文件上传的样式
+		$apk = I('apk');
+		if ($apk)
+		{
+			$rs = uploads($handlename, '', '', '', '', '', '0');
+			jsonout("文件上传", $rs[1], $rs[2]);
+		}
+		if ($video)
+		{
+			$size = M('config')->where('name = "video"')->getField('val');
+
+			$size = $size * 1024 * 1024;
+			$is_video = 1;
+			$rs = uploads($handlename, '', $size, '', '', $is_video);
+			jsonout("视频上传", $rs[1], $rs[2]);
+		}
+		else
+		{
+
+			$new_size = getimagesize($_FILES['headimg']['tmp_name']);
+			if ($new_size[0] != $new_size['1'])
+			{
+				// jsonout("图片上传", 1,'请上传正方形图片');
+			}
+			if ($_FILES['headimg']['size'] > 3145728)
+			{
+				jsonout("图片上传", 1, '图片大小不能大于3M');
+			}
+			$rs = uploads($handlename);
+			jsonout("图片上传", $rs[1], $rs[2]);
+		}
+	}
+
+	//二维码背景
+	public function uploadsbg()
+	{
+
+		$handlename = I("handlename");
+		if (!$handlename)
+		{
+			jsonout("缺少主要参数");
+		}
+		$rs = uploads($handlename, "asset", 3145728, '', 0, 0, 0);
+
+		$image = new \Think\Image();
+		$image->open('./' . $rs[2]);
+		$img_width = $image->width(); // 返回图片的宽度
+		$img_height = $image->height(); // 返回图片的高度
+
+		$data = array(
+			'imageurl' => $rs[2],
+			'imgwidth' => $img_width,
+			'imgheight' => $img_height,
+		);
+		jsonout("图片上传", $rs[1], $data);
+	}
+
+	public function appuploads()
+	{
+		$upload = new \Think\Upload();// 实例化上传类
+		$upload->maxSize = 314572800;// 设置附件上传大小
+		$upload->exts = array('jpg', 'gif', 'png', 'jpeg', 'apk');// 设置附件上传类型
+		$upload->rootPath = './app/'; // 设置附件上传根目录
+		$upload->autoSub = false;
+		$upload->replace = true;
+		$upload->saveName = 'android';
+		// 上传单个文件
+		$info = $upload->uploadOne($_FILES['file']);
+
+		$data = $info['savename'];
+		if (!$info)
+		{// 上传错误提示错误信息
+			$this->error($upload->getError());
+			$this->ajaxReturn(['code' => 1, 'msg' => '上传失败', 'result' => $$upload->getError()]);
+		}
+		else
+		{// 上传成功 获取上传文件信息
+			$this->ajaxReturn(['code' => 0, 'msg' => '上传成功', 'result' => $data]);
+		}
+	}
+}

@@ -1,0 +1,163 @@
+<?php
+namespace Api\Controller;
+use Think\Controller;
+
+class TimingController extends CommonController {
+
+	/**
+	 * 用户每日返还 
+	 * @zd
+	 */
+	public function user_back()
+	{
+
+	}
+
+    /**
+     * Created by PhpStorm.
+     * User: Administrator
+     * Date: 2020/8/25
+     * Time: 10:16
+     * 定时删除runtime 文件夹
+     */
+    public function del_dir()
+    {
+        $file = $_SERVER['DOCUMENT_ROOT'] . '/Bin/Runtime/';
+        removeDir($file);
+    }
+
+
+    /**
+     * @Title:分红股每日返还
+     * @Param: null
+     * @Date:2020/10/27
+     * @Time:8:43
+     * @Author:lty
+     *
+     * 每分钟一次
+     */
+    public function autoRebate(){
+        //查询今日奖金池的金额
+        $H = date('Hi');
+        if($H < 0010){
+            return true;
+        }
+        $all_money = get_config('all_money',true);
+//        $number_page = 14;
+        if($all_money > 0){
+
+            $where['money_wait'] = array('gt',0);
+            $where['is_fan'] = 0;
+            $allUser  = M('user')->field('id,ipo,money_wait,level,is_fan')->where($where)->limit(0,5000)->select();
+            if(empty($allUser)){
+                return true;
+            }
+            foreach ($allUser as $k => $v){
+                $configWhere['name'] = 'number_page';
+                M('config_project')->where($configWhere)->setInc('val',1);
+                if($v['level'] == 0){
+                    $money = get_config_project('hj_money');
+                    if($v['ipo'] > 0){
+                        $money = round($money * $v['ipo'],2);
+                    }
+                }elseif($v['level'] == 1){
+                    $money = get_config_project('hj_money');
+                    if($v['ipo'] > 0){
+                        $money = round($money * $v['ipo'],2);
+                    }
+                }elseif($v['level'] == 2){
+                    $money = get_config_project('bj_moeny');
+                    if($v['ipo'] > 0){
+                        $money = round($money * $v['ipo'],2);
+                    }
+                }elseif($v['level'] == 3){
+                    $money = get_config_project('zs_money');
+                    if($v['ipo'] > 0){
+                        $money = round($money * $v['ipo'],2);
+                    }
+                }
+                if($money>= $v['money_wait']){
+                    $money = $v['money_wait'];
+                }
+                M('user')->where('id='.$v['id'])->setField('is_fan',1);
+                //减去待返积分
+                change_money_log($v['id'],1,'money_wait',$v['money_wait'],$money,6,11,'每日股权返还扣除待返金额',2,1,1,0,0,0);
+                //加上已返金额
+                change_money_log($v['id'],1,'price',$v['price'],$money,18,11,'每日股权返还增加已返金额',1,1,1,0,0,0);
+                //减去奖金池的金额
+                $configWhere['name'] = 'all_money';
+                M('config')->where($configWhere)->setDec('val',$money);
+                $account_log = array(
+                    'user_id' => 0,
+                    'user_amount' => $all_money,
+                    'amount' => $money,
+                    'type' => 17,
+                    'deal_type' => 11,
+                    'remake' => '股权分红奖金池减少',
+                    'order_id' => 0,
+                    'order_user_id' => 0,
+                    'utype' => 4,
+                    'op_type' => 2,
+                    'cre_date' => date('Y-m-d H:i:s',time()),
+                    'cre_time' => time(),
+                    'ip' => get_client_ip(),
+                );
+                M('account_log')->add($account_log);
+            }
+        }
+    }
+
+
+    /**
+     * Notes:00:5
+     * User: YangHao
+     * Date: 2020/10/29
+     * Time: 17:13
+     */
+    public function autoDel(){
+        $configWhere['name'] = 'number_page';
+        M('config_project')->where($configWhere)->setField('val',0);
+        $all_money = get_config('all_money',true);
+        $save['is_fan'] = 0;
+        M('user')->where('id>0')->save($save);
+        //先把单价删除
+        M('config_project')->where('id=23')->setField('val',0);
+        M('config_project')->where('id=24')->setField('val',0);
+        M('config_project')->where('id=25')->setField('val',0);
+        //再重新计算存入
+        $hjWhere['level'] = array('in',array(0,1));
+        $hjWhere['ipo'] = array('gt',0);
+        $hjCount = M('user')->where($hjWhere)->sum('ipo');
+        $hjWhere['ipo'] = array('eq',0);
+        $hjWhere['money_wait'] = array('gt',0);
+        $hjCount1 = M('user')->where($hjWhere)->count();
+        $allHjCount = $hjCount + $hjCount1;//所有黄金 普通的股数
+        $hjMoney = $all_money * 0.01 * 10;
+        $hjunit = round($hjMoney / $allHjCount,2);//黄金一下的单价
+        M('config_project')->where('id=23')->setField('val',$hjunit);
+
+        $bjWhere['level'] = 2;
+        $bjWhere['ipo'] = array('gt',0);
+        $bjCount = M('user')->where($bjWhere)->sum('ipo');
+        $bjWhere['ipo'] = 0;
+        $bjWhere['money_wait'] = array('gt',0);
+        $bjCount1 = M('user')->where($bjWhere)->count();
+        $allBjCount = $bjCount + $bjCount1;//所有黄金 普通的股数
+        $hjMoney = $all_money * 0.01 * 10;
+        $bjunit = round($hjMoney / $allBjCount,2);//黄金一下的单价
+        M('config_project')->where('id=24')->setField('val',$bjunit);
+
+
+
+        $zsWhere['level'] = 3;
+        $zsWhere['ipo'] = array('gt',0);
+        $zsCount = M('user')->where($zsWhere)->sum('ipo');
+        $zsWhere['ipo'] = 0;
+        $zsWhere['money_wait'] = array('gt',0);
+        $zsCount1 = M('user')->where($zsWhere)->count();
+        $allZjCount = $zsCount + $zsCount1;//所有黄金 普通的股数
+        $zsMoney = $all_money * 0.01 * 10;
+        $zsunit = round($zsMoney / $allZjCount,2);//黄金一下的单价
+        M('config_project')->where('id=25')->setField('val',$zsunit);
+    }
+}

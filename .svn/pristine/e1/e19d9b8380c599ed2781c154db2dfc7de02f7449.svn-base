@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>售后</title>
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="stylesheet" href="__PUBLIC__/css/mui.min.css">
+    <link rel="stylesheet" href="__PUBLIC__/css/bank_card.css">
+    <script src="__PUBLIC__/layer/mobile/layer.js"></script>
+    <style>
+        .line:last-child{
+            display: none;
+        }
+    </style>
+</head>
+<body style="background: #efeff4;">
+<header class="mui-bar mui-bar-nav" style="background: #FE274E;box-shadow: none;">
+    <a href="javascript:history.back();" class="mui-pull-left mui-icon mui_turn"><img src="__PUBLIC__/img/return.png"
+                                                                                      width="20vw" height="20vw"/></a>
+    <h1 class="mui-title tit_login" style="color: #fff;">售后</h1>
+</header>
+<div class="mui-content">
+    <form action="{:U('order/refund_receipt')}" method="post">
+        <div class="trial-top">
+            <h3>{$process['process_title']}</h3>
+            <div class="shul">
+                <volist name="process['process_line']" id ='vo'>
+                    <icon class="right"></icon>
+                    <div class="line"></div>
+                </volist>
+
+            </div>
+            <div class="shul">
+                <volist name="process['process_line']" id="vo">
+                    <div class="shli">
+                        <span>{$vo}</span>
+                    </div>
+                </volist>
+            </div>
+        </div>
+        <div class="sh-status">
+            <a href="{:U('Order/refund_log','refund_id='.$order['id'])}">
+                <h3>{$process['process_tips']['title']}</h3>
+                {$process['process_tips']['remark']}
+            </a>
+        </div>
+        <div class="sale_goods sh-goods">
+            <div class="goodsinfo">
+                <img src="{$order.goods_thumb}">
+                <div class="goods-title">
+                    <div class="title">
+                        {$order.goods_name}
+                        <div class="share">
+                            <div class="pricenum">
+                                <label>单价：<span>￥{$order.goods_price}</span></label>
+                                <label>购买数量:<span>{$order.goods_num}</span></label>
+                                <label>申请数量:<span>{$order.refund_num}</span></label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="sale_why trwhy">
+            售后方式
+            <span>换货</span>
+        </div>
+        <!--快递-->
+        <div class="matter">
+            <h6 class="matter_h6">
+                <span>快递</span>
+                <!--<p><img src="__PUBLIC__/img/copy.png" style="width:4.5vw;height:5vw;"/><span style="margin-left: 1vw;color: #c0c0c0;">复制</span></p>-->
+            </h6>
+            <p class="maer_pp"><span>快递公司</span><span>{$order.shop_express_name}</span></p>
+            <p class="maer_pp"><span>快递单号</span><span>{$order.user_tracking_number}</span></p>
+        </div>
+        <!--收货地址-->
+        <div class="matter">
+            <h6 class="matter_h6">收货地址</h6>
+            <div class="matter_div">
+                <div class="matt_name">
+                    <img src="__PUBLIC__/img/addressed.png" style="width:3vw;height: 4vw;"/>
+                    <span>{$address.consignee}  &nbsp;&nbsp;{$address.phone}</span>
+                </div>
+                <p class="matt_pp">地址：{$address.address}</p>
+            </div>
+        </div>
+        <!--服务单号-->
+        <div class="matter">
+            <p class="maer_pp"><span>服务单号</span><span>{$order.refund_no}</span></p>
+            <p class="maer_pp"><span>申请时间</span><span>{$order.add_time|date="Y-m-d H:i:s",###}</span></p>
+        </div>
+        <if condition="$order.refund_status eq 6">
+            <div class="in_last">
+                <input type="hidden" name="refund_id" value="{$order.id}">
+                <input type="submit" value="确认收货" class="last_input"/>
+            </div>
+        </if>
+    </form>
+    <if condition="$order.refund_status eq 7">
+        <div class="in_last">
+            <input type="submit" value="售后完成" class="last_input" onclick="complete()"/>
+        </div>
+    </if>
+</div>
+<script src="__PUBLIC__/js/jquery-1.11.1.min.js"></script>
+<script>
+    function complete() {
+        var refund_id = "{$order.id}";
+        location.href = "{:U('order/sale_complete')}?refund_id=" + refund_id;
+    }
+
+</script>
+</body>
+</html>

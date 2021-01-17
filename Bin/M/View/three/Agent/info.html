@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<title>代理信息</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<link rel="stylesheet" href="__PUBLIC__/mobile/css_v3/mui.min.css">
+		<link rel="stylesheet" href="__PUBLIC__/mobile/css_v3/agency.css">
+		<link rel="stylesheet" href="__PUBLIC__/mobile/style/main_style.css">
+		<script src="__PUBLIC__/js/mui.min.js"></script>
+		<script src="__PUBLIC__/js/jquery.min.js"></script>
+	</head>
+
+	<body>
+		<div class="agency_bj">
+			<img src="__PUBLIC__/mobile/images_v3/agent1.png" />
+
+		</div>
+		<div class="contacts">
+			<ul>
+				<li>
+					<div class="img_span">
+						<img src="__PUBLIC__/mobile/images_v3/dl1.png" />
+						<span>联系人</span>
+					</div>
+					<input type="text" name="" id="" value="{$agent.realname}" readonly placeholder="请输入联系人" class="change" />
+					<!--<span>1300</span>-->
+				</li>
+				<li>
+					<div class="img_span">
+						<img src="__PUBLIC__/mobile/images_v3/dl2.png" />
+						<span>代理区域</span>
+					</div>
+					<div class="name_dd">
+						<ul class="clearfix">
+							<li>
+								<select name="" id="sf_province" onclick="prov_id()">
+				    		       <option value="{$agent.province}">{$agent.province}</option>
+				    		    	<!--<option value="山东省">河南省</option>-->
+		    		            </select>
+							</li>
+							<li>
+								<select name="" id="prov_id" onclick="city_id()">
+				    		       <option value="{$agent.city}">{$agent.city}</option>
+				    		    	<!--<option value="山东省">洛阳市</option>-->
+		    		            </select>
+							</li>
+							<li>
+								<select name="" id="city_id" readonly="">
+				    		       <option value="{$agent.district}">{$agent.district}</option>
+				    		    	<!--<option value="山东省">鱼台县</option>-->
+		    		            </select>
+							</li>
+
+						</ul>
+					</div>
+				</li>
+				<li>
+					<div class="img_span">
+						<img src="__PUBLIC__/mobile/images_v3/dl3.png" />
+						<span>详细地址</span>
+					</div>
+					<input type="text" name="" id="" value="{$agent.province}{$agent.city}{$agent.district}" readonly placeholder="请输入详细地址" class="change" />
+					<!--<span>1300</span>-->
+				</li>
+				<li>
+					<div class="img_span">
+						<img src="__PUBLIC__/mobile/images_v3/dl4.png" />
+						<span>手机号</span>
+					</div>
+					<input type="text" name="" id="" value="{$agent.phone}" placeholder="请输入手机号" class="change" />
+					<!--<span>1300</span>-->
+				</li>
+				<li style="margin-bottom: 0;">
+					<div class="img_span">
+						<img src="__PUBLIC__/mobile/images_v3/dl5.png" />
+						<span>服务比例</span>
+					</div>
+					<div class="name_dd name_dd2">
+						<input class="change" value="{$agent.shop_fee_name}">
+						<!--<ul class="clearfix">
+							<li style="width: 100%;">
+								<select name="" id="sf_province" onclick="prov_id()">
+				    		       <option value="{$agent.province}">{$agent.province}</option>
+				    		    	 
+		    		            </select>
+							</li>
+						 
+						</ul>-->
+					</div>
+					<!--<span>1300</span>-->
+				</li>
+			</ul>
+		</div>
+		<button class="agent_button" style="display: none">提交</button>
+		<div class="agreement" style="display: none">
+			申请即同意 <span>代理商协议</span>
+		</div>
+	</body>
+
+</html>

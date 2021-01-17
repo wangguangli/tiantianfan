@@ -1,0 +1,346 @@
+<!doctype html>
+<html class="pixel-ratio-2 retina ios ios-11 ios-11-0 ios-gt-10 ios-gt-9 ios-gt-8 ios-gt-7 ios-gt-6">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="Generator" content="tpshop v1.1">
+    <meta name="viewport" content="width=device-width">
+    <meta http-equiv="keywords" content="">
+    <meta name="description" content="">
+    <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <title>店铺信息</title>
+    <link href="__PUBLIC__/mobile/style/user_index.css" rel="stylesheet" type="text/css">
+    <script src="__PUBLIC__/js/jquery.min.js"></script>
+    <link href="__PUBLIC__/mobile/style/sel.css" rel="stylesheet" type="text/css">
+    <script src="{:U('Shopcenter/get_city_json')}?.js"></script>
+</head>
+
+<body>
+<header class="headsrs" style="background: #FE274E;">
+    <a class="mui-pull-left mui-icon mui_turn" href="javascript:history.back();"><img src="__PUBLIC__/img/return.png" width="20vw" height="20vw"/></a>
+    <h1 class="mui-title tit_login" style="color: #fff;">店铺信息</h1>
+    <div></div>
+</header>
+
+<div class="stoalls">
+    <form action="{:U('Shopcenter/editShop')}" method="post" enctype="multipart/form-data" id="form">
+        <div class="storetop">
+            <ul>
+                <li>
+                    <lable>店铺信息</lable>
+                    <input type="text" name="shop_name" placeholder="请输入店铺名" value="{$data.shop_name}" class="inserese">
+                    <input type="hidden" name="city" value="{$data.city}">
+                    <input type="hidden" name="latitude" value="{$data.latitude}">
+                    <input type="hidden" name="longitude" value="{$data.longitude}">
+                    <input type="hidden" name="id" value="{$data.id}">
+                </li>
+                <li>
+                    <lable>联系电话</lable>
+                    <input type="text" name="tel" value='{$data.tel}' placeholder="请输入联系电话" class="inserese">
+                </li>
+                <li>
+                    <lable>店铺所有人</lable>
+                    <input type="text" name="contact_person" value="{$data.contact_person}" placeholder="请输入店铺所有人" class="inserese">
+                </li>
+                <li>
+                    <lable>选择区域</lable>
+                    <div class="xuanzes">
+                        <select class="xzsheng" id="province" name="province_id">
+                            <option id="">选择省</option>
+                        </select>
+                        <select class="xzsheng" id="city" name ="city_id">
+                            <option>选择市</option>
+                        </select>
+                        <select class="xzsheng" id="district" name="district_id">
+                            <option>选择区/县</option>
+                        </select>
+                    </div>
+                </li>
+                <div class="clear"></div>
+                <li>
+                    <lable>店铺地址</lable>
+                    <a href="{:U('Shopcenter/location','shop_id='.$data[id])}">
+                        <div class="inserese">{$data.address}</div>
+                        <input type="hidden" name="address" value="{$data.address}">
+                    </a>
+                </li>
+                <li>
+                    <lable>行业分类</lable>
+                    <select class="hyfls" name = 'industry'>
+                        <volist name="industry" id="vo">
+
+                            <option value="{$vo.id}"
+                            <if condition="$data.industry eq $vo['id']">selected="selected"</if>
+                            >{$vo.name}</option>
+                        </volist>
+                    </select>
+                </li>
+                <li>
+                    <lable>营业执照</lable>
+                    <div class="uimgs">
+						<img src="{$data.license}" alt="" width="100%" id="spec_4">
+                        <input type="hidden" value="{$data.license}" name="license3" id='tspec_img4'>
+                        <!-- <input type="file" value="" data-number='4' id='spec_img4' class="yyzzs"> -->
+                    </div>
+                </li>
+                <li>
+                    <lable>身份证正面</lable>
+                    <div class="uimgs">
+						<img src="{$data.card_img1}" alt="" width="100%" id="spec_3">
+                        <input type="hidden" value="{$data.card_img1}" name="license1" id='tspec_img3'>
+                        <!-- <input type="file" value="" data-number='3' id='spec_img3' class="yyzzs"> -->
+                    </div>
+                </li>
+                <li>
+                    <lable>身份证反面</lable>
+                    <div class="uimgs">
+						<img src="{$data.card_img2}" alt="" width="100%" id="spec_2">
+                        <input type="hidden" value="{$data.card_img2}" name="license2" id='tspec_img2'>
+                        <!-- <input type="file" value="" data-number='2' id='spec_img2' class="yyzzs"> -->
+                    </div>
+                </li>
+                <li>
+                    <lable>店铺门头图片</lable>
+                    <div class="uimgs">
+						<img src="__PUBLIC__/images/cross.png" style="width: 6vw;height: 6vw;" class="cross_img"/>
+                        <img src="{$data.thumb}" alt="" width="100%" id="spec_1">
+                        <input type="hidden" value="{$data.thumb}" name="thumb" id='tspec_img1'>
+                        <input type="file" value="" data-number='1' id='spec_img1' class="yyzzs">
+                    </div>
+                </li>
+                <li>
+                    <lable>上传店铺图片</lable>
+                    <div class="ble_div">
+						<volist name="list_img" id="vo">
+							<div class="isimg" id="spec_0">
+								<img src="__PUBLIC__/images/cross.png" style="width: 6vw;height: 6vw;" onclick="cross_img(this);" class="cross_img"/>
+						    	<img src="{$vo}" alt=""  style="width: 120px;height: 120px;" class="listed_img">	    	
+							</div>							
+						</volist>
+						<div style="width:120px;height:120px;position:relative;float:left;" id="specId">
+						   <img src="__PUBLIC__/img/up_load.png" style="width:120px;height:120px;"/>
+						   <input type="file" value="" data-number='0' id='spec_img0' class="yyzzs">
+						</div>	
+						<div class="clear"></div>
+                        <input type="hidden" value="" name="images" id='tspec_img0'>
+                       
+                    </div>
+                </li>
+            </ul>
+        </div>
+        <div class="aniutj">
+            <input type="submit" name="" value="提交" class="bgrs">
+        </div>
+    </form>
+</div>
+<script src="__PUBLIC__/layer/mobile/layer.js"></script>
+<script>
+
+    <empty
+    name = "data" >
+    var curr_prov = curr_city = curr_dist = 0;
+    <else/>
+    var curr_prov = {$data.province_id};
+    var curr_city = {$data.city_id};
+    var curr_dist = {$data.district_id};
+    </empty>
+    $(function () {
+    <notempty
+        name = "rel" >
+            $("input[type=submit]").click(function () {
+                var formval = $("form").serialize();
+                $.ajax({
+                    type: 'POST',
+                    data: formval,
+                    url: "{:U('User/edit_address')}",
+                    dataType: 'json',
+                    success: function (args) {
+                        if (args.err == 0) {
+                            var rs = args.result;
+                            //微信不支持
+                            //window.close();
+                            //window.opener.notice(args.result.address_id);
+
+//					window.history.back();
+
+                            if (rs.rel == 'buy') {
+                                location.href = "{:U('Home/Order/buy',array('rel'=>'buy'))}";
+                            }
+                            if (rs.rel == 'jihuo') {
+                                location.href = "{:U('Home/Order/buy',array('rel'=>'jihuo'))}";
+                            }
+                            if (rs.rel == 'baodan') {
+                                location.href = "{:U('Home/Order/buy',array('rel'=>'baodan'))}";
+                            }
+
+                        } else {
+                            layer.open({
+                                content: args.info
+                                ,skin: 'msg'
+                                ,time: 2
+                            });
+                        }
+                    }
+                });
+                return false;
+            });
+    </notempty>
+	
+	
+
+        if (curr_prov) {
+            $("#province").append(get_city_list(0, true));
+
+            $("#city").append(get_city_list(curr_prov, true));
+
+            $("#district").append(get_city_list(curr_city, true));
+        } else {
+            $("#province").append('<option value="0">选择省</option>');
+            $("#city").append('<option value="0">选择市</option>');
+            $("#district").append('<option value="0">选择区/县</option>');
+        }
+
+        $("#province").change(function () {
+            var v = $(this).val();
+            if (v != 0) {
+                var d = get_city_list(v);
+                $("#province").next().html('<option value="0">选择市</option>' + d);
+
+            } else {
+                $("#city").html('<option value="0">选择市</option>');
+            }
+            $("#city").next().html('<option value="0">选择区县</option>');
+        });
+        $("#city").change(function () {
+            var v = $(this).val();
+            if (v != 0) {
+                var d = get_city_list(v);
+                $("#city").next().html('<option value="0">选择区县</option>' + d);
+            }
+        });
+    });
+
+    function get_city_list(pid, is_sel) {
+        if (!pid) pid = 0;
+        var city = region_list[pid];
+        var html = '';
+        for (var i in city) {
+            var _sel = (is_sel && (i == curr_prov || i == curr_city || i == curr_dist)) ? ' selected="selected" ' : '';
+            html += '<option value="' + i + '"' + _sel + '>' + city[i] + '</option>';
+        }
+        return html;
+    }
+
+    $("#license").change(function () {
+        var license = $(this).val();
+
+        var shop_id = {$data.id};
+        $.ajax({
+            type: 'get',
+            dataType: "json",
+            url: "{:U('Api/Shopin/editShop')}",
+            data: {'shop_id': shop_id, 'license3': license},
+            success: function (data) {
+                console.log(data);
+            }
+        })
+    })
+	//图片上传
+    $(function(){
+		$("form img").each(function(e){
+            var img_url= $(this).attr("src");
+			if(img_url==""){
+				$(this).css("display","none")
+			}else{
+				$(this).css("display","block")
+			}
+         }); 
+		$('form').on("change",".yyzzs",function(e){
+			var id = $(this).data("number");
+			var formData = new FormData();
+			formData.append("headimg", document.getElementById('spec_img'+id).files[0]); 
+			formData.append("handlename",'headimg'); 		
+			$.ajax({
+				url:'/index.php/Admin/Common/uploads',
+				type:'post',
+				data:formData,
+				contentType: false,
+				dataType:"json",
+				processData: false,
+				success:function(res,index) {
+					console.log(res)
+					if(res.status > 0){
+						layer.open({
+							content: res.result,
+							skin: 'msg',
+							time: 1
+						});
+					}else{
+                        if(id==0){
+                            var v = $('#tspec_img'+id).val();
+                            if(v) {
+                                $('#tspec_img'+id).val(v+'|'+res.result);
+                            }else{
+                                $('#tspec_img'+id).val(res.result);
+                            }
+                            var html = '<div class="isimg"><img src="/Public/images/cross.png" style="width: 6vw; height: 6vw; display: block;" onclick="cross_img(this);" class="cross_img"><img src="'+res.result+'" alt="" style="width: 120px;height: 120px;display: block"></div>'
+                            $('#specId').before(html);
+                        }else {
+                            $('#tspec_img'+id).val(res.result);
+                            $('#spec_' + id).attr("src", res.result);
+                            $('#spec_'+id).css("display","block");
+                        }
+					}
+				},
+				error:function(){
+					layer.open({
+						content: '发送失败',
+						skin: 'msg',
+						time: 1
+					});
+				}								             
+			});
+		});	
+	})
+	function images(){
+	    var images = "";
+		var i =0;
+	    $('.ble_div .isimg').each(function(){
+		    var src = $(this).find('.listed_img').attr('src');
+		    if(src) {
+			   if(i==0) {
+			      images = src;
+			   }else{
+			      images +='|'+src;
+			   }
+			   i++;
+			}
+		})
+		$('input[name="images"]').val(images);
+		
+	}
+	images();
+	function cross_img(e){
+	  var src = "";
+	  src = $(e).parent().find('.listed_img').attr('src');
+	  var val = $('input[name="images"]').val();
+	    var index= val.split('|');
+	    if(index.length<2){ 
+	      $('input[name="images"]').val('');
+		}else{
+		      var f= val.indexOf(src+'|');
+			  console.log(f);
+			  if(f == -1) {
+			    var index = val.split('|'+src); 
+			  }else{
+			     var index = val.split(src+'|'); 
+			  }
+			  var result=index.join('');
+			  $('input[name="images"]').val(result);  
+		}
+		
+		$(e).parent().remove();
+	  
+	}
+</script>
+</body>
+</html>

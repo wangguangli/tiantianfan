@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>会员升级</title>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+	<meta name="Keywords" content="">
+	<meta name="description" content="">
+	<!-- UC强制全屏 -->
+	<meta name="full-screen" content="yes">
+	<!-- QQ强制全屏 -->
+	<meta name="x5-fullscreen" content="true">
+	<link rel="stylesheet" href="__PUBLIC__/mobile/style/main_style.css">
+	<link rel="stylesheet" href="__PUBLIC__/mobile/css_v3/upgrade.css">
+	<link rel="stylesheet" href="__PUBLIC__/layui/css/layui.css">
+	<link href="__PUBLIC__/css/tools/swiper.min.css" rel="stylesheet" type="text/css"/>
+	<script type="text/javascript" src="__PUBLIC__/layui/layui.js"></script>
+</head>
+
+<body style="background-color: rgb(240,198,212)!important">
+<!--<img src="__PUBLIC__/img/user.jpg" alt="" width="100%">-->
+<img src="__PUBLIC__/img/user4.jpg" alt="" width="100%">
+<a href="{:U('Goods/detail?id=746')}">
+	<img src="__PUBLIC__/img/user3.gif" alt="" width="100%">
+</a>
+<a href="{:U('Goods/detail?id=747')}">
+	<img src="__PUBLIC__/img/user1.gif" alt="" width="100%">
+</a>
+<a href="{:U('Goods/detail?id=749')}">
+	<img src="__PUBLIC__/img/user2.gif" alt="" width="100%">
+</a>
+
+
+<div class="f_upgrade_cont" style="display: none;">
+	<!--头像-->
+<!--	<div class="f_head">-->
+<!--		<img class="f_head_img" src="{$userInfo.headimgurl}"/>-->
+<!--		<div class="f_head_number">-->
+<!--			{$userInfo.phone}-->
+<!--		</div>-->
+<!--	</div>-->
+	<!--会员升级部分标题-->
+	<div class="f_welfare">
+		<div class="f_welfare_top">
+			<span class="text">会员升级</span>
+			<span class="line"></span>
+		</div>
+		<p class="f_introduce">会员专属福利、保障、服务</p>
+	</div>
+	<!--滑动部分-->
+
+	<div class="price_cont">
+		<div class="swiper-container">
+			<div class="swiper-wrapper">
+				<!--循环-->
+				<volist name="list" id="vo">
+					<div class="price_list <if condition=" $key eq 0
+					"> active</if> swiper-slide" data-level_id="{$vo.id}">
+					<span class="senior_text">{$vo.level_name}</span>
+					<div class="money_cont">
+						<span class="symbol">￥</span>
+						<span class="number">{$vo.up_auto_self_money}</span>
+					</div>
+					<div class="security_p">
+						{$vo.remark}
+					</div>
+			</div>
+			</volist>
+		</div>
+	</div>
+</div>
+
+<!--会员升级部分标题-->
+<div class="f_welfare" style="margin-top: 8vw;">
+	<div class="f_welfare_top">
+		<span class="text">支付方式</span>
+		<span class="line"></span>
+	</div>
+</div>
+<!--支付方式部分-->
+<ul class="H-pay">
+	<li class="z-1 active" data-val="wxmp" <if condition="$is_wx_pay eq 0"> style="display:none;" </if> >微信支付 <i></i></li>
+<!--	<li class="z-2" data-val="alipay" <if condition="$is_alipay eq 0"> style="display:none;" </if>>支付宝支付 <i></i></li>-->
+	<li class="z-3" data-val="yepay" <if condition="$is_ye_pay eq 0"> style="display:none;" </if>>余额支付 <i></i></li>
+</ul>
+<input name="level_id" type="hidden" value="{$list[0].id}"/>
+<input name="pay_type" type="hidden" value="wxmp"/>
+<div class="H-button" onclick="topay()">立即抢购</div>
+
+</div>
+<script type="text/javascript" src="__PUBLIC__/mobile/js/jquery-2.1.4.js"></script>
+<script type="text/javascript" src="__PUBLIC__/mobile/js/swiper.min.js"></script>
+<script type="text/javascript" src="__PUBLIC__/layer/mobile/layer.js"></script>
+<script>
+	layui.use('form', function () {
+	});
+	// <!-- 导航swiper -->
+	var swiper = new Swiper('.swiper-container', {
+		paginationHide: true, //分页器
+		slidesPerView: 3, //一行显示的个数是自动
+		slidesPerColumn: 1, //显示1行
+		spaceBetween: 10 // 滑块之间的距离 px
+	});
+	//		支付方式
+
+	$('.H-pay li').click(function () {
+		$(this).addClass('active').siblings().removeClass('active');
+		$('input[name=pay_type]').val($(this).data('val'));
+		if ($(this).data('val') == 'yepay') {
+			password();
+		}
+	});
+	$('.price_list').click(function () {
+		$(this).addClass('active').siblings().removeClass('active');
+		$('input[name=level_id]').val($(this).data('level_id'));
+	});
+	//支付
+	var user_id = {$userInfo.id};
+
+	function topay() {
+		var level_id = $('input[name=level_id]').val();
+		var pay_type = $('input[name=pay_type]').val();
+		console.log(pay_type)
+		if (pay_type == 'yepay') {
+			password();
+		}
+		var formData = {
+			level_id: level_id,
+			pay_type: pay_type,
+			user_id: user_id
+		}
+		$.ajax({
+			type: "POST",
+			data: formData,
+			dataType: "json",
+			url: "{:U('/Api/Orderin/makeVipOrder')}",
+			success: function (data) {
+				if (pay_type == "alipay") {
+					if (data.indexOf("alipay") > 0) {
+						$("body").html(data);
+					}
+				}
+				if (data.status == 0) {
+					if (pay_type == 'wxmp') {
+						$("body").html(data.result);
+					} else if (pay_type == 'alipay') {
+						layer.msg(data.msg)
+					} else {
+						layer.open({
+							title: '提示'
+							, content: '下单成功',
+							yes: function (index) {
+								layer.close(index);
+								location.href = "{:U('User/index')}";
+							}
+						});
+					}
+				} else {
+					layer.msg(data.msg)
+				}
+			}
+		})
+
+	}
+
+	function password() {
+		var is_psw = {$is_psw};
+		console.log('is_psw:' + is_psw);
+		if (is_psw == 1) {
+			layer.prompt({title: '请输入支付密码', formType: 1, closeBtn: false}, function (pass, index) {
+				pay_password = pass;
+				var postdata = {
+					'pay_type': $('input[name=pay_type]').val(),
+					'user_id': user_id,
+					'level_id': $('input[name=level_id]').val(),
+					'pay_password': pay_password
+				}
+
+				$.ajax({
+					type: "POST",
+					data: postdata,
+					dataType: "json",
+					url: "{:U('/Api/Orderin/makeVipOrder')}",
+					success: function (data) {
+						layer.msg(data.msg);
+						if (data.status == 0) {
+							location.href = "{:U('User/index')}";
+						}
+					}
+				})
+
+				layer.close(index);
+			});
+		} else {
+			layer.open({
+				content: "请先设置支付密码",
+				btn: ['确定', '取消'],
+				shadeClose: false,
+				closeBtn: false,
+				yes: function () {
+					location.href = "{:U('User/rep_password')}" + "?" + "user_id=" + user_id + "&order_id=" + order_id;
+				}, no: function () {
+					layer.closeAll();
+				}
+			});
+
+		}
+	}
+
+</script>
+</body>
+
+</html>

@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!--<meta name="viewport" content="width=device-width, initial-scale=1">-->
+    <title>{:GC('web_title')}管理后台-分类列表</title>
+    <include file="Public/asset_top_page"/>
+    <style>
+        table{
+            border-bottom: 1px solid #ddd
+        }
+
+        .so{
+            font-size:18px;
+
+        }
+
+    </style>
+</head>
+
+<body>
+<!-- header -->
+<include file="Public/header"/>
+<!-- /header -->
+<!-- Page container -->
+<div class="page-container">
+    <!-- Page content -->
+    <div class="page-content">
+        <!-- main sidebar -->
+        <include file="Public/left"/>
+        <!-- /main sidebar -->
+
+        <!-- Main content -->
+        <div class="content-wrapper">
+
+            <!-- Content area -->
+            <div class="content" style="padding-top: 10px;">
+                <!-- Pagination types -->
+                <div class="v-container">
+                    <div class="alert alert-tips alert-dismissible" role="alert">
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span
+                                aria-hidden="true">×</span></button>
+                        本页分类列表
+                    </div>
+
+                    <div class="panel panel-flat">
+                        <div class="panel-heading">
+                            <form class="v-filter-container" action="" method="POST">
+                                <div class="filter-fields-wrap">
+                            <div class="filter-item clearfix">
+                                <div class="filter-item__field">
+                                    <div class="v__control-group padd_left_11">
+
+                                        <div class="v__controls">
+                                            <!--													<a class="btn btn-primary search">搜索</a>-->
+                                            <a href="{:U('add_category')}"><input type="button" value="添加" class="btn btn-primary search" style="width:100px;height: 35px;"></a>
+                                            <a class="btn btn-success ml-15 dataExcel" style="display: none;">导出分类</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                                </div>
+                            </form>
+
+                            <!--搜索框-->
+                            <div class="heading-elements">
+
+                            </div>
+                        </div>
+                        <div class="dataTables_wrapper no-footer mini-space">
+                            <table class="table datatable-tools-basic basic_table">
+                                <thead>
+                                <tr>
+                                    <th style="width: 1px;">
+                                    </th>
+                                    <th class="">分类名称</th>
+                                    <th class="">级别</th>
+
+                                    <th class="text-center">操作</th>
+                                </tr>
+                                </thead>
+
+                                <thead class="tr">
+
+                                </thead>
+<!--                                <foreach name="list" item="vo">-->
+
+<!--                                    <tr class="tt_color" style="" id="n{$vo.id}">-->
+<!--                                        <td style="width: 1px;">-->
+<!--                                        </td>-->
+
+
+<!--                                        <td class="">-->
+<!--                                            <div class="ed_stand">-->
+
+<!--                                                <p><span class="sp" onclick="getCategory(this.id)" id="{$vo.id}">+</span>&nbsp&nbsp{$vo.name}</p>-->
+<!--                                            </div>-->
+<!--                                        </td>-->
+
+<!--                                        <td class="">-->
+<!--                                            <div class="ed_stand">-->
+<!--                                                <p>一级</p>-->
+<!--                                            </div>-->
+<!--                                        </td>-->
+
+
+<!--                                        <td class="text-center col-xs-2">-->
+<!--                                            <div class="tt_stand">-->
+
+<!--                                                <a title="查看详情" href="{:U('Goods/up_category', array('id'=> $vo['id']))}" class="layui-btn layui-btn-sm layui-btn-normal btn_detail">详情</a>-->
+<!--                                                <a title="添加子类" href="{:U('Goods/add_category', array('id'=> $vo['id']))}" class="layui-btn layui-btn-sm layui-btn-normal btn_detail">添加子类</a>-->
+<!--                                                <a title="删除分类" href="{:U('Goods/delete_category', array('id'=>$vo['id']))}" class="layui-btn layui-btn-sm layui-btn-danger btn_detail" onclick="return confirm('确定要删除吗?');">删除</a>-->
+<!--                                            </div>-->
+<!--                                        </td>-->
+<!--                                    </tr>-->
+<!--                                    <foreach name="vo['gc']" item="v1">-->
+<!--                                    <tr class="tt_color" style="">-->
+<!--                                        <td style="width: 1px;">-->
+<!--                                        </td>-->
+
+
+<!--                                        <td class="">-->
+<!--                                            <div class="ed_stand">-->
+<!--                                                <p style="padding-left:40px">|-&#45;&#45;&#45;&#45;{$v1['name']}</p>-->
+<!--                                            </div>-->
+<!--                                        </td>-->
+
+<!--                                        <td class="">-->
+<!--                                            <div class="ed_stand">-->
+<!--                                                <p>二级</p>-->
+<!--                                            </div>-->
+<!--                                        </td>-->
+
+
+<!--                                        <td class="text-center col-xs-2">-->
+<!--                                            <div class="tt_stand">-->
+
+<!--                                                <a title="查看详情" href="{:U('Goods/up_category', array('id'=> $v1['id']))}" class="layui-btn layui-btn-sm layui-btn-normal btn_detail">详情</a>-->
+<!--                                                <a title="添加子类" href="{:U('Goods/add_category', array('id'=> $v1['id']))}" class="layui-btn layui-btn-sm layui-btn-normal btn_detail">添加子类</a>-->
+<!--                                                <a title="删除分类" href="{:U('Goods/delete_category', array('id'=>$v1['id']))}" class="layui-btn layui-btn-sm layui-btn-danger btn_detail" onclick="return confirm('确定要删除吗?');">删除</a>-->
+<!--                                            </div>-->
+<!--                                        </td>-->
+<!--                                    </tr>-->
+<!--                                        <foreach name="v1['gc']" item="v2">-->
+<!--                                            <tr class="tt_color" style="">-->
+<!--                                                <td style="width: 1px;">-->
+<!--                                                </td>-->
+
+
+<!--                                                <td class="">-->
+<!--                                                    <div class="ed_stand">-->
+<!--                                                        <p style="padding-left:80px">|-&#45;&#45;&#45;&#45;{$v2['name']}</p>-->
+<!--                                                    </div>-->
+<!--                                                </td>-->
+
+<!--                                                <td class="">-->
+<!--                                                    <div class="ed_stand">-->
+<!--                                                        <p>三级</p>-->
+<!--                                                    </div>-->
+<!--                                                </td>-->
+
+
+<!--                                                <td class="text-center col-xs-2">-->
+<!--                                                    <div class="tt_stand">-->
+
+<!--                                                        <a title="查看详情" href="{:U('Goods/up_category', array('id'=> $v2['id']))}" class="layui-btn layui-btn-sm layui-btn-normal btn_detail">详情</a>-->
+
+<!--                                                        <a title="删除分类" href="{:U('Goods/delete_category', array('id'=>$v2['id']))}" class="layui-btn layui-btn-sm layui-btn-danger btn_detail" onclick="return confirm('确定要删除吗?');">删除</a>-->
+<!--                                                    </div>-->
+<!--                                                </td>-->
+<!--                                            </tr>-->
+<!--                                        </foreach>-->
+
+<!--                                    </foreach>-->
+<!--                                </foreach>-->
+                            </table>
+
+                        </div>
+                        <!-- /pagination types -->
+                    </div>
+                </div>
+                <!--end-->
+                <!-- Footer -->
+                <include file="Public/footer"/>
+                <!-- /footer -->
+            </div>
+            <!-- /content area -->
+        </div>
+        <!-- /main content -->
+
+    </div>
+    <!-- /page content -->
+
+</div>
+<!-- /page container -->
+
+<script >
+    var da = [] ;
+    function resgat(){
+
+        var cid
+        var str ='';
+        $.ajax({
+            url:'/index.php/Api/Goodsout/category',
+            data:'',
+            type : "POST",
+            dataType:"json",
+            success:function(res){
+                 da = res.result;
+                 ress = da
+                console.log(ress);
+                for(var i=0;i<ress.length;i++) {
+                        cid=ress[i]['id']
+
+
+                    var upUrl="/Admin/Goods/up_category/id/"+cid;
+                    var addUrl="/Admin/Goods/add_category/id/"+cid;
+                    var deleteuRL="/Admin/Goods/deleteMuch/type/6_0/isajax/0/ids/"+cid;
+                    var deleteuRL2="/Admin/Goods/deleteMuch/type/6_1/isajax/0/ids/"+cid;
+                    // var addUrl="{:U('Goods/add_category', array('id'=>'"+cid+"'))}"
+                    // var deleteuRL = "{:U('Goods/delete_category',array('id'=>'"+cid+"'))}"
+
+                     str += "<tr class='tt_color' style='' id='n"+cid+"'>" +
+                        "<td style='width: 1px;'>" +
+                        "</td> " +
+                        "<td class=''> " +
+                        "<div class='ed_stand'> " +
+                        "<p><span class='so' onclick='getCategory("+i+",0,"+cid+")' id='"+cid+"'>+</span>&nbsp&nbsp"+ress[i]['name']+"</p> " +
+                        "</div> " +
+                        "</td> " +
+                        "<td class=''> " +
+                        "<div class='ed_stand'> " +
+                        "<p>一级</p> " +
+                        "</div> " +
+                        "</td> " +
+                        "<td class='text-center col-xs-4'> " +
+                        "<div class='tt_stand'> " +
+                        "<a title='查看详情' href='"+upUrl+"' class='layui-btn layui-btn-sm layui-btn-normal btn_detail'>详情</a> " +
+                        "<a title='添加子类' href='"+addUrl+"' class='layui-btn layui-btn-sm layui-btn-normal btn_detail'>添加子类</a> " +
+                        "<a title='删除分类' href='"+deleteuRL+"' class='layui-btn layui-btn-sm layui-btn-danger btn_detail' onclick='return confirm('确定要删除吗?');'>删除</a> " +
+                        "<a title='强制删除分类' href='"+deleteuRL2+"' class='layui-btn layui-btn-sm layui-btn-danger btn_detail' onclick='return confirm('确定要删除吗?删除后无法恢复！！！');'>强制删除</a> " +
+                        "</div> " +
+                        "</td> " +
+                        "</tr>"
+
+
+                }
+
+
+            $('.tr').append(str);
+        }
+
+        })
+    }
+    window.onload = resgat();
+    function getCategory(a,b,c,d){
+        var cid = a;
+        var level = b;
+        var id = c;
+        var d = d;
+        var str =''
+
+        if(level == 0){
+
+            for(var i=0;i<da[cid]['gc'].length;i++){
+                var de= da[cid]['gc'][i]
+
+                var upUrl="/Admin/Goods/up_category/id/"+de['id'];
+                var addUrl="/Admin/Goods/add_category/id/"+de['id'];
+                var deleteuRL="/Admin/Goods/deleteMuch/type/6_0/isajax/0/ids/"+de['id'];
+                var deleteuRL2="/Admin/Goods/deleteMuch/type/6_1/isajax/0/ids/"+de['id'];
+
+                str+="<tr class='tt_color' style='' id='n"+de['id']+"'>"+
+                    "<td style='width: 1px;'>" +
+                    "</td><td class=''>" +
+                    "<div class='ed_stand'>" +
+
+                    "<p style='padding-left:40px;'><span class='so' onclick='getCategory("+cid+",1,"+de['id']+","+i+")' id='"+de['id']+"' >+</span>&nbsp&nbsp|-----"+de['name']+"</p>" +
+                    "</div></td><td class=''>" +
+                    "<div class='ed_stand'> " +
+                    "<p>二级</p> " +
+                    "</div> " +
+                    "</td> " +
+                    "<td class='text-center col-xs-4'> " +
+                    "<div class='tt_stand'> " +
+                    "<a title='查看详情' href='"+upUrl+"' class='layui-btn layui-btn-sm layui-btn-normal btn_detail' style='margin: 0 0 0 0'>详情</a>" +
+                    "<a title='添加子类' href='"+addUrl+"' class='layui-btn layui-btn-sm layui-btn-normal btn_detail' style='margin: 0  0 0 14px'>添加子类</a>" +
+                    "<a title='删除分类' href='"+deleteuRL+"' class='layui-btn layui-btn-sm layui-btn-danger btn_detail' style='margin:0 0 0 15px ' onclick='return confirm('确定要删除吗?');'>删除</a> " +
+                    "<a title='强制删除分类' href='"+deleteuRL2+"' class='layui-btn layui-btn-sm layui-btn-danger btn_detail' style='margin:0 0 0 15px ' onclick='return confirm('确定要删除吗?删除后无法恢复！！！');'>强制删除</a> " +
+                    "</div> " +
+                    "</td> " +
+                    "</tr>";
+            };
+
+        }
+        else if(level == 1){
+            for(var i=0;i<da[cid]['gc'][d]['gc'].length;i++){
+                var de = da[cid]['gc'][d]['gc'][i]
+                var upUrl="/Admin/Goods/up_category/id/"+de['id'];
+                var deleteuRL="/Admin/Goods/deleteMuch/type/6_0/isajax/0/ids/"+de['id'];
+                var deleteuRL2="/Admin/Goods/deleteMuch/type/6_1/isajax/0/ids/"+de['id'];
+
+                str+="<tr class='tt_color' style='' id='n"+de['id']+"'> " +
+                    "<td style='width: 1px;'> " +
+                    "</td> " +
+                    "<td class=''> " +
+                    "<div class='ed_stand'>" +
+                    "<p style='padding-left:80px'>|-----"+de['name']+"</p>" +
+                    "</div>" +
+                    "</td> " +
+                    "<td class=''>" +
+                    "<div class='ed_stand'> " +
+                    "<p>三级</p> " +
+                    "</div> " +
+                    "</td> " +
+                    "<td class='text-center col-xs-4'> " +
+                    "<div class='tt_stand'> " +
+                    "<a title='查看详情' href='"+upUrl+"' class='layui-btn layui-btn-sm layui-btn-normal btn_detail'>详情</a>" +
+                    "<a title='删除分类' href='"+deleteuRL+"' class='layui-btn layui-btn-sm layui-btn-danger btn_detail' onclick='return confirm('确定要删除吗?');'>删除</a> " +
+                    "<a title='强制删除分类' href='"+deleteuRL2+"' class='layui-btn layui-btn-sm layui-btn-danger btn_detail' onclick='return confirm('确定要删除吗?删除后无法恢复！！！');'>强制删除</a> " +
+                    "</div> " +
+                    "</td> " +
+                    "</tr>";
+            }
+
+        }
+
+        $('#n'+id+'').after(str);
+
+        $('#'+id+'').text('-');
+        $('#'+id+'').attr('onclick',"getCategory_bi("+cid+","+level+","+id+","+d+")");
+
+
+
+
+    }
+
+    function getCategory_bi(a,b,c,d){
+        var cid = a;
+        var level = b;
+        var id = c;
+        var d = d;
+
+
+
+
+        var str='';
+        if(level == 0){
+            for(var i=0;i<da[cid]['gc'].length;i++){
+
+                $('#n'+da[cid]['gc'][i]['id']+'').remove();
+                for(var e=0;e<da[cid]['gc'][i]['gc'].length;e++){
+                    $('#n'+da[cid]['gc'][i]['gc'][e]['id']+'').remove();
+                }
+            };
+        }else if(level == 1){
+            for(var i=0;i<da[cid]['gc'][d]['gc'].length;i++){
+                var de = da[cid]['gc'][d]['gc'][i]['id']
+                $('#n'+de+'').remove();
+            }
+        }
+
+
+
+        $('#'+id+'').text('+');
+        $('#'+id+'').attr('onclick',"getCategory("+cid+","+level+","+id+","+d+")");
+
+
+
+
+
+    }
+
+</script>
+
+
+</body>
+</html>

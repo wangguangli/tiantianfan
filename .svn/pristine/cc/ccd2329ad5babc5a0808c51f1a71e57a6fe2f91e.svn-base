@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>商品管理</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="Keywords" content="">
+    <meta name="description" content="">
+    <!-- UC强制全屏 -->
+    <meta name="full-screen" content="yes">
+    <!-- QQ强制全屏 -->
+    <meta name="x5-fullscreen" content="true">
+    <link rel="stylesheet" href="__PUBLIC__/mobile/css_v3/addItem.css">
+    <script type="text/javascript" src="__PUBLIC__/layer/mobile/layer.js"></script>
+    <!--上拉加载-->
+    <style>
+        .downMenu_01{
+            margin:0;
+            border-radius: 0;
+        }
+        .nextStep {
+            margin:0 auto;
+            padding:  8.15vw 0;
+            box-sizing: content-box;
+        }
+        .wheel-scroll.wheel-scroll-hook {
+            margin: 0;
+            padding: 0;
+        }
+    </style>
+</head>
+<body style="background-color: #f7f8fa; padding-top: 3.52vw">
+<div class="h_xinxi">
+    <div class="downMenu_01">
+        <em class="active">商品名称</em>
+        <input class="menu_01" name="name" type="text" placeholder="请输入商品名称">
+    </div>
+    <div class="downMenu_01">
+        <em class="active">副标题</em>
+        <input class="menu_01" name="subhead" type="text" placeholder="请输入商品副标题">
+    </div>
+    <div class="downMenu_01">
+        <em class="active">本店价格</em>
+        <input class="menu_01" name="price" type="text" placeholder="请输入本店价格">
+    </div>
+    <div class="downMenu_01">
+        <em class="active">市场价格</em>
+        <input class="menu_01" name="market_price" type="text" placeholder="请输入市场价格">
+    </div>
+</div>
+<div class="h_xinxi">
+    <div class="downMenu_01">
+        <em class="active">商品分类</em>
+        <input class="menu_01" type="text" id="picker" placeholder="选择商品分类" name="cat" readonly />
+    </div>
+</div>
+<div class="h_xinxi">
+    <div class="downMenu_01">
+        <em class="active">商品销量</em>
+        <input class="menu_01" name="sell_count" type="text" placeholder="请输入商品销量">
+    </div>
+    <div class="downMenu_01">
+        <em class="active">配送方式</em>
+        <div class="menu_01 h_shipping" style="overflow:hidden;">
+            <!--is_shipping 1 送货上门 2 到店自提-->
+            <label>
+                <input type="checkbox" name="is_pick" value="is_pick" checked>
+                <span>送货上门</span>
+            </label>
+            <label>
+                <input type="checkbox" name="is_shipping" value="is_shipping">
+                <span>到店自提</span>
+            </label>
+        </div>
+    </div>
+    <div class="downMenu_01">
+        <em class="active">排序</em>
+        <input class="menu_01" name="sort" type="text" placeholder="请输入排序值">
+    </div>
+    <div class="downMenu_01">
+        <em class="active">是否上架</em>
+        <select class="menu_01 is_on_sale">
+            <option value="0">下架</option>
+            <option value="1">上架</option>
+        </select>
+    </div>
+    <div class="downMenu_01">
+        <em class="active">商品运费模板</em>
+        <select class="menu_01 shipping_rule"></select>
+    </div>
+</div>
+<div class="nextStep">
+    <a class="nextStepBtn_01" href="javascript:;" onclick="nextStep()">下一步</a>
+</div>
+<script src="__PUBLIC__/mobile/js/jquery-2.1.4.js"></script>
+<script src="__PUBLIC__/mobile/js/picker.js"></script>
+<script src="__PUBLIC__/mobile/js/index.js"></script>
+<script>
+    var user_id = "{$user_id}";
+    var goods_id = "{$data['goods']}";
+    var shop_id = "{$data['shop']}";
+    var IMGDATA; //本地存储信息
+    var THUMB;
+    var IMAGES;
+    $(function () {
+        $.ajax({
+            type: 'post',
+            dataType: 'json',
+            // timeout:  4000,//接口请求超时
+            async: false,//改为同步方式
+            url: "{:U('Api/Shopapp/express')}",
+            data: {
+                'shop_id': shop_id
+            },
+            success: function (row) {
+                if(row.status == 0){
+                    var data = row.result;
+                    var html = '';
+                    $.each(data,function (k,v) {
+                        html += '<option value='+v.id+'>'+v.name+'</option>'
+                    });
+                    $('.shipping_rule').html(html)
+                }else {
+                    layer.open({content: row.msg,skin: 'msg',time: 1});
+                }
+            },
+            complete:function(row){ //请求完成时运行的函数
+                // layer.closeAll()
+            }
+        });
+        //返回判断
+        if(localStorage.addData){
+            //返回铺垫本地存储数据
+            IMGDATA = JSON.parse(localStorage.addData);
+            THUMB = IMGDATA.thumb;
+            IMAGES = IMGDATA.images;
+            $('input.menu_01').each(function () {
+                $(this).val(IMGDATA[$(this).attr('name')])
+            });
+            //是否上架
+            $('.is_on_sale').val(IMGDATA.is_on_sale);
+            //商品运费模板
+            $('.shipping_rule').val(IMGDATA.shipping_rule_id);
+            //商品分类
+            $("input[name='cat']").attr('data-id',IMGDATA.cat_id_3);
+            //配送方式
+            $("input[name='is_pick']").prop("checked",(IMGDATA.is_pick == 1?true:false));
+            $("input[name='is_shipping']").prop("checked",(IMGDATA.is_shipping == 1?true:false));
+            layer.closeAll();
+        }else {
+            if(goods_id){
+                layer.open({content: '数据加载中...',skin: 'msg'});
+                $.ajax({
+                    type: 'post',
+                    dataType: 'json',
+                    url: "{:U('Api/Shopapp/goodsDetail')}",
+                    data: {
+                        'goods_id': goods_id,
+                        'shop_id': shop_id
+                    },
+                    success: function (row) {
+                        layer.closeAll();
+                        if(row.status == 0){
+                            var data = row.result;
+                            THUMB = data.goods.thumb;
+                            IMAGES = data.images.join('|');
+                            $('input.menu_01').each(function () {
+                                $(this).val(data.goods[$(this).attr('name')])
+                            });
+                            //配送方式
+                            $("input[name='is_pick']").prop("checked",(data.goods.is_pick == 1?true:false));
+                            $("input[name='is_shipping']").prop("checked",(data.goods.is_shipping == 1?true:false));
+                            //商品分类
+                            $("input[name='cat']").val(data.goods_category[0].name+'_'+data.goods_category[1].name+'_'+data.goods_category[2].name)
+                                .attr('data-id',data.goods_category[2].id);
+                            //运费模板
+                            $('.shipping_rule').val(data.goods.shipping_rule.id);
+                            //是否上架
+                            $('.is_on_sale').val(data.goods.is_on_sale)
+                        }else {
+                            layer.open({content: row.msg,skin: 'msg',time: 1});
+                        }
+                    },
+                });
+            }
+        }
+        // 三级联动
+        $.ajax({
+            type: 'post',
+            async: false,//改为同步方式
+            dataType: 'json',
+            url: "{:U('Api/Shopapp/goodsCategory')}",
+            data: {
+                'shop_id': shop_id
+            },
+            success: function (row) {
+                city_arr(row.result)
+            }
+        });
+    });
+    //下一步
+    function nextStep() {
+        var name = $("input[name='name']").val();
+        var subhead = $("input[name='subhead']").val();
+        var price = $("input[name='price']").val();
+        var market_price = $("input[name='market_price']").val();
+        var cat_id_3 = $("input[name='cat']").attr('data-id');
+        var cat = $("input[name='cat']").val();
+        var sell_count = $("input[name='sell_count']").val();
+        var is_pick = $("input[name='is_pick']").prop("checked");
+        var is_shipping = $("input[name='is_shipping']").prop("checked");
+        var sort = $("input[name='sort']").val();
+        var is_on_sale = $(".is_on_sale").val();
+        var shipping_rule = $(".shipping_rule").val();
+        if(!name){
+            layer.open({content: '请输入商品名称',skin: 'msg',time: 1});
+            return false
+        }
+        if(!subhead){
+            layer.open({content: '请输入商品副标题',skin: 'msg',time: 1});
+            return false
+        }
+        if(!price){
+            layer.open({content: '请输入本店价格',skin: 'msg',time: 1});
+            return false
+        }
+        if(!market_price){
+            layer.open({content: '请输入市场价格',skin: 'msg',time: 1});
+            return false
+        }
+        if(!cat_id_3){
+            layer.open({content: '请选择完整的商品分类',skin: 'msg',time: 1});
+            return false
+        }
+        if(!sell_count){
+            layer.open({content: '请输入商品销量',skin: 'msg',time: 1});
+            return false
+        }
+        if(!is_shipping && !is_pick){
+            layer.open({content: '至少选择一个配送类型',skin: 'msg',time: 1});
+            return false
+        }
+        if(!sort){
+            layer.open({content: '请输入排序值',skin: 'msg',time: 1});
+            return false
+        }
+        var data = {
+            'user_id': user_id,
+            'shop_id': shop_id,
+            'goods_id': goods_id,
+            'name': name,
+            'subhead': subhead,
+            'price': price,
+            'market_price': market_price,
+            'cat_id_3': cat_id_3,
+            'cat': cat,
+            'sell_count': sell_count,
+            'is_pick': is_pick?'1':0,
+            'is_shipping': is_shipping?'1':0,
+            'sort': sort,
+            'is_on_sale': is_on_sale,
+            'shipping_rule_id': shipping_rule,
+            'thumb': THUMB,
+            'images': IMAGES
+        };
+        localStorage.setItem("addData",JSON.stringify(data));
+        window.location.href="{:U('Shopcenter/addImg')}"
+    }
+</script>
+</body>
+</html>

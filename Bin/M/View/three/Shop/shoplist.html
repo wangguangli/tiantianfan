@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<title>商家列表</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<link rel="stylesheet" href="__PUBLIC__/mobile/css_v3/mui.min.css">
+		<link rel="stylesheet" href="__PUBLIC__/mobile/css_v3/near.css">
+		<link rel="stylesheet" href="__PUBLIC__/mobile/style/main_style.css">
+		<link rel="stylesheet" href="__PUBLIC__/mobile/style/dropload.css">
+		<script src="__PUBLIC__/js/mui.min.js"></script>
+		<script src="__PUBLIC__/js/jquery.min.js"></script>
+		<script src="__PUBLIC__/mobile/js/dropload.min.js"></script>
+
+	</head>
+
+	<body>
+		<!--导航-->
+		<div class="goods_nav">
+			<a href="{:U('shoplist', array('order_by'=>1,'industry_id'=>$industry_id))}">
+				<div class="nav_title <if condition='$order_by eq 1'>f_active</if>">
+					默认
+					<if condition='$order_by eq 1'>
+						<span class="active_span"></span>
+					</if>
+
+				</div>
+			</a>
+			<a href="{:U('shoplist', array('order_by'=>2,'industry_id'=>$industry_id))}">
+				<div class="nav_title <if condition='$order_by eq 2'>f_active</if>">
+					距离
+					<if condition='$order_by eq 2'>
+						<span class="active_span"></span>
+					</if>
+				</div>
+			</a>
+			<a href="{:U('shoplist', array('order_by'=>3,'industry_id'=>$industry_id))}">
+				<div class="nav_title <if condition='$order_by eq 3'>f_active</if>">
+					评分
+					<if condition='$order_by eq 3'>
+						<span class="active_span"></span>
+					</if>
+				</div>
+			</a>
+
+		</div>
+		<!--商品列表-->
+		<div class="good_list">
+			<input type="hidden" id="goods_list_id" value="1">
+			<ul id="goods_list">
+			</ul>
+			<ul id="goods_list1">
+			</ul>
+		</div>
+		<iframe id="geoPage" width="0" height="0" frameborder=0 style="display:none;" scrolling="no"
+				src="https://apis.map.qq.com/tools/geolocation?key=2AQBZ-IUJLF-GMSJR-NRL27-2RTBF-MSFMV&referer=myapp"
+				allow="geolocation"></iframe>
+		<script type="text/javascript" src="https://res.wx.qq.com/open/js/jweixin-1.4.0.js"></script>
+		<script>
+			var lat = '';
+			var lng = '';
+			var city = '';
+			var order_by = '{$order_by}'
+			$(function () {
+
+				window.addEventListener('message', function (event) {
+					console.log('test 78787878')
+					var loc = event.data; // 接收位置信息
+					if (loc && loc.module == "geolocation") {
+						lat = loc.lat;
+						lng = loc.lng
+						$.ajax({
+							url:'/index.php/Api/Shopout/shop',
+							data:{
+								industry_id:'{$industry_id}',
+								latitude:lat,
+								longitude:lng,
+								num:10,
+								page:1,
+								order_by:order_by
+							},
+							dataType:'json',
+							success:function (res) {
+								console.log('test 78')
+								console.log(res)
+								if(res.status == 0){
+									var html = '';
+									$.each(res.result.list.shop,function (index,item) {
+										html +='<li class="clearfix">' +
+												'<a href="/M/Shop/shopdetail?shop_id=' + item.shop_id + '" style="display: block;width: 100%;height: 100%;">' +
+												'<div class="good_img"><img class="product_img" src="'+item.thumb+'" /></div>' +
+												'<div class="good_right">' +
+												'<h6>'+item.shop_name+'</h6>' +
+												'<div class="dizhi_cont"><img class="good_right_img" src="__PUBLIC__/mobile/images_v3/dizhi5.png" />' +
+												'<div class="dizhi">'+item.address+'</div>' +
+												'</div>' +
+												'<div class="leixing">' +
+												'<span class="good_sp">'+item.industry_name+'</span>' +
+												'<span class="address">距离'+item.distance+'m</span>' +
+												'</div>' +
+												'</div>' +
+												'</a>' +
+												'</li>'
+									})
+
+								}else {
+									me.lock(); // 锁定
+									me.noData(); // 无数据
+								}
+								var goods_list_id = $('#goods_list_id').val();//防止重复加载
+								$('#goods_list_id').val(goods_list_id+1)
+								$('#goods_list').html(html);
+								if(goods_list_id == 11){
+									load(1);
+								}
+
+							}
+						})
+					}
+				})
+
+			})
+			function load(page){
+				var page = 1;
+				// dropload
+				$('#goods_list1').dropload({
+
+					scrollArea: window,
+					loadDownFn: function(me) {
+						page++; // 拼接HTML
+						$.ajax({
+							type: 'POST',
+							data: {
+								industry_id:'{$industry_id}',
+								latitude:lat,
+								longitude:lng,
+								num:10,
+								page:page,
+								order_by:order_by
+							},
+							url:'/index.php/Api/Shopout/shop',
+							dataType: 'json',
+							success: function(res) {
+								console.log("test"+page)
+								console.log(res)
+								if(res.status == 0){
+									var html = '';
+									$.each(res.result.list.shop,function (index,item) {
+										html +='<li class="clearfix">' +
+												'<a href="/M/Shop/shopdetail?shop_id=' + item.shop_id + '" style="display: block;width: 100%;height: 100%;">' +
+												'<div class="good_img"><img class="product_img" src="'+item.thumb+'" /></div>' +
+												'<div class="good_right">' +
+												'<h6>'+item.shop_name+'</h6>' +
+												'<div class="dizhi_cont"><img class="good_right_img" src="__PUBLIC__/mobile/images_v3/dizhi5.png" />' +
+												'<div class="dizhi">'+item.address+'</div>' +
+												'</div>' +
+												'<div class="leixing">' +
+												'<span class="good_sp">咖啡饮品</span>' +
+												'<span class="address">距离'+item.distance+'m</span>' +
+												'</div>' +
+												'</div>' +
+												'</a>' +
+												'</li>'
+									})
+
+								} else {
+									me.lock(); // 锁定
+									me.noData(); // 无数据
+								}
+								$('#goods_list').append(html);
+								me.resetload();
+							},
+							 error: function (xhr, type) {
+							     alert('Ajax error!');  // 即使加载出错，也得重置
+							     me.resetload();
+							 }
+						});
+					}
+				});
+			}
+
+		</script>
+	</body>
+
+</html>

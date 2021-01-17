@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<title>添加银行卡</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+		<link rel="stylesheet" href="__PUBLIC__/mobile/css_v3/mui.min.css">
+		<link rel="stylesheet" href="__PUBLIC__/mobile/css_v3/bank_card.css?n=1">
+		<link rel="stylesheet" href="__PUBLIC__/mobile/style/main_style.css">
+		<script src="__PUBLIC__/js/mui.min.js"></script>
+
+		<script src="__PUBLIC__/js/jquery.min.js"></script>
+		<script src="__PUBLIC__/layer/mobile/layer.js"></script>
+	</head>
+
+	<body>
+
+		<div class="mui-content">
+			<form action="" method="post">
+				<input type="hidden" name="id" value="{$bank.id}">
+				<div class="magcard">
+					<ul class="card_ul">
+						<li class="mag_dd clearfix">
+							<h5>持卡人</h5>
+							<input type="text" name="name" value="{$bank.name}" placeholder="请输入持卡人姓名" class="name_dd" required />
+						</li>
+
+						<li class="mag_dd clearfix">
+							<h5>卡号</h5>
+							<input type="text" name="cart_no" value="{$bank.cart_no}" placeholder="请输入银行卡号" class="name_dd" required />
+						</li>
+						<li class="mag_dd clearfix">
+							<h5>开户行</h5>
+							<input type="text" name="bank_name" value="{$bank.bank_name}" placeholder="请选择银行" class="name_dd" required />
+						</li>
+						<li class="mag_dd clearfix" style="border: 0;">
+							<h5>开户网点</h5>
+							<input type="text" name="bank_address" value="{$bank.bank_address}" placeholder="请输入开户网点" class="name_dd" />
+						</li>
+					</ul>
+				</div>
+				<if condition="$bank['id'] gt 0">
+					<div class="confirm1">
+						<input type="button" name="name" value="删除银行卡" onclick="deleteLocation({$bank['id']})" />
+					</div>
+				</if>
+				<div class="confirm">
+					<if condition="$bank['id'] gt 0">
+						<input type="submit" value="确认修改" />
+						<else/>
+						<input type="submit" value="确认添加" />
+					</if>
+
+				</div>
+			</form>
+		</div>
+	<script>
+		function deleteLocation(bank_id){
+			layer.open({
+				content: '请选择',
+				btn: ['删除', '取消', ],
+				skin: 'footer',
+				yes: function(index, data) {
+					$.ajax({
+						url:"/index.php/M/User/deleteBank",
+						data:{
+							bank_id:bank_id,
+						},
+						dataType:'json',
+						success:function (res) {
+							if(res.status == 0){
+								layer.closeAll();
+								layer.open({
+									content: "操作成功",
+									skin: 'msg',
+									time: 1
+								});
+								setTimeout(function () {
+									location.href = "{:U('User/bank_card')}";
+								},3000)
+							}else {
+								layer.open({
+									content: "操作失败",
+									skin: 'msg',
+									time: 1
+								});
+							}
+
+						}
+					})
+				}
+			})
+		}
+
+	</script>
+	</body>
+
+</html>

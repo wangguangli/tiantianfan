@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>商品列表</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="Keywords" content="">
+    <meta name="description" content="">
+    <link rel="stylesheet" href="__PUBLIC__/mobile/style/jquery-weui.min.css">
+    <link rel="stylesheet" href="__PUBLIC__/mobile/css_v3/weui.min.css">
+    <link rel="stylesheet" href="__PUBLIC__/mobile/style/main_style.css">
+
+    <link rel="stylesheet" href="__PUBLIC__/layui/css/layui.css">
+    <link href="__PUBLIC__/css/shopindex.css" rel="stylesheet" type="text/css" />
+    <link href="__PUBLIC__/css/category.css" rel="stylesheet" type="text/css" />
+    <link href="__PUBLIC__/css/footer.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="__PUBLIC__/mobile/css_v3/goods_index.css">
+    <script type="text/javascript" src="__PUBLIC__/layer/mobile/layer.js"></script>
+    <script type="text/javascript" src="__PUBLIC__/layui/layui.js"></script>
+
+</head>
+
+<body ontouchstart>
+
+
+<!--导航-->
+<div class="goods_nav">
+    <div class="goods_nav_kuan">
+
+
+        <a href="{:U('Index/todayGoods','type=1')}" style="color: black;">
+            <div class="nav_title <if condition="$type eq 1"> f_active  </if>" >
+                综合推荐
+                <if condition="$type eq 1">
+                    <span class="active_span"></span>
+                </if>
+            </div>
+        </a>
+        <a href="{:U('Index/todayGoods','type=2')}" style="color: black;">
+            <div class="nav_title <if condition="$type eq 2"> f_active  </if>">
+                销量
+                <if condition="$type eq 2">
+                    <span class="active_span"></span>
+                </if>
+
+            </div>
+        </a>
+
+        <a href="{:U('Index/todayGoods','type=3')}" style="color: black;">
+            <div class="nav_title  <if condition="$type eq 3"> f_active  </if>">
+                价格
+                <if condition="$type eq 3">
+                    <span class="active_span"></span>
+                </if>
+            </div>
+        </a>
+
+
+
+
+    </div>
+</div>
+
+<div class="goods-list">
+    <ul>
+        <volist name="goods" id="vo">
+            <li>
+                <div class="proshow">
+                    <a href="{:U('Goods/detail', array('id'=>$vo['id']))}">
+                        <img class="product_img" src="{$vo.thumb}" />
+                        <div class="pro-info">
+                            <p class="cakes_tit">
+                                <span class="cakes">{$vo.tags}</span>
+                                {$vo.name}
+                            </p>
+
+                            <div class="buy_cont">
+                                <span class="price"><span class="symbol">￥</span>{$vo.price}</span>
+                                <img class="gwc" src="__PUBLIC__/mobile/images_v3/f_dm26.png" />
+                            </div>
+
+                        </div>
+                    </a>
+                </div>
+            </li>
+        </volist>
+
+    </ul>
+</div>
+<if condition="$count lt 1">
+    <div class="nextpage">
+        <div class="line"></div>
+        <span>暂无数据</span>
+        <div class="line"></div>
+    </div>
+</if>
+</body>
+
+</html>
+<script>
+    //注意：导航 依赖 element 模块，否则无法进行功能性操作
+    layui.use('element', function() {
+        var element = layui.element;
+        //…
+    });
+</script>

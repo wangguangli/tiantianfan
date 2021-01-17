@@ -1,0 +1,38 @@
+<!-- Main navbar -->
+<div class="navbar navbar-default header-highlight">
+	<div class="navbar-header" style="text-align: center;padding: 20px 0;">
+		<a style="width: 200px;display: block;" href="{:U('Index/index')}">
+			<img src="{:GC('logo')}" style="width: 60px;height: 60px;">
+			<div style="height: 40px;text-align: center; padding:10px;color: #fff;font-size: 18px;">{:GC('web_title')}
+			</div>
+		</a>
+	</div>
+
+	<div class="navbar-collapse collapse" id="navbar-mobile">
+		<ul class="nav navbar-nav">
+			<li>
+				<ul class="breadcrumb">
+					<li><i class="icon-home2 position-left"></i>{:GC('web_title')}</li>
+					<li>{$cccname}</li>
+				</ul>
+			</li>
+		</ul>
+
+		<ul class="nav navbar-nav navbar-right">
+
+			<li class="dropdown dropdown-user">
+				<a class="dropdown-toggle" data-toggle="dropdown">
+					<span>{$admin_info.username}</span>
+					<i class="caret"></i>
+				</a>
+
+				<ul class="dropdown-menu dropdown-menu-right">
+
+					<li><a href="{:U('Admin/Index/changePwd')}"><i class="icon-cog5"></i>修改密码</a></li>
+					<li><a href="{:U('Common/logout')}"><i class="icon-switch2"></i>退出登录</a></li>
+				</ul>
+			</li>
+		</ul>
+	</div>
+</div>
+<!-- /main navbar -->

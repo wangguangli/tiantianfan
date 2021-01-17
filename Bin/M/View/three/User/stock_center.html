@@ -1,0 +1,84 @@
+<!DOCTYPE html >
+<html>
+<head>
+	<meta name="Generator" content="tpshop v1.1" />
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width">
+	<title>领劵中心</title>
+	<meta http-equiv="keywords" content="{$tpshop_config['shop_info_store_keyword']}" />
+	<meta name="description" content="{$tpshop_config['shop_info_store_desc']}" />
+	<meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
+	<link rel="stylesheet" href="__PUBLIC__/mobile/style/main_style.css">
+	<link rel="stylesheet" href="__PUBLIC__/css/mui.min.css">
+	<link rel="stylesheet" type="text/css" href="__PUBLIC__/mobile/style/user_index.css"/>
+	<script src="__PUBLIC__/mobile/js/jquery-2.1.4.js"></script>
+	<link href="__PUBLIC__/css/footer.css" rel="stylesheet" type="text/css" />
+	<script src="__PUBLIC__/layer/mobile/layer.js"></script>
+</head>
+	<body style="background: #efeff4;">
+		<header class="mui-bar mui-bar-nav" style="background: #FE274E;">
+			 <a href="javascript:history.back();" class="mui-pull-left mui-icon mui_turn"><img src="__PUBLIC__/img/return.png" width="20vw" height="20vw"/></a>
+		    <h1 class="mui-title tit_login" style="color: #fff;">领劵中心</h1>
+		</header>
+		<div class="mui-content">
+		   <ul class="volume">
+		   	  <!--未使用-->
+			   <volist name="yhq_arr" id="vo">
+		   	   <li>
+				   <if condition="$vo['is_have'] eq 1 ">
+					   <div class="volume_left" style="background: url(__PUBLIC__/images/back_gray.png) no-repeat top center;">
+						   <else />
+						   <div class="volume_left" style="background: url(__PUBLIC__/images/back_yellow.png) no-repeat top center;">
+				   </if>
+		   	  	 	<h6 class="left_h6">￥<span class="left_span">{$vo.money}</span></h6>
+		   	  	 	<p class="money_pp">{$vo.conditions_cn}</p>
+		   	  	 </div>
+		   	  	<div class="volume_right">
+		   	  		<p class="right_pp"><span class="shop_volume">{$vo.coupon_type}</span>{$vo.shop_name}</p>
+		   	  		<div class="right_time">
+		   	  			<span class="time_sp">{$vo.use_start_time|date="Y.m.d",###} - {$vo.use_end_time|date="Y.m.d",###}</span>
+						<if condition="$vo['is_have'] eq 1 ">
+							<img src="__PUBLIC__/images/received.png" style="width:14vw;height: 12vw;" class="received_right"/>
+							<else />
+		   	  			<span class="received_go" value="{$vo.id}" uid="{$user_id}">立即领取</span>
+						</if>
+		   	  			<div class="clear"></div>
+		   	  		</div>
+		   	  	</div>
+		   	  	<div class="clear"></div>
+		   	  </li>
+			   </volist>
+		   	  <!--未使用-->
+		   </ul>
+		</div>
+		<script type="text/javascript">
+			$('.received_go').click(function(){
+				var yhq_id = $(this).attr("value");
+				var uid = $(this).attr("uid");
+				$.ajax({
+					url:"/index.php/Api/Couponin/getCoupon",
+					data:{id:yhq_id,user_id:uid},
+					dataType:"json",
+					success:function(data){
+						if(data.status == "0"){
+							layer.open({
+								content: data.msg
+								, skin: 'msg'
+								, time: 2
+							});
+							window.location.reload();
+						}else{
+							layer.open({
+								content: data.msg
+								, skin: 'msg'
+								, time: 2
+							});
+						}
+					}
+
+
+				})
+			})
+		</script>
+	</body>
+</html>

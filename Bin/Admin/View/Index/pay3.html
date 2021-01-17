@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<!--<meta name="viewport" content="width=device-width, initial-scale=1">-->
+	<title>{:GC('web_title')}管理后台-项目设置</title>
+	<include file="Public/asset_top_page"/>
+</head>
+<body>
+<!-- header -->
+<include file="Public/header"/>
+<!-- /header -->
+<!-- Page container -->
+<div class="page-container">
+	<!-- Page content -->
+	<div class="page-content">
+		<!-- main sidebar -->
+		<include file="Public/left"/>
+		<!-- /main sidebar -->
+
+		<!-- Main content -->
+		<div class="content-wrapper">
+
+			<!-- Content area -->
+			<div class="content" style="padding-top: 10px;">
+				<!-- Pagination types -->
+				<div class="v-container">
+					<div class="alert alert-tips alert-dismissible" role="alert">
+						<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span
+								aria-hidden="true">×</span></button>
+						请在此处配置第三方支付的相关信息，非专业人员，不要随意改动！
+					</div>
+
+					<!-- page -->
+					<form class="form-horizontal pt-15" method="post" action="">
+
+						<div class="form-group">
+							<label class="col-xs-2 control-label text-right" style="color: #FF0000;font-weight: bold;">第三方支付 -- 微信APP</label>
+							<div class="col-xs-5" style="color: #FF0000;font-weight: bold;">
+								<label class="radio-inline">微信支付信息在此下区域内配置</label>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-xs-2 control-label text-right">微信公众号名称</label>
+							<div class="col-xs-5">
+								<input class="form-control" type="text" name="title" value="{$data.title}" />
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-xs-2 control-label text-right">APPID</label>
+							<div class="col-xs-5">
+								<input class="form-control" type="text" name="appid" value="{$data.appid}" />
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-xs-2 control-label text-right">商户号</label>
+							<div class="col-xs-5">
+								<input class="form-control" type="text" name="mchid" value="{$data.mchid}" />
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-xs-2 control-label text-right">支付密钥</label>
+							<div class="col-xs-5">
+								<input class="form-control" type="text" name="key1" value="{$data.key1}" />
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-xs-2 control-label text-right">公众号密钥</label>
+							<div class="col-xs-5">
+								<input class="form-control" type="text" name="key2" value="{$data.key2}" />
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-xs-2 control-label text-right">同步跳转地址</label>
+							<div class="col-xs-5">
+								<input class="form-control" type="text" name="return_url" value="{$data.return_url}" placeholder="不要写域名，只写后面的地址即可" />
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-xs-2 control-label text-right">异步通知地址</label>
+							<div class="col-xs-5">
+								<input class="form-control" type="text" name="notify_url" value="{$data.notify_url}" placeholder="不要写域名，只写后面的地址即可" />
+							</div>
+						</div>
+
+						<div class="form-group">
+							<label class="col-xs-2 control-label"></label>
+							<div class="col-xs-8">
+								<button class="layui-btn layui-btn-sm layui-btn-normal" type="submit">提交</button>
+								<a href="javascript:history.go(-1);" class="layui-btn layui-btn-sm layui-btn-primary">返回</a>
+								<input type="hidden" name="id" value="{$data.id}">
+								<input type="hidden" name="type" value="1">
+							</div>
+						</div>
+					</form>
+
+
+					<form class="form-horizontal pt-15" method="post" action="">
+
+						<div class="form-group">
+							<label class="col-xs-2 control-label text-right" style="color: #FF0000;font-weight: bold;">第三方支付 -- 支付宝APP</label>
+							<div class="col-xs-5" style="color: #FF0000;font-weight: bold;">
+								<label class="radio-inline">支付宝信息在此下区域内配置</label>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-xs-2 control-label text-right">APPID</label>
+							<div class="col-xs-5">
+								<input class="form-control" type="text" name="appid" value="{$data2.appid}" />
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-xs-2 control-label text-right">商户私钥</label>
+							<div class="col-xs-5">
+								<textarea class="form-control" name="key1" style="height: 120px;">{$data2.key1}</textarea>
+								<span style="color: #1ec313;">（注意不要有多余的空格与换行）</span>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-xs-2 control-label text-right">支付宝公钥</label>
+							<div class="col-xs-5">
+								<textarea class="form-control" name="key2" style="height: 120px;">{$data2.key2}</textarea>
+								<span style="color: #1ec313;">（注意不要有多余的空格与换行）</span>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-xs-2 control-label text-right">同步跳转地址</label>
+							<div class="col-xs-5">
+								<input class="form-control" type="text" name="return_url" value="{$data2.return_url}" placeholder="不要写域名，只写后面的地址即可" />
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-xs-2 control-label text-right">异步通知地址</label>
+							<div class="col-xs-5">
+								<input class="form-control" type="text" name="notify_url" value="{$data2.notify_url}" placeholder="不要写域名，只写后面的地址即可" />
+							</div>
+						</div>
+
+						<div class="form-group">
+							<label class="col-xs-2 control-label"></label>
+							<div class="col-xs-8">
+								<button class="layui-btn layui-btn-sm layui-btn-normal" type="submit">提交</button>
+								<a href="javascript:history.go(-1);" class="layui-btn layui-btn-sm layui-btn-primary">返回</a>
+								<input type="hidden" name="id" value="{$data2.id}">
+								<input type="hidden" name="type" value="2">
+							</div>
+						</div>
+					</form>
+
+					<!-- page end -->
+
+					<!-- Footer -->
+					<include file="Public/footer" />
+					<!-- /footer -->
+
+				</div>
+				<!-- /content area -->
+
+			</div>
+			<!-- /main content -->
+
+		</div>
+		<!-- /page content -->
+
+	</div>
+	<!-- /page container -->
+
+</body>
+</html>

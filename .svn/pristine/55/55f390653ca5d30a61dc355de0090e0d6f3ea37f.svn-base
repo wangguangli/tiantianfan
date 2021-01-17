@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<title>{$goods.name}</title>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+		<meta name="Keywords" content="">
+		<meta name="description" content="">
+		<link rel="stylesheet" href="__PUBLIC__/mobile/style/jquery-weui.min.css">
+		<link rel="stylesheet" href="__PUBLIC__/mobile/css_v3/weui.min.css">
+		<link rel="stylesheet" href="__PUBLIC__/mobile/style/main_style.css">
+		<link rel="stylesheet" href="__PUBLIC__/mobile/css_v3/goods_detail.css">
+		<link rel="stylesheet" href="__PUBLIC__/layui/css/layui.css">
+		<script src="__PUBLIC__/mobile/js/jquery-2.1.4.js"></script>
+		<script src="__PUBLIC__/mobile/js/jquery-weui.min.js"></script>
+		<script src="__PUBLIC__/mobile/js/fastclick.js"></script>
+		<script src="__PUBLIC__/mobile/js/swiper.min.js"></script>
+		<script type="text/javascript" src="__PUBLIC__/layer/mobile/layer.js"></script>
+		<script type="text/javascript" src="__PUBLIC__/layui/layui.js"></script>
+
+		<script type="text/javascript" src="__PUBLIC__/mobile/js/clipboard.min.js"></script>
+	</head>
+
+	<body style="background-color: #F9F9F9;height: auto;">
+		<input type="hidden" value="" id="price_goods_kind" name="">
+		<input type="hidden" id="goods_id" value="{$goods.id}">
+		<input type="hidden" id="spec" value="{$spec}">
+		<!--轮播图的开始-->
+		<div class="goods-img">
+			<div class="goods_return">
+				<div class="swiper-container">
+					<div class="swiper-wrapper">
+						<foreach name="images" item="vo" key="k">
+							<if condition="$video neq ''">
+								<if condition="$k==0">
+									<div class="swiper-slide"><video style="width: 360px;" src="{$vo}" controls="controls" /></div>
+								</if>
+								<else/>
+							</if>
+							<div class="swiper-slide"><img src="{$vo}" /></div>
+						</foreach>
+					</div>
+					<div class="swiper-pagination"></div>
+				</div>
+				<div class="return_ground">
+					<div class="return_content">
+						<a href="javascript:history.back(-1)"><img src="__PUBLIC__/mobile/images_v3/d4.png" style="width: 7vw;height: 7vw" /></a>
+						<a href="javascript:history.back(-1)"><img src="__PUBLIC__/mobile/images_v3/d5.png" style="width: 6.5vw;height: 6.5vw" /></a>
+
+					</div>
+				</div>
+			</div>
+		</div>
+		<!--轮播图结束-->
+		<!--主要内容-->
+		<div class="goods-jb">
+			<!--第一块价格部分-->
+			<div class="price_one pad_z">
+				<div class="price_one_top">
+					<div class="lf">
+						<div style="overflow: hidden;">
+							<div class="lf_red">
+								<em>￥</em><span>1000.00</span>
+							</div>
+							<div class="delete">
+								￥1200.00
+							</div>
+						</div>
+						<div class="sold">已售:15</div>
+					</div>
+					<div class="lr">
+						<a href="javascript:history.back(-1)"><img src="__PUBLIC__/mobile/images_v3/d7.png" style="width: 6.5vw;height: 6.5vw" /></a>
+						<span class="sc_title">收藏</span>
+					</div>
+				</div>
+				<div class="price_one_bot">
+					<h2 class="h2">苹果(Apple) Airpods 二代</h2>
+					<div class="price_bot_mail">
+						<span class="headset">蓝牙耳机</span>
+						<span>包邮</span>
+
+					</div>
+
+				</div>
+			</div>
+			<!--第二块规格部分-->
+			<div class="price_two pad_z">
+				<div class="price_two_top">
+					<div class="list">
+						<span class="speci">规格</span>
+						<img src="__PUBLIC__/mobile/images_v3/d3.png" style="width: 4.2vw;height: 1.3vw;" />
+					</div>
+					<div class="list">
+						<span class="speci">优惠券</span>
+						<img src="__PUBLIC__/mobile/images_v3/d3.png" style="width: 4.2vw;height:1.3vw;" />
+					</div>
+				</div>
+				<div class="price_two_bot">
+					<span class="speci">数量</span>
+					<!--增加减少-->
+					<div class="increase_cont">
+						<span>
+				 		<img src="__PUBLIC__/mobile/images_v3/d8.png"/>
+				 	</span>
+						<intput class="input">1</intput>
+						<span>
+				 		<img src="__PUBLIC__/mobile/images_v3/d9.png"/>
+				 	</span>
+					</div>
+				</div>
+			</div>
+			<!--第三块规格部分-->
+			<div class="price_three pad_z">
+				<!--上-->
+				<div class="three_top">
+					<img class="trad" src="__PUBLIC__/mobile/images_v3/l1.png" />
+					<div class="three_top_tit">
+						<h2>小米自营</h2>
+						<span>167.7万人关注</span>
+					</div>
+				</div>
+				<!--商品-->
+				<ul class="three_ul">
+					<li class="three_li">
+						<a href="">
+							<img class="trad" src="__PUBLIC__/mobile/images_v3/m3.png" />
+							<h2 class="title">Air Pods 2</h2>
+						</a>
+					</li>
+					<li class="three_li">
+						<a href="">
+							<img class="trad" src="__PUBLIC__/mobile/images_v3/m3.png" />
+							<h2>Air Pods 2</h2>
+						</a>
+					</li>
+					<li class="three_li">
+						<a href="">
+							<img class="trad" src="__PUBLIC__/mobile/images_v3/m3.png" />
+							<h2>Air Pods 2</h2>
+						</a>
+					</li>
+				</ul>
+				<!--联系客服-->
+				<div class="service_cont">
+					<div class="service_list">
+						<img class="kf" src="__PUBLIC__/mobile/images_v3/d6.png" />
+						<span>联系客服</span>
+					</div>
+					<div class="service_list">
+						<img class="kf" src="__PUBLIC__/mobile/images_v3/d1.png" />
+						<span>查看店铺</span>
+					</div>
+				</div>
+			</div>
+			<!--第四块规格部分-->
+			<div class="price_return pad_z">
+				<span>评论</span>
+				<a href="">
+					<img class="fh" src="__PUBLIC__/mobile/images_v3/xzjt.png" />
+				</a>
+			</div>
+
+			<!--详情内容-->
+			<div class="gd_detail">
+				<!--标题-->
+				<div class="gd_cont">
+					<div class="details_title">商品详情</div>
+				</div>
+				<!--内容-->
+				<div class="container">
+					<img class="fh" src="__PUBLIC__/mobile/images_v3/sp01.png" />
+				</div>
+			</div>
+		</div>
+		<!--详情页底部-->
+		<div class="details_footer">
+			<div class="foot_lf">
+				<div class="foot_lf_list">
+					<img class="gwc" src="__PUBLIC__/mobile/images_v3/d6.png" />
+					<span>联系客服</span>
+				</div>
+				<div class="foot_lf_list">
+					<img class="gwc" src="__PUBLIC__/mobile/images_v3/d1.png" />
+					<span>店铺</span>
+				</div>
+				<div class="foot_lf_list">
+					<img class="gwc" src="__PUBLIC__/mobile/images_v3/d2.png" />
+					<span>购物车</span>
+				</div>
+			</div>
+			<div class="foot_lr">
+				<button class="button">加入购物车</button>
+				<button class="button but_red">立即购买</button>
+			</div>
+
+		</div>
+
+		<!--选择产品规格-->
+		<div class="choose_cont" style="background-color: #fff;">
+			<!--图片部分-->
+			<div class="choose_top">
+				<img class="cpt" src="__PUBLIC__/mobile/images_v3/m3.png" />
+				<div class="choose_price">
+					<div class="price">
+						<em>￥</em>1000.<em>00</em>
+					</div>
+					<span class="inventory">库存:15</span>
+				</div>
+			</div>
+			<!--中间的三块内容-->
+			<div class="off_product">
+				<h3>颜色</h3>
+				<div class="pro_cont">
+					<div class="pro_cont_list active">
+						Airpods2 (无线充电盒版)
+					</div>
+					<div class="pro_cont_list">
+						Airpods2 (有线充电盒版)
+					</div>
+					<div class="pro_cont_list">
+						Airpods2 (无线充电盒) 无耳机
+					</div>
+				</div>
+			</div>
+
+			<div class="off_product">
+				<h3>版本</h3>
+				<div class="pro_cont">
+					<div class="pro_cont_list active" style="width: 26%;">
+						官方标配
+					</div>
+
+				</div>
+			</div>
+			<!--增加减少-->
+			<div class="off_product">
+				<h3>数量</h3>
+				<div class="add_red">
+					<img class="cpt" src="__PUBLIC__/mobile/images_v3/d8.png" />
+					<span>1</span>
+					<img class="cpt" src="__PUBLIC__/mobile/images_v3/d9.png" />
+				</div>
+			</div>
+			<!--确定按钮-->
+			<button class="button_f">确定</button>
+		</div>
+		<!-- 规格div end -->
+		<script type="text/javascript" src="http://res.wx.qq.com/open/js/jweixin-1.4.0.js"></script>
+		<script>
+			// 轮播开始
+			$(".swiper-container").swiper({
+				loop: true,
+				autoplay: 3000
+			});
+			//轮播结束
+		</script>
+	</body>
+
+</html>

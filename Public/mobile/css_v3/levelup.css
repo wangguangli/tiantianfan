@@ -1,0 +1,35 @@
+/**页面样式 **/
+body{background:#202028 !important}
+.level_main{width: 100%; padding: 0 3.7vw}
+/*普通会员*/
+.level_header{background: url("../images_v3/levelbg.jpg") no-repeat; background-size: 100% 100%; width: 100%; height: 38vw; padding-top: 8.43vw;}
+.level_header .header_view{width: 100%; padding: 4.8vw 6.39vw}
+.level_header .header_view .level_li{width: 100%; display: flex; align-items: center; height: 6.5vw}
+.level_header .header_view .level_li .span_one{font-size: 2.41vw; color: #c76d1c; font-style: italic; margin-left: 6.5vw; padding-top: 2.6vw; margin-right: 3vw}
+.level_header .header_view .level_li .span_tow{font-size:4.63vw; color: #c0a99b; font-weight:600}
+.level_header .header_view .level_li .span_three{margin-left: auto;}
+.level_header .header_view .level_li .span_three a{ font-size: 3.2vw; color: #e7c19f; display: flex; align-items: center}
+.level_header .header_view .level_li .span_three i{margin-right: 1.39vw}
+.level_header .header_view .level_li .span_three i{font-size: 4.5vw}
+.level_header .header_view .level_p{font-size: 3.47vw; color: #e7c19f; margin-top: 3.52vw}
+/*等级标题*/
+.level_name{font-size: 4.63vw; color: #e7bf9b; width: 100%; margin-top: 6.76vw; margin-bottom: 4.17vw}
+/*升级进度*/
+.sjbg{background: url("../images_v3/speed_sjbg.png") no-repeat center 3vw; background-size: 100% auto; padding-bottom: 10vw}
+.levle_speed{width: 100%; height: 24.17vw; background: url("../images_v3/speedbg.png") no-repeat; background-size: 100% 100%; display: flex; align-items: center; padding:0 4.54vw}
+.levle_speed .speed_icon{width: 18.61vw; height: 18.61vw; margin-right: 4.35vw;}
+.levle_speed .speed_div{font-size: 4.27vw; color: #202028}
+.levle_speed .speed_div .speed_li{width: 33.33vw; margin-top: 3.35vw;}
+.levle_speed .speed_but{font-size: 3.52vw; color:#6f4935; background-color: #ffffff; border-radius: 4vw; opacity: 0.7; padding: 2.14vw 3.89vw; margin-left: auto}
+.speed_cont{position: relative;}
+.speed_cont .Lv2{font-size: 2.22vw;color: #ffffff;position: absolute;top: 8.5vw;left: 7vw;}
+.layui-progress-text{top:5px !important; font-size:  2.96vw !important; color: #e5c583!important}
+.layui-progress{background: #d8d3cf !important;}
+.layui-progress-bar{background: #e5c583 !important;}
+.speed_fl{width: 100%; margin-top: 100%; display: table; margin-top: 8.61vw;}
+.speed_fl ul{margin: 0; padding: 0}
+.speed_fl ul li{width: 25%; text-align: center; font-size: 3.47vw; color: #dab082; float: left;}
+.speed_fl ul li a{font-size: 3.47vw; color: #dab082;}
+.speed_fl ul li div{padding-top: 1.57vw}
+.speed_fl ul li p{font-size: 2.67vw; color: #686878;}
+.speed_fl ul li img{width: 11.11vw; height: 11.11vw}

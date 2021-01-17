@@ -1,0 +1,108 @@
+<?php
+namespace Api\Controller;
+use Think\Controller;
+
+class TimingController extends CommonController {
+
+	/**
+	 * 用户每日返还 
+	 * @zd
+	 */
+	public function user_back()
+	{
+
+	}
+
+    /**
+     * Created by PhpStorm.
+     * User: Administrator
+     * Date: 2020/8/25
+     * Time: 10:16
+     * 定时删除runtime 文件夹
+     */
+    public function del_dir()
+    {
+        $file = $_SERVER['DOCUMENT_ROOT'] . '/Bin/Runtime/';
+        removeDir($file);
+    }
+
+
+    /**
+     * @Title:分红股每日返还
+     * @Param: null
+     * @Date:2020/10/27
+     * @Time:8:43
+     * @Author:lty
+     *
+     * 每分钟一次
+     */
+    function autoRebate(){
+        //查询今日奖金池的金额
+        $H = date('Hi');
+        if($H < 0010){
+            return true;
+        }
+        $rebate = get_config_project('rebate')/100;
+        $all_money = get_config('all_money',true)*$rebate;
+
+        $number_page = get_config_project('number_page');
+        if($all_money > 0){
+            $where['ipo'] = array('gt',0);//查询所有满足条件的用户
+            $number = M('user')->where($where)->sum('ipo');//所有的分红股
+            if(!empty($number)){
+
+                $unit = round($all_money / $number,2);//每股的单价
+                //每个用户进行返利
+                $allUser  = M('user')->field('id,ipo,money_wait')->where($where)->limit($number_page,1000)->select();
+                if(empty($allUser)){
+                    return true;
+                }
+                foreach ($allUser as $k => $v){
+                    $configWhere['name'] = 'number_page';
+                    M('config_project')->where($configWhere)->setInc('val',1);
+                    $money = $unit * $v['ipo'];//需要返利的金额
+                    if($money>= $v['money_wait']){
+                        M('user')->where('id='.$v['id'])->setField('is_ipo',0);
+                        $money = $v['money_wait'];
+                    }
+                    //减去待返积分
+                    change_money_log($v['id'],1,'money_wait',$v['money_wait'],$money,6,11,'每日股权返还扣除待返金额',2,1,1,0,0,0);
+                    //加上已返金额
+                    change_money_log($v['id'],1,'price',$v['price'],$money,18,11,'每日股权返还增加已返金额',1,1,1,0,0,0);
+                    //减去奖金池的金额
+                    $configWhere['name'] = 'all_money';
+                    M('config')->where($configWhere)->setDec('val',$money);
+                    $account_log = array(
+                        'user_id' => $v['id'],
+                        'user_amount' => $all_money,
+                        'amount' => $money,
+                        'type' => 17,
+                        'deal_type' => 11,
+                        'remake' => '股权分红奖金池减少',
+                        'order_id' => 0,
+                        'order_user_id' => 0,
+                        'utype' => 4,
+                        'op_type' => 2,
+                        'cre_date' => date('Y-m-d H:i:s',time()),
+                        'cre_time' => time(),
+                        'ip' => get_client_ip(),
+                    );
+                    M('account_log')->add($account_log);
+                }
+            }
+        }
+    }
+
+
+    /**
+     * Notes:00:5
+     * User: YangHao
+     * Date: 2020/10/29
+     * Time: 17:13
+     */
+    public function autoDel(){
+        $configWhere['name'] = 'number_page';
+        M('config_project')->where($configWhere)->setField('val',0);
+    }
+
+}

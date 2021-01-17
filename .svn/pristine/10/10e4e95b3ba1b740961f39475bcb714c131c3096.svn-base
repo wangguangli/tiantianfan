@@ -1,0 +1,111 @@
+<volist name="list" id="vo">
+	<li id="order" class="order_li">
+		<input type="hidden" name="order_id" value="{$vo['id']}">
+		<div class="xmname">
+			<img src="{$vo.thumb}" class="shop_img">{$vo.shop_name}
+			<span>{$vo.order_status_cn}</span>
+		</div>
+		<div class="goods-li">
+			<if condition="$vo['goods_count'] gt 1">
+				<volist name="vo['goods']" id="vo2">
+					<img src="{$vo2.goods_thumb}"/>
+				</volist>
+				<else/>
+				<volist name="vo['goods']" id="vo2">
+					<img src="{$vo2['goods_thumb']}"/>
+					<div class="goods-title">
+						<div class="z_gt_1">{$vo2['goods_name']}</div>
+						<div class="z_gt_2">{$vo2['goods_spec_price_name']}</div>
+					</div>
+				</volist>
+			</if>
+		</div>
+		<div class="price-div">
+			共{$vo.goods_count}件商品 应付<span>￥{$vo.total_commodity_price}</span>
+
+		</div>
+		<div class="but-div">
+			<if condition="$vo['order_status'] eq 0">
+				<!--待付款-->
+				<a href="{:U('Order/detail', array('order_id'=>$vo['id'], 'user_id'=>$vo['user_id']))}"
+				   class="but-wul">查看详情</a>
+				<a href="{:U('Cart/sure_pay','order_id='.$vo['id'])}" class="but-wul btn_red">去付款</a>
+
+				<!--代发货不显示按钮-->
+				<elseif condition="$vo['order_status'] eq 1"/>
+				<!--待收货-->
+				<a href="{:U('Order/detail', array('order_id'=>$vo['id'], 'user_id'=>$vo['user_id']))}"
+				   class="but-wul">查看详情</a>
+
+				<!-- -2商家同意售后-->
+				<elseif condition="$vo['order_status'] eq 2"/>
+				<!--待收货-->
+				<a href="{:U('Order/detail', array('order_id'=>$vo['id'], 'user_id'=>$vo['user_id']))}"
+				   class="but-wul">查看详情</a>
+				<if condition="$vo['count'] gt 1">
+					<a href="{:U('Order/receive',array('user_id' => $vo['user_id'],'order_id' => $vo['id'],'goods_id' =>0))}"
+					   class="but-wul btn_red">
+						<else/>
+						<a href="{:U('Order/receive',array('user_id' => $vo['user_id'],'order_id' => $vo['id'],'goods_id' =>$vo2['goods_id'] ))}"
+						   class="but-wul btn_red">
+				</if>
+				确认收货</a>
+				<!-- -2商家同意售后-->
+				<elseif condition="$vo['order_status'] eq -1"/>
+				<!--已完成-->
+				<a href="{:U('Order/sale_trial', array('refund_id'=>$vo['id'] ))}" class="but-wul">查看详情</a>
+				<elseif condition="$vo['order_status'] eq -2"/>
+				<a href="{:U('Order/refund_express', array('refund_id'=>$vo['id']))}" class="but-wul">查看详情</a>
+				<elseif condition="$vo['order_status'] eq -3"/>
+				<a href="{:U('Order/refund_express_detail', array('refund_id'=>$vo['id']))}" class="but-wul">查看详情</a>
+				<elseif condition="$vo['order_status'] eq -4"/>
+				<a href="{:U('Order/refund_express_detail', array('refund_id'=>$vo['id']))}" class="but-wul">查看详情</a>
+				<elseif condition="$vo['order_status'] eq -5"/>
+				<a href="{:U('Order/refund_express_detail', array('refund_id'=>$vo['id']))}" class="but-wul">查看详情</a>
+				<elseif condition="$vo['order_status'] eq -6"/>
+				<a href="{:U('Order/shop_express', array('refund_id'=>$vo['id']))}" class="but-wul">查看详情</a>
+				<elseif condition="$vo['order_status'] eq -7"/>
+				<a href="{:U('Order/shop_express', array('refund_id'=>$vo['id']))}" class="but-wul">查看详情</a>
+				<a href="{:U('Order/sale_complete', array('refund_id'=>$vo['id']))}" class="but-wul btn_red">售后完成</a>
+				<elseif condition="$vo['order_status'] eq -8"/>
+				<a href="{:U('Order/refund_money', array('refund_id'=>$vo['id']))}" class="but-wul">查看详情</a>
+				<a href="{:U('Order/sale_complete', array('refund_id'=>$vo['id']))}" class="but-wul btn_red">售后完成</a>
+				<elseif condition="$vo['order_status'] eq -9"/>
+				<if condition="$vo['refund_type'] eq 2">
+					<a href="{:U('Order/shop_express', array('refund_id'=>$vo['id']))}" class="but-wul">查看详情</a>
+					<else/>
+					<a href="{:U('Order/refund_money', array('refund_id'=>$vo['id']))}" class="but-wul">查看详情</a>
+				</if>
+
+				<elseif condition="$vo['order_status'] eq 3"/>
+				<!--已完成-->
+				<a href="{:U('Order/detail', array('order_id'=>$vo['id'], 'user_id'=>$vo['user_id']))}"
+				   class="but-wul">查看详情</a>
+				<elseif condition="$vo['order_status'] eq 6"/>
+				<!--已完成-->
+				<a href="{:U('Order/detail', array('order_id'=>$vo['id'], 'user_id'=>$vo['user_id']))}"
+				   class="but-wul">查看详情</a>
+				<!--<a href="{:U('Order/deleteOrder','order_id='.$vo['id'])}" class="but-wul">删除订单</a>-->
+
+
+				<!--  -3 部分商品已收货-->
+				<elseif condition="$vo['order_status'] eq -3"/>
+				<a href="{:U('Order/detail', array('order_id'=>$vo['id'], 'user_id'=>$vo['user_id']))}"
+				   class="but-wul">查看详情</a>
+
+				<!--4已取消-->
+				<elseif condition="$vo['order_status'] eq 4"/>
+				<span onclick="deleteOrder({$vo.id})" class="but-wul">删除订单</span>
+				<!--4已评价-->
+				<elseif condition="$vo['order_status'] eq 5"/>
+				<span onclick="deleteOrder({$vo.id})" class="but-wul">删除订单</span>
+				<a href="{:U('Order/detail', array('order_id'=>$vo['id'], 'user_id'=>$vo['user_id']))}"
+				   class="but-wul">查看详情</a>
+				<elseif condition="$vo['order_status'] eq 1"/>
+
+				<a href="{:U('Order/detail', array('order_id'=>$vo['id'], 'user_id'=>$vo['user_id']))}"
+				   class="but-wul">查看详情</a>
+			</if>
+		</div>
+	</li>
+</volist>

@@ -1,0 +1,45 @@
+<!doctype html>
+<html class="pixel-ratio-2 retina ios ios-11 ios-11-0 ios-gt-10 ios-gt-9 ios-gt-8 ios-gt-7 ios-gt-6"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="Generator" content="tpshop v1.1">	
+<meta name="viewport" content="width=device-width">
+<meta http-equiv="keywords" content="">
+<meta name="description" content="">
+<meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+<title>订单中心</title>	
+<link  href="__PUBLIC__/mobile/style/user_index.css" rel="stylesheet" type="text/css">
+<link href="__PUBLIC__/mobile/style/sel.css" rel="stylesheet" type="text/css">	
+</head>
+
+<body>
+	<div class="orderalls">
+		<div class="desdfrw">
+			<ul>
+				<volist name = 'data.list' id = 'vo'>
+				<li>
+					<div class="ordertops">
+						<p>订单编号：<span>{$vo.order_no}</span></p>
+						<h4>{$vo.order_status_str}</h4>
+					</div>
+					<div class="ordertwo">
+						<img src="{$vo.goods_thumb}" class="orderimg">
+						<div class="ordertxt">
+							<h1>{$data.goods_name}</h1>
+							<div class="oredrgg">
+								<p>规格：<span>{$vo.goods_spec_price_name}</span>形状：<span>长方形</span>颜色：<span>红色</span>重量：<span>1kg</span></p>
+							</div>
+							<div class="jiages">
+							 ￥<span>{$vo.goods_price}</span>
+								<p>x{$vo.goods_num}</p>
+							</div>
+						</div>						
+					</div>
+					<div class="orderthres">
+						<p>实付：<span>{$vo.goods_total}</span></p>
+					</div>
+				</li>
+				</volist>
+			</ul>
+		</div>	
+	</div>
+</body>
+</html>

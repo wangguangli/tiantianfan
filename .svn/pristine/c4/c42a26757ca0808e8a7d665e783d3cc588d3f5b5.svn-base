@@ -1,0 +1,252 @@
+﻿<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>会员登录</title>
+	<meta name="viewport"
+	      content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+	<link rel="stylesheet" href="__PUBLIC__/mobile/css_v3/mui.min.css">
+	<link rel="stylesheet" href="__PUBLIC__/mobile/css_v3/login.css?n=2">
+	<link rel="stylesheet" href="__PUBLIC__/mobile/style/main_style.css">
+	<script src="__PUBLIC__/js/mui.min.js"></script>
+	<script src="__PUBLIC__/js/jquery.min.js"></script>
+
+</head>
+
+<body style="background-color: #fff;">
+<div class="login_return">
+	<a href="javascript:history.back()"><img src="__PUBLIC__/mobile/images_v3/f_fanhui.png"/></a>
+</div>
+<div class="mui-content" style="background: #fff;">
+	<div class="reg-cont reg-bottom">
+		<h1 class="The_login">登录</h1>
+		<p class="account">请输入账号、密码用于登录</p>
+	</div>
+
+	<div class="reg-div">
+
+		<div class="mpl">
+			<form action="" method="post" id="codeLogin">
+				<input type="hidden" value="1" name="login_type"/>
+				<input type="hidden" value="{$refer}" name="refer"/>
+				<input type="hidden" value="{$source}" name="source"/>
+				<input type="hidden" value="{$out_trade_no}" name="out_trade_no"/>
+				<ul class="cl_on">
+					<li class="phone">
+						<input type="text" name="phone" id="phone1" placeholder="请输入手机号" maxlength="11" value=""/>
+					</li>
+					<li class="pwd">
+						<input type="password" name="password" placeholder="请输入密码" value=""/>
+					</li>
+				</ul>
+			</form>
+
+			<form action="" method="post" id="pwdLogin" style="display: none;">
+				<input type="hidden" value="2" name="login_type"/>
+				<input type="hidden" value="{$refer}" name="refer"/>
+				<input type="hidden" value="{$source}" name="source"/>
+				<input type="hidden" value="{$out_trade_no}" name="out_trade_no"/>
+				<ul>
+					<li class="ipt_code">
+						<span class="area_code">+86</span>
+						<input class="area_code_input " type="text"
+						       style="text-align: center;background-color: #f8f8f8;" name="phone" id="phone2"
+						       placeholder="请输入手机号" maxlength="11" value=""/>
+					</li>
+					<li class="code">
+						<span class="get_code" id="getPhoneCode">获取验证码</span>
+						<input class="area_code_input" type="text" name="phone_code"
+						       style="text-align: center; background-color: #f8f8f8;" placeholder="请输入验证码" value=""/>
+					</li>
+
+				</ul>
+			</form>
+
+		</div>
+		<!--立即注册 忘记密码-->
+		<div class="up_reg clearfix lo_po">
+<!--			<if condition="$code_login eq 1">-->
+<!--				<a href="javascript:void(0);">-->
+<!--					<p class="yzm" gt="2">验证码登陆</p>-->
+<!--				</a>-->
+<!--			</if>-->
+			<a href="{:U('Index/password')}">
+				<p>忘记密码</p>
+			</a>
+		</div>
+		<!--还没有账号？-->
+		<div class="account_cont">
+			<div class="account_img">
+				<img src="__PUBLIC__/mobile/images_v3/fanhui02.png" style="width: 22.66vw;height: 22.66vw;"
+				     class="btn_login"/>
+			</div>
+			<p>还没有账号？ <a href="{:U('Index/reg')}">立即注册</a></p>
+		</div>
+		<!--微信 支付宝-->
+		<div class="pay_cont">
+<!--			<if condition="$wx_login eq 1">-->
+<!--				<a class="pay_left" href="{:U('getCode', array('d'=>1))}">-->
+<!--					<img src="__PUBLIC__/mobile/images_v3/wx.png"/>-->
+<!--					<span>微信快捷登录</span>-->
+<!--				</a>-->
+<!--			</if>-->
+			<if condition="$alipay_login eq 1">
+				<div class="pay_right">
+					<img src="__PUBLIC__/mobile/images_v3/zfb.png"/>
+					<span>支付宝快捷登录</span>
+				</div>
+			</if>
+		</div>
+
+	</div>
+
+	<script src="__PUBLIC__/layer/mobile/layer.js"></script>
+	<!--切换效果-->
+	<script>
+		var gt = 1; // 1密码登录，2验证码登录
+		$(function () {
+			$(".yzm").on("click", function () {
+				gt = $(this).attr("gt"); // 1表示切换到密码登陆，2表示切换到验证码登陆
+				if (gt == 2) {
+					// 验证码登陆
+					$(this).attr("gt", 1);
+					$(this).text("密码登陆");
+					$("#pwdLogin").show();
+					$("#codeLogin").hide();
+				} else {
+					$(this).attr("gt", 2);
+					$(this).text("验证码登陆");
+					$("#pwdLogin").hide();
+					$("#codeLogin").show();
+				}
+			});
+			$(".btn_login").on("click", function () {
+				if (gt == 2) {
+					// 验证码登录
+					var phone = $.trim($("#phone2").val());
+					var phone_code = $.trim($("input[name=phone_code]").val());
+					if (phone.length != 11) {
+						layer.open({
+							content: '请输入正确的手机号',
+							skin: 'msg',
+							time: 2
+						});
+						return;
+					}
+					if (phone_code.length < 1) {
+						layer.open({
+							content: '请输入验证码',
+							skin: 'msg',
+							time: 2
+						});
+						return;
+					}
+					$("#pwdLogin").submit();
+				} else {
+					// 验证码登录
+					var phone = $.trim($("#phone1").val());
+					var password = $.trim($("input[name=password]").val());
+					if (phone.length != 11) {
+						layer.open({
+							content: '请输入正确的手机号',
+							skin: 'msg',
+							time: 2
+						});
+						return;
+					}
+					if (password.length < 1) {
+						layer.open({
+							content: '请输入正确的密码',
+							skin: 'msg',
+							time: 2
+						});
+						return;
+					}
+					$("#codeLogin").submit();
+				}
+			});
+
+			// 是否提示快捷登录
+			var quick = "{$quick}";
+			if (quick == 1) {
+				layer.open({
+					content: '是否使用微信快捷登录？'
+					, btn: ['快捷登录', '不要']
+					, yes: function (index) {
+						var quick_url = "/index.php/M/Index/getCode?d=1";
+						location.href = quick_url;
+						layer.close(index);
+					}
+				});
+			}
+
+
+		})
+	</script>
+	<script type="text/javascript">
+		$(function () {
+			$("#getPhoneCode").click(function () {
+				var phone = $.trim($("#phone2").val());
+				if (!(/1[1-9]+[0-9]{9}/.test(phone))) {
+					layer.open({
+						content: "请输入正确的手机号",
+						skin: 'msg',
+						time: 2
+					});
+					return;
+				}
+				if (!_SEND) return;
+				_SEND = false;
+				$.ajax({
+					url: "{:U('Api/Pubout/get_phone_code')}",
+					type: 'POST',
+					data: 'phone=' + phone,
+					dataType: 'json',
+					success: function (a) {
+						if (a.status) {
+							layer.open({
+								content: a.msg,
+								skin: 'msg',
+								time: 2
+							});
+							_SEND = true;
+							$("#getPhoneCode").attr("disabled", _SEND);
+						} else {
+							$("#getPhoneCode").text("重发(60)");
+							$("#getPhoneCode").addClass('The_countdown').removeClass('get_code');
+							$("#getPhoneCode").attr("disabled", _SEND);
+							setTimeout(repeatSend, 1010);
+						}
+					}
+				});
+			});
+		});
+		var _SEND = true;
+
+		function repeatSend() {
+			var num = $("#getPhoneCode").text().replace(/\d+/ig, function (n) {
+				if (n > 0) {
+					return --n;
+				} else {
+					return "#";
+				}
+			});
+			if (num.indexOf("#") == -1) {
+				$("#getPhoneCode").text(num);
+				setTimeout(repeatSend, 1010);
+			} else {
+				$("#getPhoneCode").text("获取验证码");
+				$("#getPhoneCode").attr("disabled", _SEND);
+				$("#getPhoneCode").addClass('get_code').removeClass('The_countdown');
+				_SEND = true;
+			}
+		}
+	</script>
+
+</body>
+
+</html>

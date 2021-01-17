@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>我的粉丝</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"> 
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="stylesheet" href="__PUBLIC__/css/mui.min.css">
+    <link rel="stylesheet" href="__PUBLIC__/css/vermicelli.css">
+    <script src="__PUBLIC__/js/mui.min.js"></script>  
+	</head>
+	<body>
+		<header class="mui-bar mui-bar-nav" style="background: #fff;">
+		    <span onclick="back()"><a class="mui-pull-left mui-icon mui_turn"><img src="__PUBLIC__/img/return4.png" width="20vw"height="20vw"/></a></span>
+		    <h1 class="mui-title tit_login" style="color: #333;font-size: 4vw;">我的粉丝</h1>
+		</header>
+		<div class="mui-content">
+		    <div class="member">
+		    	<ul class="clearfix" id="active">
+					<a href="{:U('User/fansList','type=1')}">
+						<li  <if condition="$type==1">class="active" </if>>一级会员</li>
+					</a>
+					<a href="{:U('User/fansList','type=2')}">
+						<li <if condition="$type==2">class="active" </if>>二级会员</li>
+					</a>
+					<a href="{:U('User/fansList','type=3')}">
+						<li <if condition="$type==3">class="active" </if> >三级会员</li>
+					</a>
+		    	</ul>		    	
+		    </div>
+		    <div class="grade" id="fans" >
+				<volist name="fans" id="vo">
+			<div class="mem_dd clearfix" >
+			   	  <div class="mem_img">
+			   	  <img src="{$vo.headimgurl}" width="100%"height="100%"/>
+				  </div>
+			   	  <div class="men_phone">
+			   	  	<p>{$vo.phone}</p>
+			   	  	<span>{$vo.time}</span>
+			   	  </div>
+			   </div>
+				</volist>
+	    	</div>
+		</div>
+	</body>
+  <script type="text/javascript">
+	  function back() {
+		  location.href ="{:U('User/index')}";
+	  }
+</script>
+
+</html>

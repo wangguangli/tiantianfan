@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>报单中心</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"> 
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="stylesheet" href="__PUBLIC__/css/mui.min.css">
+    <link rel="stylesheet" href="__PUBLIC__/css/chant_detail.css">
+    <script src="__PUBLIC__/js/mui.min.js"></script>
+    <script src="__PUBLIC__/js/jquery.min.js"></script>   
+	</head>
+	<body style="background: #F5F6F6;">
+		<header class="mui-bar mui-bar-nav" style="background: #FE274E;">
+		    <a class="mui-pull-left mui-icon mui_turn" href="javascript:history.back();"><img src="__PUBLIC__/img/return.png" width="20vw"height="20vw"/></a>
+		    <h1 class="mui-title tit_login" style="color: #fff;">报单中心</h1>
+		</header>
+		<div class="mui-content" style="background: #F5F6F6;">
+		    <div class="consume">消费金额</div>
+		    <input type="text" name="name" id="name" value="" placeholder="请输入消费金额" /> 
+		    <div class="consume">消费者手机号</div>
+		    <input type="text" name="name" id="name" value="" placeholder="请输入消费者手机号" /> 
+		    <div class="consume">消费者名称</div>
+		    <input type="text" name="name" id="name" value="" placeholder="请输入消费者名称" /> 
+		    <div class="consume">支付方式</div>
+		    <div class="con clearfix" id="myBtn">
+		    	<input type="text" name="name" id="nameq" value="" placeholder="选择支付方式" class="change" readonly="readonly"/>
+		    	<img src="__PUBLIC__/img/return1.png" width="15"/>
+		    </div>
+		    <div class="sure_pay">
+		    	<input type="submit" id="" value="确认支付" />
+		    </div>
+		</div>	
+		<!-- 弹窗 -->
+		<div id="myModal" class="modal">		
+		  <!-- 弹窗内容 -->
+			<div class="modal-content">			 
+			  <div class="modal_header">支付宝</div>	
+			  <div class="modal_header">微信</div>
+			  <div class="modal_header">余额</div>
+			  <div class="modal_header close">取消</div>			
+			</div>		
+		</div>
+		<script type="text/javascript">
+			var model = document.getElementById('myModal');
+			var close = document.getElementsByClassName('close')[0];
+			var myBtn = document.getElementById('myBtn');
+		    myBtn.onclick = function(){
+		    	model.style.display="block";
+		    }
+		    close.onclick = function(){
+		    	model.style.display="none";
+		    }
+		    window.onclick = function(event){   	
+		    	if (event.target == model) {
+		           modal.style.display = "none";
+		      }
+		    }	
+		    $('.modal_header').click(function(){
+		    	var val = $(this).html();
+		    	$("#nameq").val(val);
+		    	$("#myModal").hide();		    	
+		    })
+		</script>
+	</body>
+</html>

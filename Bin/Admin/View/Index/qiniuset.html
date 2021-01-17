@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<!--<meta name="viewport" content="width=device-width, initial-scale=1">-->
+	<title>{:GC('web_title')}管理后台-七牛云配置</title>
+	<include file="Public/asset_top_page"/>
+</head>
+<body>
+<!-- header -->
+<include file="Public/header"/>
+<!-- /header -->
+<!-- Page container -->
+<div class="page-container">
+	<!-- Page content -->
+	<div class="page-content">
+		<!-- main sidebar -->
+		<include file="Public/left"/>
+		<!-- /main sidebar -->
+
+		<!-- Main content -->
+		<div class="content-wrapper">
+
+			<!-- Content area -->
+			<div class="content" style="padding-top: 10px;">
+				<!-- Pagination types -->
+				<div class="v-container">
+
+					<div class="alert alert-tips alert-dismissible" role="alert">
+						<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span
+								aria-hidden="true">×</span></button>
+						本页七牛云配置
+					</div>
+					<!-- page -->
+					<form class="form-horizontal pt-15" method="post" action="">
+
+
+						<input type="hidden" name="id" value="{$data.id}">
+
+
+						<div class="form-group">
+							<label class="col-xs-2 control-label text-right">公钥</label>
+							<div class="col-xs-5">
+								<input type="text" class="form-control" placeholder="请输入公钥" name="access_key" value="{$data.access_key}" required>
+							</div>
+						</div>
+
+						<div class="form-group">
+							<label class="col-xs-2 control-label text-right">私钥</label>
+							<div class="col-xs-5">
+								<input type="text" class="form-control"  placeholder="请输入私钥"  name="secret_key" value="{$data.secret_key}"  required>
+							</div>
+						</div>
+
+						<div class="form-group">
+							<label class="col-xs-2 control-label text-right">存储空间</label>
+							<div class="col-xs-5">
+								<input type="text" class="form-control"  placeholder="请输入授权编码"  name="bucket" value="{$data.bucket}" />
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-xs-2 control-label text-right">访问地址</label>
+							<div class="col-xs-5">
+								<input type="text" class="form-control"  placeholder="请输入排序"  name="img_domain" value="{$data.img_domain}" required>
+							</div>
+						</div>
+						
+
+
+						<div class="form-group">
+							<label class="col-xs-2 control-label"></label>
+							<div class="col-xs-8">
+								<button class="layui-btn layui-btn-sm layui-btn-normal" type="submit">提交</button>
+								<a href="javascript:history.go(-1);" class="layui-btn layui-btn-sm layui-btn-primary">返回</a>
+							</div>
+						</div>
+					</form>
+
+					<!-- page end -->
+
+					<!-- Footer -->
+					<include file="Public/footer" />
+					<!-- /footer -->
+
+				</div>
+				<!-- /content area -->
+
+			</div>
+			<!-- /main content -->
+
+		</div>
+		<!-- /page content -->
+
+	</div>
+	<!-- /page container -->
+
+
+
+</body>
+</html>

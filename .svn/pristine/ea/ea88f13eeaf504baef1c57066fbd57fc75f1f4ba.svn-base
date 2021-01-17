@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<!--<meta name="viewport" content="width=device-width, initial-scale=1">-->
+	<title>{:GC('web_title')}管理后台-运费管理</title>
+	<include file="Public/asset_top_page"/>
+
+</head>
+
+<body>
+
+
+<!-- header -->
+<include file="Public/header"/>
+<!-- /header -->
+
+<!-- Page container -->
+<div class="page-container">
+
+	<!-- Page content -->
+	<div class="page-content">
+		<!-- main sidebar -->
+		<include file="Public/left"/>
+		<!-- /main sidebar -->
+
+		<!-- Main content -->
+		<div class="content-wrapper">
+
+			<!-- Content area -->
+			<div class="content" style="padding-top: 10px;">
+				<!-- Pagination types -->
+				<div class="v-container">
+
+					<!-- page -->
+					<form class="form-horizontal" action="" method="post" enctype="multipart/form-data">
+						<input type="hidden" name="id" value="{$id}">
+
+						<div class="form-group">
+							<label class="col-xs-2 control-label text-right">规则名称</label>
+							<div class="col-xs-5">
+								<input type="text" class="form-control" value="{$data.name}" placeholder="请输入名称"
+								       name="name" required>
+							</div>
+						</div>
+
+						<div class="form-group">
+							<label class="col-xs-2 control-label text-right">是否默认</label>
+							<div class="col-xs-5">
+								<label class="radio-inline">
+									<input type="radio" class="styled" name="is_default" value="1" <if condition="$data['is_default'] eq 1">checked</if> >
+									是
+								</label>
+								<label class="radio-inline">
+									<input type="radio" class="styled" name="is_default" value="0" <if condition="$data['is_default'] eq 0">checked</if> >
+									否
+								</label>
+							</div>
+						</div>
+
+						<div class="form-group">
+							<label class="col-xs-2 control-label text-right">计费方式</label>
+							<div class="col-xs-5">
+								<label class="radio-inline">
+									<input type="radio" class="styled exp_type" name="type" value="1" <if condition="$data['type'] eq 1">checked</if> >
+									按重计费
+								</label>
+
+								<label class="radio-inline">
+									<input type="radio" class="styled exp_type" name="type" value="2" <if condition="$data['type'] eq 2">checked</if> >
+									按件计费
+								</label>
+							</div>
+						</div>
+
+						<div class="form-group">
+							<label class="col-xs-2 control-label text-right">运费规则</label>
+							<div class="col-lg-5 card_n">
+								<!-- copy here -->
+
+								<foreach name="list" item="vo">
+									<div class="rule_card">
+										<div class="rule_c_1">
+											<div class="rule_c_2">{$vo.str1}</div>
+											<a href="javascript:;" class="rule_c_3">[-删除条目]</a>
+										</div>
+										<div class="rule_c_4">
+											城市：{$vo.str2}
+										</div>
+										{$vo.str3}
+									</div>
+								</foreach>
+
+								<a href="javascript:;" class="add_rule">[+新增条目]</a>
+							</div>
+						</div>
+						<div class="form-group text-center">
+							<label class="col-xs-2 control-label text-right"></label>
+							<div class="col-lg-5 card_n">
+								<button type="submit" class="btn btn-primary">保 存</button>
+							</div>
+						</div>
+					</form>
+
+					<!-- page end -->
+
+					<!-- Footer -->
+					<include file="Public/footer" />
+					<!-- /footer -->
+
+				</div>
+				<!-- /content area -->
+
+			</div>
+			<!-- /main content -->
+
+		</div>
+		<!-- /main content -->
+
+
+
+		<!-- 按重计费 -->
+		<div class="rule_content_1" style="display: none;">
+			<div class="rc_top">
+				<div class="col-lg-6 padTop">
+					<b>首重（克）：</b>
+				</div>
+				<div class="col-lg-6 padTop">
+					<b>首费（元）：</b>
+				</div>
+				<div class="col-lg-6 padTop2">
+					<input type="text" class="form-control the_first" name="the_first" value="" placeholder="">
+				</div>
+				<div class="col-lg-6 padTop2">
+					<input type="text" class="form-control first_price" name="first_price" value="" placeholder="">
+				</div>
+
+				<div class="col-lg-6 padTop">
+					<b>续重（克）：</b>
+				</div>
+				<div class="col-lg-6 padTop">
+					<b>续费（元）：</b>
+				</div>
+				<div class="col-lg-6 padTop2">
+					<input type="text" class="form-control the_second" name="the_second" value="" placeholder="">
+				</div>
+				<div class="col-lg-6 padTop2">
+					<input type="text" class="form-control second_price" name="second_price" value="" placeholder="">
+				</div>
+			</div>
+
+			<div class="col-lg-6 padTop">
+				<b>省市：</b>
+			</div>
+			<div class="col-lg-12 padTop2 citys">
+				<volist name="pvc" id="vo">
+					<div class="col-lg-4 padTop2">
+						<label style="font-size: 15px;"><input type="checkbox" class="prov" name="prov" level="1" value="{$vo.id}" >&nbsp;{$vo.name} </label> <a class="add_ext">+</a>
+						<div class="col-lg-12 padTop2 level2" style="width: 100;padding-left: 0; border:1px dashed #ccc;display: none;">
+							<volist name="vo['city']" id="vo2">
+								<div class="col-lg-6" style="padding-left: 0;">
+									<input type="checkbox" class="city" name="city" level="2" value="{$vo2.id}" cname="{$vo2.name}" >&nbsp;{$vo2.name}</label>
+								</div>
+							</volist>
+						</div>
+					</div>
+				</volist>
+			</div>
+
+				<div class="col-lg-12 text-center">
+					<button class="btn btn-primary btn_area">确 认</button>
+				</div>
+		</div>
+
+		<!-- 按件计费 -->
+		<div class="rule_content_2" style="display: none;">
+			<div class="rc_top">
+				<div class="col-lg-6 padTop">
+					<b>首件（个）：</b>
+				</div>
+				<div class="col-lg-6 padTop">
+					<b>首费（元）：</b>
+				</div>
+				<div class="col-lg-6 padTop2">
+					<input type="text" class="form-control the_first" name="the_first" value="" placeholder="">
+				</div>
+				<div class="col-lg-6 padTop2">
+					<input type="text" class="form-control first_price" name="first_price" value="" placeholder="">
+				</div>
+
+				<div class="col-lg-6 padTop">
+					<b>续件（个）：</b>
+				</div>
+				<div class="col-lg-6 padTop">
+					<b>续费（元）：</b>
+				</div>
+				<div class="col-lg-6 padTop2">
+					<input type="text" class="form-control the_second" name="the_second" value="" placeholder="">
+				</div>
+				<div class="col-lg-6 padTop2">
+					<input type="text" class="form-control second_price" name="second_price" value="" placeholder="">
+				</div>
+			</div>
+
+			<div class="col-lg-6 padTop">
+				<b>省市：</b>
+			</div>
+			<div class="col-lg-12 padTop2 citys">
+				<volist name="pvc" id="vo">
+					<div class="col-lg-4 padTop2">
+						<label style="font-size: 15px;"><input type="checkbox" class="prov" name="prov" level="1" value="{$vo.id}" >&nbsp;{$vo.name} </label> <a class="add_ext">+</a>
+						<div class="col-lg-12 padTop2 level2" style="width: 100;padding-left: 0; border:1px dashed #ccc;display: none;">
+							<volist name="vo['city']" id="vo2">
+								<div class="col-lg-6" style="padding-left: 0;">
+									<input type="checkbox" class="city" name="city" level="2" value="{$vo2.id}" cname="{$vo2.name}" >&nbsp;{$vo2.name}</label>
+								</div>
+							</volist>
+						</div>
+					</div>
+				</volist>
+			</div>
+
+				<div class="col-lg-12 text-center">
+					<button class="btn btn-primary btn_area">确 认</button>
+				</div>
+		</div>
+
+		<!-- 按重提示 -->
+		<div class="rule_copy_1" style="display: none;">
+			<div class="rule_card">
+				<div class="rule_c_1">
+					<div class="rule_c_2">首重(克):sz，首费(元):sf，续重(克):xz，续费(元):xf</div>
+					<a href="javascript:;" class="rule_c_3">[-删除条目]</a>
+				</div>
+				<div class="rule_c_4">
+					城市：cs
+				</div>
+				ipt_str
+			</div>
+		</div>
+
+		<!-- 按件提示 -->
+		<div class="rule_copy_2" style="display: none;"	>
+			<div class="rule_card">
+				<div class="rule_c_1">
+					<div class="rule_c_2">首件(个):sz，首费(元):sf，续件(个):xz，续费(元):xf</div>
+					<a href="javascript:;" class="rule_c_3">[-删除条目]</a>
+				</div>
+				<div class="rule_c_4">
+					城市：cs
+				</div>
+				ipt_str
+			</div>
+		</div>
+
+		<style type="text/css">
+			.padTop{
+				padding-top: 12px;
+			}
+			.padTop2{
+				padding-top: 4px;
+			}
+			.add_ext{
+				font-size: 16px;
+				color: #014c8c;
+			}
+			.rule_card{
+				border: 1px solid #ccc;
+				border-radius: 3px;
+				padding: 8px;
+				margin-bottom: 5px;
+				clear: both;
+			}
+			.rule_c_1{
+				position: relative;
+			}
+			.rule_c_3{
+				position: absolute;
+				top: 0px;
+				right: 8px;
+				color: #ff2857;
+			}
+			.rule_c_4{
+				clear: both;
+				padding-top: 5px;
+				padding-bottom: 5px;
+				line-height: 22px;
+			}
+			.add_rule{
+				color: #ff2857;
+			}
+			.card_n{
+				padding-top: 8px;
+			}
+		</style>
+
+	</div>
+	<!-- /page content -->
+
+</div>
+<!-- /page container -->
+
+
+
+<script type="text/javascript">
+
+	$(".exp_type").on("change", function(){
+		$(".card_n").find(".rule_card").remove();
+	});
+
+	var n = "{$n}";
+
+	// 添加规则条目
+	$(".add_rule").on("click", function(){
+		var type = $("input[name=type]:checked").val();
+		if (type == 2)
+		{
+			var rule_content = $(".rule_content_2").html();
+		}
+		else
+		{
+			var rule_content = $(".rule_content_1").html();			
+		}
+
+		layer.open({
+			type: 1,
+			title: '规则设置',
+			skin: 'layui-layer-rim',
+			area: ['800px', '700px'],
+			content: rule_content
+		});
+
+	});
+
+	// 城市扩展/收缩
+	$(document).on("click", ".add_ext", function(){
+		$(this).next().toggle();
+	});
+
+	// 省份选择/不选
+	$(document).on("click", ".prov", function(){
+		if($(this)[0].checked)
+		{
+			$(this).parent().siblings(".level2").find(".city").prop("checked", true);
+		}
+		else
+		{
+			$(this).parent().siblings(".level2").find(".city").prop("checked", false);
+		}
+	});
+
+	// 确认按钮
+	$(document).on("click", ".btn_area", function(){
+
+		var type = $("input[name=type]:checked").val();
+		if (type == 2)
+		{
+			var DTC = $(".rule_copy_2").html();
+		}
+		else
+		{
+			var DTC = $(".rule_copy_1").html();
+		}		
+		var the_first = $(".layui-layer-content .rc_top .the_first").val();
+		var first_price = $(".layui-layer-content .rc_top .first_price").val();
+		var the_second = $(".layui-layer-content .rc_top .the_second").val();
+		var second_price = $(".layui-layer-content .rc_top .second_price").val();
+		var city_cn = "";
+		var city_num = "";
+		var ipt_str = "";
+
+		$(".layui-layer-content .citys input[name=city]:checked").each(function(index){
+			if ($(this).prop("checked"))
+			{
+				city_num = city_num+$(this).val()+",";
+				city_cn = city_cn+$(this).attr("cname")+",";
+			}
+		});
+
+		if (the_first.length < 1 || the_first <= 0) 
+		{
+			layer.msg("首重/件 数量 不可<=0");
+			return false;
+		}
+
+		ipt_str+= "<input type='hidden' name='the_first["+n+"]' value='"+the_first+"' >";
+		ipt_str+= "<input type='hidden' name='first_price["+n+"]' value='"+first_price+"' >";
+		ipt_str+= "<input type='hidden' name='the_second["+n+"]' value='"+the_second+"' >";
+		ipt_str+= "<input type='hidden' name='second_price["+n+"]' value='"+second_price+"' >";
+		ipt_str+= "<input type='hidden' name='type["+n+"]' value='"+type+"' >";
+		ipt_str+= "<input type='hidden' name='city_num["+n+"]' value='"+city_num+"' >";
+
+		DTC = DTC.replace("sz", the_first);
+		DTC = DTC.replace("sf", first_price);
+		DTC = DTC.replace("xz", the_second);
+		DTC = DTC.replace("xf", second_price);
+		DTC = DTC.replace("cs", city_cn);
+		DTC = DTC.replace("ipt_str", ipt_str);
+		$(".add_rule").before(DTC);
+		layer.closeAll();
+		n=n+1;
+	});
+
+	$(document).on("click", ".rule_c_3", function(){
+		$(this).parent().parent().remove();
+	});
+	
+</script>
+
+
+</body>
+</html>
+
+

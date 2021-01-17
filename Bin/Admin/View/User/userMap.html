@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<!--<meta name="viewport" content="width=device-width, initial-scale=1">-->
+	<title>{:GC('web_title')}管理后台</title>
+	<include file="Public/asset_top_page"/>
+	<link type="text/css" href="__PUBLIC__/extends/layui_v255/css/layui.css" rel="stylesheet">
+	<script type="text/javascript" src="__PUBLIC__/extends/layui_v255/layui.js"></script>
+	<!-- /theme JS files -->
+	<style>
+
+	</style>
+
+</head>
+<body>
+
+<include file="Public/header"/>
+<div class="page-container">
+	<div class="page-content">
+		<include file="Public/left"/>
+		<div class="content-wrapper">
+			<div class="content" style="padding-top: 10px;">
+				<div class="v-container">
+
+					<div class="panel panel-flat">
+						<div class="panel-heading">推荐结构图</div>
+
+						<div class="dataTables_wrapper no-footer">
+
+							<div id="usermap" style="padding-bottom: 10px;"></div>
+
+							<script>
+								var treeData = {$list};
+                                layui.use('tree', function(){
+                                    var tree = layui.tree;
+                                    //渲染
+                                    var inst1 = tree.render({
+                                        elem: '#usermap',  //绑定元素
+                                        data: treeData,
+                                        showLine:true,
+                                    });
+                                });
+							</script>
+
+						</div>
+
+					</div>
+
+					<include file="Public/footer" />
+
+				</div>
+			</div>
+		</div>
+	</div>
+
+</body>
+</html>

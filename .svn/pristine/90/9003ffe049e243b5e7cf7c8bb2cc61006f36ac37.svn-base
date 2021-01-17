@@ -1,0 +1,199 @@
+@charset "UTF-8";
+
+@font-face {
+  font-family: "SourceHanSansCN-Normal";
+  src: url("../../font/SourceHanSansCN/SourceHanSansCN-Normal.woff2") format("woff2"),
+       url("../../font/SourceHanSansCN/SourceHanSansCN-Normal.woff") format("woff"),
+       url("../../font/SourceHanSansCN/SourceHanSansCN-Normal.ttf") format("truetype"),
+       url("../../font/SourceHanSansCN/SourceHanSansCN-Normal.eot") format("embedded-opentype"),
+       url("../../font/SourceHanSansCN/SourceHanSansCN-Normal.svg") format("svg"),
+       url("../../font/SourceHanSansCN/SourceHanSansCN-Normal.otf") format("opentype");
+  font-weight: normal;
+  font-style: normal;
+}
+* {
+	font-family:"SourceHanSansCN-Normal","Microsoft YaHei",sans-serif;
+}
+
+body {
+    margin: 0px;
+    padding: 0px;
+    font-family: "SourceHanSansCN-Normal","Microsoft YaHei", "simsun", "Helvetica Neue", Arial, Helvetica, sans-serif;
+    font-size: 3.33vw;
+    color: #333333;
+}
+
+.pay_money_wrap{
+    width: 100%;
+    padding-top: 8vw;
+    text-align: center;
+    background: #FFFFFF;
+}
+.pay_rmb{
+    font-size: 4.63vw;
+    color: #fe4543;
+}
+.pay_money{
+    font-size: 6.11vw;
+    color: #fe4543;
+}
+.pay_money_tips_wrap{
+    background: #FFFFFF;
+}
+.pay_money_tips{
+    width: 92.59vw;
+    font-size: 3.15vw;
+    color: #999999;
+    padding-top: 2vw;
+    text-align: center;
+    border-bottom: #dddddd solid 0.09vw;
+    margin: 0 auto;
+    padding-bottom: 5vw;
+}
+.pay_money_ul{
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    background: #FFFFFF;
+    padding-top: 4vw;
+    padding-bottom: 4vw;
+}
+.pay_money_ul li {
+    padding-top: 4vw;
+    padding-bottom: 4vw;
+    padding-left: 5vw;
+    padding-right: 5.2vw;
+}
+.confirm{
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background: #FFFFFF;
+    height: 16.67vw;
+    box-shadow: 0vw 1.76vw 2.13vw 0.19vw rgba(0, 0, 0, 0.72);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+input.btn_submit{
+    width: 92.60vw;
+    height: 10.19vw;
+    line-height: 10.19vw;
+    background: #fe4543;
+    text-align: center;
+    color: #fff;
+    border-radius: 5vw;
+    border: none;
+    padding: 0;
+}
+.clearfix{
+    clear: both;
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    align-items: center;
+}
+.flex_pay{
+    font-size: 3.33vw;
+    color: #333333;
+}
+.input_aa .layui-form-radio{
+    margin: 0;
+    padding-right: 0;
+}
+.input_aa .layui-form-radio>i{
+    margin-right: 0;
+}
+
+.weui-popup__modal {
+    background: #ffffff;
+    border-top-left-radius: 2vw;
+    border-top-right-radius: 2vw;
+}
+
+.weui-popup__container .weui-popup__overlay {
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.weui_pop_title {
+    text-align: center;
+    font-size: 3.9vw;
+    color: #333;
+    height: 9.26vw;
+    position: relative;
+}
+
+.weui_pop_title_close {
+    position: absolute;
+    top: 1.5vw;
+    right: 3.7vw;
+    width:6vw; height: 6vw;  border:none; background: none; -webkit-appearance: none;text-align: center; padding: 0!important; margin: 0!important;
+}
+
+.weui_pop_title_close_img {
+    width: 5.56vw;
+    height: 5.56vw;
+}
+
+.weui_pop_title_txt {
+    padding-top: 2vw;
+    font-size: 3.9vw;
+}
+
+.weui_pop_content_wrap {}
+
+.weui_pop_content_title {
+    padding-left: 3.5vw;
+    padding-top: 1vw;
+    font-weight: bold;
+}
+
+.weui_pop_content_desc {
+    padding-left: 3.5vw;
+    padding-top: 1vw;
+    padding-bottom: 3vw;
+}
+
+.btn_ok {
+    width: 43.3%;
+    margin: 0 auto;
+    height: 10.19vw;
+    background-color: #fe4543;
+    border-radius: 5vw;
+    font-size: 3.7vw;
+    color: #ffffff;
+    border: none;
+}
+
+.btn_long {
+    width: 92.60%;
+}
+
+.btn_center {
+    display: block;
+    text-align: center;
+    padding-bottom: 3vw;
+    padding-top: 5vw;
+}
+
+.weui_kefu_block {
+    width: 79.54vw;
+    height: 11.11vw;
+    line-height: 11.11vw;
+    background: #f7f8fa;
+    border-radius: 5vw;
+    margin: 2vw auto;
+    text-align: center;
+}
+
+.weui_kefu_block a {
+    font-size: 4.07vw;
+    color: #555555;
+}
+
+.weui_kefu_block span {
+    font-size: 3.33vw;
+    color: #888;
+}

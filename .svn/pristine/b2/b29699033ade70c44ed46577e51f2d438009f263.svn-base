@@ -1,0 +1,28 @@
+html,body{min-height:100%;font-size:0.9em;}
+body{margin:0px; padding:0px; font-family:"Microsoft YaHei","simsun","Helvetica Neue", Arial, Helvetica, sans-serif; font-size:0.9em;color:#333; background:#fff;}
+a:hover{text-decoration:none;}
+a{color:#666;text-decoration:none;}
+img{border:0}
+ul{margin: 0;padding: 0;}
+ul,li{list-style:none}
+ul,li,div{box-sizing:border-box}
+/*清理浮动的方法*/
+.clearfix:after {content: " ";display: block;clear: both;height: 0;}
+.clearfix {zoom: 1;}
+/****************************************************************购物拼团*******************************************************************************************************/
+.money_save{width: 100%;height: 29vw;}
+.money_list{border-top: 1.5vw solid #f1f1f1;text-align: center;border-bottom: 1px solid #eee;}
+.money_list .swiper-wrapper .swiper-slide{padding: 2vw 2.5vw;}
+.money_list .swiper-wrapper .swiper-slide.active{border-bottom: .5vw solid #ff1d48;color: #ff1d48;}
+.product_list ul li{padding: 2.5vw 0;margin: 0 2.5vw;border-bottom: 1px solid #eee;}
+.product_left{width: 29vw;height: 29vw;float: left;}
+.product_right{width: 65%;float: right;margin-top: 2vw;}
+.product_right p{line-height: 5vw;color: #333333;font-size: 3.5vw; overflow: hidden;text-overflow: ellipsis;display: -webkit-box;-webkit-line-clamp: 2;-webkit-box-orient: vertical;width: 100%;}
+.product_right .product_money{color: #ff1d48;display: flex;align-items: center;}
+.product_right .product_money h6{font-weight: 550;font-size:5vw;color: #ff1d48;display: inline-block;}
+.product_right .product_money span{display: inline-block;color: #ff1d48;font-size: 3vw;padding: 0 1vw;border: 1px solid #ff1d48;border-radius: 1vw;line-height: 4vw;margin-left: 2vw;}
+.product_right .price_span .price_left{float: left;display: inline-block;width: 67%;margin: 0;}
+.product_right .price_span .price_left p{color: #a0a0a0;font-size: 3vw;}
+.product_right .price_span .price_left p:nth-child(1){padding-top: 2vw;margin-bottom: 0;}
+.product_right .price_span .dump_right{float:right;color: #fff;display: inline-block;background: #ff1d48;font-size: 3vw;border-radius: 1vw;width: 27%;text-align: center;line-height: 8vw;}
+.next_page{color: #a0a0a0;font-size: 3.5vw;text-align: center;padding: 2vw 0;display: grid;}

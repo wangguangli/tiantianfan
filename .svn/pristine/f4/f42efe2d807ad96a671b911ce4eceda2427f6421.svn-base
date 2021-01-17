@@ -1,0 +1,160 @@
+* {
+	margin: 0;
+	padding: 0;
+	list-style: none;
+	text-decoration: none;
+}
+
+body {
+}
+
+a, a:hover {
+	color: #999;
+	text-decoration: none;
+}
+
+.product-leibie {
+	width: 26vw;
+	left: 0;
+	top: 0;
+	position: fixed;
+	height: 100%;
+	background: #fafafa;
+}
+
+.product-leibie ul {
+	width: 100%;
+	/*padding-top: 12vw;*/
+}
+
+.product-leibie ul li {
+	text-align: center;
+	line-height: 14vw;
+	position: relative;
+	font-size: 3.7vw;
+	color: #333;
+}
+
+.product-leibie ul li.bc-gray span {
+	position: absolute;
+	top: 3.5vw;
+	left: 0;
+	width: 1vw;
+	height: 6vw;
+	background: #fe4543;
+	border-radius: 1vw;
+}
+
+.product-erji {
+	margin-left: 28%;
+	width: 72vw;
+	/*padding-top: 16vw;*/
+	padding-top: 2.5vw;
+}
+
+.phone_code {
+	width: 100%;
+	background-color: #fff;
+	border-radius: 2vw;
+	padding: 3vw;
+}
+
+.product-erji .product_img {
+	width: 66vw;
+	height: 21vw;
+	border-radius: 1vw;
+	margin: 0 auto;
+	overflow: hidden;
+}
+
+.product-erji .phone_code .code_list {
+	padding: 6vw 0;
+}
+
+.product-erji .phone_code .code_list .phone_shop {
+	font-size: 3.7vw;
+	color: #333333;
+	text-align: center;
+	position: relative;
+	height: 8vw;
+	width: 40vw;
+	margin: 0 auto;
+}
+
+.product-erji .phone_code .code_list .phone_shop .phone_1 {
+	display: inline-block;
+	width: 20vw;
+	height: 8vw;
+	background: #fff;
+	position: relative;
+	z-index: 2;
+}
+
+.product-erji .phone_code .code_list .phone_shop .phone_2 {
+	position: absolute;
+	top: 3vw;
+	left: 0;
+	width: 40vw;
+	height: 1px;
+	background: #d9d9d9;
+}
+
+.layui-nav {
+	padding: 0;
+}
+
+.layui-nav .layui-nav-item {
+	padding: 0 1vw;
+}
+
+.layui-nav .layui-nav-item a {
+	font-size: 4vw;
+	padding: 0 21px;
+}
+
+.icon {
+	float: left;
+	position: absolute;
+	top: 1.2vw;
+	left: 4vw;
+}
+
+.shop_code ul li {
+	width: 33.333%;
+	float: left;
+	text-align: center;
+	margin-bottom: 6vw;
+	text-align: center;
+}
+
+.shop_code ul li .shop_list1 {
+	width: 14vw;
+	height: 14vw;
+	margin: 0 auto;
+}
+
+.shop_code ul li .shop_span {
+	font-size: 3.15vw;
+	color: #999;
+	margin-top: 3vw;
+	display: block;
+	width: 22vw;
+	height: 5vw;
+	overflow: hidden;
+}
+
+.clear {
+	clear: both;
+}
+
+.bc-gray {
+	background-color: #f7f8fa;
+}
+
+.bc-white {
+	background: #fff;
+}
+
+.hidden {
+	display: none;
+}

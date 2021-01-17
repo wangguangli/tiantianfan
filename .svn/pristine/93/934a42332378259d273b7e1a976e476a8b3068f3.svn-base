@@ -1,0 +1,18 @@
+
+<volist name="shop_list.result.shop" id="vo">
+	<li class="busin_li">
+		<a href="javascript:;">
+			<img src="{$vo.thumb}" class="product" />
+			<div class="div_product_info">
+				<h2 class="good_name">{$vo.shop_name}</h2>
+				<div class="address_mid">
+					<img class="dizhi" src="__PUBLIC__/mobile/images_v3/dizhi5.png" />
+					<h3 class="address_h3">{$vo.address}</h3>
+				</div>
+				<div class="recomment">营业额：<span class="turnover"> <span class="symbol">￥</span>{$vo.shop_total}</span>
+				</div>
+			</div>
+			<div class="clear"></div>
+		</a>
+	</li>
+</volist>

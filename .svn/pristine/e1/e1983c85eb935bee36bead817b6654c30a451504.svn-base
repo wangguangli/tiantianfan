@@ -1,0 +1,124 @@
+﻿<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>会员登录</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"> 
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="stylesheet" href="__PUBLIC__/css/mui.min.css">
+    <link rel="stylesheet" href="__PUBLIC__/css/login.css">
+    <script src="__PUBLIC__/js/mui.min.js"></script>
+	  <script src="__PUBLIC__/js/jquery.min.js"></script>
+	</head>
+	<body>
+		<header class="mui-bar mui-bar-nav" style="background: #FE274E;">
+		    <a class="mui-pull-left mui-icon mui_turn" href="javascript:history.back()"><img src="__PUBLIC__/img/return.png" width="20vw"height="20vw"/></a>
+		    <h1 class="mui-title tit_login">登录</h1>
+		</header>
+		<div class="mui-content" style="background: #fff;padding-top:73px;">
+	 		<div class="reg-div">
+	 			<div class="mega"><img src="{$logo}" alt="" width="100%"height="100%"/></div>
+			</div>
+		<div class="reg-div">
+			<form action="" method="post">
+				<input type="hidden" value="{$refer}" name="refer" />
+				<input type="hidden" value="{$source}" name="source" />
+				<input type="hidden" value="{$out_trade_no}" name="out_trade_no" />
+				<ul>
+					<li>
+						<span class="icon_user"></span>
+						<input type="text" name="phone" placeholder="请输入手机号" maxlength="11" value=""/>
+					</li>
+					<!-- <li>
+						<span class="icon_yzm"></span>
+						<input type="text" name="phone_code" placeholder="请输入验证码" />
+						<input type="button" value="获取验证码" id="getPhoneCode">
+					</li> -->
+					<li>
+						<span class="icon_prass"></span>
+						<input type="password" name="password" placeholder="请输入密码" value=""/>
+					</li>
+
+				</ul>
+				<button>登录</button>
+				<!--立即注册 忘记密码-->
+				<div class="up_reg clearfix">
+					 <a href="{:U('Index/reg')}"><p>立即注册</p></a>
+					 <a href="{:U('Index/password')}"><p>忘记密码？</p></a>
+				</div>
+				<!--第三方登录-->						
+			  <!--<div class="third">
+				 	 <div class="th_rd"><p></p><span>第三方登录</span><p></p></div>
+				 	 <a href="#">
+					 	 	<div style="text-align: center;">
+						 	 	<img src="__PUBLIC__/img/wechat.png" width="25vw"height="25vw"/>
+						 	 	<span style="display: flow-root;">微信</span>
+					 	 </div>
+				 	 </a>
+			  </div>		 -->
+			</form>
+		</div>
+		</div>
+<script src="__PUBLIC__/layer/mobile/layer.js"></script>
+<script type="text/javascript">
+$(function(){
+	$("#getPhoneCode").click(function(){
+		var phone = $.trim($("input[name=phone]").val());
+		
+		if (!(/1[3-8]+[0-9]{9}/.test(phone))) {
+			layer.open({
+				content: "手机格式不正确"
+				,skin: 'msg'
+				,time: 2
+			});
+			return;
+		}
+		if (! _SEND) return;
+
+		$(this).attr("disabled", _SEND);
+		$(this).val("重新获得(60)");
+		_SEND = false;
+		$.ajax({
+			url: "{:U('Api/Pubout/get_phone_code')}",
+			type: 'POST',
+			data: 'phone=' + phone,
+			dataType : 'json',
+			success: function(a) {
+				if (a.status) {
+					layer.open({
+						content: a.msg
+						,skin: 'msg'
+						,time: 2
+					});
+				} else {
+					$("input[name=session_id]").val(a.result.session_id);
+				}
+			}
+		});
+		setTimeout(repeatSend, 1010);
+	});
+});
+var _SEND = true;
+function repeatSend(){
+	var num = $("#getPhoneCode").val().replace(/\d+/ig,function(n){
+		if (n>0) {
+			return --n;
+		} else {
+			return "#";
+		}
+	});
+	if (num.indexOf("#") == -1) {
+		$("#getPhoneCode").val(num);
+		setTimeout(repeatSend, 1010);
+	} else {
+		$("#getPhoneCode").val("获取手机验证码");
+		$("#getPhoneCode").attr("disabled", _SEND);
+		_SEND = true;
+	}
+}
+</script>
+		
+	</body>
+</html>

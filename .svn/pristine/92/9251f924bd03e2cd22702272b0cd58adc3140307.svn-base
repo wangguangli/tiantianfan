@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>消息中心</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"> 
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <script src="__PUBLIC__/js/mui.min.js"></script>
+    <script src="__PUBLIC__/js/jquery-1.11.1.min.js"></script>
+    <link rel="stylesheet" href="__PUBLIC__/css/mui.min.css">
+    <link rel="stylesheet" href="__PUBLIC__/mobile/style/near.css">
+	</head>
+	<body>
+		<header class="mui-bar mui-bar-nav dis_ea"style="background: #FE274E;">
+		    <a class="mui-pull-left mui-icon mui_turn" href="javascript:history.back()"><img src="__PUBLIC__/img/return.png" width="20vw"height="20vw"/></a>
+		    <input type="text" name="name" id="search" value="" placeholder="请输入店铺名称"/>
+		    <p id="search_id" onclick="search()">搜索</p>
+		</header>
+		<div class="mui-content" style="background: #fff;">
+
+		   <!--商品列表-->
+		   <div class="good_list" >
+		   	  <ul class="ul_c">
+
+		   	  </ul>		   			   	
+		   </div>
+		   <!--end-->
+		</div>
+		<script src="__PUBLIC__/layer/mobile/layer.js"></script>
+		<script type="text/javascript">
+			function search() {
+				var search= document.getElementById('search').value;
+				if(search){
+					$.ajax({
+						type:'POST',
+						data:{'content':search},
+						url:"{:U('Near/search')}",
+						dataType:'json',
+						success:function (data){
+						console.log(data);
+						if(data.status==0){
+							var  html = '';
+							console.log(data.result);
+							$.each(data.result,function (index,item) {
+								html+='<li class="clearfix">'+
+										'    <a href="' + '{:U("Shop/shopdetail")}?id='+item.user_id+ '"> <div class="good_img"><img src="'+item.thumb+'"' +
+										'" alt="" width="100%" /></div>' +
+										'     <div class="good_right">' +
+										'     <h6>'+item.shop_name +'</h6>' +
+										'     <p><img src="__PUBLIC__/img/address.png" width="12vw"height="12vw"/><span>'+item.address+'</span></p>' +
+										'         <span class="good_sp" style="color:#999999;">'+item.description+'</span>' +
+										'     </div>' +
+										'     </li></a>'
+							});
+							$('.ul_c').html(html);
+						}else{
+							layer.open({
+								content: '暂无数据'
+								, skin: 'msg'
+								, time: 1.5
+							});
+						}
+					}
+					})
+				}
+
+			}
+		</script>
+	</body>
+</html>

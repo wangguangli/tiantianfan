@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!--<meta name="viewport" content="width=device-width, initial-scale=1">-->
+    <title>{:GC('web_title')}管理后台-行业设置</title>
+    <include file="Public/asset_top_page"/>
+    <style>
+        table{
+            border-bottom: 1px solid #ddd
+        }
+    </style>
+</head>
+<body>
+<!-- header -->
+<include file="Public/header"/>
+<!-- /header -->
+<!-- Page container -->
+<div class="page-container">
+    <!-- Page content -->
+    <div class="page-content">
+        <!-- main sidebar -->
+        <include file="Public/left"/>
+        <!-- /main sidebar -->
+
+        <!-- Main content -->
+        <div class="content-wrapper">
+
+            <!-- Content area -->
+            <div class="content" style="padding-top: 10px;">
+                <!-- Pagination types -->
+                <div class="v-container">
+                    <div class="alert alert-tips alert-dismissible" role="alert">
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
+                        设置短信通道及相应信息</div>
+
+                    <div class="panel panel-flat">
+                        <div class="panel-heading">
+                            <!--搜索框-->
+                            <div class="heading-elements">
+
+                            </div>
+                        </div>
+
+
+                        <div class="dataTables_wrapper no-footer">
+                            <table class="table datatable-tools-basic basic_table">
+                                <thead>
+                                <tr>
+                                    <th class="">ID</th>
+                                    <th class="">短信名称</th>
+                                    <th class="">账号</th>
+                                    <th class="">状态</th>
+                                    <th class="">内容</th>
+                                    <th class="">类型</th>
+                                    <th class="">修改时间</th>
+                                    <th class="text-center">操作</th>
+                                </tr>
+                                </thead>
+
+                                <volist name="data" id="vo">
+
+                                    <tr class="tt_color" style="">
+                                        <td class="">{$vo.id}</td>
+                                        <td class="">
+                                            <div class="ed_stand">
+                                                <p>{$vo.name}</p>
+                                            </div>
+                                        </td>
+                                        <td class="">{$vo.account}</td>
+                                        <td class=""><if condition="$vo.status eq 1">已开启<else/>已关闭</if></td>
+                                        <td class="">{$vo.acc_tmp}</td>
+                                        <td class=""><if condition="$vo.type eq 0">验证码<else/>未开发</if></td>
+                                        <td class=""><if condition="$vo.update_time neq 0">{$vo.update_time|date="Y-m-d H:i:s",###}</if></td>
+                                        <td class="text-center col-xs-2">
+                                            <div class="tt_stand">
+                                                <a title="查看" href="{:U('edit_sms')}?id={$vo.id}" class="layui-btn layui-btn-sm layui-btn-normal btn_detail">查看</a>
+                                            </div>
+                                        </td>
+                                    </tr>
+
+                                </volist>
+                            </table>
+                            <!-- 分页 -->
+
+
+
+
+                        </div>
+                        <!-- /pagination types -->
+
+                    </div>
+                    <!-- Footer -->
+                    <include file="Public/footer"/>
+                    <!-- /footer -->
+
+                </div>
+                <!-- /content area -->
+
+            </div>
+            <!-- /main content -->
+
+        </div>
+        <!-- /page content -->
+
+    </div>
+    <!-- /page container -->
+
+</body>
+</html>

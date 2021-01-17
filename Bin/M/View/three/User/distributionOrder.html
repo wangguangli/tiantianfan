@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>我的分销</title>
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="stylesheet" href="__PUBLIC__/mobile/style/jquery-weui.min.css">
+    <link rel="stylesheet" href="__PUBLIC__/mobile/style/main_style.css">
+    <link rel="stylesheet" href="__PUBLIC__/mobile/css_v3/order_index.css?n=1">
+    <script src="__PUBLIC__/layer/mobile/layer.js"></script>
+    <script src="__PUBLIC__/mobile/js/jquery-2.1.4.js"></script>
+    <script src="__PUBLIC__/mobile/js/jquery-weui.min.js"></script>
+
+</head>
+<body ontouchstart>
+
+<div class="order-case">
+    <ul>
+        <li>
+            <a href="{:U('distributionOrder', 'type=-1')}"
+            <if condition="$type eq -1 "> class="cut"</if>
+            >全部</a>
+        </li>
+        <li>
+            <a href="{:U('distributionOrder', 'type=0')}"
+            <if condition="$type eq 0 "> class="cut"</if>
+            >待付款</a>
+        </li>
+        <li>
+            <a href="{:U('distributionOrder', 'type=1')}"
+            <if condition="$type eq 1 "> class="cut"</if>
+            >已付款</a>
+        </li>
+        <li>
+            <a href="{:U('distributionOrder', 'type=3')}"
+            <if condition="$type eq 3 "> class="cut"</if>
+            >已完成</a>
+        </li>
+    </ul>
+</div>
+<div class="order-list">
+
+    <!--订单循环    -->
+
+
+    <ul class="order_ul">
+        <volist name="list" id="vo">
+        <li id="order" class="fx_order_li">
+            <div class="fx_xmname">
+                订单号：{$vo.son_order_no}
+                <span>{$vo.order_status_cn}</span>
+            </div>
+            <div class="fx_xmname" style="border: none;">
+                <div class="user_div">
+                    <img src="{$vo.headimgurl}">
+                    {$vo.nickname}
+                </div>
+                <if condition="$vo['son_floor'] gt 0">
+                <div class="level">{$vo.son_floor_cn}</div>
+                </if>
+                <div class="yjmoney">
+                    预计佣金：<span>{$vo.money}</span>元
+                    <i class="duicon"></i>
+                </div>
+            </div>
+            <div style="display: none">
+                <div class="goods-li">
+                    <img src="{$vo.goods_thumb}">
+                    <div class="goods-title">
+                        <div class="z_gt_1">{$vo.goods_name}</div>
+                        <div class="z_gt_2">{$vo.goods_spec_price_name}</div>
+                    </div>
+                </div>
+            </div>
+        </li>
+        </volist>
+    </ul>
+
+    <div class="load_more_content"></div>
+    <div class="load_more">
+        <span class="load_more_red">点击</span>加载更多
+    </div>
+
+</div>
+
+
+
+<script type="text/javascript">
+    $(function () {
+        $('.yjmoney').click(function () {
+            var yjmoney = $(this);
+            var goodslst = yjmoney.parent().next()
+            goodslst.slideToggle(function () {
+                if($(this).is(":visible")){
+                    yjmoney.children('.duicon').addClass('down')
+                }else{
+                    yjmoney.children('.duicon').removeClass('down')
+                }
+
+            });
+
+        })
+    })
+
+
+    // 加载更多
+    var page = 2;           // 当前页码，默认从第2页开始，因为刚进来已经输出一次了
+    var max_page = "{$max_page}";   // 最大页码
+    var order_status = "{$type}";   // 当前类型
+    $(".load_more").on("click", function () {
+        if (page > max_page)
+        {
+            layer.open({
+                type: 2
+                , content: '数据已全部加载'
+                , time:1
+            });
+            $(".load_more").text("数据已全部加载");
+            return;
+        }
+
+        layer.open({
+            type: 2
+            , content: '加载中'
+        });
+        $(".load_more_content").load("{:U('distributionOrder')}", {page:page, type:order_status}, function (response, status) {
+            console.log("--------xxx---------")
+            console.log(response)
+            if (status == "success") {
+                var html = $(".load_more_content").html();
+                $(".order_ul").append(html);
+                $(".load_more_content").html("");
+                page=parseInt(page)+1;    // 在本页自增
+            }
+            layer.closeAll();
+        });
+    });
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,79 @@
+	*{margin: 0;padding: 0;list-style: none;text-decoration: none;}
+	body{}
+	a,a:hover{color: #999;text-decoration: none;}	
+	.product-leibie{width: 30%;left: 0;top: 0;position: fixed;height: 100%;background: #fafafa;}	
+	.product-leibie ul {width: 100%;padding-top: 12vw;}
+	.product-leibie ul li{text-align: center;line-height: 14vw;font-size: 14px;position: relative;}
+	.product-leibie ul li.bc-gray span{width: 1.5vw;height: 7vw;background: #000;position: absolute;top: 3.5vw;left: 0;}
+	.product-erji{margin-left: 30%;width: 70%;padding-top: 16vw;}	
+	/*.product-erji ul{width: 90%;margin: 0 auto;}
+	.product-erji ul li{margin-bottom: 6vw;width: 45%;float: left;font-size: 14px;text-align: center;line-height: 10vw;background: white;border-radius: 2vw;box-shadow: 1px 1px 1px 1px #eee;}
+	.product-erji ul li:nth-child(2n+1){margin-right: 5%;}*/
+	.product-erji .product_img{width: 68vw;height: 22vw;border-radius: 1vw;margin: 0 auto;overflow: hidden;}
+	.product-erji .phone_code .code_list{
+		padding: 8vw 0;	
+	}
+	.product-erji .phone_code .code_list .phone_shop{
+		font-size: 4vw;
+		color: #333333;
+		text-align: center;
+		position: relative;
+		height: 8vw;
+		width: 40vw;
+		margin: 0 auto;
+	}
+	
+	.product-erji .phone_code .code_list .phone_shop .phone_1{
+		display: inline-block;
+		width: 20vw;
+		height: 8vw;
+		background: #fff;
+		position: relative;
+		z-index: 2;
+		}
+	.product-erji .phone_code .code_list .phone_shop .phone_2{
+		position: absolute;
+		top: 3vw;
+		left: 0;
+		width: 40vw;
+		height: 1px;
+		background: #d9d9d9;
+	}
+	.shop_code{
+
+	}
+ 
+ 
+.layui-nav{padding: 0; }
+.layui-nav .layui-nav-item{padding: 0 1vw;}
+.layui-nav .layui-nav-item a {font-size: 4vw; padding: 0 21px;}
+
+.icon{
+		float: left;
+		position: absolute;
+		top: 1.2vw;
+		left: 4vw;
+	}
+
+	.shop_code ul li{
+		width: 33.333%;
+		float: left;
+		text-align: center;	
+		margin-bottom: 8vw;
+		
+	}
+	.shop_code ul li .shop_list1{
+		width: 15vw;
+		height: 15vw;
+		margin: 0 auto;
+	}
+	.shop_code ul li .shop_span{
+		font-size: 3vw;
+		color: #767676;
+		padding: 1vw 0;
+		display: inline-block;
+	}
+	.clear{clear: both;}
+	.bc-gray{background: #fff;}	
+	.bc-white{background: #fff;}
+	.hidden{display: none;}

@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>api文档</title>
+	<style type="text/css">
+	body { font-size:14px;}
+	a:link {color: #0000FF; text-decoration:none;}
+    a:visited {color: red;}
+    a:hover { color:#000000;}
+    a:active {color:#FFFFFF;}
+	td { padding:5px;}
+	</style>
+	<script src="__PUBLIC__/js/jquery.min.js"></script>
+</head>
+
+<body>
+<strong>接口列表</strong><br/>
+<a href="{:U('Doc/add')}?pwd=" target="_blank">添加接口</a> &nbsp; 
+<a href="{:U('Doc/index')}">接口首页</a>
+<div>
+
+	<div style="float:left; width:200px;">
+	<volist name="list" id="vo">
+	<div>
+	<strong>{$vo.name} ▼</strong>
+	<ol <neq name="vo.name" value="$api['classify']"> style="display:none"</neq>>
+		<volist name="vo.data" id="i">
+			<li><a href="{:U('Doc/index', 'id=' . $i['id'])}">{$i.title}</a></li>
+		</volist>
+	</ol>
+	</div>
+	</volist>
+	</div>
+	
+	
+	<div style="float:left; height:100%; min-width:700px;">
+				
+		<empty name="api">
+			<div style='color:red'>
+			
+			</div>
+		<else />
+		
+		
+		<!-- ---------------- 接品详情 -------------------------- -->
+		
+<table>
+	<tr>
+		<th align="right">接口名称：</th>
+		<td>
+			{$api.title} &nbsp; &nbsp; &nbsp;
+			<a href="{:U('Doc/update', 'id=' . $api['id'])}">修改</a>
+			 &nbsp; &nbsp; &nbsp;
+			 <a href="{:U('Doc/copy', 'id=' . $api['id'])}?pwd=">复制</a>
+			 &nbsp; &nbsp; &nbsp;
+			<a href="{:U('Doc/delete', 'id=' . $api['id'])}?pwd=" onClick="return confirm('你确认要删除这个接口？');">删除</a>
+		</td>
+	</tr>
+	<tr>
+		<th align="right">URL：</th>
+		<td> <a href="{$api.url}" target="_blank">{$api.url}</a></td>
+	</tr>
+	<tr>
+		<th align="right">版本：</th>
+		<td> {$api.version}</td>
+	</tr>
+	<tr>
+		<th align="right">请求方式：</th>
+		<td> {$api.method}</td>
+	</tr>
+</table>
+<strong>请求参数</strong>
+
+<table border="1" cellpadding="10" cellspacing="0" width="100%">
+	<tr bgcolor="#CCCCCC">
+		<th width="100">参数名称</th>
+		<th width="100">是否必须</th>
+		<th width="100">参数类型</th>
+		<th width="*">描述</th>
+	</tr>
+	<volist name="req" id="i">
+	<tr>
+		<td>
+			{$i.parameter}
+		</td>
+		<td>
+			{$i.ismust}
+		</td>
+		<td>
+			{$i.type}
+		</td>
+		<td>
+			{$i.miaoshu}
+		</td>
+	</tr>
+	</volist>
+</table>
+<br>
+<div>
+<strong>返回类型：</strong> {$api.resp_type}
+</div>
+
+<br>
+<neq name="api.resp_type" value="HTML">
+<strong>返回参数</strong>
+
+<table border="1" cellpadding="10" cellspacing="0" width="100%">
+	<tr bgcolor="#cccccc">
+		<th width="100">参数名称</th>
+		<th width="100">参数类型</th>
+		<th width="*">描述</th>
+	</tr>
+	<volist name="resp" id="i">
+	<tr>
+		<td>
+			{$i.parameter}
+		</td>
+		<td>
+			{$i.type}
+		</td>
+		<td>
+			{$i.miaoshu}
+		</td>
+	</tr>
+	</volist>
+</table>
+</neq>
+<br>
+
+
+
+<div>
+*备注： <strong>{$api.note}</strong>
+</div>
+<br />
+<hr>
+<br />
+<h3>测试接口</h3>
+
+<table>
+	<tr>
+		<td>
+<form target="respFrame" method='<if condition="$api.method eq 'POST'">POST<elseif condition="$api.method eq 'GET'"/>GET<else />POST</if>' action="{$api.url}" enctype="multipart/form-data">
+	<table>
+	<volist name="req" id="i">
+	
+	<tr>
+		<td>
+			{$i.parameter}
+		</td>
+		<td>
+			<input type="<neq name="i.type" value="image">text<else />file</neq>" name="{$i.parameter}" value="{$i.default_val}" />
+		</td>
+		<td>
+			{$i.ismust},
+			{$i.type}
+			<eq name="i.parameter" value="PHPSESSID">
+			，只要这在上面登录过了PHPSESSID不用填
+			</eq>
+		</td>
+	</tr>
+	
+	</volist>
+	</table>
+	&nbsp; <input type="submit" value=" 提交 " />
+</form>
+		</td>
+	</tr>
+</table>
+
+		<!-- ---------------- 接品详情 end -------------------------- -->
+		
+		</empty>
+		
+		<br/>
+		<textarea cols="120" rows="20" id="content" placeholder="请输入json"></textarea>
+		<input type="button" value="开发转换" onClick="fun(1)" />
+		
+
+		
+	</div>
+</div>
+
+<script type="text/javascript">
+function fun(x) {
+	if (x == 1) {
+		var text = document.getElementById("content").value;
+	} else {
+		var d = document.getElementById('respFrame').contentWindow;
+		var text = d.document.body.innerText;
+	}
+	document.getElementById("content").value = unescape(text.replace(/\\u/g, "%u"));
+}
+$(function(){
+	$("strong").click(function(){
+		
+		$(this).next().toggle();
+	});
+});
+</script>
+<iframe id="respFrame" name="respFrame" src="" height="0" width="0" onload="fun(2);"></iframe>
+</body>
+</html>

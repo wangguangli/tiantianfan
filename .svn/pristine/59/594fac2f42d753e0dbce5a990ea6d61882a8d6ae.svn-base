@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!--<meta name="viewport" content="width=device-width, initial-scale=1">-->
+    <title>{:GC('web_title')}管理后台</title>
+    <include file="Public/asset_top_page"/>
+    <style>
+        .layui-form-select .layui-input {
+            padding-right: 13px;
+            height: 31.55px;
+            border: none;
+            border-bottom: 1px solid #DDDDDD;
+        }
+
+        .layui-form-select dl {
+            z-index: 9999;
+        }
+
+        .bj {
+            width: 100%;
+            height: 50px;
+            margin: auto;
+            padding: 20px;
+        }
+
+        .bj_x {
+            float: left;
+            width: 18%;
+        }
+
+
+        .bj_nr {
+            float: left;
+            width: 60%;
+            margin: -1% 0 0 20%
+        }
+
+        body .layer-ext-myskin .layui-layer-content {
+            overflow: visible;
+        }
+
+        .input-group .form-control {
+            z-index: auto;
+
+        }
+
+        .layui-form-radio * {
+            font-size: 12px;
+        }
+
+        .layui-form-checkbox span {
+            font-size: 12px;
+        }
+    </style>
+</head>
+<body>
+<!-- header -->
+<include file="Public/header"/>
+<!-- /header-->
+<!-- Page container-->
+<div class="page-container">
+    <!-- Page content -->
+    <div class="page-content">
+        <!-- main sidebar -->
+        <include file="Public/left"/>
+        <!-- /main sidebar -->
+
+        <!-- Main content -->
+        <div class="content-wrapper">
+
+            <!--             Content area-->
+            <div class="content" style="padding-top: 10px;">
+                <!-- Pagination types -->
+                <div class="v-container">
+                    <div class="alert alert-tips alert-dismissible" role="alert">
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span
+                                aria-hidden="true">×</span></button>
+                        分销设置
+                    </div>
+
+                    <div class="panel panel-flat">
+                        <div class="panel-heading">
+
+                        </div>
+
+                        <!-- page -->
+                        <form class="form-horizontal layui-form" method="post" action="" onsubmit="return sub()">
+                            <input type="hidden" class="form-control" name="id" value="{$goods['id']}">
+
+                            <div class="form-group">
+                                <label class="col-xs-2 control-label text-right">商品名称</label>
+                                <div class="col-xs-5 control-label">
+                                    {$goods.name}
+                                </div>
+                            </div>
+                            <!--规格设置-->
+                            <div class="form-group">
+                                <label class="col-xs-2 control-label text-right">分销开关</label>
+                                <div class="col-xs-5">
+                                    <input type="checkbox" name="award_status"  lay-skin="switch" lay-filter="ggsz" lay-text="开启|关闭" <if condition="$goods_spec[0]['award']['award_status']">checked</if>>
+                                </div>
+                            </div>
+
+                            <div id="ggsz"  <if condition="$goods_spec[0]['award']['award_status']">style='display:block'<else/>style='display:none'</if>>
+                                <div class="form-group">
+                                    <label class="col-xs-2 control-label text-right">奖励类型</label>
+                                    <div class="col-xs-5">
+                                        <div class="input-group">
+                                            <input type="radio" name="award_mode" value="2"  title="金额" <if condition="$goods_spec[0]['award']['award_mode'] == 2">checked</if>>
+                                            <input type="radio" name="award_mode" value="1"  title="比例" <if condition="$goods_spec[0]['award']['award_mode']==1">checked</if>>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            <div class="form-group">
+                                <label class="col-xs-2 control-label text-right"></label>
+                                <div class="col-xs-5">
+                                    <div style="width:100%;background-color: #F8F8FF;border: 1px solid #e8e7e7;">
+                                        <volist name="goods_spec" id="vo">
+                                            <div class="bj">
+                                                    <div class="bj_x">
+                                                    </div>
+                                                    <div class="input-group bj_nr"  style="text-align: center">
+                                                       {$vo['key_name']}  售价:{$vo['price']}  进货价:{$vo['purchase_price']}
+                                                    </div>
+                                            </div>
+                                            <div class="bj">
+                                                <div class="bj_x">
+                                                    <input type="checkbox" name="" value="1" title="首购自身奖励" lay-skin="primary" <if condition="$vo['award']['self_money'] !=0.00">checked<elseif condition="$vo['award']['self_point'] !=0.00"/>checked</if>>
+                                                </div>
+                                                <div class="input-group bj_nr">
+                                                    <input type="text" class="form-control" placeholder="" name="self_money[]" value="{$vo['award']['self_money']}">
+                                                    <span class="input-group-addon" >金额</span>
+                                                    <input type="text" class="form-control" placeholder="" name="self_point[]" value="{$vo['award']['self_point']}">
+                                                    <span class="input-group-addon" >积分</span>
+                                                </div>
+                                            </div>
+                                            <div class="bj">
+                                                <div class="bj_x">
+                                                    <input type="checkbox" name="" value="1" title="首购一级奖励" lay-skin="primary" <if condition="$vo['award']['first_money'] !=0.00">checked<elseif condition="$vo['award']['first_point'] !=0.00"/>checked</if>>
+                                                </div>
+                                                <div class="input-group bj_nr">
+                                                    <input type="text" class="form-control" placeholder="" name="first_money[]" value="{$vo['award']['first_money']}">
+                                                    <span class="input-group-addon" >金额</span>
+                                                    <input type="text" class="form-control" placeholder="" name="first_point[]" value="{$vo['award']['first_point']}">
+                                                    <span class="input-group-addon" >积分</span>
+                                                </div>
+                                            </div>
+
+                                            <div class="bj">
+                                                <div class="bj_x">
+                                                    <input type="checkbox" name="" value="2" title="首购二级奖励" lay-skin="primary" <if condition="$vo['award']['second_money']!=0.00">checked<elseif condition="$vo['award']['second_point']!=0.00"/>checked</if>>
+                                                </div>
+                                                <div class="input-group bj_nr"  >
+                                                    <input type="text" class="form-control" placeholder="" name="second_money[]" value="{$vo['award']['second_money']}">
+                                                    <span class="input-group-addon" >金额</span>
+                                                    <input type="text" class="form-control" placeholder="" name="second_point[]" value="{$vo['award']['second_point']}">
+                                                    <span class="input-group-addon" >积分</span>
+                                                </div>
+                                            </div>
+
+                                            <div class="bj">
+                                                <div class="bj_x">
+                                                    <input type="checkbox" name="zdsj_xf[]" value="3" title="首购三级奖励" lay-skin="primary" <if condition="$vo['award']['third_money']!=0.00">checked<elseif condition="$vo['award']['third_point']!=0.00"/>checked</if>>
+                                                </div>
+                                                <div class="input-group bj_nr"  >
+                                                    <input type="text" class="form-control" placeholder="" name="third_money[]"  value="{$vo['award']['third_money']}">
+                                                    <span class="input-group-addon">金额</span>
+                                                    <input type="text" class="form-control" placeholder="" name="third_point[]" value="{$vo['award']['third_point']}">
+                                                    <span class="input-group-addon" >积分</span>
+                                                </div>
+                                            </div>
+                                            <div class="bj">
+                                                <div class="bj_x">
+                                                    <input type="checkbox" name="" value="1" title="复购自身奖励" lay-skin="primary" <if condition="$vo['award']['self_money_repeat'] !=0.00">checked<elseif condition="$vo['award']['self_point_repeat'] !=0.00"/>checked</if>>
+                                                </div>
+                                                <div class="input-group bj_nr">
+                                                    <input type="text" class="form-control" placeholder="" name="self_money_repeat[]" value="{$vo['award']['self_money_repeat']}">
+                                                    <span class="input-group-addon" >金额</span>
+                                                    <input type="text" class="form-control" placeholder="" name="self_point_repeat[]" value="{$vo['award']['self_point_repeat']}">
+                                                    <span class="input-group-addon" >积分</span>
+                                                </div>
+                                            </div>
+                                            <div class="bj">
+                                                <div class="bj_x">
+                                                    <input type="checkbox" name="" value="1" title="复购一级奖励" lay-skin="primary" <if condition="$vo['award']['first_money_repeat'] !=0.00">checked<elseif condition="$vo['award']['first_point_repeat'] !=0.00"/>checked</if>>
+                                                </div>
+                                                <div class="input-group bj_nr">
+                                                    <input type="text" class="form-control" placeholder="" name="first_money_repeat[]" value="{$vo['award']['first_money_repeat']}">
+                                                    <span class="input-group-addon" >金额</span>
+                                                    <input type="text" class="form-control" placeholder="" name="first_point_repeat[]" value="{$vo['award']['first_point_repeat']}">
+                                                    <span class="input-group-addon" >积分</span>
+                                                </div>
+                                            </div>
+
+                                            <div class="bj">
+                                                <div class="bj_x">
+                                                    <input type="checkbox" name="" value="2" title="复购二级奖励" lay-skin="primary" <if condition="$vo['award']['second_money_repeat']!=0.00">checked<elseif condition="$vo['award']['second_point_repeat']!=0.00"/>checked</if>>
+                                                </div>
+                                                <div class="input-group bj_nr"  >
+                                                    <input type="text" class="form-control" placeholder="" name="second_money_repeat[]" value="{$vo['award']['second_money_repeat']}">
+                                                    <span class="input-group-addon" >金额</span>
+                                                    <input type="text" class="form-control" placeholder="" name="second_point_repeat[]" value="{$vo['award']['second_point_repeat']}">
+                                                    <span class="input-group-addon" >积分</span>
+                                                </div>
+                                            </div>
+
+                                            <div class="bj">
+                                                <div class="bj_x">
+                                                    <input type="checkbox" name="zdsj_xf[]" value="3" title="复购三级奖励" lay-skin="primary" <if condition="$vo['award']['third_money_repeat']!=0.00">checked<elseif condition="$vo['award']['third_point_repeat']!=0.00"/>checked</if>>
+                                                </div>
+                                                <div class="input-group bj_nr"  >
+                                                    <input type="text" class="form-control" placeholder="" name="third_money_repeat[]"  value="{$vo['award']['third_money_repeat']}">
+                                                    <span class="input-group-addon">金额</span>
+                                                    <input type="text" class="form-control" placeholder="" name="third_point_repeat[]" value="{$vo['award']['third_point_repeat']}">
+                                                    <span class="input-group-addon" >积分</span>
+                                                </div>
+                                            </div>
+                                    </volist>
+                                    </div>
+                                 </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-xs-2 control-label"></label>
+                                <div class="col-xs-8">
+                                    <button class="layui-btn layui-btn-sm layui-btn-normal" type="submit" >提交</button>
+                                    <a href="javascript:history.go(-1);" class="layui-btn layui-btn-sm layui-btn-primary">返回</a>
+                                </div>
+                            </div>
+                        </form>
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    layui.use('form', function () {
+        var form = layui.form;
+        form.render();
+        form.on('switch(ggsz)', function (data) {
+            var display = $('#ggsz').css('display');
+            if (display == 'none') {
+                $('#ggsz').css('display', 'block');
+                $('#up_auto_mode').attr('checked', 'checked');
+            } else {
+                $('#ggsz').css('display', 'none');
+            }
+        })
+    });
+
+    function sub(){
+
+        var award_status = $('input[name="award_status"]:checked').val();
+        if(award_status == 'on'){
+            var award_mode =  $('input[name="award_mode"]:checked').val();
+            if(award_mode == null){
+                alert('奖励条件必须选择!');
+                return false;
+            }
+        }
+
+        return true;
+    }
+ </script>
+</body>
+
+</html>

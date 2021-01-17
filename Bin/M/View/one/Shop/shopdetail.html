@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>商家-{$data.shop.shop_name}</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+	<link rel="stylesheet" href="__PUBLIC__/css/mui.min.css">
+	<link rel="stylesheet" href="__PUBLIC__/css/swiper.min.css">
+	<link rel="stylesheet" href="__PUBLIC__/css/chant_detail.css">
+	<script src="__PUBLIC__/js/tools/jquery-2.0.3.min.js"></script>
+	<script src="__PUBLIC__/js/swiper.min.js"></script>
+	<script src="__PUBLIC__/js/mui.min.js"></script>
+	<script src="__PUBLIC__/js/jquery.min.js"></script>
+	<script type="text/javascript" src="http://webapi.amap.com/maps?v=1.4.3&key=41c11c3ad52409c170a7b014990285a1"></script>
+	<script type="text/javascript" src="__PUBLIC__/layer/mobile/layer.js"></script>	
+</head>
+<body>
+<header class="mui-bar mui-bar-nav" style="background: #fff;">
+	<a class="mui-pull-left mui-icon mui_turn" href="javascript:history.back();"><img src="__PUBLIC__/img/return4.png"  width="20vw" height="20vw"/></a>
+	<input type="hidden" value="{$Think.session.user_id}" id="user_id">
+	<h1 class="mui-title tit_login" style="color: #333;font-size: 4vw;">商家详情</h1>
+</header>
+<input type="hidden" value="" id="shouchang">
+ <div class="mui-content" style="background:#fff;padding-bottom: 2vw;">
+
+		<div class="swiper-container">
+			<div class="swiper-wrapper">
+				<input type="hidden" value="{$data.shop.shop_id}">
+				<volist name = 'data.list_img' id="vo">
+					<div class="swiper-slide"><div class="ba_pic"><img src="{$vo}" width="100%" height="100%"/></div></div>
+				</volist>
+			</div>
+			<div class="swiper-pagination"></div>
+		</div>
+		<div class="shop_aa">
+			<h6 onclick ="shop()" id="shop" class="active">商家简介</h6>
+			<h6 onclick="product({$data.shop.shop_id})" id="product">相关产品</h6>
+			<h6 onclick="comment({$data.shop.shop_id})" id="comment">评价列表</h6>
+		</div>
+		<div class="sp_tt" >
+			<a href="#">
+					<div class="ac_phone">
+					 <div class="ac_te">
+						<p>电话：<span> {$data.shop.phone} </span></p>
+						<p><a href="tel:{$data.shop.phone}"><img src="__PUBLIC__/img/phone.png" width="20"height="20" class="change"/><img src="__PUBLIC__/img/return1.png" width="16"height="16"/></p></a>
+			</div>
+		</div>
+	</a>
+	<a href="javascript:;">
+		<div class="ac_phone">
+			<div class="ac_te">
+				<p>地址：<span>  {$data.shop.address}  </span></p>
+			<p onclick = "map({$data.shop.shop_id})"><img src="__PUBLIC__/img/address2.png" width="20"height="20" class="change"/><img src="__PUBLIC__/img/return1.png" width="16"height="16"/></p>
+				</div>
+			</div>
+		</a>
+	<div class="intro">
+		<h5>商家介绍</h5>
+		<p>  {$data.shop.description}  </p>
+	</div>
+	<div class="in_er" style="height: 14vw;"></div>
+<input type="hidden" value="{$user_id}" id="user_id">
+	<div class="ta_in clearfix">
+		<div class="collect"  id="favorites" onclick="favorites(this)">
+			<if condition="$data.is_favorite eq 1">
+				<img src="__PUBLIC__/img/collect1.png" width="20"height="20"/>
+				<input type="hidden" value="1" id="shouchang">
+			<else/>
+				<img src="__PUBLIC__/img/collect.png" width="20"height="20"/>
+				<input type="hidden" value="0" id="shouchang">
+			</if>
+			<span>收藏商家</span>
+		</div>
+		<div class="collect" onclick="bill({$data.shop.shop_id})">
+			<img src="__PUBLIC__/img/avengers.png" width="20"height="20"/><span>我要买单</span>
+		</div>
+		</div>
+	</div>
+</div>
+<script type="text/javascript">
+	var user_id = $('#user_id').val();
+	var id = getParam('id');
+
+	//获取url参数的值  输入参数  值得键名
+	function getParam(paramName) {
+		paramValue = "", isFound = !1;
+		if (this.location.search.indexOf("?") == 0 && this.location.search.indexOf("=") > 1) {
+			arrSource = unescape(this.location.search).substring(1, this.location.search.length).split("&"), i = 0;
+			while (i < arrSource.length && !isFound) arrSource[i].indexOf("=") > 0 && arrSource[i].split("=")[0].toLowerCase() == paramName.toLowerCase() && (paramValue = arrSource[i].split("=")[1], isFound = !0), i++
+		}
+		return paramValue == "" && (paramValue = null), paramValue
+	}
+
+
+	$('#favorites').click(function () {
+		var sc =  $(this).children('input').val();
+
+		var shop_id = {$data.shop.shop_id};
+		var user_id = $('#user_id').val();
+		console.log(user_id);
+
+		if(user_id==0 ){
+			layer.open({
+				content: '您还没有登录 请去登录',
+				skin: 'msg',
+				time: 1
+			});
+		}
+		html ='';
+		if(sc!=1){
+			$.ajax({
+				type: 'post',
+				dataType: 'json',
+				url: "{:U('Api/Favoritesin/addFavorites')}",
+				data: {'type': 2, 'fav_id': shop_id, user_id:user_id},
+				success: function (data) {
+					console.log(data);
+					var html = '';
+					if (data.status == 0) {
+						html += '<img src="__PUBLIC__/img/collect1.png" width="20"height="20"/>' +
+								'<input type="hidden" value="1" id="shouchang">' +
+								'<span>收藏商家</span>';
+						$('#favorites').html(html);
+						layer.open({
+							content: data.msg,
+							skin: 'msg',
+							time: 1
+						});
+					}else{
+						layer.open({
+							content: data.msg,
+							skin: 'msg',
+							time: 1
+						});
+					}
+				}
+			})
+		}else{
+			$.ajax({
+				type:'POST',
+				url:"{:U('Api/Favoritesin/deleteFavorites')}",
+				data :{'id' : shop_id,'type' : 2,source:2,user_id:user_id},
+				dataType:'json',
+				success:function(data){
+					if(data.status==0){
+						html += '<img src="__PUBLIC__/img/collect.png" width="20"height="20"/>' +
+								'<input type="hidden" value="0" id="shouchang">' +
+								'<span>收藏商家</span>';
+						$('#favorites').html(html);
+						layer.open({
+							content: data.msg,
+							skin: 'msg',
+							time: 1
+						});
+
+					}
+					else
+					{
+						layer.open({
+							content: data.msg,
+							skin: 'msg',
+							time: 1
+						});
+					}
+				}
+			});
+
+		}
+	})
+
+	// 商家简介点击
+	function shop() {
+		$('.sp_tt').css('display', 'block');
+		$('#shop').addClass('active')
+		$('#product').removeClass('active')
+		$('#comment').removeClass('active')
+		$('.pro_list').css('display', 'none');
+		$('.good_list').css('display', 'none');
+	}
+
+	//相关商品点击
+	function product(shop_id) {
+		$('#product').addClass('active');
+		$('#shop').removeClass('active');
+		$('#comment').removeClass('active');
+
+
+		if (!user_id) {
+			user_id = 0;
+		}
+		if ($(".good_list").length > 0) {
+			$('.sp_tt').css('display', 'none');
+			$('.pro_list').css('display', 'none');
+			$('.good_list').css('display', 'block');
+		} else {
+			$.ajax({
+				type: "post",
+				dataType: "json",
+				data: {'user_id': user_id, "shop_id": shop_id},
+				url: "{:U('M/Goods/goodsList')}",
+				success: function (data) {
+					console.log(data);
+					if (data.status == 0) {
+						var html = '';
+						$.each(data.result.list, function (index, item) {
+
+							html += ' <div class="good_list">' +
+								'    <ul id="goods">' + '<a href="' + '{:U("goods/detail")}?id=' + item.id + '">' +
+								'    <li>' +
+								'    <div class="list_pp"><img src="' + item.thumb + '" width="100%"height="100%"/></div>' +
+								'    <div class="list_money">' +
+								'    <h6>' + item.name + '</h6>' +
+								'    <p>￥' + item.price + '</p>' +
+								'    </div>' +
+								'    </li>' + '</a>' +
+								'    </ul>    ' +
+								'    </div>'
+						})
+						$('.shop_aa').after(html);
+						$('.sp_tt').css('display', 'none');
+						$('.pro_list').css('display', 'none');
+					} else {
+						$('.sp_tt').css('display', 'none');
+						$('.pro_list').css('display', 'none');
+						layer.open({
+							content: data.msg,
+							skin: 'msg',
+							time: 1
+						});
+					}
+				}
+			})
+		}
+	}
+
+	//评论点击
+	function comment(shop_id) {
+		$('#comment').addClass('active');
+		$('#shop').removeClass('active');
+		$('#product').removeClass('active');
+		console.log(shop_id);
+		if ($(".pro_list").length > 0) {
+			$('.sp_tt').css('display', 'none');
+			$('.good_list').css('display', 'none');
+			$('.pro_list').css('display', 'block');
+		} else {
+			$.ajax({
+				type: 'post',
+				dataType: 'json',
+				url: "{:U('M/Shop/shopComment')}",
+				data: {'shop_id': shop_id},
+				success: function (data) {
+					console.log(data);
+					var html = '';
+					if (data.status == 0) {
+						console.log(data.result);
+						$.each(data.result, function (index, item) {
+							html += '<div class="pro_list">' +
+								'    <div class="pro_name">' +
+								'     <div class="pro_head">' +
+								'     <div class="head_list">' +
+								'       <div class="pic_list"><img src="' + item.user.headimgurl + '" width="100%"></div>' +
+								'       <h6>' + item.user.nickname + '</h6>' +
+								'      </div>' +
+								'      <p>' + item.time + '</p>' +
+								'     </div>' +
+								'     <div class="pic_con">呵呵呵</div>' + '     <div class="con_img clearfix">';
+							if (item.images)
+							{
+								$.each(item.images, function (index, item1) {
+									html += '<div class="list_img"><img src="'+item1+'" width="100%" height="100%"/></div';
+								})
+							}
+							
+							html += '</div></div></div>';
+						})
+						$('.shop_aa').after(html);
+						$('.sp_tt').css('display', 'none');
+						$('.good_list').css('display', 'none');
+					} else {
+						$('.sp_tt').css('display', 'none');
+						$('.good_list').css('display', 'none');
+						layer.open({
+							content: data.msg,
+							skin: 'msg',
+							time: 1
+						});
+					}
+				}
+			})
+		}
+
+	}
+
+	//地图
+	function map(id) {
+		location.href = "{:U('Shop/map')}?shop_id=" + id;
+	}
+	//
+	function bill(shop_id) {
+		var user_id = $('#user_id').val();
+		console.log(user_id);
+
+		if(user_id==0 ){
+			layer.open({
+				content: '您还没有登录 请去登录',
+				skin: 'msg',
+				time: 1
+			});
+			return;
+		}
+		location.href = "{:U('Shop/bill')}?shop_id=" + shop_id;
+	}
+</script>
+</body>
+</html>

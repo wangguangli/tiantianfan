@@ -1,0 +1,126 @@
+﻿<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>会员注册</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"> 
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="stylesheet" href="__PUBLIC__/css/login.css">
+	<script src="__PUBLIC__/js/jquery.min.js"></script>
+	</head>
+	<body>
+		<div class="reg-div">
+			<h1>会员注册</h1>
+		</div>
+		<div class="reg-div">
+			<form action="" method="post">
+				<input type="hidden" value="{$tj_phone}" name="tj_phone" />
+				<input type="hidden" value="" name="session_id" />
+				<ul>
+					<li>
+						<span class="icon_user"></span>
+						<input type="text" name="phone" placeholder="请输入手机号" maxlength="11" value=""/>
+					</li>
+					<if condition="$code_status gt 0">
+						<li>
+							<span class="icon_yzm"></span>
+							<input type="text" name="phone_code" placeholder="请输入验证码" />
+							<input type="button" value="获取验证码" id="getPhoneCode">
+						</li>
+					</if>
+					<li>
+						<span class="icon_prass"></span>
+						<input type="password" name="password" placeholder="请输入密码" value=""/>
+					</li>
+					<li>
+						<span class="icon_prass"></span>
+						<input type="password" name="repassword" placeholder="请输入确认密码" value=""/>
+					</li>
+					<if condition="empty($tuijian) neq true">
+						<li>
+							<span class="icon_user"></span>
+							推荐用户：{$tuijian}
+
+							<input type="hidden" name="tuijian" value="{$tuijian}">
+
+						</li>
+					<else/>
+						<li>
+							<span class="icon_user"></span>
+							推荐用户：
+							<input type="text" name="tuijian" style="width: 62%;margin:0 0 0 115px" maxlength="11" placeholder="请输入推荐用户" value=""/>
+						</li>
+					</if>
+
+
+				</ul>
+				<div class="tjxy">
+					<input type="checkbox" checked="checked" name="check"> <label> 同意《<a href="{:U('/M/Index/articleDetail', 'id=10')}">用户注册协议</a>》</label>
+				</div>
+				<button>提交</button>
+			</form>
+		</div>
+<script src="__PUBLIC__/layer/mobile/layer.js"></script>
+<script type="text/javascript">
+$(function(){
+	$("#getPhoneCode").click(function(){
+		var phone = $.trim($("input[name=phone]").val());
+
+		if (!(/1[0-9]+[0-9]{9}/.test(phone))) {
+			layer.open({
+				content: "手机格式不正确"
+				,skin: 'msg'
+				,time: 2
+			});
+			return;
+		}
+
+		if (! _SEND) return;
+
+		$(this).attr("disabled", _SEND);
+		$(this).val("重新获得(60)");
+		_SEND = false;
+		$.ajax({
+			url: "{:U('M/Index/get_phone_code')}",
+			type: 'POST',
+			data: 'phone=' + phone,
+			dataType : 'json',
+			success: function(a) {
+				if (a.status) {
+					layer.open({
+						content: a.msg
+						,skin: 'msg'
+						,time: 2
+					});
+				} else {
+					$("input[name=session_id]").val(a.result.session_id);
+				}
+			}
+		});
+		setTimeout(repeatSend, 1010);
+	});
+});
+var _SEND = true;
+function repeatSend(){
+	var num = $("#getPhoneCode").val().replace(/\d+/ig,function(n){
+		if (n>0) {
+			return --n;
+		} else {
+			return "#";
+		}
+	});
+	if (num.indexOf("#") == -1) {
+		$("#getPhoneCode").val(num);
+		setTimeout(repeatSend, 1010);
+	} else {
+		$("#getPhoneCode").val("获取手机验证码");
+		$("#getPhoneCode").attr("disabled", _SEND);
+		_SEND = true;
+	}
+}
+</script>
+		
+	</body>
+</html>

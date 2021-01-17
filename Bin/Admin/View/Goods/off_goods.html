@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!--<meta name="viewport" content="width=device-width, initial-scale=1">-->
+    <title>{:GC('web_title')}管理后台-下架商品</title>
+    <include file="Public/asset_top_page"/>
+    <style>
+        .shenhe {
+            height: 30px;
+            line-height: 30px;
+            padding: 0px 8px;
+        }
+    </style>
+</head>
+<body>
+<!-- header -->
+<include file="Public/header"/>
+<!-- /header -->
+<!-- Page container -->
+<div class="page-container">
+    <!-- Page content -->
+    <div class="page-content">
+        <!-- main sidebar -->
+        <include file="Public/left"/>
+        <!-- /main sidebar -->
+
+        <!-- Main content -->
+        <div class="content-wrapper">
+
+            <!-- Content area -->
+            <div class="content" style="padding-top: 10px;">
+                <!-- Pagination types -->
+                <div class="v-container">
+                    <div class="alert alert-tips alert-dismissible" role="alert">
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
+                        本页下架商品</div>
+
+                    <div class="panel panel-flat">
+                        <div class="panel-heading">
+
+                            <form class="v-filter-container" action="{:U('Goods/off_goods')}" method="get" style="width: 100%">
+
+                                <div class="filter-fields-wrap">
+                                    <div class="filter-item clearfix">
+                                        <div class="filter-item__field">
+
+
+
+                                            <div class="v__control-group">
+                                                <label class="v__control-label">类别</label>
+                                                <div class="v__controls">
+                                                    <select name="type" class="v__control_input" id="type" id="level">
+                                                        <option value="0" selected="">商品名</option>
+                                                        <option value="1">分类</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="v__control-group">
+                                                <label class="v__control-label">关键字</label>
+                                                <div class="v__controls">
+                                                    <input type="text" id="shop_id" name="word" value="{$_REQUEST['word']}" class="v__control_input" placeholder="请输入搜索内容" autocomplete="off">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+                                    <div class="filter-item clearfix">
+                                        <div class="filter-item__field">
+                                            <div class="v__control-group">
+                                                <label class="v__control-label"></label>
+                                                <div class="v__controls">
+                                                    <!--													<a class="btn btn-primary search">搜索</a>-->
+                                                    <input type="submit" value="搜索" class="btn btn-primary search" style="width:100px;height: 35px;">
+                                                    <a class="btn btn-success ml-15 dataExcel" style="display: none;">导出订单</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                            <!--搜索框-->
+                            <div class="heading-elements">
+
+                            </div>
+                        </div>
+
+
+                        <div class="dataTables_wrapper no-footer">
+                            <table class="table datatable-tools-basic basic_table">
+                                <thead>
+                                <tr>
+                                    <th style="width: 1px;"></th>
+                                    <th>ID</th>
+                                    <th>图片</th>
+                                    <th>标题</th>
+                                    <th>价格</th>
+                                    <th>店铺</th>
+                                    <th>分类</th>
+                                    <th>商城分类</th>
+                                    <th>是否上架</th>
+                                    <th>添加时间</th>
+                                    <th class="text-center">操作</th>
+                                </tr>
+                                </thead>
+
+                                <volist name="res" id="vo">
+                                    <tr class="tt_color">
+                                        <td style="width: 1px;">
+                                            <input type="checkbox" name="much_id[]" value="{$vo.id}">
+                                            <input type="hidden" name="shipping_code[]" value="{$vo.id}">
+                                        </td>
+
+                                        <td class="">{$vo.id}</td>
+
+                                        <td class="">
+                                            <div class="ed_stand">
+                                                <p><img src="{$vo.thumb}" width="50px"> </p>
+                                            </div>
+                                        </td>
+                                        <td class="">
+                                            <div class="ed_stand">
+                                                <p>{$vo.name} </p>
+                                            </div>
+                                        </td>
+                                        <td class="">
+                                            <div class="ed_stand">
+                                                <p>{$vo.price}</p>
+                                            </div>
+                                        </td>
+                                        <td class="">
+                                            <div class="ed_stand">
+                                                <p>{$vo.shop_name}</p>
+                                            </div>
+                                        </td>
+                                        <td class="">
+                                            <div class="ed_stand">
+                                                <p>{$vo.cate_name}</p>
+                                            </div>
+                                        </td>
+                                        <td class="">
+                                            <div class="ed_stand">
+                                                <p>{$vo.hot_name}</p>
+                                            </div>
+                                        </td>
+                                        <td class="">
+                                            <div class="ed_stand">
+                                                <p><if condition="$vo.is_on_sale eq 1">是
+                                                    <else/>否
+                                                </if></p>
+                                            </div>
+                                        </td>
+                                        <td class="">
+                                            <div class="ed_stand">
+                                                <p>{$vo.time|get_date=###,'Y-m-d H:i:s'}</p>
+                                            </div>
+                                        </td>
+                                        <td class="text-center">
+                                            <div class="tt_stand">
+                                                <a title="查看详情" href="{:U('add')}?id={$vo.id}" class="layui-btn layui-btn-sm layui-btn-normal btn_detail">详情</a>
+                                                <a title="删除商品" href="{:U('delete')}?id={$vo.id}" class="layui-btn layui-btn-sm layui-btn-danger btn_detail" onclick="return confirm('确定要删除吗?');">删除</a>
+
+                                            </div>
+                                        </td>
+                                    </tr>
+
+                                </volist>
+                            </table>
+                            <!-- 分页 -->
+                            <div class="page_1028" >
+
+                                <div class="pull-left">
+                                    <!-- 这里一定要注意 整个页面只有，且只能在这里有 全选框，并且按钮的值有特殊要求 -->
+                                    <!-- 如：5_1   横线前面数字 代表删除的哪些内容，1=用户，2商家，3代理，4订单，5商品，6商品三级分类，7日志 -->
+                                    <!-- 如：5_1   横线后面数字 代理删除类型，0逻辑删除，1彻底删除 -->
+                                    <a class="num"><label><input type="checkbox" onclick="$('input[name*=\'much_id\']').prop('checked', this.checked);"> 全选</label></a>
+                                    <a onclick="delete_much('5_0', 0)" class="num">批量删除</a>
+                                </div>
+
+                                {$show}
+                                <div class="clear"></div>
+                            </div>
+
+                        </div>
+
+                        </div>
+                        <!-- /pagination types -->
+
+                    </div>
+                    <!-- Footer -->
+                    <include file="Public/footer" />
+                    <!-- /footer -->
+
+                </div>
+                <!-- /content area -->
+
+            </div>
+            <!-- /main content -->
+
+        </div>
+        <!-- /page content -->
+
+    </div>
+    <!-- /page container -->
+
+<script>
+    //跳转处理
+    function skipHandle(page) {
+        var params = "?page=" + page + "&word=" + data + "&type=" + type;
+        location.href = "{:U('Goods/off_goods')}" + params;
+    }
+	function pi_on(){
+		var arr=[];
+		$('input:checkbox:checked').each(function(){
+			var checkValue = $(this).val();
+			arr.push(checkValue);
+			　// 选中框中的值
+		});
+		if (arr === undefined || arr.length == 0) {
+			alert('未选择商品');
+			return false;
+		}
+		if(arr[0] == 'on'){
+			arr.splice(0,1);
+		}
+		$.ajax({
+			type : "POST",
+			url:"/index.php/Admin/Goods/pi_on",
+			data : {pi:arr},
+			success: function(data){
+				if(data == 1){
+					alert('操作成功');
+					window.location.reload();
+				}
+			}
+		});
+	}
+</script>
+</body>
+</html></html>

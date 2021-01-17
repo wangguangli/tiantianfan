@@ -1,0 +1,359 @@
+/**页面样式 **/
+body {
+    background: #f7f8fa !important
+}
+
+.order-state {
+    width: 100%;
+    height: 22.22vw;
+    background: url(../images/order/orderbg.png);
+    background-size: 100% 100%;
+    color: #fff;
+    font-size: 4.81vw;
+    padding-left: 13.7vw;
+    line-height: 22.22vw;
+}
+
+.order-li {
+    width: 100%;
+    background: #fff;
+    border-radius: 2.78vw;
+    padding: 3.6vw;
+    margin-top: 3.33vw;
+}
+
+.order-li .shop-name {
+    width: 100%;
+    font-size: 3.33vw;
+    display: flex;
+    align-items: center;
+    color: #999;
+}
+
+.order-li .shop-name img {
+    width: 6.02vw;
+    height: 6.02vw;
+    margin-right: 1.48vw;
+    border-radius: 50%
+}
+
+.order-li .goods-div {
+    width: 100%;
+    padding-top: 1vw;
+}
+
+.order-li .goods-div ul {
+    margin: 0;
+    padding: 0
+}
+
+.order-li .goods-div ul li {
+    width: 100%;
+    border-bottom: 1px solid #f2f2f2;
+    padding: 3.33vw 0;
+    display: flex;
+    align-items: center;
+}
+
+.order-li .goods-div ul li a {
+    color: #333
+}
+
+.order-li .goods-div ul li img {
+    width: 22.59vw;
+    height: 22.59vw;
+    margin-right: 4vw;
+    border-radius: 5px
+}
+
+.order-li .goods-div ul li .goods-title {
+    width: calc(100% - 26.59vw);
+}
+
+.order-li .goods-div ul li .goods-title .title {
+    width: 100%;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    font-size: 3.7vw;
+    color: #333;
+}
+
+.order-li .goods-div ul li .goods-title .share {
+    width: 100%;
+}
+
+.order-li .goods-div ul li .goods-title .share .pricenum {
+    margin-top: 2.5vw;
+    font-size: 3.33vw;
+    color: #2a2a2a;
+}
+
+.order-li .goods-div ul li .goods-title .share .pri {
+    font-size: 3.89vw;
+    color: #fe4543;
+    margin-top: 3vw;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+}
+
+.order-li .goods-div ul li .goods-title .share .pri span {
+    font-size: 3.15vw
+}
+
+.order-li .goods-div ul li .goods-title .share .but {
+    margin-left: auto;
+    display: flex;
+}
+
+.order-li .lxkf {
+    width: 100%;
+    padding: 3.3vw 0 0;
+    color: #333;
+    font-size: 3.52vw;
+    display: flex;
+    align-items: center;
+    justify-content: center
+}
+
+.order-li .lxkf i {
+    margin-right: 5px;
+    margin-left: 3.43vw
+}
+
+.text-div {
+    width: 100%;
+}
+
+.litext {
+    width: 100%;
+    border-bottom: 1px solid #f2f2f2;
+    /*line-height: 7vw;*/
+    font-size: 3.7vw;
+    padding-bottom: 1.9vw;
+    margin-bottom: 1.9vw
+}
+
+.litext p {
+    padding-top: 1.2vw;
+    padding-bottom: 1.2vw;
+}
+
+.litext:last-child {
+    border: none;
+    padding-bottom: 0;
+    margin-bottom: 0
+}
+
+.litext_p_1 {
+    font-size: 3.7vw;
+}
+
+.litext_p_3 {
+    font-size: 3.15vw;
+    width: 12.96vw;
+    height: 5.09vw;
+    color: #333;
+    border-radius: 2.55vw;
+    border: solid 0.19vw #999999;
+    margin-left: 3vw;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.address {
+    width: 100%;
+    display: flex;
+    align-items: flex-start;
+    font-size: 3.7vw;
+    color: #333
+}
+
+.address i {
+    margin-right: 2vw;
+    font-size: 7vw
+}
+
+.address .add-xq {
+    font-size: 3.4vw;
+    line-height: 7.5vw;
+}
+
+.address .add-xq .title {
+    font-size: 3.7vw;
+}
+
+.address .add-xq .addinfo {
+    font-size: 3.7vw;
+    line-height: 6vw
+}
+
+.price-div {
+    width: 100%;
+}
+
+.price-div .priceli {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    font-size: 3.7vw;
+    line-height: 7.41vw;
+    color: #333
+}
+
+.price-div .priceli span {
+    font-size: 3.7vw;
+    font-weight: 400;
+    margin-left: auto
+}
+
+.price-div .priceli span .iconfont {
+    font-size: 4vw !important;
+}
+
+.zprice {
+    width: 100%;
+    padding: 5.83vw 0 0;
+    text-align: right;
+    font-size: 3.7vw;
+}
+
+.zprice span {
+    color: #fe274e
+}
+
+.bottom-div {
+    height: 17vw;
+    display: table;
+    width: 100%;
+}
+
+.bottom {
+    width: 100%;
+    height: 13vw;
+    background: #fff;
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    font-size: 3.4vw;
+    padding-right: 3.33vw
+}
+
+.bottom .del {
+    color: #666
+}
+
+.bottom .but-div {
+    display: flex;
+    align-items: center;
+    margin-left: 3.33vw;
+}
+
+.but-div.redbg {
+    margin-left: auto;
+}
+
+.but-div.redbg .but-wuld {
+    color: #d82209;
+    border: solid 0.19vw #d82209
+}
+
+.but-evel {
+    padding: 1.2vw 2vw;
+    color: #fff;
+    background: #d82209;
+    border: 1px solid #d82209;
+    font-size: 3.4vw;
+    margin-left: 2vw;
+    border-radius: 20px
+}
+
+.but-wul {
+    padding: 0.5vw 2vw;
+    color: #333;
+    border: 1px solid #858585;
+    font-size: 3.4vw;
+    margin-left: 2vw;
+    border-radius: 20px
+}
+
+.but-wuld {
+    color: #858585;
+    font-size: 3.7vw;
+    margin-left: 2vw;
+    width: 22.59vw;
+    height: 8.15vw;
+    border-radius: 4.07vw;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+	border: solid 0.19vw #858585;
+}
+
+.but-wuld:first-child {
+    margin-left: 0
+}
+
+.bottom .but-wuld {
+    color: #333;
+    font-size: 3.7vw
+}
+
+.litext_p {
+    display: flex;
+    align-items: center;
+}
+
+.h_fall_time {
+    color: #ffffff;
+    height: 45.93vw;
+    font-size: 3.7vw;
+    padding-top: 7.22vw;
+    padding-bottom: 9.89vw;
+    background-image: linear-gradient(to right, #F32C33, #FD6924);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.h_fall_time .h_fall_1 {
+    color: #FCB7AC;
+    padding-left: 6.76vw;
+    font-size: 4.63vw;
+    position: relative;
+}
+
+.h_fall_time .h_fall_1 img {
+    position: absolute;
+    top: calc(50% - 2.31vw);
+    left: 0;
+    width: 4.63vw;
+    height: 4.63vw;
+}
+.h_fall_time.active{
+    height: auto;
+}
+
+.h_fall_time .h_fall_3 {
+    width: 32.04vw;
+    height: 9.81vw;
+    text-align: center;
+    line-height: 9.81vw;
+    background-color: #ffffff;
+    border-radius: 4.91vw;
+    color: #F32C33;
+}
+
+
+
+
+
+
+
+

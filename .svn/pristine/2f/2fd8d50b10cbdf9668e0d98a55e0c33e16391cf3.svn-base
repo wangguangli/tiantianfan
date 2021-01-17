@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!--<meta name="viewport" content="width=device-width, initial-scale=1">-->
+    <title>{:GC('web_title')}管理后台</title>
+    <include file="Public/asset_top_page"/>
+    <style>
+
+        th{
+            width: 50px;
+            border: 1px solid #dddddd;
+        }
+        td{
+            border: 1px solid #dddddd;
+        }
+
+        .bt{
+            text-align: center;
+        }
+        .d{
+            width: 15%;
+        }
+        .sp{
+            width: 15%;
+        }
+    </style>
+</head>
+<body>
+<!-- header -->
+<include file="Public/header"/>
+<!-- /header -->
+<!-- Page container -->
+<div class="page-container">
+    <!-- Page content -->
+    <div class="page-content">
+        <!-- main sidebar -->
+        <include file="Public/left"/>
+        <!-- /main sidebar -->
+
+        <!-- Main content -->
+        <div class="content-wrapper">
+
+            <!-- Content area -->
+            <div class="content" style="padding-top: 10px;">
+                <!-- Pagination types -->
+                <div class="v-container">
+                    <div class="alert alert-tips alert-dismissible" role="alert">
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
+                        订单详情</div>
+
+                    <div class="panel panel-flat">
+                        <div class="panel-heading">
+
+
+                            <!--搜索框-->
+                            <div class="heading-elements">
+
+                            </div>
+                        </div>
+
+
+                        <div class="dataTables_wrapper no-footer">
+                            <table class="table datatable-tools-basic basic_table">
+
+                                <tr>
+                                    <th class="d">订单号</th>
+                                    <th class="" colspan="5">{$order.order_no}</th>
+
+                                </tr>
+
+
+                                <tr class="tt_color">
+                                    <td class="d">下单时间</td>
+                                    <td class="" colspan="5">
+                                        {$order.add_time|date='Y-m-d H:i',###}
+                                    </td>
+                                </tr>
+
+                                <tr class="tt_color">
+                                    <td class="d">用户</td>
+                                    <td class="" colspan="5">
+                                        {$order.consignee}
+                                    </td>
+                                </tr>
+
+                                <tr class="tt_color">
+                                    <td class="d">支付方式</td>
+                                    <td class="" colspan="5">
+                                        <if condition="$order['payment_type'] == 'yepay'">
+                                            余额
+                                        <elseif condition="$order['payment_type']=='wxpay'"/>
+                                            微信app
+                                        <elseif condition="$order['payment_type']=='alipay'"/>
+                                            支付宝app
+                                        <elseif condition="$order['payment_type']=='wxmp'"/>
+                                            微信公众号
+                                        <elseif condition="$order['payment_type']=='wxmini'"/>
+                                            微信小程序
+                                        <elseif condition="$order['payment_type']=='wxh5'"/>
+                                            微信H5
+                                        <elseif condition="$order['payment_type']=='aliwap'"/>
+                                            支付宝wap
+                                        <elseif condition="$order['payment_type']=='adminpay'"/>
+                                            后台支付
+                                        <else/>
+                                            未支付
+                                        </if>
+                                    </td>
+                                </tr>
+
+                                <tr class="tt_color">
+                                    <td class="d">收货信息</td>
+                                    <td class="" colspan="5">
+                                        收件人: {$order.consignee}&nbsp&nbsp电话: {$order.phone} <br>
+
+                                        收货地址:{$order.address}
+                                    </td>
+                                </tr>
+
+
+                                <tr class="tt_color">
+                                    <td class="bt" colspan="6" >订单状态</td>
+                                </tr>
+
+                                <tr class="tt_color">
+                                    <td class="d">付款状态</td>
+                                    <td class="" colspan="5">
+                                        <div class="dd_stand zt_stand">
+                                        <p >
+                                            <if condition="$order['pay_status'] eq 1">
+                                            <span class="layui-bg-green">已付款</span>
+                                            <else/>
+                                            <span class="layui-bg-cyan">未付款</span>
+                                        </if>
+                                        </p>
+                                        </div>
+                                    </td>
+                                </tr>
+
+                                <tr class="tt_color">
+                                    <td class="d">付款时间</td>
+                                    <td class="" colspan="5">
+                                        <if condition="$order['pay_time']">
+                                            {$order.pay_time|date='Y-m-d H:i:s',###}
+                                        <else/>
+                                            无
+                                        </if>
+                                    </td>
+                                </tr>
+
+                                <tr class="tt_color">
+                                    <td class="d">发货状态</td>
+                                    <td class="" colspan="5">
+                                        <div class="dd_stand zt_stand">
+                                        <p > <if condition="$order['shipping_status'] eq 1">
+                                            <span class="layui-bg-green">发货</span>
+                                            <elseif condition="$order['shipping_status'] eq 2"/>
+                                            <span class="layui-bg-green">收货</span>
+                                            <elseif condition="$order['shipping_status'] eq 3"/>
+                                            <span class="layui-bg-green">自提</span>
+                                            <else/>
+                                            <span class="layui-bg-cyan">未发货</span>
+                                        </if>
+                                        </p>
+                                        </div>
+                                    </td>
+                                </tr>
+
+                                <tr class="tt_color">
+                                    <td class="d">发货时间</td>
+                                    <td class="" colspan="5">
+                                        <if condition="$order['shipping_time']">
+                                            {$order.shipping_time|date='Y-m-d H:i:s',###}
+                                        <else/>
+                                            无
+                                        </if>
+                                    </td>
+                                </tr>
+
+                                <tr class="tt_color">
+                                    <td class="d">收货状态</td>
+                                    <td class="" colspan="5">
+                                        <div class="dd_stand zt_stand">
+                                        <p>
+                                            <if condition="$order['order_status'] eq 3">
+                                                <span class="layui-bg-green">收货</span>
+                                            <else/>
+                                                <span class="layui-bg-cyan">未收货</span>
+                                            </if>
+                                        </p>
+                                        </div>
+                                    </td>
+                                </tr>
+
+                                <tr class="tt_color">
+                                    <td class="d">收货时间</td>
+                                    <td class="" colspan="5">
+                                        <if condition="$order['confirm_time']">
+                                            {$order.confirm_time|date='Y-m-d H:i:s',###}
+                                        <else/>
+                                            无
+                                        </if>
+                                    </td>
+                                </tr>
+
+                                <tr class="tt_color">
+                                    <td class="bt" colspan = "6" >订单金额</td>
+                                </tr>
+
+                                <tr class="tt_color">
+                                    <td class="d">满减</td>
+                                    <td class="" colspan="5">
+                                            {$order.user_coupon_auto_money}
+                                    </td>
+                                </tr>
+
+                                <tr class="tt_color">
+                                    <td class="d">优惠券</td>
+                                    <td class="" colspan="5">
+                                            {$order.user_coupon_money}
+                                    </td>
+                                </tr>
+
+                                <tr class="tt_color">
+                                    <td class="d">商品运费</td>
+                                    <td class="" colspan="5">
+
+                                            {$order.total_express_fee}
+
+                                    </td>
+                                </tr>
+
+                                <tr class="tt_color">
+                                    <td class="d">商品总价</td>
+                                    <td class="" colspan="5">
+                                            {$da}
+
+                                    </td>
+                                </tr>
+
+                                <tr class="tt_color">
+                                    <td class="d">实际付款</td>
+                                    <td class="" colspan="5">
+
+                                            {$order.total_commodity_price}
+
+                                    </td>
+                                </tr>
+
+
+
+                                <tr class="tt_color">
+                                    <td class="bt" colspan="6" >商品信息</td>
+
+                                </tr>
+
+                                <tr class="tt_color">
+                                    <td rowspan="{$a}" class="d">商品</td>
+                                    <td style="width:25%;">商品名</td>
+                                    <td style="width:15%;">规格</td>
+                                    <td style="width:5%;">数量</td>
+                                    <td style="width:15%;">快递信息</td>
+                                    <td style="width:15%;">用户留言</td>
+                                </tr>
+                                <if condition="$order_goods[0]">
+                                <volist name="order_goods[0]['goods_list']" id="good">
+                                    <tr class="tt_color">
+                                        <td >{$good.goods_name}</td>
+                                        <td >
+                                            <if condition="$good.goods_spec_price_name != null">
+                                                {$good.goods_spec_price_name}
+                                            <else/>
+                                                默认规格
+                                            </if>
+                                        </td>
+                                        <td >{$good.goods_num}</td>
+
+                                        <td >
+                                            快递公司:
+                                            <volist name="express_list" id="v">
+                                                <if condition="$v['id'] eq $good['express_id']">
+                                                    {$v.name}
+                                                </if>
+                                            </volist>
+                                            &nbsp &nbsp    快递单号:{$good.tracking_number}
+                                        </td>
+                                        <td >{$good.user_note}</td>
+                                    </tr>
+                                </volist>
+                                </if>
+                                <if condition="$order_goods[1]">
+                                    <volist name="order_goods[1]['goods_list']" id="good1">
+                                        <tr class="tt_color">
+                                            <td>{$good1.goods_name}</td>
+                                            <td>
+                                                <if condition="$good1.goods_spec_price_name != null">
+                                                    {$good1.goods_spec_price_name}
+                                                    <else/>
+                                                    默认规格
+                                                </if>
+                                            </td>
+                                            <td>{$good1.goods_num}</td>
+                                            <td>
+                                                快递公司:
+                                                <volist name="express_list" id="v">
+                                                    <if condition="$v['id'] eq $good1['express_id']">
+                                                        {$v.name}
+                                                    </if>
+                                                </volist>
+                                                &nbsp &nbsp    快递单号:{$good1.tracking_number}
+                                            </td>
+                                            <td>{$good1.user_note}</td>
+                                        </tr>
+
+                                    </volist>
+                                </if>
+
+
+
+<!--                                <tr class="tt_color">-->
+<!--                                    <td class="d">商家备注</td>-->
+<!--                                    <td style="width: 100%" colspan="4">-->
+<!--                                        <form id="order-action">-->
+<!--                                        <textarea name="note" placeholder="请输入操作备注" id="" cols="30" rows="10" style="width: 100%"></textarea>-->
+<!--                                        </form>-->
+<!--                                    </td>-->
+<!--                                </tr>-->
+                                <tr class="tt_color">
+                                    <td clss="d">操作</td>
+                                    <td colspan="5">
+                                        <div class="form-group">
+                                            <label class="col-xs-2 control-label"></label>
+                                            <div class="col-xs-8">
+                                                <if condition="$order['order_status'] eq  0 and $order['pay_status'] eq  0">
+                                                    <a class="btn btn-primary margin" href="{:U('Order/cancelOrder',array('id'=>$order['id']))}">取消订单</a>&nbsp;&nbsp;
+                                                    <a class="btn btn-primary margin" href="{:U('Order/payOrder',array('id'=>$order['id'],'pay_type'=>'adminpay'))}">支付订单</a>&nbsp;&nbsp;
+                                                </if>
+                                                <if condition="$order['order_status'] eq  1 and $order['pay_status'] eq  1">
+                                                    <a class="btn btn-primary margin" href="{:U('Order/getDelivery',array('id'=>$order['id']))}">发货</a>&nbsp;&nbsp;
+                                                </if>
+                                                <if condition="$order['order_status'] eq  8 and $order['pay_status'] eq  1">
+                                                    <a class="btn btn-primary margin" href="{:U('Order/getExpress',array('id'=>$order['id']))}">查询快递单打印</a>&nbsp;&nbsp;
+                                                </if>
+                                                <if condition="$order['shipping_status'] eq  1 ">
+                                                    <a class="btn btn-primary margin" href="{:U('Order/receive',array('user_id' => $order['user_id'],'order_id' => $order['id'],'goods_id' => $vo2['goods_id'] ))}">收货</a>&nbsp;&nbsp;
+                                                </if>
+<!--                                                <button class="layui-btn layui-btn-sm layui-btn-normal" type="submit">提交</button>-->
+                                                <a href="javascript:history.go(-1);" class="btn btn-primary margin">返回</a>
+                                            </div>
+                                        </div>
+                                    </td>
+
+
+                                </tr>
+                            </table>
+
+
+                            <!-- 分页 -->
+                        </div>
+
+                        <!-- /pagination types -->
+
+                    </div>
+                    <!-- Footer -->
+                    <include file="Public/footer" />
+                    <!-- /footer -->
+
+                </div>
+                <!-- /content area -->
+
+            </div>
+            <!-- /main content -->
+
+        </div>
+        <!-- /page content -->
+
+    </div>
+    <!-- /page container -->
+    <script>
+        //完成时间
+        laydate.render({
+            elem: '#cre_time'
+            ,type: 'datetime'
+            ,range: true
+        });
+    </script>
+</body>
+</html>

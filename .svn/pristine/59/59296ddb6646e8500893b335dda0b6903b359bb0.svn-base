@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>我的资产</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="stylesheet" href="__PUBLIC__/css/mui.min.css">
+    <link rel="stylesheet" href="__PUBLIC__/css/property.css">
+    <script src="__PUBLIC__/js/mui.min.js"></script>
+    <script src="__PUBLIC__/js/jquery.min.js"></script>
+    <link rel="stylesheet" href="__PUBLIC__/mobile/style/dropload.css">
+    <script type="text/javascript" src="__PUBLIC__/layer/mobile/layer.js"></script>
+</head>
+<body>
+<header class="mui-bar mui-bar-nav" style="background: #fff;">
+    <span onclick="back()"><a class="mui-pull-left mui-icon mui_turn"><img src="__PUBLIC__/img/return4.png" width="20vw"height="20vw"/></a></span>
+    <h1 class="mui-title" style="color: #333;font-size: 4vw;">我的资产</h1>
+</header>
+<div class="mui-content" style="background: #fff;">
+    <div class="consume">
+        <ul class="clearfix" id="togg">
+            <a href="{:U('User/accountDetail','type=1')}"><li <if condition="$type==1"> class="active"</if> style="width:100%;">账户余额</li></a>
+            <a style="display: none;" href="{:U('User/accountDetail','type=6')}"><li <if condition="$type==6"> class="active"</if>>账户积分</li></a>
+        </ul>
+    </div>
+
+    <div class="expense">
+        <ul id="account">
+            <!--<volist name="list" id="vo">
+            <li class="clearfix">
+                <div class="time_ex">{$vo.remark}</div>
+                <div class="time_right">
+                <p>{$vo.amount}</p>
+                <span>{$vo.cre_date}</span>
+                </div>
+            </li>
+            </volist>-->
+        </ul>
+    </div>
+</div>
+</body>
+<script src="__PUBLIC__/mobile/js/swiper.min.js"></script>
+<script src="__PUBLIC__/mobile/js/dropload.min.js"></script>
+<script>
+    function back() {
+        location.href = "{:U('User/index')}";
+    }
+    //上拉加载
+    $(function(){
+        // 页数
+        var page = 0;
+        // dropload
+        $('.inx-like').dropload({
+            scrollArea : window,
+            loadDownFn : function(me){
+                page++;   // 拼接HTML
+                var html = '';
+                $.ajax({
+                    type: 'GET',
+                    url:"{:U('Api/Userout/accountLog')}?page="+page+"&user_id="+{$user_id}+"&type="+{$type},
+                    dataType: 'json',
+                    success:function(data){
+                        console.log(data);
+                        if (data.status == 1)
+                        {
+                            // $(".dropload-down").remove();
+                            me.resetload();
+                            return;
+                        }
+
+                        var arrLen = data.result.list.length;
+                        if(arrLen > 0){
+                            $.each(data.result.list,function(index,item) {
+                                console.log(1212)
+                                html+='<li class="clearfix">';
+
+                                html+='<div class="time_ex">'+item.remark+'</div>';
+                                html+=' <div class="time_right">';
+                                html+='<p >'+item.amount+'</p>';
+                                html+='<span >'+item.cre_date+'</span>';
+//									    html+='<div><span class="discount_span"></span><span class="discount">'+item.price+'</span></div></div>';
+                                html+='</div>';
+
+                                html+='</li>';
+                            });
+
+                            // 如果没有数据
+                        }else{
+                            me.lock(); // 锁定
+                            me.noData(); // 无数据
+                        }
+                        // 为了测试，延迟1秒加载
+                        setTimeout(function(){
+                             //console.log(html) // 插入数据到页面，放到最后面
+                            $('#account').append(html); // 每次数据插入，必须重置
+                            me.resetload();
+                        }, 8);
+                    },
+                    error: function(xhr, type){
+                        alert('Ajax error!');  // 即使加载出错，也得重置
+                        me.resetload();
+                    }
+                });
+            }
+        });
+    });
+</script>
+</html>

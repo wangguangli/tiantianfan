@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>支付失败</title>
+		<meta charset="utf-8" />
+	    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" /> 
+	    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=0.5, maximum-scale=2.0, user-scalable=yes" />   
+	    <!--防止在iOS设备中的Safari将数字识别为电话号码  -->
+	    <meta name="format-detection" content="telephone=no" />
+	    <!-- windows phone 点击无高光 -->
+	    <meta name="msapplication-tap-highlight" content="no">
+	    <link rel="stylesheet" href="__STATIC__/b/css/mui.min.css">
+		<link rel="stylesheet" href="__STATIC__/b/css/app.css">
+		<link rel="stylesheet" href="__STATIC__/b/css/icons-extra.css">
+	    <!--[if lt IE 9]>
+	    <script src="js/tools/html5shiv.js"></script>
+	    <script src="js/tools/respond.min.js"></script>
+	    <script src="js/tools/excanvas.min.js"></script>
+	    <![endif]-->
+	    <!--[if !IE]> -->
+	    <script src="js/tools/jquery-2.0.3.min.js"></script>
+	    <!-- <![endif]-->
+	    <!--[if IE]>
+	    <script src="js/tools/jquery-1.10.2.min.js"></script>
+	    <![endif]--> 
+	    <style >
+	    	*{
+	    		padding: 0;
+	    		margin: 0;
+	    	}
+	    	::-webkit-input-placeholder { /* WebKit browsers */
+			color:#d1d1d1;
+			font-weight: 300;
+			}
+			:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+			color:#d1d1d1;
+			font-weight: 300;
+			}
+			::-moz-placeholder { /* Mozilla Firefox 19+ */
+			color:#d1d1d1;
+			font-weight: 300;
+			}
+			:-ms-input-placeholder { /* Internet Explorer 10+ */
+			color:#d1d1d1;
+			font-weight: 300;
+			}
+	    	.zhifu-title{
+	    		width:100%;
+	    		height: 12vw;
+	    		background: red;
+	    	}
+	    	.zhifu-title-left{
+	    		padding-top: 3.5vw;
+	    		width: 10%;
+	    		float: left;
+	    		text-align: center;
+				color:#fff;
+	    	}
+	    	.zhifu-title-left img{
+	    		width: 50%;
+	    		height: 5vw;
+				color:#fff;
+	    	}
+	    	 
+	    	.zhifu-title-zhifu{
+	    		width: 80%;
+	    		font-size:4vw ;
+	    		line-height: 12vw;
+	    		float: left;
+	    		text-align:center ;
+	    		font-weight: 200;
+				color:#fff;
+	    		
+	    	}
+	    	.zhifu-containner{
+	    		
+	    		width: 100%;
+	    		padding-top: 3vw;
+	    		background:white ;
+	    	} 
+	    	.zhifu-money{
+	    		width: 100%;
+	    		background: white;
+	    		margin-bottom: 5vw;
+	    	}
+	    	.zhifu-red{
+	    		margin: 10vw auto;
+	    		width:90%;
+	    		height: 12vw;
+	    		position: relative;
+	    	}
+	    	.zhifu-red h3{
+	    		width: 50%;
+	    		float: left;
+	    		font-size: 4.5vw;
+	    		font-weight: 300;
+	    		line-height: 12vw;
+	    		
+	    	}
+	    	.zhifu-content{
+	    		width: 90%;
+	    		margin: 3vw auto 2vw;
+	    	}
+	    	.zhifu-content p{
+	    		font-size: 8vw;
+	    		width: 10vw;
+	    		line-height: 10vw;
+	    		float: left;
+	    	}
+	    	.zhifu-content input{
+	    		margin-top: 1vw;
+	    		width: 80%;
+	    		border: none;
+	    		height:10vw ;
+	    		line-height: 10vw;
+	    		padding-left: 1vw;
+	    		color: #999;
+	    		
+	    	}
+	    	.zhifu-youhui{
+	    		width: 90%;
+	    		margin: 3vw auto 5vw;
+	    	}
+	    	.bbgray{
+	    		border-bottom: 1px solid #eee;
+	    	}
+	    	.zhifu-youhui input{
+	    		width: 40%;
+	    		float: left;
+	    		height: 8vw;
+	    		line-height: 8vw;
+	    		font-size: 4vw;
+	    		border: none;
+	    		color: #999;
+	    		
+	    	}
+	    	.zhifu-youhui button{
+	    		margin-top: 1vw;
+	    		width: 15%;
+	    		float: right;
+	    		border: none;
+	    		background: #FADF4A ;
+	    		height: 7vw;
+	    		color: white;
+	    		font-size: 3.5vw;
+	    		border-radius: 2vw;
+	    	}
+	    	.zhifu-youhui p{
+	    		padding-top: 4vw;
+	    		width: 40%;
+	    		font-size: 2vw;
+	    		color: #999;
+	    		float: right;
+	    		text-align: right;
+	    		margin-right: 2vw;
+	    	}
+	    	.zhifu-radio{
+	    		width: 45px;
+	    		height: 20px;
+	    		float: right;
+	    		background: #E1DFDF;
+	    		border-radius: 10px;
+	    		position: absolute;
+	    		border: 1px solid #FADF4A;
+	    		margin-top: -10px;
+	    		top: 50%;
+	    		right: 0;
+	    		
+	    	}
+	    	.zhifu-radio input[type='checkbox']{
+	    		-moz-appearance:none;
+				-webkit-appearance:none;
+				appearance:none;
+				width: 100%;
+				height: 20px;
+				z-index: 80;
+				position: relative;
+				
+	    	}
+	    	.zhifu-radio p{
+	    		width: 20px;
+	    		height: 20px;
+	    		background: #FADF4A;
+	    		position: absolute;
+	    		top: 0 ;
+	    		left: 0;
+	    		border-radius:10px;
+	    		z-index: 66;
+	    		transition: width 1s;
+                -webkit-transition: width 1s;
+	    	}
+	    	.zhifu-radio p span{
+	    		
+	    		width: 20px;
+	    		height: 20px;
+	    		background: white;
+	    		border-radius:10px;
+	    		float: right;
+	    		display: table;
+	    	}
+	    	.zhifu-radio input[type='checkbox']:checked + p{
+	    		width: 45px;
+	    		
+	    	}
+	    	.clear{
+	    		clear: both;
+	    	}
+	    	.sub-pay{
+	    		margin: 15vw auto;
+	    		width: 60%;
+	    		height: 10vw;
+	    		background: red;
+	    		color: white;
+	    		
+	    		display: table;
+	    		border: none;
+	    		border-radius: 5vw;
+	    		box-shadow: 1px 1px 1px 1px #999;
+	    	}
+			.zhifu-containner a{font-size: 12px;line-height: 30px;color: blue;text-decoration: none}
+	    </style>
+	    
+	</head>
+	<body>
+		<div class="zhifu-title">
+			<div class="zhifu-title-left">
+				<empty name="cc">
+				<a href="{:U('Index/index1')}"><span class="mui-icon mui-icon-arrowleft" style="color: #fff;"></span></a>
+				</empty>
+			</div>
+			<h2 class="zhifu-title-zhifu">支付失败</h2>
+		</div>
+
+		<div class="zhifu-containner" style="width:100%">
+			 	<div class="zhifu-red" style="text-align:center;width:100%">
+			 		<h3 style="text-align:center;width:100%;line-height: 40px;color:red">
+			 		    您的订单没有支付成功！！
+			 		</h3>	
+			 		<a href="{:U('/M/Index/index')}" >返回购物</a>&nbsp;&nbsp;&nbsp;&nbsp;
+			 		<a href="{:U('/M/Order/index')}">查看订单</a>
+			 	</div>
+			<!-- <input type="submit"  class="mui-btn mui-btn-danger mui-btn-block" value="确认" style="background-color:#ed255d;border: 1px solid #ff6a6a;margin:0 auto" /> -->
+		</div>	
+	</body>
+</html>

@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<!--<meta name="viewport" content="width=device-width, initial-scale=1">-->
+	<title>{:GC('web_title')}管理后台</title>
+	<include file="Public/asset_top_page"/>
+</head>
+<body>
+<!-- header -->
+<include file="Public/header"/>
+<!-- /header -->
+<!-- Page container -->
+<div class="page-container">
+	<!-- Page content -->
+	<div class="page-content">
+		<!-- main sidebar -->
+		<include file="Public/left"/>
+		<!-- /main sidebar -->
+
+		<!-- Main content -->
+		<div class="content-wrapper">
+
+			<!-- Content area -->
+			<div class="content" style="padding-top: 10px;">
+				<!-- Pagination types -->
+				<div class="v-container">
+
+					<!-- page -->
+					<form class="form-horizontal pt-15" method="post" action="{:U('Agent/agent_update')}">
+						<input type="hidden" name="id" value="{$data.id}">
+						<input type="hidden" class="form-control" name="user_id" value="{$data['user_id']}">
+						<div class="form-group">
+							<label class="col-xs-2 control-label text-right">用户UID</label>
+							<div class="col-xs-5 control-label">
+								{$data.user_id}
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-xs-2 control-label text-right">姓名</label>
+							<div class="col-xs-5 control-label">
+								<input type="text" class="form-control" name="realname" value="{$data.realname}" required>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-xs-2 control-label text-right">联系电话</label>
+							<div class="col-xs-5">
+								<input type="text" class="form-control" name="phone" value="{$data.phone}" required>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-xs-2 control-label text-right">代理收益</label>
+							<div class="col-xs-5 control-label">
+								{$data.agent_money}
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-xs-2 control-label text-right">已返积分</label>
+							<div class="col-xs-5 control-label">
+								{$data.money}
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-xs-2 control-label text-right">待返积分</label>
+							<div class="col-xs-5 control-label">
+								{$data.money_wait}
+							</div>
+						</div>
+
+
+
+						<fieldset class="content-group">
+							<div class="form-group">
+								<label class="col-xs-2 control-label text-right">代理区域</label>
+								<div class="col-lg-6" style="margin:0; padding:0">
+									<div class="col-lg-4">
+										<select name="province_id" id="province" onChange="get_city(this,this.options[this.options.selectedIndex].text)" class="form-control">
+											<foreach name="province" item="vo" >
+												<option value="{$vo['id']}" <if condition="$data['province_id'] eq $vo['id']"> selected </if> >{$vo.name}</option>
+											</foreach>
+										</select>
+
+										<select class="form-control" name="city_id" id="city" onChange="get_area(this,this.options[this.options.selectedIndex].text)">
+											<option  value="0">请选择</option>
+											<volist name="city" id="p">
+												<option value="{$p.id}" <if condition="$data['city_id'] eq $p['id']"> selected </if>>{$p.name}</option>
+											</volist>
+										</select>
+
+										<select class="form-control" name="district_id" id="district">
+											<option  value="0">请选择</option>
+											<volist name="district" id="p">
+												<option value="{$p.id}" <if condition="$data['district_id'] eq $p['id']"> selected </if>>{$p.name}</option>
+											</volist>
+										</select>
+										<span style="color:#f00;">（哪个等级的代理商，就选择哪个地区，不要继续向下选择）</span>
+									</div>
+								</div>
+							</div>
+
+						</fieldset>
+
+						<fieldset class="content-group">
+
+
+
+							<div class="form-group">
+								<label class="col-xs-2 control-label text-right">注册时间</label>
+								<div class="col-xs-5  control-label">
+									{$data.cre_date}
+								</div>
+							</div>
+
+
+							<div class="form-group">
+								<label class="col-xs-2 control-label text-right">服务费</label>
+								<div class="col-xs-5 ">
+									<select name="shop_fee_id" class="form-control">
+										<foreach name="feelist" item="vo" key="k">
+											<option value="{$vo.id}" <if condition="$data['shop_fee_id'] eq $vo['id']"> selected </if> >{$vo.percent1}%</option>
+										</foreach>
+									</select>
+								</div>
+							</div>
+
+							<div class="form-group">
+								<label class="col-xs-2 control-label text-right">状态</label>
+								<div class="col-xs-5 ">
+									<select name="status" class="form-control select-form-control inline-block">
+										<option value="1" <if condition="$data['status'] eq 1">selected</if> >正常</option>
+										<option value="2" <if condition="$data['status'] eq 2">selected</if> >冻结</option>
+										<option value="3" <if condition="$data['status'] eq 3">selected</if> >审核中</option>
+									</select>
+								</div>
+							</div>
+
+
+						<div class="form-group">
+							<label class="col-xs-2 control-label text-right">注册时间</label>
+							<div class="col-xs-5  control-label">
+								{$data['cre_time']|get_date=###,'Y-m-d H:i:s'}
+							</div>
+						</div>
+
+
+
+						<!-- 多行文本 文本域 -->
+						<!--<div class="form-group">
+							<label class="col-xs-2 control-label text-right">备注</label>
+							<div class="col-xs-5  control-label">
+								<textarea class="form-control" name="test" rows="3"></textarea>
+							</div>
+						</div>-->
+
+
+						<div class="form-group">
+							<label class="col-xs-2 control-label"></label>
+							<div class="col-xs-8">
+								<button class="layui-btn layui-btn-sm layui-btn-normal" type="submit">提交</button>
+								<a href="javascript:history.go(-1);" class="layui-btn layui-btn-sm layui-btn-primary">返回</a>
+							</div>
+						</div>
+					</form>
+
+					<!-- page end -->
+
+					<!-- Footer -->
+					<include file="Public/footer" />
+					<!-- /footer -->
+
+				</div>
+				<!-- /content area -->
+
+			</div>
+			<!-- /main content -->
+
+		</div>
+		<!-- /page content -->
+
+	</div>
+	<!-- /page container -->
+
+	<!-- 上传图片 -->
+	<script>
+		layui.use('upload', function(){
+			var upload = layui.upload;
+
+			//执行实例
+			var uploadInst = upload.render({
+				elem: '#upimg' 							//绑定元素
+				,url: '/index.php/Admin/Common/uploads' 	//上传接口
+				,data:{handlename:"headimg"}			// 接口接收值
+				,field:"headimg"						// input name，与接口接收值 一致
+				,done: function(res)
+				{
+					//上传完毕回调-不一定成功，需要判断
+					console.log(res);
+					if (res.status > 0)
+					{
+						// 异常提示
+						layer.alert(res.result);
+					}
+					else
+					{
+						$(".headimgurl").val(res.result);
+						$(".img_headimgurl").attr("src", res.result);
+					}
+				}
+				,error: function(e)
+				{
+					//请求异常回调
+					console.log(e);
+				}
+			});
+		});
+
+		/**
+		 * 获取城市
+		 * @param t  省份select对象
+		 */
+		function get_city(t,m){
+			var parent_id = $(t).val();
+			if(!parent_id > 0){
+				return;
+			}
+			// var url = '/index.php?m=Admin&c=Api&a=getRegion&level=2&parent_id='+ parent_id;
+			var url = '/index.php/Admin/Agent/city?type=1&id='+ parent_id;
+			$.ajax({
+				type : "GET",
+				url  : url,
+				error: function(request) {
+					alert("服务器繁忙, 请联系管理员!");
+					return;
+				},
+				success: function(v) {
+					var v = eval('(' + v + ')');
+					v = '<option value="0">选择城市</option>'+ v.result;
+					$('#city').empty().html(v);
+				}
+			});
+		}
+
+		/**
+		 * 获取地区
+		 * @param t  城市select对象
+		 */
+		function get_area(t,m){
+			var parent_id = $(t).val();
+			if(!parent_id > 0){
+				return;
+			}
+			var url = '/index.php/Admin/Agent/district?type=1&id='+ parent_id;
+			$.ajax({
+				type : "GET",
+				url  : url,
+				error: function(request) {
+					alert("服务器繁忙, 请联系管理员!");
+					return;
+				},
+				success: function(v) {
+					var v = eval('(' + v + ')');
+					v = '<option value="0">选择区域</option>'+ v.result;
+					$('#district').empty().html(v);
+				}
+			});
+		}
+
+	</script>
+	<!-- 上传图片 -->
+
+</body>
+</html></html>

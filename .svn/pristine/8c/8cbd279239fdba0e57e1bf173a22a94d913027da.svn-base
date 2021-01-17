@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>代理中心</title>
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="stylesheet" href="__PUBLIC__/css/mui.min.css">
+    <link rel="stylesheet" href="__PUBLIC__/css/agency.css">
+    <script src="__PUBLIC__/js/mui.min.js"></script>
+    <script src="__PUBLIC__/js/jquery.min.js"></script>
+</head>
+<body style="background: #efeff4;">
+<div class="agency">
+    <div class="agency_img">
+        <header class="mui-bar mui-bar-nav" style="background:rgba(0,0,0,0);box-shadow: none;z-index: 999;" id="color_id">
+            <a class="mui-pull-left mui-icon mui_turn" href="javascript:history.back();"><img
+                    src="__PUBLIC__/img/return.png" width="20vw" height="20vw"/></a>
+            <h1 class="mui-title tit_login" style="color: #fff;">代理中心</h1>
+        </header>
+        <div class="mui-content" style="background:rgba(0,0,0,0);">
+            <div class="agency_header clearfix">
+                <div class="agency_head">
+                    <img src="{$agentInfo.headimgurl}" width="100%" height="100%"/>
+                </div>
+                <div class="agency_name">
+                    <h5>{$agentInfo.realname}</h5>
+                    <p>{$agentInfo.phone}</p>
+                </div>
+            </div>
+        </div>
+        <div class="agency_balance">
+            <h5>余额</h5>
+            <div class="balance_money clearfix">
+                <h4>{$agentInfo.agent_money}</h4>
+                <div class="ban_withdraw">
+                    <a href="{:U('moneyout')}?user_id={$agentInfo.id}">
+                        <img src="__PUBLIC__/img/shopcenter3.png" width="21" height="13"/>
+                        <span>提现</span>
+                    </a>
+                </div>
+            </div>
+            <div class="asset_detail">
+                <a href="{:U('moneylist')}">
+                    <div class="asset_imh clearfix">
+                        <img src="__PUBLIC__/img/money.png" width="15" height="15"/>
+                        <span>资产说明</span>
+                        <img src="__PUBLIC__/img/return1.png" width="18" height="14"/>
+                    </div>
+                </a>
+            </div>
+        </div>
+        <div class="integral">
+            <ul>
+
+                    <li> <a href="javascript:gift()">
+                        <span class="inte">账户积分</span>
+                        <h4>{$agentInfo.money_wait}</h4></a>
+                    </li>
+
+                <li>
+                    <a href="javascript:expend()">
+                        <span class="inte">账户余额</span>
+                        <h4>{$agentInfo.money}</h4>
+                    </a>
+                </li>
+                <li>
+                    <a href="javascript:withdraw()">
+                    <span class="inte">已提现</span>
+                    <h4>{$agentInfo.tx_money}</h4>
+                        </a>
+                </li>
+            </ul>
+        </div>
+        <div class="guanlis">
+            <h2>管理工具</h2>
+            <hr>
+            <ul>
+                <li>
+                    <a href="{:U('shops')}">
+                        <img src="__PUBLIC__/mobile/images/shopcenter10.png" class="gulimg1">
+                        <p>旗下商家</p>
+                        <img src="__PUBLIC__/mobile/images/spxq_pintuan_more.png" class="gulimg2">
+                    </a>
+                </li>
+                <li>
+                    <a href="{:U('info')}">
+                        <img src="__PUBLIC__/mobile/images/shopcenter7.png" class="gulimg1">
+                        <p>代理信息</p>
+                        <img src="__PUBLIC__/mobile/images/spxq_pintuan_more.png" class="gulimg2">
+                    </a>
+                </li>
+                <li style="display: none;">
+                    <a href="{:U('baodan')}">
+                        <img src="__PUBLIC__/mobile/images/shopcenter8.png" class="gulimg1">
+                        <p>报单中心</p>
+                        <img src="__PUBLIC__/mobile/images/spxq_pintuan_more.png" class="gulimg2">
+                    </a>
+                </li>
+                <li>
+                    <a href="{:U('swap')}">
+                        <img src="__PUBLIC__/mobile/images/shop_center_2_1.png" class="gulimg1">
+                        <p>额度转换</p>
+                        <img src="__PUBLIC__/mobile/images/spxq_pintuan_more.png" class="gulimg2">
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+<script>
+    function gift() {
+        location.href = "{:U('Agent/moneylist')}?type=1";
+    }function expend() {
+        location.href = "{:U('Agent/moneylist')}?type=2";
+    }function withdraw() {
+        location.href = "{:U('Agent/moneylist')}?type=3";
+    }
+    $(window).scroll(function(){
+	    var top = $(window).scrollTop();
+	    var head = $('#color_id').height();
+	    if(top>head){
+	       $('#color_id').css('background-color','#F9584D')	
+	    }else{
+	      $('#color_id').css('background-color','transparent')
+	    }
+    })
+</script>
+</body>
+</html>

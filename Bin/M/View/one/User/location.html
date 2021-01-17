@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>收货地址</title>
+	<meta name="viewport"
+		  content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+	<link rel="stylesheet" href="__PUBLIC__/css/mui.min.css">
+	<link rel="stylesheet" href="__PUBLIC__/css/location.css">
+	<script src="__PUBLIC__/js/mui.min.js"></script>
+	<script src="__PUBLIC__/js/jquery.min.js"></script>
+	<script src="__PUBLIC__/layer/mobile/layer.js"></script>
+</head>
+<body>
+<header class="mui-bar mui-bar-nav" style="background: #fff;">
+	<a class="mui-pull-left mui-icon mui_turn" href="javascript:history.back()"><img src="__PUBLIC__/img/return4.png" width="20vw" height="20vw"/></a>
+	<h1 class="mui-title tit_login" style="color: #333;font-size: 4vw;">收货地址</h1>
+	<div class="add_right" onclick="addAddress()"><a href="javascript:;"><span class="add-icon" style="color: #333;">添加</span></a></div>
+</header>
+<div class="mui-content">
+	<div class="name_dd" id="address">
+
+	</div>
+</div>
+
+</body>
+<script type="text/javascript">
+	var search = location.search;
+
+	function parse(search) {
+		//从第二个字符开始截取   ，获取到第二个开始后面所有的字符
+		var str = search.substring(1);
+		var result = {};
+		//分割字符串  -->产生字符串数组
+		var strs = str.split("&");
+		//遍历数组中的每一个元素
+		strs.forEach(function (v) {
+			//伪代码：v="age=18"
+			var keyvalue = v.split("=");
+			var name = keyvalue[0];
+			var value = keyvalue[1];
+			result[name] = value;
+		})
+		return result;
+	}
+	var r = parse(search);
+	var user_id = r.user_id;
+	var cart = r.cart;
+	var refund_id =r.refund_id;
+	var arr = {user_id: user_id};
+	$.ajax({
+		type: "POST",
+		data: arr,
+		dataType: "json",
+		url: "{:U('M/User/address')}",
+		success: function (data) {
+			console.log(data);
+			if (data.status == 0) {
+				var html = '';
+				$.each(data.result, function (index, item) {
+					if(cart ==1){
+						html += '<a href="{:U(\'Cart/confirm\')}?address_id='+item.id+'">';;
+					}else if(cart==undefined){
+						html += '<a href="{:U(\'User/edit_location\')}?address_id='+item.id+'">';
+					}else{
+						html += '<a href="{:U(\'order/refund_express\')}?refund_id='+refund_id+'&address_id='+item.id+'">';
+					}
+
+					html += "<div class=\"name\" id=\"myBtn\" addid='"+item.id+"' >";
+					html += "<div class=\"name_phone\"><h5>" + item.consignee + "</h5><p>" + item.phone + "</p>";
+					if (item.is_default == 1) {
+						html += "<span>默认</span>";
+					}
+					html += "</div><div class=\"name_phone\">" + item.province_name + item.city_name + item.district_name + item.address + "</div></div></a>";
+				})
+				$('#address').html(html);
+			} else {
+
+
+			}
+		}
+	});
+
+
+
+	function addAddress() {
+		location.href = "/M/User/add_location?cart="+cart+"&user_id="+user_id;
+	}
+
+</script>
+</html>

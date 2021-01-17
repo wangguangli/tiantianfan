@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<!--<meta name="viewport" content="width=device-width, initial-scale=1">-->
+	<title>{:GC('web_title')}管理后台-用户订单</title>
+	<include file="Public/asset_top_page"/>
+</head>
+<body>
+<!-- header -->
+<include file="Public/header"/>
+<!-- /header -->
+<!-- Page container -->
+<div class="page-container">
+	<!-- Page content -->
+	<div class="page-content">
+		<!-- main sidebar -->
+		<include file="Public/left"/>
+		<!-- /main sidebar -->
+
+		<!-- Main content -->
+		<div class="content-wrapper">
+
+			<!-- Content area -->
+			<div class="content" style="padding-top: 10px;">
+				<!-- Pagination types -->
+				<div class="v-container">
+					<div class="alert alert-tips alert-dismissible" role="alert">
+						<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span
+								aria-hidden="true">×</span></button>
+						本页面订单列表，目前是集合所有订单种类，可查询以区分。
+					</div>
+
+					<div class="panel panel-flat">
+						<div class="panel-heading">
+
+							<form class="v-filter-container" action="{:U('index')}" method="get" id="formHandle">
+
+								<div class="filter-fields-wrap">
+									<div class="filter-item clearfix">
+										<div class="filter-item__field">
+											<div class="v__control-group">
+												<label class="v__control-label">订单编号</label>
+												<div class="v__controls">
+													<input type="text" name="order_no" value="{$_REQUEST['order_no']}"
+													       class="v__control_input" placeholder="请输入订单编号"
+													       autocomplete="off">
+												</div>
+											</div>
+											<div class="v__control-group">
+												<label class="v__control-label">商品名称</label>
+												<div class="v__controls">
+													<input type="text" class="v__control_input" name="goods_name"
+													       value="{$_REQUEST['goods_name']}" placeholder="请输入商品名称"
+													       autocomplete="off">
+												</div>
+											</div>
+											<div class="v__control-group">
+												<label class="v__control-label">快递单号</label>
+												<div class="v__controls">
+													<input type="text" class="v__control_input" name="tracking_number"
+													       value="{$_REQUEST['tracking_number']}" placeholder="请输入快递单号"
+													       autocomplete="off">
+												</div>
+											</div>
+											<div class="v__control-group">
+												<label class="v__control-label">会员信息</label>
+												<div class="v__controls">
+													<input type="text" class="v__control_input" name="content"
+													       value="{$_REQUEST['content']}" autocomplete="off"
+													       placeholder="手机号码/会员ID/用户名">
+												</div>
+											</div>
+											<div class="v__control-group">
+												<label class="v__control-label">支付方式</label>
+												<div class="v__controls">
+													<select class="v__control_input" name="payment_type">
+														<option value="">全部</option>
+
+														<option value="yepay"
+														<if condition="$_REQUEST['payment_type'] eq 'yepay' ">
+															selected
+														</if>
+														>余额支付</option>
+
+														<!--<option value="wxpay"
+														<if condition="$_REQUEST['payment_type'] eq 'wxpay' ">
+															selected
+														</if>
+														>微信APP</option>-->
+
+														<option value="wxmp"
+														<if condition="$_REQUEST['payment_type'] eq 'wxmp' ">
+															selected
+														</if>
+														>微信公众号</option>
+
+														<!--<option value="wxh5"
+														<if condition="$_REQUEST['payment_type'] eq 'wxh5' ">
+															selected
+														</if>
+														>微信WAP</option>
+
+														<option value="wxmini"
+														<if condition="$_REQUEST['payment_type'] eq 'wxmini' ">
+															selected
+														</if>
+														>微信小程序</option>
+
+														<option value="wxnative"
+														<if condition="$_REQUEST['payment_type'] eq 'wxnative' ">
+															selected
+														</if>
+														>微信扫一扫</option>
+
+														<option value="wxqrcode"
+														<if condition="$_REQUEST['payment_type'] eq 'wxqrcode' ">
+															selected
+														</if>
+														>微信付款码</option>
+
+
+														<option value="alipay"
+														<if condition="$_REQUEST['payment_type'] eq 'alipay' ">
+															selected
+														</if>
+														>支付宝APP</option>-->
+
+														<option value="aliwap"
+														<if condition="$_REQUEST['payment_type'] eq 'aliwap' ">
+															selected
+														</if>
+														>支付宝WAP</option>
+
+														<!--<option value="alimini"
+														<if condition="$_REQUEST['payment_type'] eq 'alimini' ">
+															selected
+														</if>
+														>支付宝小程序</option>
+
+														<option value="alipc"
+														<if condition="$_REQUEST['payment_type'] eq 'alipc' ">
+															selected
+														</if>
+														>支付宝PC</option>-->
+
+														<option value="adminpay"
+														<if condition="$_REQUEST['payment_type'] eq 'adminpay' ">
+															selected
+														</if>
+														>后台支付</option>
+
+													</select>
+												</div>
+											</div>
+											<div class="v__control-group">
+												<label class="v__control-label">订单状态</label>
+												<div class="v__controls">
+													<select class="v__control_input" name="order_status">
+														<option value="-1"
+														<if condition="$_REQUEST['order_status'] eq -1 "> selected</if>
+														>全部</option>
+														<option value="0"
+														<if condition="$_REQUEST['order_status'] heq '0' "> selected
+														</if>
+														>待支付</option>
+														<option value="1"
+														<if condition="$_REQUEST['order_status'] eq 1 "> selected</if>
+														>待发货</option>
+														<option value="2"
+														<if condition="$_REQUEST['order_status'] eq 2 "> selected</if>
+														>待收货</option>
+														<option value="3"
+														<if condition="$_REQUEST['order_status'] eq 3 "> selected</if>
+														>已收货</option>
+														<option value="4"
+														<if condition="$_REQUEST['order_status'] eq 4 "> selected</if>
+														>取消(未支付)</option>
+														<option value="5"
+														<if condition="$_REQUEST['order_status'] eq 5 "> selected</if>
+														>评价完成</option>
+														<option value="6"
+														<if condition="$_REQUEST['order_status'] eq 6 "> selected</if>
+														>售后</option>
+													</select>
+												</div>
+											</div>
+											<!--<div class="v__control-group">
+												<label class="v__control-label">订单类型</label>
+												<div class="v__controls">
+													<select class="v__control_input" name="order_type">
+														<option value="0">全部</option>
+														<option value="0">商城订单</option>
+														<option value="1">用户买单</option>
+														<option value="2">商家报单</option>
+														<option value="3">充值订单</option>
+														<option value="4">代理报单</option>
+														<option value="5">团购订单</option>
+														<option value="6">秒杀订单</option>
+														<option value="7">限时购</option>
+														<option value="8">砍价订单</option>
+														<option value="9">预售订单</option>
+													</select>
+												</div>
+											</div>-->
+											<div class="v__control-group">
+												<label class="v__control-label">下单时间</label>
+												<div class="v__controls v-date-input-control">
+													<label for="add_time">
+														<input type="text" class="v__control_input pr-30" id="add_time"
+														       name="add_time" value="{$_REQUEST['add_time']}"
+														       placeholder="请选择时间" autocomplete="off"
+														       data-types="datetime" lay-key="1">
+														<i class="icon icon-calendar"></i>
+													</label>
+												</div>
+											</div>
+											<div class="v__control-group">
+												<label class="v__control-label">付款时间</label>
+												<div class="v__controls v-date-input-control">
+													<label for="pay_time">
+														<input type="text" class="v__control_input pr-30" id="pay_time"
+														       name="pay_time" value="{$_REQUEST['pay_time']}"
+														       placeholder="请选择时间" autocomplete="off"
+														       data-types="datetime" lay-key="2">
+														<i class="icon icon-calendar"></i>
+													</label>
+												</div>
+											</div>
+											<div class="v__control-group">
+												<label class="v__control-label">发货时间</label>
+												<div class="v__controls v-date-input-control">
+													<label for="shipping_time">
+														<input type="text" class="v__control_input pr-30"
+														       id="shipping_time" name="shipping_time"
+														       value="{$_REQUEST['shipping_time']}" placeholder="请选择时间"
+														       autocomplete="off" data-types="datetime" lay-key="3">
+														<i class="icon icon-calendar"></i>
+													</label>
+												</div>
+											</div>
+											<div class="v__control-group">
+												<label class="v__control-label">收货时间</label>
+												<div class="v__controls v-date-input-control">
+													<label for="confirm_time">
+														<input type="text" class="v__control_input pr-30"
+														       id="confirm_time" name="confirm_time"
+														       value="{$_REQUEST['confirm_time']}" placeholder="请选择时间"
+														       autocomplete="off" data-types="datetime" lay-key="4">
+														<i class="icon icon-calendar"></i>
+													</label>
+												</div>
+											</div>
+											<div class="v__control-group">
+												<label class="v__control-label">支付单号</label>
+												<div class="v__controls">
+													<input type="text" class="v__control_input" name="trade_no"
+													       value="{$_REQUEST['trade_no']}" autocomplete="off"
+													       placeholder="支付流水号/第三方微信、支付宝订单号">
+												</div>
+											</div>
+										</div>
+									</div>
+									<div class="filter-item clearfix">
+										<div class="filter-item__field">
+											<div class="v__control-group">
+												<label class="v__control-label"></label>
+												<div class="v__controls">
+													<input type="submit" value="搜索" class="btn btn-primary search"
+													       style="min-width:100px;">
+													<a class="btn btn-success ml-15" onclick="ExportExcel()">导出订单</a>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</form>
+							<!--搜索框-->
+							<div class="heading-elements">
+
+							</div>
+						</div>
+						<div class="dataTables_wrapper no-footer">
+							<table class="table datatable-tools-basic basic_table border_btm_ddd">
+								<thead>
+								<tr>
+									<th style="width: 1px;"></th>
+									<th class="col-xs-1">订单ID</th>
+									<th class="col-xs-1">下单用户</th>
+									<th class="text-center col-xs-3">商品</th>
+									<th class="col-xs-3 text-center">订单金额</th>
+									<th class="col-xs-2">状态</th>
+									<th>操作</th>
+								</tr>
+								</thead>
+								<volist name="list" id="vo">
+									<table class="table v-table table-auto-center mb-10"
+									       style="border: 1px solid #ddd;margin-top: 10px;">
+										<tbody class="tbody_list" style="margin-bottom: 10px;">
+										<tr style="background: #f9f9f9;border-top: 1px solid #ddd;">
+											<td colspan="7" class="text-left bg-f9">
+												<span class="mr-15-oList">创建时间：{$vo.add_time_format}</span>&nbsp;&nbsp;
+												<span class="mr-15-oList">订单号：{$vo.order_no}</span>&nbsp;&nbsp;
+												<span class="mr-15-oList">订单类型：<span class="label layui-bg-cyan">{$vo.order_type_cn} </span></span>
+												<span class="mr-15-oList">支付时间：{$vo['pay_time_format']?$vo['pay_time_format']:'N'}</span>&nbsp;&nbsp;
+												<span class="mr-15-oList">支付流水号：{$vo['serial_no']?$vo['serial_no']:'N'}</span>&nbsp;&nbsp;
+												<span class="mr-15-oList">第三方订单号：{$vo['trade_no']?$vo['trade_no']:'N'}</span>&nbsp;&nbsp;
+											</td>
+										</tr>
+										<tr class="tt_color">
+											<td style="width: 1px;">
+												<input type="checkbox" name="much_id[]" value="{$vo.id}">
+												<input type="hidden" name="shipping_code[]" value="{$vo.id}">
+											</td>
+											<td class="col-xs-1">{$vo.id}</td>
+											<td class="col-xs-1">
+												<div class="ed_stand">
+													<p>ID:{$vo.user_id}</p>
+													<p>姓名：{$vo.user_id|get_user_field=###,realname}</p>
+													<p>手机号：{$vo.user_id|get_user_field=###,phone}</p>
+												</div>
+											</td>
+											<td class="col-xs-3">
+												<volist name="vo['goods']" id="sub">
+													<div class="id_stand">
+														<img src="{$sub.goods_thumb}" style="width: 80px;height: 80px;"
+														     class="stand_left"/>
+														<div class="stand_right">
+															<h6 title="{$sub.goods_name}">{$sub.goods_name}</h6>
+															<p>规格：<span>{$sub.goods_spec_price_name}</span></p>
+															<p>数量：<span>{$sub.goods_num}件</span></p>
+															<p>小计：<span>{$sub.goods_total}元</span></p>
+														</div>
+														<div class="clear"></div>
+													</div>
+												</volist>
+											</td>
+											<td class="text-center col-xs-3">
+												<div class="dd_stand">
+<!--													<p>满减：￥{$vo.user_coupon_auto_money}</p>-->
+<!--													<p>优惠券：￥{$vo.user_coupon_money}</p>-->
+													<p>商品运费：￥{$vo.total_express_fee}</p>
+													<!--<p>后台改价：￥0.00</p>-->
+													<p>商品总价：￥{$vo.goods_total}</p>
+													<p>实际付款：<span style="color: #DB5D5A;">￥{$vo.total_commodity_price}</span>
+													</p>
+												</div>
+											</td>
+											<td class="col-xs-2">
+												<div class="zt_stand">
+													<p>订单状态：<span class="layui-bg-blue">{$vo.order_status_cn}</span></p>
+													<p>支付状态：<span class="layui-bg-green">{$vo['pay_status_cn']}</span>
+													</p>
+													<p>支付方式：<span class="layui-bg-green">{$vo['payment_type_cn']?$vo['payment_type_cn']:'无'}</span>
+													</p>
+													<p>发货状态：<span
+															class="layui-bg-cyan">{$vo['shipping_status_cn']} </span>
+													</p>
+													<p>发货方式：<span
+															class="layui-bg-cyan">{$vo['shipping_type_cn']} </span></p>
+												</div>
+											</td>
+											<td class="text-center col-xs-2">
+												<div class="tt_stand">
+													<a title="查看详情" href="{:U('Order/detail', array('id'=>$vo['id']))}"
+													   class="layui-btn layui-btn-sm layui-btn-normal btn_detail">详情</a>
+													<a title="删除订单" href="{:U('Order/delete', array('id'=>$vo['id']))}"
+													   class="layui-btn layui-btn-sm layui-btn-danger btn_detail"
+													   onclick="return confirm('确定要删除吗?');">删除</a>
+												</div>
+											</td>
+										</tr>
+										<tr class="title-tr">
+											<td colspan="7" class="text-left">
+												<span class="mr-15-oList">收货人：{$vo.consignee}</span>&nbsp;&nbsp;
+												<span class="mr-15-oList">电话：{$vo.phone}</span>&nbsp;&nbsp;
+												<span class="mr-15-oList">地址：{$vo.province_cn}{$vo.city_cn}{$vo.district_cn}{$vo.address} </span>
+											</td>
+										</tr>
+										</tbody>
+									</table>
+								</volist>
+							</table>
+							<!-- 分页 -->
+
+							<div class="page_1028">
+
+								<div class="pull-left">
+									<!-- 这里一定要注意 整个页面只有，且只能在这里有 全选框，并且按钮的值有特殊要求 -->
+									<!-- 如：5_1   横线前面数字 代表删除的哪些内容，1=用户，2商家，3代理，4订单，5商品，6商品三级分类，7日志 -->
+									<!-- 如：5_1   横线后面数字 代理删除类型，0逻辑删除，1彻底删除 -->
+									<a class="num"><label><input type="checkbox"
+									                             onclick="$('input[name*=\'much_id\']').prop('checked', this.checked);">
+										全选</label></a>
+									<a onclick="delete_much('4_0', 0)" class="num">批量删除</a>
+									<a onclick="delete_much('4_1', 1)" class="num">彻底删除</a>
+								</div>
+
+								{$show}
+								<div class="clear"></div>
+							</div>
+							<style type="text/css">
+								.page div span {
+									float: left;
+									padding: 0 5px;
+									height: 25px;
+									display: table;
+									border: 1px solid #eee;
+									line-height: 25px;
+									text-align: center;
+									margin: 5px;
+								}
+							</style>
+							<!-- 分页 -->
+						</div>
+						<!-- /pagination types -->
+					</div>
+				</div>
+				<!--end-->
+				<!-- Footer -->
+				<include file="Public/footer"/>
+				<!-- /footer -->
+			</div>
+			<!-- /content area -->
+		</div>
+		<!-- /main content -->
+
+	</div>
+	<!-- /page content -->
+
+</div>
+<!-- /page container -->
+
+<script>
+	//执行一个laydate实例
+	//  laydate.render({
+	//      elem: '#startTime' //指定元素
+	//  });
+	//  laydate.render({
+	//      elem: '#endTime' //指定元素
+	//  });
+	//执行一个laydate实例
+	//下单时间
+	laydate.render({
+		elem: '#add_time'
+		, type: 'datetime'
+		, range: true
+	});
+	//付款时间
+	laydate.render({
+		elem: '#pay_time'
+		, type: 'datetime'
+		, range: true
+	});
+	//发货时间
+	laydate.render({
+		elem: '#shipping_time'
+		, type: 'datetime'
+		, range: true
+	});
+	//完成时间
+	laydate.render({
+		elem: '#confirm_time'
+		, type: 'datetime'
+		, range: true
+	});
+
+	//根据搜索值导出表格
+	function ExportExcel() {
+		var url = "{:U('export_excel')}";
+		var data = $("#formHandle").serialize();    // 获取整个搜索的条件数据
+		$.ajax({
+			url: url,
+			type: 'post',
+			async: false,
+			data: data,
+			timeout: 120000,
+			dataType: 'json',
+			success: function (data) {
+				if (data.status == 0) {
+					var excelUrl = '/' + data.result;
+					window.open(excelUrl, '_blank').location;   // 在新标签页打开
+				} else {
+					alert(data.msg);
+					return;
+				}
+			}
+		});
+	}
+
+</script>
+
+
+</body>
+</html>

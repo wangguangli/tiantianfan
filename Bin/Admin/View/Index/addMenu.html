@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!--<meta name="viewport" content="width=device-width, initial-scale=1">-->
+    <title>{:GC('web_title')}管理后台</title>
+    <include file="Public/asset_top_page"/>
+</head>
+<body>
+<!-- header -->
+<include file="Public/header"/>
+<!-- /header -->
+<!-- Page container -->
+<div class="page-container">
+    <!-- Page content -->
+    <div class="page-content">
+        <!-- main sidebar -->
+        <include file="Public/left"/>
+        <!-- /main sidebar -->
+
+        <!-- Main content -->
+        <div class="content-wrapper">
+
+            <!-- Content area -->
+            <div class="content" style="padding-top: 10px;">
+                <!-- Pagination types -->
+                <div class="v-container">
+                    <div class="alert alert-tips alert-dismissible" role="alert">
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
+                        添加主菜单信息</div>
+
+                    <div class="panel panel-flat">
+                        <div class="panel-heading">
+                        </div>
+                    </div>
+                    <!-- page -->
+                    <form class="form-horizontal pt-15" method="post" action="{:U('')}">
+
+
+                        <div class="form-group">
+                            <label class="col-xs-2 control-label text-right">菜单名</label>
+                            <div class="col-xs-5">
+                                <input type="text" class="form-control" name="name"  required value="{$info.name}">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-xs-2 control-label text-right">链接地址（全域名）</label>
+                            <div class="col-xs-5">
+                                <input type="text"   class="form-control" name="url"  value="{$info.url}">
+                            </div>
+                        </div>
+                        <input type="hidden" name="id" value="{$info.id}">
+                        <div class="form-group">
+                            <label class="col-xs-2 control-label"></label>
+                            <div class="col-xs-8">
+                                <button class="layui-btn layui-btn-sm layui-btn-normal" type="submit">提交</button>
+
+                            </div>
+                        </div>
+                    </form>
+
+                    <!-- page end -->
+
+                    <!-- Footer -->
+                    <include file="Public/footer" />
+                    <!-- /footer -->
+
+                </div>
+                <!-- /content area -->
+
+            </div>
+            <!-- /main content -->
+
+        </div>
+        <!-- /page content -->
+
+    </div>
+    <!-- /page container -->
+
+    <!-- 上传图片 -->
+    <script>
+        layui.use('upload', function(){
+            var upload = layui.upload;
+
+            //执行实例
+            var uploadInst = upload.render({
+                elem: '#upimg' 							//绑定元素
+                ,url: '/index.php/Admin/Common/uploads' 	//上传接口
+                ,data:{handlename:"headimg"}			// 接口接收值
+                ,field:"headimg"						// input name，与接口接收值 一致
+                ,done: function(res)
+                {
+                    //上传完毕回调-不一定成功，需要判断
+                    console.log(res);
+                    if (res.status > 0)
+                    {
+                        // 异常提示
+                        layer.alert(res.result);
+                    }
+                    else
+                    {
+                        $(".headimgurl").val(res.result);
+                        $(".img_headimgurl").attr("src", res.result);
+                    }
+                }
+                ,error: function(e)
+                {
+                    //请求异常回调
+                    console.log(e);
+                }
+            });
+        });
+    </script>
+    <!-- 上传图片 -->
+
+</body>
+</html>

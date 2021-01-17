@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>添加地址</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+	<link rel="stylesheet" href="__PUBLIC__/mobile/css_v3/mui.min.css">
+	<link rel="stylesheet" href="__PUBLIC__/mobile/style/main_style.css">
+	<link rel="stylesheet" href="__PUBLIC__/mobile/css_v3/bank_card.css">
+	<script src="__PUBLIC__/layer/mobile/layer.js"></script>
+</head>
+
+<body>
+<header class="mui-bar mui-bar-nav" style="background: #FE274E;">
+	<a href="javascript:history.back();" class="mui-pull-left mui-icon mui_turn"><img src="__PUBLIC__/img/return.png" width="20vw" height="20vw" /></a>
+	<h1 class="mui-title tit_login" style="color: #fff;">添加地址</h1>
+</header>
+<div class="mui-content">
+	<div class="magcard">
+		<ul class="card_ul" id="addressInfo">
+			<li class="mag_dd clearfix">
+				<h5>姓名：</h5>
+				<input type="text" name="consignee" id="consignee" value="" placeholder="请输入收货人" class="name_dd" />
+			</li>
+			<li class="mag_dd clearfix">
+				<h5>手机 ：</h5>
+				<input type="text" name="phone" id="phone" value="" placeholder="请输入手机号" class="name_dd" />
+			</li>
+			<li class="mag_dd clearfix">
+				<h5>地区 ：</h5>
+				<div class="name_dd">
+					<ul class="clearfix">
+						<li>
+							<select name="" id="sf_province" onchange="prov()">
+
+							</select>
+						</li>
+						<li>
+							<select name="" id="prov_id" onchange="city()">
+								<option value="0">请选择市</option>
+							</select>
+						</li>
+						<li>
+							<select name="" id="city_id">
+								<option value="0">请选择区</option>
+							</select>
+						</li>
+					</ul>
+					<img class="dutb" src="__PUBLIC__/mobile/images_v3/dizhi5.png" style="display: none"/>
+
+				</div>
+			</li>
+			<li class="mag_dd clearfix" style="border: 0;">
+				<h5>详细地址</h5>
+				<input type="text" name="address" id="address" value="{$address.address}" placeholder="请输入详细地址" class="name_dd" />
+			</li>
+		</ul>
+	</div>
+	<div class="mag_ee clearfix">
+		<div class="default">
+			<p>默认地址</p>
+
+		</div>
+		<div class="default_right">
+			<if condition="$address['is_default']==1">
+				<label><input class="mui-switch mui-switch-anim" type="checkbox" id="div2" value="1" checked="checked" ></label><br>
+				<else />
+				<label><input class="mui-switch mui-switch-anim" type="checkbox" id="div2" value="1" checked="checked"></label><br>
+			</if>
+		</div>
+	</div>
+	<div class="confirm">
+		<input type="submit" name="name" value="确认添加" onclick="addCard()" />
+	</div>
+</div>
+<script src="__PUBLIC__/js/mui.min.js"></script>
+<script src="__PUBLIC__/js/jquery.min.js"></script>
+<script>
+	function parse(search) {
+		//从第二个字符开始截取   ，获取到第二个开始后面所有的字符
+		var str = search.substring(1);
+		var result = {};
+		//分割字符串  -->产生字符串数组
+		var strs = str.split("&");
+		//遍历数组中的每一个元素
+		strs.forEach(function(v) {
+			//伪代码：v="age=18"
+			var keyvalue = v.split("=");
+			var name = keyvalue[0];
+			var value = keyvalue[1];
+			result[name] = value;
+		})
+		return result;
+	}
+	var search = location.search;
+	var para = parse(search);
+	var cart = para.cart;
+	var user_id = para.user_id;
+	var address_id = para.address_id;
+	//选择省份
+	pro_state();//声明一个方法
+	function pro_state(){
+		var provice_id ='0';
+		var city_id = '';
+		$.ajax({
+			url: "/index.php/M/User/province",//这里指向的就不再是页面了，而是一个方法
+			data:{
+				'province_id':provice_id,
+				'city_id':city_id
+			},
+			type: "POST",
+			dataType:'json',
+			success: function (data) {
+				console.log(data);
+				var html = '<option value="0">请选择省份</option>';
+				if(data) {
+					$(data.result).each(function(k, v) {
+						html += '<option   id="'+v.id+'" value="' + v.id + '">' + v.name + '</option>';
+					});
+				}
+				$("#sf_province").html(html);
+			}
+		});
+	}
+	//选择市
+	function prov() {
+		var pro_id = $('#sf_province').val();
+		console.log(pro_id)
+		$.ajax({
+			url: "/index.php/M/User/city",//这里指向的就不再是页面了，而是一个方法
+			data:{
+				'id':pro_id,
+			},
+			type: "POST",
+			dataType:'json',
+			success: function (data) {
+				console.log(data);
+				var html = '<option value="0">请选择市</option>';
+				if(data) {
+					$(data.result).each(function(k, v) {
+						html += '<option value="' + v.id + '">' + v.name + '</option>';
+					});
+				}
+				$("#prov_id").html(html);
+			}
+		});
+	}
+	//选择县
+	function city() {
+		var city_id = $('#prov_id').val();
+		$.ajax({
+			url: "/index.php/M/User/district",//这里指向的就不再是页面了，而是一个方法
+			data:{
+				'id':city_id
+			},
+			type: "POST",
+			dataType:'json',
+			success: function (data) {
+				console.log(data);
+				var html = '<option value="0">请选择县</option>';
+				if(data) {
+					$(data.result).each(function(k, v) {
+						html += '<option value="' + v.id + '">' + v.name + '</option>';
+					});
+				}
+				$("#city_id").html(html);
+			}
+		});
+	}
+	//  window.onload=function(){
+	//      var div2=document.getElementById("div2");
+	//      var div1=document.getElementById("div1");
+	//      div2.onclick=function(){
+	//          div1.className=(div1.className=="close1")?"open1":"close1";
+	//          div2.className=(div2.className=="close2")?"open2":"close2";
+	//      }
+	//  }
+	//添加地址
+	function addCard() {
+		var consignee = $("#consignee").val();//收件人
+		var phone = $("#phone").val();//手机号
+		var address = $("#address").val();//详细地址
+		var province = $("#sf_province ").val(); //省
+		var city = $("#prov_id").val();//市
+		var district = $("#city_id").val();//区
+		var is_default = $("input[type=checkbox]:checked").val();
+		if(is_default!=1){
+			is_default = 0;
+		}
+		var arr = {"country":0,"is_default":is_default,"consignee":consignee,"phone":phone,"address":address,"province":province,"city":city,"district":district};
+		$.ajax({
+			type :"POST",
+			dataType : "json",
+			url :"{:U('M/User/addAddress')}",
+			data : arr,
+			success:function (data) {
+				console.log(data);
+				if(data.status==0)
+				{
+					layer.open({
+						content: '添加成功',
+						btn: ['知道了'],
+						yes: function(index)
+						{
+							layer.close(index);
+							if (cart > 0)
+							{
+								location.href = "/M/User/location?cart="+cart+"&user_id="+user_id;
+							}
+							else
+							{
+								location.href = "{:U('User/location')}";
+							}
+						}
+					});
+				}else{
+					layer.open({
+						content: data.msg
+						, skin: 'msg'
+						, time: 1.5
+					});
+				}
+
+			}
+
+		})
+	}
+</script>
+</body>
+
+</html>

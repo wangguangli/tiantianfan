@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<title>搜索</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<script src="__PUBLIC__/js/mui.min.js"></script>
+		<script src="__PUBLIC__/js/jquery-1.11.1.min.js"></script>
+		<link rel="stylesheet" href="__PUBLIC__/mobile/css_v3/mui.min.css">
+		<link rel="stylesheet" href="__PUBLIC__/mobile/css_v3/goods_index.css?n=2">
+		<link rel="stylesheet" href="__PUBLIC__/mobile/style/main_style.css">
+		<link rel="stylesheet" href="__PUBLIC__/mobile/css_v3/near.css">
+		<link rel="stylesheet" href="__PUBLIC__/mobile/css_v3/property.css">
+		<script src="__PUBLIC__/layer/mobile/layer.js"></script>
+		<style type="text/css">
+			/*搜索*/
+			
+			.f_search {
+				width: 100%;
+				padding: 4.4vw 3.8vw 4vw 3.8vw;
+				overflow: hidden;
+				background-color: #fff;
+				display: flex;
+				justify-content: space-between;
+				align-items: center;
+			}
+			
+			.f_search .sea_fh {
+				width: 2.59vw;
+				height: 4.44vw;
+			}
+			
+			.f_search .middle {
+				width: 65.37vw;
+				height: 8.89vw;
+				border-radius: 4.44vw;
+				background-color: #f7f8fa;
+				padding: 0 3.52vw 0 3.52vw;
+				display: flex;
+				align-items: center;
+				margin-left: 1vw;
+			}
+			
+			.middle .return_img {
+				width: 3.98vw;
+				height: 4.07vw;
+				margin-right: 3vw;
+			}
+			
+			.middle input {
+				width: 84%;
+				border: 0;
+				background-color: #f7f8fa;
+				font-size: 3.33vw;
+				color: #555555;
+				height: 7vw;
+				margin-bottom: 0;
+			}
+			
+			.sea_button {
+				width: 17.87vw;
+				height: 8.89vw;
+				background-color: #fe4543;
+				border-radius: 4.44vw;
+				font-size: 3.33vw;
+				color: #fff;
+				text-align: center;
+				border: 0;
+			}
+
+			 .pro-info-tootm1 {
+				 font-size: 2.22vw;
+				 color: #999;
+				 margin-top: 1.68vw;
+				 display: flex;
+				 justify-content: space-between;
+				 align-items: center;
+			 }
+
+		</style>
+	</head>
+
+	<if>
+		<!--<header class="mui-bar mui-bar-nav dis_ea" style="background: #FE274E;">
+			<a class="mui-pull-left mui-icon mui_turn" href="javascript:history.go(-1)"><img src="__PUBLIC__/img/return.png" width="20vw" height="20vw" /></a>
+
+			<input type="text" name="content" id="search" value="" placeholder="请输入商品名称" />
+			<p id="search_id" onclick="search()">搜索</p>
+
+		</header>-->
+		<!--新写的搜索-->
+		<form action="" method="">
+			<!--搜索-->
+			<div class="f_search">
+				<a href="javascript:history.back(-1)" style="margin-top: 1vw;"> 
+				<img class="sea_fh" src="__PUBLIC__/mobile/images_v3/shousuo.png" />
+				</a>
+				<div class="middle">
+					<img class="return_img" src="__PUBLIC__/mobile/images_v3/f_shou.png" />
+					<input placeholder="" name="content" value="{$content}" type="text" id="search"/>
+				</div>
+				<button class="sea_button" type="submit" >搜索</button>
+			</div>
+		</form>
+		<if condition="empty($goods)">
+			<div class="empty_data">
+				<div class="empty_data_t0">
+					<img src="__PUBLIC__/mobile/images_v3/empty_cart_img_1.png" class="empty_cart_img_1">
+				</div>
+				<div class="empty_data_t1">暂无数据</div>
+			</div>
+			<else/>
+		<div class="goods-list">
+
+			<!--商品列表-->
+
+			<div class="good_list">
+				<ul class="ul_c" id="goods_list">
+					<volist name="goods" id="vo">
+						<li>
+							<div class="proshow">
+								<a href="{:U('Goods/detail', array('id'=>$vo['id']))}">
+									<img class="product_img" src="{$vo.thumb}" />
+									<div class="pro-info">
+										<p class="cakes_tit">
+											<span class="cakes">热销</span>
+											{$vo.name}
+										</p>
+
+										<div class="buy_cont">
+											<span class="price"><span class="symbol">￥</span>{$vo.price}</span>
+											<img class="gwc" src="__PUBLIC__/mobile/images_v3/f_dm26.png" />
+										</div>
+										<div class="pro-info-tootm1">
+											<div class="">
+												<span style="font-size: 3.5vw;">已售:{$vo.sell_count}</span>
+												<p><span style="font-size: 3.5vw;">评论:{$vo.common_count}</span></p>
+											</div>
+										</div>
+									</div>
+								</a>
+							</div>
+						</li>
+					</volist>
+				</ul>
+			</div>
+
+			<!--end-->
+		</div>
+			<div class="load_more_content"></div>
+			<div class="load_more">
+				<if condition="$max_page gt 1">
+					<span class="load_more_red">点击</span>加载更多
+					<else/>
+					数据已全部加载
+				</if>
+			</div>
+			</if>
+
+		<script src="__PUBLIC__/mobile/js/jquery-2.1.4.js"></script>
+		<script type="text/javascript">
+			var page = 2; // 当前页码，默认从第2页开始，因为刚进来已经输出一次了
+			var max_page = "{$max_page}"; // 最大页码
+			var content = "{$content}"; // 排序
+			$(".load_more").on("click", function() {
+				if (page > max_page) {
+					layer.open({
+						type: 2,
+						content: '数据已全部加载',
+						time: 1
+					});
+					$(".load_more").text("数据已全部加载");
+					return;
+				}
+				layer.open({
+					type: 2,
+					content: '加载中'
+				});
+				$(".load_more_content").load("{:U('goodssearch')}", {
+					page: page,content:content
+				}, function(response, status) {
+					console.log(78788)
+					if (status == "success") {
+						var html = $(".load_more_content").html();
+						$("#goods_list").append(html);
+						$(".load_more_content").html("");
+						page = parseInt(page) + 1; // 在本页自增
+					}
+					layer.closeAll();
+				});
+			});
+		</script>
+	</body>
+
+</html>

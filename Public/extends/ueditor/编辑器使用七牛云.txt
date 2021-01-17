@@ -1,0 +1,18 @@
+
+以前使用demo2的项目，并且七牛云信息配置在config中的，如何使编辑器的图片上传到七牛云。
+（如果是新版本的demo2，即 8.26号后复制的demo 则不用再这样配置）
+
+找到 项目目录下的 Public/admin/ueditor，
+这个目录下有 1.4.3文件夹，先删除掉（如果有其他配置，应先记录或备份）。
+
+然后把压缩包内的  1.4.3 文件夹复制进去，并修改 php/must.json 的内容。
+
+access_key 就是config.php 配置中的 C_QN_ACCESS
+secret_key 就是config.php 配置中的 C_QN_SECRET
+
+bucket 就是config.php 配置中的 C_QN_BUCKET   --- 基本不需要变。
+img_domain 就是config.php 配置中的 C_QN_DOMAIN
+
+upload_type 当为1时，是上传到七牛云，0是上传到服务器。 
+*** 如果 客户有七牛云信息，建议 upload_type 一定要改为  1
+

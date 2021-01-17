@@ -1,0 +1,13 @@
+.clear{clear: both;}
+ul {padding: 0;margin: 0;}
+ul li{list-style: none;}
+.status_con{background: #fff;display: inline-block;}
+ul.search-list{display: flex;align-items: center;}
+ul.search-list li{float:left;margin-right: 25px;cursor: pointer;}
+ul.search-list li .start_span{display: inline-block;width: 100px;}
+/*订单数量*/
+.order_num{background: #ECF6FD;padding: 10px 100px;box-sizing: border-box;}
+.order_num ul li{width: calc(100% / 6);float: left;color: #000;font-size: 24px;}
+.order_num ul li h6{margin-bottom: 5px;}
+.order_num ul li p{font-size: 26px;font-weight: normal;}
+.order_num ul li p span{font-size: 20px;}

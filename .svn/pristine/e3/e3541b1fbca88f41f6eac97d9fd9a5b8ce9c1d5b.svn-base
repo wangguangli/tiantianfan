@@ -1,0 +1,160 @@
+/******************************************************************限时秒杀列表***************************************************************************************************/
+.limit_list {
+	background: url(../images_v3/limit_back.png) no-repeat top center;
+	background-size: 100% 28.4vw;
+	padding:4.5vw 3.7vw
+	/*height: 38.52vw;*/
+}
+
+.limit_list .limit_time {
+	padding: 4vw 2.5vw;
+}
+
+.limit_list .limit_time .limit_left {
+	float: left;
+	width: 9%;
+}
+
+.limit_list .limit_time .limit_right {
+	float: right;
+	width: 91%;
+	margin: 0 auto;
+}
+
+.limit_list .limit_start {
+	width: 100%; display: flex; align-items: center;
+}
+.limit_list .limit_start img{ height: 11.6vw}
+.limit_list .limit_start ul{maigin: 0; padding: 0; width: calc(100% - 12.5vw); margin-left: auto}
+.limit_list .limit_start ul li {
+	width: 20%;
+	text-align: center;
+	float: left;
+	color: #333333;
+}
+
+.limit_list .limit_start ul li p {
+	font-size: 4.44vw;
+	font-weight: 550;
+}
+
+.limit_list .limit_start ul li span {
+	font-size: 3.2vw;
+	line-height: 5.33vw;
+	color: #999999;
+}
+
+.limit_list .limit_start ul li.active {
+	color: #fe4543;
+}
+.limit_list .limit_start ul li.active  span{
+	height: 4.26vw; padding: 0 1.8vw; background: #fe4543; border-radius: 2.13vw; color: #fff;
+}
+
+.limit_list .limit_image {
+	height: 37.41vw;
+	width: 100%;
+}
+
+/*商品列表*/
+.limit_shop {
+	padding: 0 3.7vw;
+}
+
+.limit_shop ul li {
+	padding: 3.61vw 3.24vw;
+	background: #fff;
+	border-radius: 2.78vw;
+	margin-bottom: 3.33vw;
+	display: flex; align-items: center;width: 100%;
+}
+
+.limit_shop ul li .limit_img {
+	width: 21.39vw;
+	height: 21.39vw;
+}
+.limit_shop ul li .limit_img img{ height: 100%; width: 100%; border-radius: 0.93vw;}
+
+.limit_shop ul li .li_right {
+	margin-left: auto;
+	margin-left: 3.8vw;
+	width: calc(100% - 25.19vw);
+	font-size: 3.89vw;
+	color: #333;
+	font-weight: 400;
+}
+
+.limit_shop ul li .li_right p {
+	overflow: hidden;
+	text-overflow: ellipsis;
+	display: -webkit-box;
+	-webkit-line-clamp: 2;
+	-webkit-box-orient: vertical;
+}
+
+.limit_shop ul li .li_right .process {
+	height: 2.04vw;
+	background-color: #fe4543;
+	border-radius: 1.02vw;
+	width: 100%;
+	margin-top: 1.5vw;
+	overflow: hidden;
+}
+
+.limit_shop ul li .li_right .process .process_one {
+	height: 2.04vw;
+	background-color: #fe4543;
+	border-radius: 1.02vw;
+}
+
+.limit_shop ul li .li_right .pro_num {
+	display: flex;
+	justify-content: space-between;
+	color: #ff0036;
+	font-size:  2.96vw;
+	margin-top: 1vw;
+}
+
+.limit_shop .next_page {
+	color: #a0a0a0;
+	font-size: 3.5vw;
+	text-align: center;
+	padding: 2vw 0;
+	display: grid;
+	outline: 0;
+	border: 0;
+	background: 0;
+	text-align: center;
+	margin: 0 auto;
+}
+
+.limit_price {
+	margin-top: 1vw;
+	width: 100%; display: flex; align-items: center}
+
+.limit_price h6 {
+	font-size:3.15vw;
+	color: #333;
+}
+
+.limit_price h6 strong {
+	color: #333;
+	font-size:3.89vw;
+}
+
+.limit_price h6 span {
+	font-size: 3.15vw;
+	color: #999;
+	font-weight: normal;
+	margin-left: 1vw;
+}
+
+.limit_price .go_grab {
+	margin-left: auto;
+	background: #fe4543;
+	color: #fff;
+	font-size: 3.33vw;
+	border-radius: 3.33vw;
+	padding: 1.5vw 3.43vw;
+	border: none; -webkit-appearance: none;
+}

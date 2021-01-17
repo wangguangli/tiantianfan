@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>{$cat_name}</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="Keywords" content="">
+    <meta name="description" content="">
+    <link rel="stylesheet" href="__PUBLIC__/mobile/style/jquery-weui.min.css">
+    <link rel="stylesheet" href="__PUBLIC__/mobile/css_v3/weui.min.css">
+    <link rel="stylesheet" href="__PUBLIC__/mobile/style/main_style.css">
+    <link rel="stylesheet" href="__PUBLIC__/mobile/css_v3/goods_index.css?n=2">
+    <link rel="stylesheet" href="__PUBLIC__/layui/css/layui.css">
+    <link href="__PUBLIC__/css/shopindex.css" rel="stylesheet" type="text/css" />
+    <link href="__PUBLIC__/css/category.css" rel="stylesheet" type="text/css" />
+    <link href="__PUBLIC__/css/footer.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="__PUBLIC__/mobile/css_v3/property.css">
+    <script src="__PUBLIC__/js/jquery.min.js"></script>
+    <script type="text/javascript" src="__PUBLIC__/layer/mobile/layer.js"></script>
+    <script type="text/javascript" src="__PUBLIC__/layui/layui.js"></script>
+    <link rel="stylesheet" href="__PUBLIC__/mobile/style/jquery-weui.min.css">
+    <!--<link rel="stylesheet" href="__PUBLIC__/mobile/css_v3/weui.min.css?n=1">-->
+    <link rel="stylesheet" href="__PUBLIC__/mobile/style/main_style.css?n=1">
+    <link rel="stylesheet" href="__PUBLIC__/mobile/css_v3/index.css?n=5">
+    <link href="__PUBLIC__/css/footer.css" rel="stylesheet" type="text/css"/>
+    <!--上拉加载-->
+    <link rel="stylesheet" href="__PUBLIC__/mobile/style/dropload.css">
+</head>
+
+<style>
+    .pro-info-tootm1 {
+        font-size: 2.22vw;
+        color: #999;
+        margin-top: 1.68vw;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+</style>
+<body ontouchstart>
+
+
+<!--导航-->
+<div class="goods_nav">
+    <div class="goods_nav_kuan">
+        <a href="{:U('Goods/index',array('cat_id'=>$cat_id,'px'=>0))}">
+            <div <if condition="$px eq '0'"> class="nav_title f_active"<else/> class="nav_title"</if>>
+            综合推荐
+            <if condition="$px eq '0'">
+                <span class="active_span"></span>
+            </if>
+
+    </div>
+    </a>
+    <a href="{:U('Goods/index',array('cat_id'=>$cat_id,'px'=>1))}">
+        <div <if condition="$px eq '1'"> class="nav_title f_active"<else/> class="nav_title"</if>>
+        销量
+        <if condition="$px eq '1'">
+            <span class="active_span"></span>
+        </if>
+</div>
+
+</a>
+<a href="{:U('Goods/index',array('cat_id'=>$cat_id,'px'=>2))}">
+    <div <if condition="$px eq '2'"> class="nav_title f_active"<else/> class="nav_title"</if>>
+    价格升序
+    <if condition="$px eq '2'">
+        <span class="active_span"></span>
+    </if>
+    </div>
+
+</a>
+
+<a href="{:U('Goods/index',array('cat_id'=>$cat_id,'px'=>3))}">
+    <div <if condition="$px eq '3'"> class="nav_title f_active"<else/> class="nav_title"</if>>
+    价格降序
+    <if condition="$px eq '3'">
+        <span class="active_span"></span>
+    </if>
+    </div>
+
+</a>
+
+
+</div>
+</div>
+
+
+<div class="inx-like">
+    <ul id="inx_id" class="in_pad">
+        <!--这里加载商品数据-->
+    </ul>
+</div>
+
+
+<!--    <div class="load_more_content"></div>-->
+<!--    <div class="load_more">-->
+<!--        <if condition="$max_page gt 1">-->
+<!--            <span class="load_more_red">点击</span>加载更多-->
+<!--            <else/>-->
+<!--            数据已全部加载-->
+<!--        </if>-->
+<!--    </div>-->
+
+</body>
+
+</html>
+<script src="__PUBLIC__/mobile/js/vue.min.js"></script>
+<script src="__PUBLIC__/mobile/js/jquery-2.1.4.js"></script>
+<script src="__PUBLIC__/mobile/js/jquery-weui.min.js"></script>
+<script src="__PUBLIC__/mobile/js/swiper.min.js"></script>
+<script src="__PUBLIC__/mobile/js/dropload.min.js"></script>
+<script type="text/javascript" src="//res.wx.qq.com/open/js/jweixin-1.6.0.js"></script>
+<script type="text/javascript" src="__PUBLIC__/mobile/js/clipboard.min.js"></script>
+<script>
+
+
+    //上拉加载
+    $(function () {
+
+        // 点击客服弹出
+
+        var cat_id = "{$cat_id}";
+        var ord = "{$ord}";
+        var stop = 0;
+        // 页数
+        var page = 0;
+        // dropload
+        $('.inx-like').dropload({
+            scrollArea: window,
+            loadDownFn: function (me) {
+                if(stop == 0){
+
+                page++; // 拼接HTML
+                var html = '';
+                $.ajax({
+                    type: 'GET',
+                    url: "{:U('Index/goodsListIndex')}?page=" + page+'&cat_id='+cat_id+'&'+ord+'=1',
+                    dataType: 'json',
+                    success: function (data) {
+                        stop = data.status;
+                        if (data.status == 1) {
+                            // $(".dropload-down").remove();
+                            $(".dropload-noData").text('我是有底线的');
+                            me.resetload();
+                            return;
+                        }
+                        var arrLen = data.result.length;
+                        if (arrLen > 0) {
+                            $.each(data.result, function (index, item) {
+                                if (item.tags) {
+                                    var tags = '<span class="cakes">' + item.tags + '</span>';
+                                } else {
+                                    var tags = '';
+                                }
+                                html += '<li>';
+                                html += '<a href="{:U(\'Goods/detail\')}?id=' + item.id + '">';
+                                html += '<img class="pro_img" src="' + item.thumb + '"/>';
+                                html += '<div class="pro-info">';
+                                html += '<p class="elipe cakes_tit">' + tags + '<span class="goods_title">' + item.name + '</span></p>';
+                                // html += '<span class="cakes">热销商品</span>';
+                                html += '<div class="pro-info-tootm">';
+                                html += '<div class="price">';
+                                html += '￥<span>' + item.price + '</span>';
+                                html += '</div>';
+                                html += '<img src="__PUBLIC__/mobile/images_v3/f_dm26.png"/>';
+                                html += '</div>';
+                                html += '<div class="pro-info-tootm1">';
+                                html += '<div class="price">';
+                                html += '<span style="font-size: 3.5vw;">已售:'+item.sell_count+'</span>';
+                                html += '<p><span style="font-size: 3.5vw;">评论:'+item.common_count+'</span></p>';
+                                html += '</div>';
+                                html += '</div>';
+                                html += '</div>';
+                                html += '</a>';
+                                html += '</li>';
+                            });
+                            // 如果没有数据
+                        } else {
+                            me.lock(); // 锁定
+                            me.noData(); // 无数据
+                            //将字渲染上
+                            $(".dropload-noData").text('我是有底线的');
+
+                        }
+                        // 为了测试，延迟1秒加载
+                        setTimeout(function () {
+                            // console.log(html) // 插入数据到页面，放到最后面
+                            $('#inx_id').append(html); // 每次数据插入，必须重置
+                            me.resetload();
+                        }, 8);
+                    },
+                    error: function (xhr, type) {
+                        // alert('Ajax error!'); // 即使加载出错，也得重置
+                        me.resetload();
+                    }
+                });
+            }else{
+                me.lock(); // 锁定
+                me.noData(); // 无数据
+                // 为了测试，延迟1秒加载
+                setTimeout(function () {
+                    // console.log(html) // 插入数据到页面，放到最后面
+                    $('#inx_id').append(html); // 每次数据插入，必须重置
+                    me.resetload();
+                }, 8);
+                }
+            }
+        });
+    });
+
+
+    //注意：导航 依赖 element 模块，否则无法进行功能性操作
+    layui.use('element', function() {
+        var element = layui.element;
+        //…
+    });
+    // 加载更多
+    var page = 2; // 当前页码，默认从第2页开始，因为刚进来已经输出一次了
+    var max_page = "{$max_page}"; // 最大页码
+    var type = "{$type}"; // 当前类型
+    var cat_id = "{$cat_id}"; // 当前分类
+    var px = "{$px}"; // 排序
+    $(".load_more").on("click", function() {
+        if (page > max_page) {
+            layer.open({
+                type: 2,
+                content: '数据已全部加载',
+                time: 1
+            });
+            $(".load_more").text("数据已全部加载");
+            return;
+        }
+        layer.open({
+            type: 2,
+            content: '加载中'
+        });
+        $(".load_more_content").load("{:U('index')}", {
+            page: page,cat_id:cat_id,px:px
+        }, function(response, status) {
+            if (status == "success") {
+                var html = $(".load_more_content").html();
+                $("#goods_list").append(html);
+                $(".load_more_content").html("");
+                page = parseInt(page) + 1; // 在本页自增
+            }
+            layer.closeAll();
+        });
+    });
+</script>

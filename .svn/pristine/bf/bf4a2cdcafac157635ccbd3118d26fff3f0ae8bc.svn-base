@@ -1,0 +1,63 @@
+@charset "UTF-8";
+
+@font-face {
+  font-family: "SourceHanSansCN-Normal";
+  src: url("../../font/SourceHanSansCN/SourceHanSansCN-Normal.woff2") format("woff2"),
+       url("../../font/SourceHanSansCN/SourceHanSansCN-Normal.woff") format("woff"),
+       url("../../font/SourceHanSansCN/SourceHanSansCN-Normal.ttf") format("truetype"),
+       url("../../font/SourceHanSansCN/SourceHanSansCN-Normal.eot") format("embedded-opentype"),
+       url("../../font/SourceHanSansCN/SourceHanSansCN-Normal.svg") format("svg"),
+       url("../../font/SourceHanSansCN/SourceHanSansCN-Normal.otf") format("opentype");
+  font-weight: normal;
+  font-style: normal;
+}
+
+body, html {
+  -webkit-tap-highlight-color: transparent;
+}
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  /*font-size: 100%;*/
+  font-family:"SourceHanSansCN-Normal","Microsoft YaHei" !important;
+  /*vertical-align: baseline;*/
+  box-sizing: border-box;
+  text-decoration: none;
+  list-style: none;  
+}
+.clear{clear:both}
+.f-r{float:right}
+.f-l{float:left}
+.pt10{padding-top:10vw;}
+.weui-search-bar{z-index:100000}
+/**页面样式**/
+
+@font-face {
+    font-family: 'iconfont';  /* project id 956109 */
+    src: url('//at.alicdn.com/t/font_956109_2o9ohf7g3r5.eot');
+    src: url('//at.alicdn.com/t/font_956109_2o9ohf7g3r5.eot?#iefix') format('embedded-opentype'),
+    url('//at.alicdn.com/t/font_956109_2o9ohf7g3r5.woff2') format('woff2'),
+    url('//at.alicdn.com/t/font_956109_2o9ohf7g3r5.woff') format('woff'),
+    url('//at.alicdn.com/t/font_956109_2o9ohf7g3r5.ttf') format('truetype'),
+    url('//at.alicdn.com/t/font_956109_2o9ohf7g3r5.svg#iconfont') format('svg');
+}
+.iconfont{
+    font-family:"iconfont" !important;
+    font-size:6vw;font-style:normal;
+    -webkit-font-smoothing: antialiased;
+    -webkit-text-stroke-width: 0.2px;
+    -moz-osx-font-smoothing: grayscale;
+}

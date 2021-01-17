@@ -1,0 +1,46 @@
+<style>
+    #spec span.child_span {
+        padding: 3px 6px;
+        border-radius: 0.5vw;
+        background: mediumseagreen;
+        color: white;
+        margin: 0px 4px;
+        display: inline-block;
+    }
+
+    .del {
+        width: 14px;
+        position: relative;
+        top: -20px;
+        right: 16px;
+        background: aliceblue;
+        border-radius: 1vw;
+    }
+
+
+</style>
+
+<table class="table table-bordered" id="spec">
+    <volist name="list" id="vo">
+        <tr>
+            <td>
+                {$vo['name']}:</td>
+            <td>
+                <volist name="vo['goods_spec_item']" id="vo2">
+                    <span class="child_span <?php if(in_array($vo2['id'],$items_ids)) {echo 'spam_check';} ?>"
+                          data-title="{$vo['id']}" data-id="{$vo2['id']}">{$vo2['item']}
+                   </span>
+<!--                    <img class="del" data-id="{$vo2['id']}" src="__PUBLIC__/images/delete.png"-->
+<!--                                alt="">-->
+                </volist>
+                <span><i class="icon-plus2 add_spec_child" data-id="{$vo['id']}" title="添加规格"></i></span>
+            </td>
+        </tr>
+    </volist>
+    <tr>
+        <td>
+            <i class="icon-plus2 add_spec" data-id="{$type_id}" title="添加规格"></i>
+        </td>
+    </tr>
+</table>
+

@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>商品管理</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="Keywords" content="">
+    <meta name="description" content="">
+    <!-- UC强制全屏 -->
+    <meta name="full-screen" content="yes">
+    <!-- QQ强制全屏 -->
+    <meta name="x5-fullscreen" content="true">
+    <link rel="stylesheet" href="__PUBLIC__/mobile/css_v3/addItem.css">
+    <script type="text/javascript" src="__PUBLIC__/layer/mobile/layer.js"></script>
+    <!--上拉加载-->
+</head>
+<body style="background-color: #f7f8fa;">
+<div class="h_vh">
+    <div class="h_goods">
+        <p class="h_title"><i>商品规格</i><span>请选择规格</span></p>
+        <ul class="get_goods_spec"></ul>
+    </div>
+</div>
+<div class="nextStep">
+    <a class="nextStepBtn_01" href="javascript:;" onclick="nextStep()">下一步</a>
+</div>
+<!--弹出层-->
+<div class="Specs_Box">
+    <div class="My_Specs">
+        <h5>选择规格名称 <i></i></h5>
+        <div class="h_MySpecs_height">
+            <ul class="h_MySpecs"></ul>
+        </div>
+        <div class="h_MySpecs_inp">
+            <input type="text" placeholder="输入规格名称">
+            <span onclick="Specs(this)">添加</span>
+        </div>
+        <div class="h_MySpecs_btn">
+            <div class="h_MySpecs_btn_2" onclick="h_Reset()">重置</div>
+            <div class="h_MySpecs_btn_1" onclick="Specs_btn()">确定</div>
+        </div>
+    </div>
+</div>
+</body>
+<script src="__PUBLIC__/mobile/js/jquery-2.1.4.js"></script>
+<script>
+    var user_id = "{$user_id}";
+    var IMGDATA; //本地存储信息
+    if(localStorage.addData){
+        IMGDATA = JSON.parse(localStorage.addData);
+        $.ajax({
+            type: 'post',
+            dataType: 'json',
+            // timeout:  4000,//接口请求超时
+            async: false,//改为同步方式
+            url: "{:U('Api/Shopapp/get_goods_spec')}",
+            data: {
+                'user_id': user_id,
+                'shop_id': IMGDATA.shop_id,
+                'goods_id': IMGDATA.goods_id?IMGDATA.goods_id:''
+            },
+            success: function (row) {
+                if(row.status == 0){
+                    var html = '';
+                    var html_1 = ''; //弹出层
+                    $.each(row.result,function (k,v) {
+                        html_1 += '<li class="h_MySpecs_list">' +
+                            '       <p class="omit">'+v.name+'</p>';
+                        if(IMGDATA.spec_arr?IMGDATA.spec_arr[v.id]:(v.is_select == 1)){
+                            html_1 += '<input type="checkbox" name="hspecs" value='+v.id+' checked >';
+                        }else {
+                            html_1 += '<input type="checkbox" name="hspecs" value='+v.id+'>';
+                        }
+                        html_1 += '</li>';
+                        if(IMGDATA.spec_arr?IMGDATA.spec_arr[v.id]:(v.is_select == 1)){
+                            html += '<li data-id='+v.id+'>' ;
+                        }else {
+                            html += '<li class="active" data-id='+v.id+'>' ;
+                        }
+                        html += '   <div class="h_gai">' +
+                            '       <p class="omit">'+v.name+'</p>' +
+                            '       <div class="h_trends">' +
+                            '           <i class="h_ic_add"></i>' +
+                            '           <i class="h_ic_cut"></i>' +
+                            '       </div>' +
+                            '   </div>';
+                        if(IMGDATA.spec_arr?IMGDATA.spec_arr[v.id]:(v.is_select == 1)){
+                            html += zanShi(v.id);
+                        }
+                        html += '</li>';
+                    });
+                    $('.get_goods_spec').html(html);
+                    $('.h_MySpecs').html(html_1); //弹出层
+                }else {
+                    layer.open({content: row.msg,skin: 'msg',time: 1});
+                }
+            },
+        });
+    }
+    //封装展示页面DOM方法
+    function zanShi(id,X){
+        var html_3 = '';
+        $.ajax({
+            type: 'post',
+            dataType: 'json',
+            // timeout:  4000,//接口请求超时
+            async: false,//改为同步方式
+            url: "{:U('Api/Shopapp/get_goods_spec_item')}",
+            data: {
+                'user_id': user_id,
+                'spec_id': id,
+                'shop_id': IMGDATA.shop_id,
+                'goods_id': IMGDATA.goods_id?IMGDATA.goods_id:''
+            },
+            success: function (row) {
+                if(row.status == 0){
+                    var data = row.result[0].item;
+                    html_3 += '<div class="xuan" data-bj="1">';
+                    $.each(data,function (ke,va) {
+                        if(IMGDATA.spec_arr?(IMGDATA.spec_arr[id]?IMGDATA.spec_arr[id].indexOf(va.id) != -1:''):va.is_select == 1) {
+                            html_3 += '<span class="omit active" data-zid='+va.id+'>' + va.item + '</span>';
+                        }else {
+                            html_3 += '<span class="omit" data-zid='+va.id+'>' + va.item + '</span>';
+                        }
+                    });
+                    html_3 += '</div>';
+                    if(X){
+                        $('.get_goods_spec li[data-id='+id+']').append(html_3);
+                    }
+                }else {
+                    layer.open({content: row.msg,skin: 'msg',time: 1});
+                }
+            },
+        });
+        return html_3
+    }
+    //选择
+    $('.get_goods_spec').on('click','.xuan span',function () {
+        $(this).toggleClass('active');
+    });
+    //减少选择的规格
+    $('.get_goods_spec').on('click','.h_ic_cut',function () {
+        var that = this;
+        layer.open({
+            content: '您确定删除当前规格项吗？',
+            btn: ['确定', '取消'],
+            yes: function (index) {
+                $(that).parents('li').addClass('active');
+                //减少规格删除复选按钮勾选
+                $('input[value='+$(that).parents('li').attr('data-id')+']').prop("checked",false);
+                layer.close(index)
+            }
+        });
+    });
+    //添加规格值
+    $('.get_goods_spec').on('click','.h_ic_add',function () {
+        var that = this;
+        layer.open({
+            content: '<input class="h_addTo" type="text" placeholder="请输入规格名称">',
+            btn: ['确定', '取消'],
+            yes: function (index) {
+                if($('.h_addTo').val()){
+                    $.ajax({
+                        type: 'post',
+                        dataType: 'json',
+                        // timeout:  4000,//接口请求超时
+                        async: false,//改为同步方式
+                        url: "{:U('Api/Shopapp/add_goods_spec_item')}",
+                        data: {
+                            'user_id': user_id,
+                            'shop_id': IMGDATA.shop_id,
+                            'spec_id': $(that).parents('li').attr('data-id'),
+                            'item': $('.h_addTo').val()
+                        },
+                        success: function (row) {
+                            layer.closeAll();
+                            if(row.status == 0){
+                                var html = '<span class="omit" data-zid='+row.result.id+'>'+row.result.item+'</span>';
+                                $(that).parents('li').find('.xuan').append(html)
+                            }else {
+                                layer.open({content: row.msg,skin: 'msg',time: 1});
+                            }
+                        },
+                    });
+                }else {
+                    layer.open({content: '请输入内容',skin: 'msg',time: 1});
+                }
+            }
+        });
+    });
+    //添加规格名
+    function Specs(that) {
+        var val = $(that).prev().val();
+        if(!val){
+            layer.open({content: '输入规格名称',skin: 'msg',time: 1});
+            return false
+        }
+        $.ajax({
+            type: 'post',
+            dataType: 'json',
+            // timeout:  4000,//接口请求超时
+            async: false,//改为同步方式
+            url: "{:U('Api/Shopapp/add_goods_spec')}",
+            data: {
+                'user_id': user_id,
+                'shop_id': IMGDATA.shop_id,
+                'name': val,
+                'sorting': 50
+            },
+            success: function (row) {
+                if(row.status == 0){
+                    //列表添加值
+                    var html = '<li class="h_MySpecs_list">' +
+                        '       <p class="omit">'+row.result.name+'</p><input type="checkbox" name="hspecs" value='+row.result.id+'>' +
+                        '</li>';
+                    $('.h_MySpecs').append(html);
+                    //列表添加名
+                    var html_1 = '<li class="active" data-id='+row.result.id+'>' +
+                        '   <div class="h_gai">' +
+                        '       <p class="omit">'+row.result.name+'</p>' +
+                        '       <div class="h_trends">' +
+                        '           <i class="h_ic_add"></i>' +
+                        '           <i class="h_ic_cut"></i>' +
+                        '       </div>' +
+                        '   </div>' +
+                        '</li>';
+                    $('.get_goods_spec').append(html_1);
+                    // $('.h_MySpecs_height').scrollTop($('.h_MySpecs')[0].scrollHeight);
+                    $(that).prev().val('');
+                    layer.open({content: row.msg,skin: 'msg',time: 1});
+                }else {
+                    layer.open({content: row.msg,skin: 'msg',time: 1});
+                }
+            },
+        });
+    }
+    //最多三个
+    $('.h_MySpecs').on('change',"input[name='hspecs']",function () {
+        if($("input[name='hspecs']:checked").length > 3){
+            $(this).attr("checked",false);
+            layer.open({content: '最多选择三个规格',skin: 'msg',time: 1});
+        }
+    });
+    //勾选的规格
+    function Specs_btn() {
+        $('.get_goods_spec li').addClass('active');
+        $("input[name='hspecs']:checked").each(function(){
+            var idDom = $('.get_goods_spec li[data-id='+$(this).val()+']');
+            idDom.removeClass('active');
+            if(idDom.children('.xuan').attr('data-bj') != 1){
+                zanShi(idDom.attr('data-id'),true);
+            }
+        });
+        $('.Specs_Box').toggle()
+    }
+    //重置
+    function h_Reset(){
+        layer.open({
+            content: '确定重置选择',
+            btn: ['确定', '取消'],
+            yes: function (i) {
+                layer.close(i);
+                $.ajax({
+                    type: 'post',
+                    dataType: 'json',
+                    // timeout:  4000,//接口请求超时
+                    async: false,//改为同步方式
+                    url: "{:U('Api/Shopapp/get_goods_spec')}",
+                    data: {
+                        'user_id': user_id,
+                        'shop_id': IMGDATA.shop_id,
+                        'goods_id': IMGDATA.goods_id ? IMGDATA.goods_id : ''
+                    },
+                    success: function (row) {
+                        if (row.status == 0) {
+                            var html_1 = ''; //弹出层
+                            $.each(row.result, function (k, v) {
+                                html_1 += '<li class="h_MySpecs_list">' +
+                                    '       <p class="omit">' + v.name + '</p>';
+                                if (IMGDATA.spec_arr ? IMGDATA.spec_arr[v.id] : (v.is_select == 1)) {
+                                    html_1 += '<input type="checkbox" name="hspecs" value=' + v.id + ' checked >';
+                                } else {
+                                    html_1 += '<input type="checkbox" name="hspecs" value=' + v.id + '>';
+                                }
+                                html_1 += '</li>';
+                            });
+                            $('.h_MySpecs').html(html_1); //弹出层
+                        } else {
+                            layer.open({content: row.msg, skin: 'msg', time: 1});
+                        }
+                    },
+                });
+            }
+        });
+    }
+    //弹出框
+    $('.My_Specs h5 i,.h_title').click(function () {
+        $('.Specs_Box').toggle()
+    });
+    //下一步
+    function nextStep() {
+        var kong = false;  //判断必填内容
+        var item = {};
+        $('.get_goods_spec li').each(function () {
+            if(!$(this).hasClass('active')){
+                var id = $(this).attr('data-id');
+                // if($(this).find('span.active').length>0){
+                    item[id] = [];
+                // }
+                $(this).find('span.active').each(function () {
+                    var zid = $(this).attr('data-zid');
+                    kong = true;
+                    item[id].push(zid);
+                });
+            }
+        });
+        if(kong){
+            IMGDATA['spec_arr'] = item;
+            delete IMGDATA.item; //防止返回此页面 item 存在报错
+            localStorage.setItem("addData",JSON.stringify(IMGDATA));
+            window.location.href="{:U('Shopcenter/addDetails')}"
+        }else {
+            layer.open({content: '至少选择一个商品规格值',skin: 'msg',time: 1});
+        }
+
+    }
+</script>
+</html>

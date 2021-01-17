@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<title>线下门店</title>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+		<meta name="Keywords" content="">
+		<meta name="description" content="">
+		<!-- UC强制全屏 -->
+		<meta name="full-screen" content="yes">
+		<!-- QQ强制全屏 -->
+		<meta name="x5-fullscreen" content="true">
+		<link rel="stylesheet" href="__PUBLIC__/mobile/style/jquery-weui.min.css">
+		<link rel="stylesheet" href="__PUBLIC__/mobile/css_v3/weui.min.css">
+		<link rel="stylesheet" href="__PUBLIC__/mobile/style/main_style.css">
+		<link rel="stylesheet" href="__PUBLIC__/mobile/css_v3/offline.css">
+		<link href="__PUBLIC__/css/footer.css" rel="stylesheet" type="text/css" />
+		<!--上拉加载-->
+		<link rel="stylesheet" href="__PUBLIC__/mobile/style/dropload.css">
+		<script type="text/javascript" src="__PUBLIC__/layer/mobile/layer.js"></script>
+
+	</head>
+
+	<body style="background-color: #f7f8fa;">
+		<div class="off_container">
+			<div class="off_cont_list">
+				<div class="cont_list_h2">店铺：南风花园店</div>
+				<div class="cont_list_bot">
+					<img class="ist_bot_img" src="__PUBLIC__/mobile/images_v3/f_dm10.png" />
+					<div class="list_bot_lr">
+						<div class="address_cont">
+							<h2 class="address">山东省济宁市任城区南风花园（南门）风花园（南门）</h2>
+							<div class="business_time">
+								营业时间：周一至周日06:00-21:00
+							</div>
+						</div>
+						<div class="address_dh">
+							<span class="line"></span>
+							<img class="phone" src="__PUBLIC__/mobile/images_v3/f-dianhu.png" />
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="off_cont_list">
+				<div class="cont_list_h2">店铺：南风花园店</div>
+				<div class="cont_list_bot">
+					<img class="ist_bot_img" src="__PUBLIC__/mobile/images_v3/f_dm10.png" />
+					<div class="list_bot_lr">
+						<div class="address_cont">
+							<h2 class="address">山东省济宁市任城区南风花园（南门）风花园（南门）</h2>
+							<div class="business_time">
+								营业时间：周一至周日06:00-21:00
+							</div>
+						</div>
+						<div class="address_dh">
+							<span class="line"></span>
+							<img class="phone" src="__PUBLIC__/mobile/images_v3/f-dianhu.png" />
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="off_cont_list">
+				<div class="cont_list_h2">店铺：南风花园店</div>
+				<div class="cont_list_bot">
+					<img class="ist_bot_img" src="__PUBLIC__/mobile/images_v3/f_dm10.png" />
+					<div class="list_bot_lr">
+						<div class="address_cont">
+							<h2 class="address">山东省济宁市任城区南风花园（南门）风花园（南门）</h2>
+							<div class="business_time">
+								营业时间：周一至周日06:00-21:00
+							</div>
+						</div>
+						<div class="address_dh">
+							<span class="line"></span>
+							<img class="phone" src="__PUBLIC__/mobile/images_v3/f-dianhu.png" />
+						</div>
+					</div>
+				</div>
+			</div>
+
+		</div>
+
+		<include file="Public/tabbar" />
+		<script src="__PUBLIC__/mobile/js/vue.min.js"></script>
+		<script src="__PUBLIC__/mobile/js/jquery-2.1.4.js"></script>
+		<script src="__PUBLIC__/mobile/js/jquery-weui.min.js"></script>
+		<script src="__PUBLIC__/mobile/js/swiper.min.js"></script>
+		<script src="__PUBLIC__/mobile/js/dropload.min.js"></script>
+
+	</body>
+
+</html>

@@ -1,0 +1,121 @@
+﻿<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<title>注册</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<link rel="stylesheet" href="__PUBLIC__/css/mui.min.css">
+		<link rel="stylesheet" href="__PUBLIC__/mobile/css_v3/reg.css">
+		<script src="__PUBLIC__/js/mui.min.js"></script>
+		<script src="__PUBLIC__/js/jquery.min.js"></script>
+
+	</head>
+
+	<body>
+		<div class="login_return">
+			<a href="javascript:history.back()"><img src="__PUBLIC__/mobile/images_v3/return.png" /></a>
+		</div>
+		<div class="mui-content" style="background: #fff;">
+			<div class="reg-cont reg-bottom">
+				<h1 class="The_login">注册</h1>
+				<p class="account">请输入以下信息用于注册</p>
+			</div>
+
+			<div class="reg-div">
+				<form action="" method="post">
+					<ul>
+						<li class="ipt_code">
+							<span class="area_code">+86</span>
+							<!--<b class="vertical_bar">|</b>-->
+							<input class="area_code_input " type="text" style="text-align: center;background-color: #f8f8f8;" name="phone" placeholder="请输入手机号" maxlength="11" value="" />
+						</li>
+						<li class="code">
+							<span class="The_countdown">获取验证码</span>
+							<input class="area_code_input" type="password" name="password" style="text-align: center; background-color: #f8f8f8;" placeholder="请输入验证码" value="" />
+						</li>
+						<li class="phone">
+							<input type="text" name="phone" placeholder="请输入密码(6-12位字符)" maxlength="11" value="" />
+						</li>
+						<li class="pwd">
+							<input type="password" name="password" placeholder="请确认密码" value="" />
+						</li>
+						<li class="pwd">
+							<input type="password" name="password" placeholder="请输入推荐人号码" value="" />
+						</li>
+					</ul>
+					<!--注册即同意-->
+					<div class="account_cont">
+						<div class="account_img">
+							<img src="__PUBLIC__/mobile/images_v3/fanhui02.png" style="width: 22.66vw;height: 22.66vw;" />
+						</div>
+						<p>注册即同意 <a href="javascript:void(0);">《消费者注册协议》</a></p>
+					</div>
+				</form>
+			</div>
+
+			<script src="__PUBLIC__/layer/mobile/layer.js"></script>
+			<!--切换效果-->
+			<script type="text/javascript">
+				$(function() {
+					$("#getPhoneCode").click(function() {
+						var phone = $.trim($("input[name=phone]").val());
+						if (!(/1[3-8]+[0-9]{9}/.test(phone))) {
+							layer.open({
+								content: "手机格式不正确",
+								skin: 'msg',
+								time: 2
+							});
+							return;
+						}
+						if (!_SEND) return;
+						$(this).attr("disabled", _SEND);
+						$(this).val("重新获得(60)");
+						_SEND = false;
+						$.ajax({
+							url: "{:U('Api/Pubout/get_phone_code')}",
+							type: 'POST',
+							data: 'phone=' + phone,
+							dataType: 'json',
+							success: function(a) {
+								if (a.status) {
+									layer.open({
+										content: a.msg,
+										skin: 'msg',
+										time: 2
+									});
+								} else {
+									$("input[name=session_id]").val(a.result.session_id);
+								}
+							}
+						});
+						setTimeout(repeatSend, 1010);
+					});
+				});
+				var _SEND = true;
+
+				function repeatSend() {
+					var num = $("#getPhoneCode").val().replace(/\d+/ig, function(n) {
+						if (n > 0) {
+							return --n;
+						} else {
+							return "#";
+						}
+					});
+					if (num.indexOf("#") == -1) {
+						$("#getPhoneCode").val(num);
+						setTimeout(repeatSend, 1010);
+					} else {
+						$("#getPhoneCode").val("获取手机验证码");
+						$("#getPhoneCode").attr("disabled", _SEND);
+						_SEND = true;
+					}
+				}
+			</script>
+
+	</body>
+
+</html>

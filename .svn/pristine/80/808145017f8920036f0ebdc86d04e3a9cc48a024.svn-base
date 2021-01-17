@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!--<meta name="viewport" content="width=device-width, initial-scale=1">-->
+    <title>{:GC('web_title')}管理后台</title>
+    <include file="Public/asset_top_page"/>
+</head>
+<body>
+<!-- header -->
+<include file="Public/header"/>
+<!-- /header -->
+<!-- Page container -->
+<div class="page-container">
+    <!-- Page content -->
+    <div class="page-content">
+        <!-- main sidebar -->
+        <include file="Public/left"/>
+        <!-- /main sidebar -->
+
+        <!-- Main content -->
+        <div class="content-wrapper">
+
+            <!-- Content area -->
+            <div class="content" style="padding-top: 10px;">
+                <!-- Pagination types -->
+                <div class="v-container">
+
+                    <!-- page -->
+                    <form class="form-horizontal pt-15" method="post" action="{:U('Index/appset')}">
+
+
+                        <div class="form-group">
+                            <label class="col-xs-2 control-label text-right">上传安卓apk文件</label>
+                            <div class="col-xs-5 control-label">
+                                <button type="button" class="layui-btn" id="upimg">
+                                    <i class="layui-icon">&#xe67c;</i>上传APP文件
+                                </button>
+                                <notempty name="data.app_file">
+                                    <button type="button" class="layui-btn layui-btn-normal"><i class="layui-icon">&#xe655;</i>
+                                        <a style="color: #ffffff"
+                                           href="/app/{$data.app_file}">下载APP文件</a>
+                                    </button>
+                                </notempty>
+                            </div>
+                        </div>
+                        <input type="hidden" name="app_file" class="headimgurl" value="{$data.app_file}">
+
+
+
+
+                        <div class="form-group">
+                            <label class="col-xs-2 control-label text-right">设置安卓版本信息</label>
+                            <div class="col-xs-5">
+                                <input type="text" class="form-control" name="app_info" value="{$data.app_info}" required>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-xs-2 control-label text-right">设置IOS地址</label>
+                            <div class="col-xs-5">
+                                <input type="text" class="form-control" name="ios_addres" value="{$data.ios_addres}" required>
+                            </div>
+                        </div>
+
+
+
+                        <div class="form-group">
+                            <label class="col-xs-2 control-label"></label>
+                            <div class="col-xs-8">
+                                <button class="layui-btn layui-btn-sm layui-btn-normal" type="submit">提交</button>
+                                <a href="javascript:history.go(-1);" class="layui-btn layui-btn-sm layui-btn-primary">返回</a>
+                            </div>
+                        </div>
+                    </form>
+
+                    <!-- page end -->
+
+                    <!-- Footer -->
+                    <include file="Public/footer" />
+                    <!-- /footer -->
+
+                </div>
+                <!-- /content area -->
+
+            </div>
+            <!-- /main content -->
+
+        </div>
+        <!-- /page content -->
+
+    </div>
+    <!-- /page container -->
+
+    <!-- 上传图片 -->
+    <script>
+        layui.use('upload', function() {
+            var $ = layui.jquery
+                , upload = layui.upload;
+
+            //普通图片上传
+            var uploadInst = upload.render({
+                elem: '#upimg'
+                , url: "/index.php/Admin/Common/appuploads"
+                ,accept: 'file'
+                , before: function (obj) {
+                    //预读本地文件示例，不支持ie8
+                    obj.preview(function (index, file, result) {
+                        $('#demo1').attr('src', result); //图片链接（base64）
+                    });
+                }
+                , done: function (res) {
+                    //如果上传失败
+                    if (res.code > 0) {
+                        return layer.msg(res.result);
+                    }
+                    //上传成功
+                    if (res.code == 0) {
+                        $(".headimgurl").val(res.result);
+                        return layer.msg('上传成功');
+                    }
+
+                }
+                , error: function () {
+                    //演示失败状态，并实现重传
+                    var demoText = $('#demoText');
+                    demoText.html('<span style="color: #FF5722;">上传失败</span> <a class="layui-btn layui-btn-xs demo-reload">重试</a>');
+                    demoText.find('.demo-reload').on('click', function () {
+                        uploadInst.upload();
+                    });
+                }
+            });
+        });
+    </script>
+    <!-- 上传图片 -->
+
+</body>
+</html></html>

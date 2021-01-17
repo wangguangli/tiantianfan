@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<title>代理中心</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<link rel="stylesheet" href="__PUBLIC__/mobile/css_v3/mui.min.css">
+		<link rel="stylesheet" href="__PUBLIC__/mobile/css_v3/agency.css">
+		<script src="__PUBLIC__/js/mui.min.js"></script>
+		<script src="__PUBLIC__/js/jquery.min.js"></script>
+	</head>
+
+	<body>
+		<div class="dis_container">
+			<!--头像部分-->
+			<div class="portrait_cont">
+				<a href="#">
+					<img class="portrait_img" src="{$user.headimgurl}" />
+					<div class="portrait_lr">
+						<span class="name">{$agentInfo.realname}</span>
+						<div class="introduce">
+							{$agentInfo.phone}
+						</div>
+
+					</div>
+				</a>
+			</div>
+		</div>
+		<!--提现-->
+		<div class="withdrawal">
+			<div class="wit_top">
+				<div class="wit_top_tit">余额</div>
+				<div class="money_cont">
+					<a href="{:U('User/accountDetail','type=3')}" class="number">{$agentInfo.agent_money}</a>
+					<a href="{:U('User/moneyout')}" class="tx_button">提现</a>
+				</div>
+			</div>
+			<!--资产说明-->
+			<div class="wit_bot">
+				<a href="{:U('User/accountDetail','type=3')}">
+					<div class="assets_lf">
+						<img class="qiandai_img" src="__PUBLIC__/mobile/images_v3/qaindai.png" />
+						<span class="instruc">资产明细</span>
+					</div>
+					<img class="assets_jump" src="__PUBLIC__/mobile/images_v3/qian_fh.png" />
+				</a>
+			</div>
+
+		</div>
+		<!--佣金-->
+		<div class="commission">
+			<div class="comm_lf">
+				<a href="javascript:gift()">
+					<span class="comm_lf_tit">赠送积分</span>
+					<div class="comm_lf_qian">
+						{$agentInfo.money_wait}
+					</div>
+				</a>
+			</div>
+			<div class="comm_lf">
+				<a href="javascript:expend()">
+					<span class="comm_lf_tit line">消费积分</span>
+					<div class="comm_lf_qian">
+						{$agentInfo.money}
+					</div>
+				</a>
+			</div>
+			<div class="comm_lf">
+				<a href="javascript:withdraw()">
+					<span class="comm_lf_tit line">已提现</span>
+					<div class="comm_lf_qian">
+						{$agentInfo.tx_money}
+					</div>
+				</a>
+			</div>
+
+		</div>
+		<!--管理工具-->
+		<div class="tool_container">
+			<h2 class="title">管理工具</h2>
+			<div class="tool_ul">
+				<div class="tool_li">
+					<a href="{:U('shops')}">
+						<div class="tool_li_lf">
+							<img class="tool_img" src="__PUBLIC__/mobile/images_v3/daili1.png" />
+							<span class="x_baioti">旗下商家</span>
+						</div>
+						<img class="tooi_jump" src="__PUBLIC__/mobile/images_v3/f_fanhui2.png" />
+					</a>
+				</div>
+				<div class="tool_li">
+					<a href="{:U('info')}">
+						<div class="tool_li_lf">
+							<img class="tool_img" src="__PUBLIC__/mobile/images_v3/daili2.png" />
+							<span class="x_baioti">代理信息</span>
+						</div>
+						<img class="tooi_jump" src="__PUBLIC__/mobile/images_v3/f_fanhui2.png" />
+					</a>
+				</div>
+				<div class="tool_li">
+					<a href="{:U('baodan')}">
+						<div class="tool_li_lf">
+							<img class="tool_img" src="__PUBLIC__/mobile/images_v3/daili3.png" />
+							<span class="x_baioti">收银中心</span>
+						</div>
+						<img class="tooi_jump" src="__PUBLIC__/mobile/images_v3/f_fanhui2.png" />
+					</a>
+				</div>
+				<div class="tool_li" style="margin-bottom: 0;">
+					<a href="{:U('swap')}">
+						<div class="tool_li_lf">
+							<img class="tool_img" src="__PUBLIC__/mobile/images_v3/daili4.png" />
+							<span class="x_baioti">额度转换</span>
+						</div>
+						<img class="tooi_jump" src="__PUBLIC__/mobile/images_v3/f_fanhui2.png" />
+					</a>
+				</div>
+
+			</div>
+
+		</div>
+
+		<script>
+			function gift() {
+				location.href = "{:U('Agent/moneylist')}?type=1";
+			}
+
+			function expend() {
+				location.href = "{:U('Agent/moneylist')}?type=2";
+			}
+
+			function withdraw() {
+				location.href = "{:U('Agent/moneylist')}?type=3";
+			}
+			$(window).scroll(function() {
+				var top = $(window).scrollTop();
+				var head = $('#color_id').height();
+				if (top > head) {
+					$('#color_id').css('background-color', '#F9584D')
+				} else {
+					$('#color_id').css('background-color', 'transparent')
+				}
+			})
+		</script>
+	</body>
+
+</html>

@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<!--<meta name="viewport" content="width=device-width, initial-scale=1">-->
+	<title>{:GC('web_title')}管理后台-菜单设置</title>
+	<include file="Public/asset_top_page"/>
+	<style>
+		table{
+			border-bottom: 1px	solid #ddd;
+		}
+	</style>
+</head>
+<body>
+<!-- header -->
+<include file="Public/header"/>
+<!-- /header -->
+<!-- Page container -->
+<div class="page-container">
+	<!-- Page content -->
+	<div class="page-content">
+		<!-- main sidebar -->
+		<include file="Public/left"/>
+		<!-- /main sidebar -->
+
+		<!-- Main content -->
+		<div class="content-wrapper">
+
+			<!-- Content area -->
+			<div class="content" style="padding-top: 10px;">
+				<!-- Pagination types -->
+				<div class="v-container">
+					<div class="alert alert-tips alert-dismissible" role="alert">
+						<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
+						本页菜单设置</div>
+
+					<div class="panel panel-flat">
+						<div class="panel-heading">
+
+							<form class="v-filter-container" action="{:U('Index/jscd_handle')}" method="POST">
+
+								<div class="filter-fields-wrap">
+									<div class="filter-item clearfix">
+										<div class="filter-item__field">
+											<input type="hidden" name="level" value="{$parent.level}">
+											<input type="hidden" name="parent_id" value="{$parent.id}">
+											<div class="v__control-group">
+												<label class="v__control-label">菜单管理_新增</label>
+												<div class="v__controls">
+													<input type="text" id="user_id" name="name" value=""  class="v__control_input"placeholder="请输入菜单名称" autocomplete="off">
+												</div>
+											</div>
+
+											<div class="v__control-group">
+												<label class="v__control-label"> &nbsp</label>
+												<div class="v__controls">
+													<input type="text" id="user_name"  name="group1" value="" class="v__control_input" placeholder="请输入菜单英文名称" autocomplete="off">
+												</div>
+											</div>
+
+
+
+										</div>
+									</div>
+
+
+									<div class="filter-item clearfix">
+										<div class="filter-item__field">
+											<div class="v__control-group">
+												<label class="v__control-label"></label>
+												<div class="v__controls">
+													<!--													<a class="btn btn-primary search">搜索</a>-->
+													<input type="submit" value="确定" class="btn btn-primary search" style="width:100px;height: 35px;">
+													<a class="btn btn-success ml-15 dataExcel" style="display: none;">导出订单</a>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</form>
+							<!--搜索框-->
+							<div class="heading-elements">
+
+							</div>
+						</div>
+
+
+						<div class="dataTables_wrapper no-footer">
+							<table class="table datatable-tools-basic basic_table">
+<!--								<thead style="height:1px">-->
+
+<!--								<tr >-->
+<!--									<th style="width: 1px;"></th>-->
+<!--									<th class=""></th>-->
+<!--									<th class=""></th>-->
+<!--									<th class="text-center"></th>-->
+<!--								</tr>-->
+<!--								</thead>-->
+
+								<tr >
+									<foreach name="jscd" item="vo" key="k" >
+										<if condition="$k%3 eq 0">
+								</tr>
+								<tr class="tt_color">
+									</if>
+										<td style="width: 1px;"></td>
+									<td class="text-center">
+										<div class="tt_stand text-left"  >
+											<label style="width: 90px">{$vo.name}</label>
+
+											<if condition="$vo[level] lt 3">
+
+													<a title="查看详情" href="{:U('Index/cdsz_action',array('parent_id'=>$vo[id]))}" class="layui-btn layui-btn-sm layui-btn-normal btn_detail">详情</a>
+													&nbsp;&nbsp;
+											</if>
+											<if condition="$vo[level] eq 2">
+												<!-- <a href="{:U('Index/jscd_edit_right',array('parent_id'=>$vo['id']))}" class="btn btn-info" role="button">设置</a>&nbsp;&nbsp; -->
+											</if>
+											<if condition="$vo[level] eq 3">
+												<!-- <a href="{:U('Index/jscd_edit_right',array('parent_id'=>$vo['id']))}" class="btn btn-info" role="button">设置</a>
+												&nbsp;&nbsp; -->
+											</if>
+
+											<a title="删除用户" href="{:U('Index/jscd_del',array('id'=>$vo['id']))}" class="layui-btn layui-btn-sm layui-btn-danger btn_detail" onclick="return confirm('确定要删除吗?');">删除</a>
+										</div>
+									</td>
+
+						</foreach>
+									</tr>
+
+
+							</table>
+
+						</div>
+						<!-- /pagination types -->
+
+					</div>
+					<!-- Footer -->
+					<include file="Public/footer" />
+					<!-- /footer -->
+
+				</div>
+				<!-- /content area -->
+
+			</div>
+			<!-- /main content -->
+
+		</div>
+		<!-- /page content -->
+
+	</div>
+	<!-- /page container -->
+
+</body>
+</html>

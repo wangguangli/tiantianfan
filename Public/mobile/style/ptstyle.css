@@ -1,0 +1,65 @@
+@charset "utf-8";
+/* CSS Document */
+
+.walls{width: 100%;}
+.spell{width: 95%;margin: 5vw auto 0;}
+.spell h3{font-size: 4vw;color:#ff4212;margin: 0;font-weight: 400;text-align: center;}
+.shengyu{display: flex;align-items: center;justify-content: center;margin-top: 3vw;}
+.shengyu span{font-size: 3.6vw;color: #999999;display: block;}
+.shengyu p{font-size: 3.6vw;color: #999;border: 0;outline: 0;margin: 0;}
+.port{width: 100%;margin-top: 3vw;display: flex;align-items: center;justify-content: center;}
+.portleft{width: 10%;border-bottom: 1px solid #ff4212;margin-right: 2vw}
+.portright{width: 10%;border-bottom: 1px solid #ff4212;margin-left: 2vw;}
+.portcenter{display: flex;align-items: center;justify-content: center;}
+.portimg{width: 10vw;height: 10vw; border:1px solid #ff4212;border-radius: 50%; -moz-border-radius: 50%; -webkit-border-radius: 50%;display: block;}
+.ports{width: 10vw;height: 10vw; border:1px solid #ff4212;border-radius: 50%; -moz-border-radius: 50%; -webkit-border-radius: 50%;display: block;margin-left: -2vw;}
+.shangps{width: 100%;display: flex;align-items: center;margin-top: 2vw;}
+.shangps img{width: 24vw; height: 24vw;}
+.shtitl{margin-left: 2vw;width: 75%;}
+.shtitl p{font-size: 4vw;color: #333;margin: 0;overflow:hidden;white-space:nowrap; text-overflow:ellipsis;;}
+.shtitl span{font-size: 3.8vw;color: #2a2a2a;display: block;margin-top: 1vw;}
+.shtitl h4{font-size: 4vw;color: #2a2a2a;margin-top: 1vw;display: block;}
+.ged{width:100%;height: 2vw;background-color: #f2f2f2;margin-top: 6vw;}
+.annius{width: 75%;margin: 14vw auto 0;height: 11vw;line-height: 11vw;color: #fff;text-align: center;font-size: 4vw;background-color: #ff5100;border-radius: 10vw;}
+.annius a{color: #fff;}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

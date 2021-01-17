@@ -1,0 +1,163 @@
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline;
+  box-sizing: border-box;
+  text-decoration: none;
+  list-style: none;
+  
+}
+body{font-family:sans-serif;}
+small { font-size: 12px; } /* 小于 12px 的中文很难阅读，让 small 正常化 */
+*{
+  padding: 0;
+  margin: 0;
+  
+}
+a{text-decoration: none;color: black}
+a:hover{color: black}
+ul{list-style: none}
+.fl{float:left}
+.fr{float:right}
+.clear{clear:both}
+.tal{text-align: left;}
+.tac{text-align: center;}
+.tar{text-align: right;}
+
+.swiper-container{
+	width: 100%;
+	height: 55vw;
+}
+.swiper-container .swiper-slide-img{
+	width: 100%;
+	height: 100%;
+}
+
+.video-nav{
+	width: 100%;
+}
+.video-nav ul{
+	width: 100%;
+	margin: 5vw 0;
+}
+.video-nav ul li{
+	width: 20%;
+	text-align: center;
+	float:left;
+}
+.video-nav ul li img{
+	width: 60%;
+}
+.video-nav ul li p{
+	line-height: 6vw;
+	font-size: 12px;
+	
+}
+.video-list{
+	border-top: 1vw solid #e1e1e1;
+	padding: 5vw 0 0;
+	width: 100%;
+	
+}
+.video-list-title{
+	width: 100%;
+}
+.video-list-title h2{
+	
+	padding-left: 2vw;
+	width: 50%;
+	float: left;
+	font-size: 4.5vw;
+	line-height: 6vw;
+}
+.video-list-title h2 img{
+	width: 6vw;
+	height: 6vw;
+	vertical-align: middle;
+	float: left;
+}
+.video-list-title h2 p{
+	padding-left: 2vw;
+	font-weight: 600;
+	float: left;
+}
+.video-list-title  span{
+	margin-right: 3vw;
+    padding: 0 0vw;
+	display: table;
+	float: right;
+	font-size: 4vw;
+	line-height: 7vw;
+	color: red;
+	
+}
+.index-live-ul{
+	margin: 3vw auto 0;
+	width: 94%;
+	
+}
+.index-live-ul li{
+	width: 48%;
+	float: left;
+	height:45vw;
+}
+.index-live-ul li:nth-child(2n){
+	margin-left:4%;
+}
+.index-live-ul li:nth-child(2n+1){
+	margin-left: none;
+}
+.index-live-ul li .index-live-li-img img{
+	width:100%;
+	height: 30vw;
+	border-radius: 3vw;
+}
+.index-live-ul li .index-live-li-img h3{
+	font-size:13px;
+	line-height: 5vw;
+	width:100%; overflow:hidden; height:5vw; float:left
+	
+}
+.index-live-li-text {
+	width: 100%;
+	padding-bottom: 2vw;
+}
+
+.index-live-li-text img{
+	margin-top: 2vw;
+	height: 3vw;
+}
+.index-live-li-text span{
+	color: #999;
+	font-size: 4vw;
+	line-height: 6vw;
+	
+}
+.menu-box{width:100%; top:12vw; position:absolute; background:#fff; height:10vw; border-bottom:1px solid #dedede; z-index:9999 }
+.sorll-san{width:8%; float:right; height: 10vw; line-height:9.8vw; padding-left:2.5vw; box-sizing:border-box}
+.sorll-san .sorll-right-icon{width:3vw; height:3vw; float:left; margin-top:3.5vw; background:url(../images/right.png); background-size:100% 100%;}
+.wrapper {position:relative;height: 10vw;width: 92%;overflow: hidden; float:left;}
+.wrapper .scroller {position:absolute}
+.wrapper .scroller li {height: 10vw;color:#999;float: left;line-height: 9.8vw;font-size:3.5vw;text-align: center}
+.wrapper .scroller li a{color:#333;display:block;margin:0 2.5vw; font-size:3.5vw;}
+.wrapper .scroller li.cur a, .wrapper .scroller li .cur{border-bottom:2px solid #40c949; color:#40c949}
+.clearfix:after{content:".";display:block;height:0;clear: both;visibility:hidden;}
+.clearfix{*zoom:1;}
+.pages{width:100%; display:inline-block; padding:.75em; text-align:center}
+.pages .num{padding:3px 7px; border:1px solid #dedede; margin:0 2px}
+.pages .current{padding:3px 7px; border:1px solid #4285f4; background:#4285f4; color:#fff}

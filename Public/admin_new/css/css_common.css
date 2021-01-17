@@ -1,0 +1,87 @@
+body{
+	font-size: 12px;
+}
+.text-bright{
+	color: #FF0000;
+}
+.form-control{
+	height: 32px;
+	padding: 6px 12px;
+	font-size: 12px;
+	color: #666;
+	background-color: #fff;
+}
+.radio-inline{
+	padding-left: 20px;
+}
+.img_headimgurl{
+	width: 86px;
+	height: 86px;
+	border: 1px dashed #ccc;
+}
+.placeholder{
+	margin-bottom: 10px;
+}
+
+
+.mini-space .table>tbody>tr>td {
+	padding: 6px 20px;
+
+}
+
+/*分页专用*/
+.page_1028{
+	clear: both;
+	padding: 15px 0;
+}
+.page_1028 div span,
+.page_1028 div a {
+	float: left;
+	vertical-align: middle;
+	padding: 0 15px;
+	height: 30px;
+	line-height: 30px;
+	background-color: #fff;
+	color: #333;
+	font-size: 12px;
+	border: 1px solid #e2e2e2;
+	margin: 0 -1px 0 0;
+	overflow: hidden;
+}
+.page_1028 div .current{
+	background-color: #1E9FFF;
+	color: #ffffff;
+	border-top: #1E9FFF;
+	border-bottom: #1E9FFF;
+}
+.page_1028 div .total_rows{
+	float: left;
+}
+.page_1028 div .total_pages{
+	float: left;
+}
+.page_1028 div .jump_num{
+	width: 40px;
+	margin: 0;
+	padding: 0 3px;
+	text-align: center;
+	height: 30px;
+	line-height: 30px;
+	border-radius: 2px;
+	vertical-align: top;
+	background-color: #fff;
+	box-sizing: border-box;
+	border: 1px solid #e2e2e2;
+}
+.page_1028 div .jumpurl{
+	display: none;
+}
+.page_1028 div .total_pages_hidden{
+	display: none;
+}
+/*分页专用 end */
+
+
+.padd_left_11{
+	padding-left: 11px;
+}

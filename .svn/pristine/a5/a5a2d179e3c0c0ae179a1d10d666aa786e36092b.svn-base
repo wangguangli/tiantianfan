@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<!--<meta name="viewport" content="width=device-width, initial-scale=1">-->
+	<title>{:GC('web_title')}管理后台-自提点设置</title>
+	<include file="Public/asset_top_page"/>
+	<style>
+		table{
+			border-bottom: 1px solid #ddd
+		}
+	</style>
+</head>
+
+<body>
+<!-- header -->
+<include file="Public/header"/>
+<!-- /header -->
+<!-- Page container -->
+<div class="page-container">
+	<!-- Page content -->
+	<div class="page-content">
+		<!-- main sidebar -->
+		<include file="Public/left"/>
+		<!-- /main sidebar -->
+
+		<!-- Main content -->
+		<div class="content-wrapper">
+
+			<!-- Content area -->
+			<div class="content" style="padding-top: 10px;">
+				<!-- Pagination types -->
+				<div class="v-container">
+					<div class="alert alert-tips alert-dismissible" role="alert">
+						<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span
+								aria-hidden="true">×</span></button>
+						本页自提点设置
+					</div>
+
+					<div class="panel panel-flat">
+						<div class="panel-heading">
+							<form class="v-filter-container" action="{:U('picksite')}" method="get">
+
+								<div class="filter-fields-wrap">
+									<div class="filter-item clearfix">
+										<div class="filter-item__field">
+
+											<div class="v__control-group">
+												<label class="v__control-label">名称</label>
+												<div class="v__controls">
+													<input type="text" id="user_id" name="title" value="{$_REQUEST['title']}" class="v__control_input" placeholder="请输入会员名称" autocomplete="off">
+												</div>
+											</div>
+
+											<div class="v__control-group">
+												<label class="v__control-label">联系人</label>
+												<div class="v__controls">
+													<input type="text" id="user_name" name="name" value="{$_REQUEST['name']}" class="v__control_input" placeholder="用户名/昵称" autocomplete="off">
+												</div>
+											</div>
+
+											<div class="v__control-group">
+												<label class="v__control-label">电话</label>
+												<div class="v__controls">
+													<input type="text" id="phone" maxlength="11" name="phone" value="{$_REQUEST['phone']}" class="v__control_input" placeholder="手机号码" autocomplete="off">
+												</div>
+											</div>
+
+
+<!--											<div class="v__control-group">-->
+<!--												<label class="v__control-label">地址</label>-->
+<!--												<div class="v__controls">-->
+<!--													<input type="text" id="address" name="address" value="{$_REQUEST['address']}" class="v__control_input" placeholder="手机号码" autocomplete="off">-->
+<!--												</div>-->
+<!--											</div>-->
+
+
+
+
+										</div>
+									</div>
+
+
+									<div class="filter-item clearfix">
+										<div class="filter-item__field">
+											<div class="v__control-group">
+												<label class="v__control-label"></label>
+												<div class="v__controls">
+													<!--													<a class="btn btn-primary search">搜索</a>-->
+													<input type="submit" value="搜索" class="btn btn-primary search" style="width:100px;height: 35px;">
+                                                    <a href="{:U('picksiteEdit')}"><input type="button" value="添加" class="btn btn-primary search" style="width:100px;height: 35px;"></a>
+													<a class="btn btn-success ml-15 dataExcel" style="display: none;">导出订单</a>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</form>
+
+							<!--搜索框-->
+							<div class="heading-elements">
+
+							</div>
+						</div>
+						<div class="dataTables_wrapper no-footer mini-space">
+							<table class="table datatable-tools-basic basic_table">
+								<thead>
+								<tr>
+									<th style="width: 1px;">
+									</th>
+									<th class="">ID</th>
+									<th class="">名称</th>
+									<th class="">联系人</th>
+									<th class="">电话</th>
+									<th class="">地址</th>
+									<th class="">营业时间</th>
+
+									<th class="text-center">操作</th>
+								</tr>
+								</thead>
+
+
+								<foreach name="list" item="vo">
+
+									<tr class="tt_color" style="">
+										<td style="width: 1px;">
+										</td>
+
+
+										<td class="">{$vo.id}</td>
+
+										<td class="">
+											<div class="ed_stand">
+												<p>{$vo.title}</p>
+											</div>
+										</td>
+
+										<td class="">
+											<div class="ed_stand">
+												<p>{$vo.name}</p>
+											</div>
+										</td>
+										<td class="">
+											<div class="ed_stand">
+												<p>{$vo.phone}</p>
+											</div>
+										</td>
+										<td class="">
+											<div class="ed_stand">
+												<p>{$vo.province|get_region_name} {$vo.city|get_region_name} {$vo.district|get_region_name} {$vo.address}</p>
+											</div>
+										</td>
+
+										<td class="">
+											<div class="ed_stand">
+												<p>{$vo.work_time_start}-{$vo.work_time_end}
+													<br>{$vo.work_day|get_week_day}</p>
+											</div>
+										</td>
+
+
+
+
+										<td class="text-center col-xs-2">
+											<div class="tt_stand">
+
+												<a title="详情" href="{:U('picksiteEdit', array('id'=> $vo['id']))}" class="layui-btn layui-btn-sm layui-btn-normal btn_detail">详情</a>
+												<a title="删除" href="{:U('picksiteDel', array('id'=> $vo['id']))}" class="layui-btn layui-btn-sm layui-btn-danger btn_detail" onclick="return confirm('确定要删除吗?');">删除</a>
+											</div>
+										</td>
+									</tr>
+								</foreach>
+							</table>
+
+						</div>
+						<!-- /pagination types -->
+					</div>
+				</div>
+				<!--end-->
+				<!-- Footer -->
+				<include file="Public/footer"/>
+				<!-- /footer -->
+			</div>
+			<!-- /content area -->
+		</div>
+		<!-- /main content -->
+
+	</div>
+	<!-- /page content -->
+
+</div>
+<!-- /page container -->
+
+
+
+
+</body>
+</html>

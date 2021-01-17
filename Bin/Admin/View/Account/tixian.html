@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<!--<meta name="viewport" content="width=device-width, initial-scale=1">-->
+	<title>{:GC('web_title')}管理后台-提现记录</title>
+	<include file="Public/asset_top_page"/>
+</head>
+
+<body>
+<!-- header -->
+<include file="Public/header"/>
+<!-- /header -->
+<!-- Page container -->
+<div class="page-container">
+	<!-- Page content -->
+	<div class="page-content">
+		<!-- main sidebar -->
+		<include file="Public/left"/>
+		<!-- /main sidebar -->
+
+		<!-- Main content -->
+		<div class="content-wrapper">
+
+			<!-- Content area -->
+			<div class="content" style="padding-top: 10px;">
+				<!-- Pagination types -->
+				<div class="v-container">
+					<div class="alert alert-tips alert-dismissible" role="alert">
+						<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span
+								aria-hidden="true">×</span></button>
+						本页提现记录 总提现：{$all_money|default=0.00}，今日提现：{$today_money|default=0.00}
+
+						<div style="float: right;padding-right: 20px;">代发账户余额：<span class="dfzhye">0</span>元
+							<button id="queryBalance" class="layui-btn layui-btn-sm"
+							        style="height: 23px;line-height: 23px;">查询
+							</button>
+						</div>
+
+					</div>
+
+					<div class="panel panel-flat">
+						<div class="panel-heading">
+
+							<form class="v-filter-container" action="{:U('Account/tixian')}" method="POST"
+							      onsubmit="return sub()" id="formHandle">
+
+								<div class="filter-fields-wrap">
+									<div class="filter-item clearfix">
+										<div class="filter-item__field">
+
+											<input type="hidden" name="ischeck" value="{$_REQUEST['ischeck']}">
+
+											<div class="v__control-group">
+												<label class="v__control-label">类别</label>
+												<div class="v__controls">
+													<select name="cate" class="v__control_input" id="type" id="level">
+														<option value="0" selected="">收款人</option>
+														<option value="1">账户</option>
+														<option value="2">用户类型</option>
+													</select>
+												</div>
+											</div>
+
+											<div class="v__control-group">
+												<label class="v__control-label">关键字</label>
+												<div class="v__controls">
+													<input type="text" id="shop_id" name="data"
+													       value="{$_REQUEST['data']}" class="v__control_input"
+													       placeholder="请输入搜索内容" autocomplete="off">
+												</div>
+											</div>
+
+
+											<div class="v__control-group">
+												<label class="v__control-label">开始时间</label>
+												<div class="v__controls">
+													<input type="text" id="startTime" name="startTime"
+													       value="{$_REQUEST['startTime']}" class="v__control_input"
+													       placeholder="请输入开始时间" autocomplete="off">
+												</div>
+											</div>
+
+											<div class="v__control-group">
+												<label class="v__control-label">结束时间</label>
+												<div class="v__controls">
+													<input type="text" id="endTime" name="endTime"
+													       value="{$_REQUEST['endTime']}" class="v__control_input"
+													       placeholder="请输入结束时间" autocomplete="off">
+												</div>
+											</div>
+
+
+											<div class="filter-item clearfix">
+												<div class="filter-item__field">
+													<div class="v__control-group">
+														<label class="v__control-label"></label>
+														<div class="v__controls">
+															<!--													<a class="btn btn-primary search">搜索</a>-->
+															<input type="submit" value="搜索"
+															       class="btn btn-primary search"
+															       style="width:100px;height: 35px;">
+															<a class="btn btn-success ml-15" onclick="ExportExcel();">导出表格</a>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</form>
+
+							<!--搜索框-->
+							<div class="heading-elements">
+
+							</div>
+						</div>
+						<div class="dataTables_wrapper no-footer mini-space">
+							<table class="table datatable-tools-basic basic_table">
+								<thead>
+								<tr>
+									<th style="width:1px;"></th>
+									<th class="">ID</th>
+									<th class="">用户信息</th>
+									<th class="">用户类型</th>
+									<th class="">账户</th>
+									<th class="">收款人</th>
+									<th class="">账户</th>
+									<th class="">账号</th>
+									<th class="">提现数额</th>
+									<th class="">手续费</th>
+									<th class="">实际转账</th>
+									<th class="">状态</th>
+									<th class="">申请时间</th>
+									<th class="">操作时间</th>
+
+									<th class="text-center">操作</th>
+								</tr>
+								</thead>
+
+
+								<foreach name="list" item="i">
+
+									<tr class="tt_color" style="">
+										<td style="width: 1px;">
+										</td>
+
+
+										<td class="">{$i.id}</td>
+
+										<td class="">
+											<div class="ed_stand">
+												<p>{$i.phone}（{$i.realname}）</p>
+											</div>
+										</td>
+
+										<td class="">
+											<div class="ed_stand">
+												<p>{$i.user_role}</p>
+											</div>
+										</td>
+										<td class="">
+											<div class="ed_stand">
+												<if condition="$i['amt_type'] eq 1">
+												<p>佣金</p>
+													<else />
+													<p>待返金额</p>
+												</if>
+											</div>
+										</td>
+										<td class="">
+											<div class="ed_stand">
+												<p>{$i.name}</p>
+											</div>
+										</td>
+										<td class="">
+											<div class="ed_stand">
+												<p><span style="color: #6161ef;">[{$i.bank_name|tx_bank_type}]</span>
+													{$i.bank_name}</p>
+											</div>
+										</td>
+
+										<td class="">
+											<div class="ed_stand">
+												<p>{$i.cart_no}</p>
+											</div>
+										</td>
+
+										<td class="">
+											<div class="ed_stand">
+												<p>{$i.tx_money}</p>
+											</div>
+										</td>
+										<td class="">
+											<div class="ed_stand">
+												<p>{$i.sxf_money}</p>
+											</div>
+										</td>
+
+										<td class="">
+											<div class="ed_stand">
+												<p>{$i.sjzz_money}</p>
+											</div>
+										</td>
+
+										<td class="">
+											<div class="ed_stand">
+												<p>{$i.ischeck|tx_status}</p>
+											</div>
+										</td>
+										<td class="">
+											<div class="ed_stand">
+												<p>{$i.cre_date}</p>
+											</div>
+										</td>
+
+										<td class="">
+											<div class="ed_stand">
+												<p>{$i.up_date}</p>
+											</div>
+										</td>
+
+
+										<td class="text-center col-xs-2">
+											<div class="tt_stand">
+												<empty name="i.ischeck">
+													<a title="同意" href="{:U('confirm_tixian', 'id=' . $i['id'])}"
+													   class="layui-btn layui-btn-sm layui-btn-normal btn_detail"
+													   onClick="return confirm('该申请提现确认同意要汇款吗？')">同意</a>
+													<a title="拒绝" href="{:U('delete', 'id=' . $i['id'])}"
+													   class="layui-btn layui-btn-sm layui-btn-danger btn_detail"
+													   onClick="return confirm('该申请提现确认拒绝汇款吗？')">拒绝</a>
+												</empty>
+
+											</div>
+										</td>
+									</tr>
+								</foreach>
+							</table>
+
+							<div class="page_1028">
+								{$show}
+								<div class="clear"></div>
+							</div>
+						</div>
+						<!-- /pagination types -->
+					</div>
+				</div>
+				<!--end-->
+				<!-- Footer -->
+				<include file="Public/footer"/>
+				<!-- /footer -->
+			</div>
+			<!-- /content area -->
+		</div>
+		<!-- /main content -->
+
+	</div>
+	<!-- /page content -->
+
+</div>
+<!-- /page container -->
+
+
+<script>
+	layui.use('laydate', function () {
+			var laydate = layui.laydate;
+			laydate.render({
+				elem: '#startTime'
+			})
+			laydate.render({
+				elem: '#endTime'
+			})
+		}
+	);
+
+	//判断数据
+	function sub() {
+		var sTime = $('#startTime').val();
+		var eTime = $('#endTime').val();
+		if (sTime && !eTime) {
+
+			alert('开始/结束时间必须都有');
+			return false;
+
+		}
+		if (!sTime && eTime) {
+			alert('开始/结束时间必须都有');
+			return false;
+		}
+		if (sTime && eTime) {
+			return true;
+		} else {
+			return true;
+		}
+	}
+
+	$("#queryBalance").on("click", function () {
+		var url = "/Api/Userout/getMerchantMoney";
+		$.ajax({
+			url: url,
+			dataType: "json",
+			success: function (res) {
+				if (res.status == 0) {
+					var pay_money = res.result.pay_money;
+					$(".dfzhye").text(pay_money);
+				} else {
+					layui.use('layer', function () {
+						var layer = layui.layer;
+						layer.msg(res.msg);
+					});
+				}
+			}
+		})
+	});
+
+	//根据搜索值导出表格
+	function ExportExcel() {
+		var url = "{:U('export_excel')}";
+		var data = $("#formHandle").serialize();    // 获取整个搜索的条件数据,  formHandle 这个是搜索form的ID
+		$.ajax({
+			url: url,
+			type: 'post',
+			async: false,
+			data: data,
+			timeout: 120000,
+			dataType: 'json',
+			success: function (data) {
+				if (data.status == 0) {
+					var excelUrl = '/' + data.result;
+					window.open(excelUrl, '_blank').location;   // 在新标签页打开
+				} else {
+					alert(data.msg);
+					return;
+				}
+			}
+		});
+	}
+</script>
+
+
+</body>
+</html>

@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<title>浏览记录</title>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+		<meta name="Keywords" content="">
+		<meta name="description" content="">
+		<link rel="stylesheet" href="__PUBLIC__/mobile/style/jquery-weui.min.css">
+		<link rel="stylesheet" href="__PUBLIC__/mobile/css_v3/weui.min.css">
+		<link rel="stylesheet" href="__PUBLIC__/mobile/style/main_style.css">
+		<link rel="stylesheet" href="__PUBLIC__/mobile/css_v3/goods_index.css">
+		<link rel="stylesheet" href="__PUBLIC__/layui/css/layui.css">
+		<link href="__PUBLIC__/css/shopindex.css" rel="stylesheet" type="text/css" />
+		<link href="__PUBLIC__/css/category.css" rel="stylesheet" type="text/css" />
+		<link href="__PUBLIC__/css/footer.css" rel="stylesheet" type="text/css" />
+		<link rel="stylesheet" href="__PUBLIC__/css/property.css">
+		<script src="__PUBLIC__/js/jquery.min.js"></script>
+		<script type="text/javascript" src="__PUBLIC__/layer/mobile/layer.js"></script>
+		<script type="text/javascript" src="__PUBLIC__/layui/layui.js"></script>
+
+	</head>
+
+	<body ontouchstart>
+
+		<div class="goods-list">
+			<ul id="goods_list">
+				<volist name="goods" id="vo">
+					<li>
+						<div class="proshow">
+							<a href="{:U('Goods/detail', array('id'=>$vo['goods_id']))}">
+								<img class="product_img" src="{$vo.thumb}" />
+								<div class="pro-info">
+									<p class="cakes_tit">
+										{$vo.goods_name}
+									</p>
+
+									<div class="buy_cont">
+										<span class="price"><span class="symbol">￥</span>{$vo.price}</span>
+										<img class="gwc" src="__PUBLIC__/mobile/images_v3/f_dm26.png" />
+									</div>
+
+								</div>
+							</a>
+						</div>
+					</li>
+				</volist>
+
+			</ul>
+		</div>
+		<div class="load_more_content"></div>
+		<div class="load_more">
+			<span class="load_more_red">点击</span>加载更多
+		</div>
+
+	</body>
+	<script>
+		// 加载更多
+		var page = 2;           // 当前页码，默认从第2页开始，因为刚进来已经输出一次了
+		var max_page = "{$maxPage}";   // 最大页码
+		$(".load_more").on("click", function () {
+			if (page > max_page)
+			{
+				layer.open({
+					type: 2
+					, content: '数据已全部加载'
+					, time:1
+				});
+				$(".load_more").text("数据已全部加载");
+				return;
+			}
+
+			layer.open({
+				type: 2
+				, content: '加载中'
+			});
+			$(".load_more_content").load("{:U('browsing_history')}", {page:page}, function (response, status) {
+				if (status == "success") {
+					var html = $(".load_more_content").html();
+					$("#goods_list").append(html);
+					$(".load_more_content").html("");
+					page=parseInt(page)+1;    // 在本页自增
+				}
+				layer.closeAll();
+			});
+		});
+	</script>
+</html>

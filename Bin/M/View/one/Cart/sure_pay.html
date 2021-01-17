@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>确认支付</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+	<link rel="stylesheet" href="__PUBLIC__/css/mui.min.css">
+	<link rel="stylesheet" href="__PUBLIC__/css/bank_card.css">
+	<script src="__PUBLIC__/js/mui.min.js"></script>
+	<script src="__PUBLIC__/js/jquery.min.js"></script>
+</head>
+<body style="background: #efeff4;">
+<header class="mui-bar mui-bar-nav" style="background: #FE274E;">
+	<a class="mui-pull-left mui-icon mui_turn" href="javascript:history.back()"><img
+			src="__PUBLIC__/img/return.png" width="20vw" height="20vw"/></a>
+	<h1 class="mui-title tit_login" style="color: #fff;">确认支付</h1>
+</header>
+<div class="mui-content">
+	<div class="pay_money">
+		<span>￥{$data.total_commodity_price}</span>
+		<input type="hidden" value="{$Think.session.user_id}" id="user_id">
+		<input type="hidden" value="{$data.order_id}" id="order_id">
+	</div>
+	<form action="" method="get" class="form_change">
+		<ul>
+			<if condition="$is_alipay eq 1">
+				<li class="clearfix">
+					<label>
+						<div class="flex_pay">
+							<div class="apliy_pay"><img src="__PUBLIC__/img/alipay_pay.png" width="100%" height="100%"/>
+							</div>
+							<span>支付宝支付</span>
+						</div>
+						<div class="input_aa">
+							<input name="Fruit" type="radio" value="aliwap" checked="checked"/>
+							<label></label>
+						</div>
+					</label>
+				</li>
+			</if>
+			<if condition="$is_wx_pay eq 1">
+				<li class="clearfix ">
+					<label>
+						<div class="flex_pay">
+							<div class="wechat_pay"><img src="__PUBLIC__/img/wechat_pay.png" width="100%" height="100%"/>
+							</div>
+							<span>微信支付</span>
+						</div>
+						<div class="input_aa">
+							<input name="Fruit" type="radio" value="wxmp"/>
+							<label></label>
+						</div>
+					</label>
+				</li>
+			</if>
+			<if condition="$is_ye_pay eq 1">
+				<li class="clearfix ">
+					<label>
+						<div class="flex_pay">
+							<div class="balance_pay"><img src="__PUBLIC__/img/balance.png" width="100%" height="100%"/>
+							</div>
+							<span>余额支付</span>
+						</div>
+						<div class="input_aa">
+							<input name="Fruit" type="radio" value="yepay"/>
+							<label></label>
+						</div>
+					</label>
+				</li>
+			</if>
+
+		</ul>
+	</form>
+	<div class="confirm">
+		<input type="submit" onclick="submit()" name="name" value="确认支付"/>
+	</div>
+</div>
+<script type="text/javascript" src="__PUBLIC__/layer/layer.js" ></script>
+<script>
+	var order_id= getParam('order_id');
+	//获取url参数的值  输入参数  值得键名
+	function getParam(paramName) {
+		paramValue = "", isFound = !1;
+		if (this.location.search.indexOf("?") == 0 && this.location.search.indexOf("=") > 1) {
+			arrSource = unescape(this.location.search).substring(1, this.location.search.length).split("&"), i = 0;
+			while (i < arrSource.length && !isFound) arrSource[i].indexOf("=") > 0 && arrSource[i].split("=")[0].toLowerCase() == paramName.toLowerCase() && (paramValue = arrSource[i].split("=")[1], isFound = !0), i++
+		}
+		return paramValue == "" && (paramValue = null), paramValue
+	}
+
+	var user_id = $('#user_id').val();
+	if(!order_id){
+		order_id = $('#order_id').val();
+	}
+	var goods_kind = "{$goods_kind}";
+	//余额支付支付密码
+	var pay_password
+	$(function () {
+		var value = $('input[name=Fruit]').value
+		if(value == 'yepay'){
+			password();
+		}
+		$('input[name=Fruit]').change(function () {
+			var value = this.value;
+			if(value == 'yepay'){
+				password();
+			}
+		})
+	});
+	function password(){
+		var is_psw = {$is_psw};
+		if(is_psw==1){
+			layer.prompt({title: '请输入支付密码', formType: 1, closeBtn:false}, function(pass, index){
+				pay_password = pass;
+
+				var type = $("input[name='Fruit']:checked").val();
+				if(type == 'yepay')
+				{
+					var postdata = {
+						'pay_type': type,
+						'user_id': user_id,
+						'order_id': order_id,
+						'pay_password':pay_password,
+						'apitype':'wap'
+					}
+
+					$.ajax({
+						type: "POST",
+						data: postdata,
+						dataType: "json",
+						url: "{:U('/Api/Orderin/payOrder')}",
+						success: function (data) {
+							layer.msg(data.msg)
+							if(data.status==0)
+							{
+								if (goods_kind == 1)
+								{
+									location.href="{:U('Cart/share')}"+"?id="+order_id;
+								}
+								else
+								{
+									location.href="{:U('Order/index')}"+"?"+"user_id="+user_id;
+								}
+							}
+						}
+					})
+
+				}
+				else
+				{
+					submit();
+				}
+				layer.close(index);
+			});
+		}else{
+			layer.open({
+				content: "请先设置支付密码",
+				btn: ['确定', '取消'],
+				shadeClose: false,
+				closeBtn:false,
+				yes: function(){
+					location.href="{:U('User/rep_password')}"+"?"+"user_id="+user_id+"&order_id="+order_id;
+				}, no: function(){
+					layer.closeAll();
+				}
+			});
+
+		}
+	}
+
+	//提交
+	function submit() {
+		console.log("---sub----");
+		var type = $("input[name='Fruit']:checked").val();
+		if (type == "aliwap")
+		{
+			var dataType = "html";
+		}
+		else
+		{
+			dataType = "json";
+		}
+
+
+		console.log("---type---:"+type);
+
+		if(type == 'yepay') {
+
+			password();
+
+		}else{
+			// layer.msg('请选择余额支付');return;
+			var postdata = {
+				'pay_type': type,
+				'user_id': user_id,
+				'order_id': order_id,
+				'apitype': 'wap',
+			}
+			var iswx = "{$iswx}";
+			if(type == "aliwap" && iswx == 1)
+			{
+				if (order_id > 0 )
+				{
+					location.href="{:U('alipay')}"+"?order_id="+order_id;
+					return;
+				}
+				else
+				{
+					layer.msg("订单异常，请重新下单");
+					return;
+				}
+			}
+
+			$.ajax({
+				type: "POST",
+				data: postdata,
+				dataType: dataType,
+				url: "{:U('/Api/Orderin/payOrder')}",
+				success: function (data) {
+					
+					if (data.status==1)
+                	{
+                		layer.msg(data.msg);
+                		return;
+                	}
+					
+					// 支付宝wap支付，直接拉起支付
+					if(type == "aliwap")
+                    {
+                    	if (data.indexOf("alipay") > 0 )
+	                    {
+	                        $("body").html(data);
+	                    }
+                    }
+
+					if (data.status==0)
+					{
+						if (type == 'wxmp')
+						{
+							$("body").html(data.result);
+						}
+						else if(type == 'aliwap')
+						{
+							layer.msg(data.msg)
+						}
+						else
+						{
+							layer.open({
+								title: '提示'
+								,content: '下单成功',
+								yes:function(index){
+									layer.close(index);
+									if (goods_kind == 1)
+									{
+										location.href="{:U('Cart/share')}"+"?id="+order_id;
+									}
+									else
+									{
+										location.href="{:U('Order/index')}"+"?"+"user_id="+user_id;
+									}
+								}
+							});
+						}
+					}
+					else
+					{
+						layer.msg(data.msg)
+					}
+				}
+			})
+
+		}
+
+	}
+
+</script>
+</body>
+</html>

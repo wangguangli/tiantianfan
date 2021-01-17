@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>限时购</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="Keywords" content="">
+    <meta name="description" content="">
+    <link rel="stylesheet" href="__PUBLIC__/mobile/style/jquery-weui.min.css">
+    <link rel="stylesheet" href="__PUBLIC__/mobile/style/weui.min.css">
+    <link rel="stylesheet" href="__PUBLIC__/mobile/style/main_style.css">
+    <link rel="stylesheet" href="__PUBLIC__/mobile/style/goods_detail.css">
+    <script type="text/javascript" src="__PUBLIC__/layer/mobile/layer.js"></script>
+</head>
+    <body style="background: #F5F6FA;">
+        <div class="limit_list">
+            <div class="limit_time">
+                <div class="limit_left">
+                    <img src="__PUBLIC__/img/return.png" style="width:5vw;height:6vw;"/>
+                </div>
+                <div class="limit_right">
+                    <img src="__PUBLIC__/images/limit_time.png" style="width: 26vw;height: 6vw;margin: 0 auto;display: table;"/>
+                </div>
+                <div class="clear"></div>
+            </div>
+            <div class="limit_start">
+                <ul  id="category">                                     
+                </ul>
+            </div>
+            <div id="money_save"></div>                       
+        </div>
+        <div class="limit_shop">
+            <ul id="timeList">
+            </ul>
+        </div>
+        <script src="__PUBLIC__/js/jquery-3.3.1.min.js"></script>
+        <script src="__PUBLIC__/mobile/js/dropload.min.js"></script>
+        <script type="text/javascript">           
+            $(document).ready(function(){
+                timeCate();
+                timeList(0, 1, 0, 1);
+            });
+                   
+            function timeList(index,page,time,type){                
+                $('#category li').each(function(index) {
+                    $(this).removeClass('active')
+                })
+                $('#category li').eq(index).addClass('active');  
+                if (time != 0) {
+                    var data = {page:page, time:time};
+                } else {
+                    var data = {page:page};
+                }       
+                var html = '';
+                var dpage = page + 1;
+                var displaypage = page - 1;
+                var c_index=index;
+                $.ajax({
+                    type: 'GET',
+                    url:"/index.php/M/Goods/timeList",
+                    data: data,
+                    dataType: 'json',
+                    success:function(data){
+                        console.log(data)
+                        if(data.status == 0) {
+                            var arrLen = data.result.list.length;
+                            if(arrLen > 0){
+                                $.each(data.result.list,function(index,item) {
+                                    html+='<li><div class="limit_img"><img src="'+ item.thumb +'" width="100%"height="100%"/></div>';
+                                    html+='<div class="li_right"><p>'+ item.name +'</p><div class="process"><div class="process_one" style="width: '+ item.percentage +'%;"></div></div>';
+                                    html+='<div class="pro_num"><span>已抢 ：'+ item.sell_count +'</span><span>'+ item.percentage +'%</span></div><div class="limit_price">'
+                                    html+='<h6>￥<strong>'+ item.time_price +'</strong><span>￥'+ item.price +'</span></h6><input type="submit" name="name" id="name" value="马上抢" class="go_grab"/ onClick="linkdetail('+ item.id +',3);">';
+                                    html+='<div class="clear"></div></div></div><div class="clear"></div></li>';
+                                });
+                                html+='<input class="btn_out_r" type="button" id="page'+ page +'" onclick="timeList('+c_index+','+ dpage + ',' + time + ',1' +')" value="-- 浏览更多 --" >';
+                            } else {
+                                layer.open({
+                                    content: "该时间暂未有更多限时购商品"
+                                    ,skin: 'msg'
+                                    ,time: 3
+                                });
+                            }
+                        }else{
+                            layer.open({
+                                content: data.msg
+                                ,skin: 'msg'
+                                ,time: 2
+                            });
+                        }
+                        if (type == 0) {
+                             $('#timeList').html("");
+                        } else {
+                            $('#page'+displaypage).hide();
+                        }
+                        $('#timeList').append(html);
+                    },
+                    error: function(xhr, type){
+                      
+                    }
+                });
+            }
+
+            function timeCate() {  
+                var html = '';
+                var html1 = '';
+                $.ajax({
+                    type: 'GET',
+                    url:"/index.php/M/Goods/timeCate",
+                    dataType: 'json',
+                    success:function(data){
+                        console.log(data)
+                        if(data.status == 0) {
+                            var bannerLen = data.result.banner.length;
+                            var categoryLen = data.result.catelist.length;
+                            if(bannerLen > 0){
+                                $.each(data.result.banner,function(index,banner) {
+                                    html+='<img src="'+ banner.photo +'"width="100%"height="100%" class="limit_image"/>';
+                                });
+                            }
+                            if(categoryLen > 0){
+                                $.each(data.result.catelist,function(index,catelist) {                                  
+                                    if(index==0){
+                                      html1+='<li class="active" onClick="timeList('+ index+',1, '+ catelist.time +',0'+');"><p>'+ catelist.cat_id +'</p><span>'+ catelist.name +'</span></li>';
+                                    }else{
+                                      html1+='<li  onClick="timeList('+ index+',1, '+ catelist.time +',0'+');"><p>'+ catelist.cat_id +'</p><span>'+ catelist.name +'</span></li>';
+                                    }
+                                });
+                                html1 += '<div class="clear"></div>';
+                            }
+                        }else{
+                            layer.open({
+                                content: data.msg
+                                ,skin: 'msg'
+                                ,time: 2
+                            });
+                        }
+                        $('#money_save').append(html);
+                        $('#category').append(html1);
+                    },
+                    error: function(xhr, type){
+                    }
+                });
+            }
+            
+            function linkdetail(id,goods_kind) {
+                location.href = "{:U('Goods/detail')}?id=" + id + "&goods_kind=" + goods_kind;
+            }
+        </script>
+    </body>
+</html>

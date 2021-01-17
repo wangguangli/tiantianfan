@@ -1,0 +1,86 @@
+<!DOCTYPE html >
+<html>
+<head>
+	<meta name="Generator" content="tpshop1.2" />
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width">
+	<title>城市列表-{$tpshop_config['shop_info_store_title']}</title>
+	<meta http-equiv="keywords" content="{$tpshop_config['shop_info_store_keyword']}" />
+	<meta name="description" content="{$tpshop_config['shop_info_store_desc']}" />
+	<meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
+    <link rel="stylesheet" href="__PUBLIC__/css/mui.min.css">
+	<link rel="stylesheet" type="text/css" href="__PUBLIC__/css/inite.css"/>
+	<link rel="stylesheet" type="text/css" href="__PUBLIC__/css/choice_city.css"/>
+	<script src="__PUBLIC__/js/mui.min.js"></script>
+    <style type="text/css">
+        body{background:#efecec;position:relative;-webkit-tap-highlight-color:rgba(0,0,0,0);max-width: 600px;margin: 0 auto;}
+        body,div,dl,dt,dd,ul,li,form,input,button,h1,h2,h3,h4,h5,h6,p{margin: 0 auto;padding:0;font-family:"微软雅黑";}
+        html{overflow-x:hidden;-webkit-text-size-adjust:none;}
+        ul,li,dl,dt,dd{display:block;list-style:none;}
+        img{border:0;max-width:100%;height: auto;}
+        .clear{background:none;border:0;clear:both;display:block;float:none;font-size:0;overflow:hidden;visibility:hidden;width:0;height:0;}
+        a{text-decoration:none;outline:none;}
+        .fl{float:left;}
+        .fr{float:right;}
+        .none{display:none;}
+        .search{width:100%;}
+        .z_mui-title {width:80%;font-size: 16px;font-weight: 500;line-height: 44px;position: relative;margin: 0 auto;padding: 0;text-align: center;white-space: nowrap;color: #000;}
+        .inx-search{position: absolute;top: 10px;left: 3px;}
+    </style>
+</head>
+<body style="background: white">
+	<header class="header_title" style="">
+	    <a href="javascript:history.back()">
+	    	<img src="__PUBLIC__/img/ewm-left.png" class="left" style="width: 5.5vw;" >
+	    </a>
+	 	<h1 class="title" style="color: white;">城市列表</h1>
+    </header>	
+	<div style="padding-top: 12vw;">	
+		<div class="load_tt">
+			<div class="load_dd">
+			    <div class="loan_jm1">
+		    <ul class="loan_ul">
+		        <li class="search_city">
+		        	<div class="section">		     	 
+				     	   <input type="text" placeholder="搜索" >
+				     	   <div class="clear"></div>
+				     </div>
+		        </li>
+		    </ul>
+		</div>
+		</div>
+	</div>
+    <div class="container" >	   
+	   <div class="city"><ul></ul></div> 	    		    			    		          
+	</div>
+</div>
+<script src="__PUBLIC__/js/jquery-3.3.1.min.js"></script>
+<script type="text/javascript">
+   pro_status();
+   function pro_status(){
+	   	$(function(){
+		  $.ajax({
+			url:"{:U('Near/city')}",
+			type:'post',
+			data:'',
+			dataType:'json',
+			success:function (res){
+				console.log(res)					        
+			     if(res.status==0){
+					 result=res.result;
+					 var html="";
+			         $.each(result,function(k,v){
+						html+='<li>'+v.name+'</li>';
+					 })
+					 $('.container .city ul').html(html);				
+		         }
+		    },
+	
+		    })				
+		})
+	   	
+   }
+									
+</script>
+</body>
+</html>

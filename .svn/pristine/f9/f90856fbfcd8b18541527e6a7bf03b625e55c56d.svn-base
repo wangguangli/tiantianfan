@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>{:GC('web_title')}管理后台</title>
+	<link rel="stylesheet" type="text/css" href="__PUBLIC__/layui/css/layui.css">
+	<include file="Public/asset_top_page"/>
+
+</head>
+<body>
+<!-- header -->
+<include file="Public/header"/>
+<!-- /header -->
+<!-- Page container -->
+<div class="page-container">
+	<!-- Page content -->
+	<div class="page-content">
+		<!-- main sidebar -->
+		<include file="Public/left"/>
+		<!-- /main sidebar -->
+
+		<!-- Main content -->
+		<div class="content-wrapper">
+
+			<!-- Content area -->
+			<div class="content" style="padding-top: 10px;">
+				<!-- Pagination types -->
+				<div class="v-container">
+					<div class="content" style="padding-top: 10px;">
+					<!-- page -->
+					<form class="form-horizontal pt-15 " method="post">
+						<input type="hidden" class="form-control" name="id" value="{$data.id}">
+						<div class="form-group">
+							<label class="col-xs-2 control-label text-right">选择经纬度</label>
+							<div class="col-xs-5 layui-form">
+								<input type="checkbox" id="diz" name="dizhi" lay-skin="switch" lay-filter="dizhi"
+									   lay-text="开启|关闭">
+							</div>
+						</div>
+                        <div class="form-group">
+                            <label class="col-xs-2 control-label text-right">经纬度</label>
+                            <div class="col-xs-6">
+                                <div class="input-group bj_nr">
+                                    <input type="text" class="form-control" placeholder="" id="longitude"
+                                           name="lng" value="{$data.lng}" required>
+                                    <span class="input-group-addon">经度</span>
+                                    <input type="text" class="form-control" placeholder="" id="latitude"
+                                           name="lat" value="{$data.lat}" required>
+                                    <span class="input-group-addon">纬度</span>
+                                </div>
+                            </div>
+                        </div>
+						<div class="form-group">
+							<label class="col-xs-2 control-label text-right">自提点名称</label>
+							<div class="col-xs-5">
+								<input type="text" class="form-control" name="title" value="{$data.title}" placeholder="请输入名称" required>
+							</div>
+						</div>
+
+
+						<div class="form-group">
+							<label class="col-xs-2 control-label text-right">联系人</label>
+							<div class="col-xs-5">
+								<input type="text" class="form-control"  name="name" value="{$data.name}" placeholder="请输入联系人" required>
+							</div>
+						</div>
+
+						<div class="form-group">
+							<label class="col-xs-2 control-label text-right">电话</label>
+							<div class="col-xs-5">
+								<input type="text" class="form-control"  name="phone" value="{$data.phone}" placeholder="请输入电话" required>
+							</div>
+						</div>
+
+						<div class="form-group">
+							<label class="col-xs-2 control-label text-right">省市区</label>
+							<div class="col-xs-5 " style="width:13.9%">
+								<select name="province" id="province" onChange="get_city(this,this.options[this.options.selectedIndex].text)" class="form-control select-form-control inline-block">
+									<option  value="0">请选择省</option>
+									<foreach name="province" item="vo" >
+										<option value="{$vo['id']}" <if condition="$data['province'] eq $vo['id']"> selected </if> >{$vo.name}</option>
+									</foreach>
+								</select>
+							</div>
+							<div class="col-xs-5 " style="width:13.9%">
+								<select  name="city" id="city" onChange="get_area(this,this.options[this.options.selectedIndex].text)" class="form-control select-form-control inline-block">
+									<option  value="0">请选择市</option>
+									<volist name="city" id="vo">
+										<option value="{$vo.id}" <if condition="$data['city'] eq $vo['id']"> selected </if>>{$vo.name}</option>
+									</volist>
+								</select>
+							</div>
+							<div class="col-xs-5 " style="width:13.9%" >
+								<select  name="district" id="district" class="form-control select-form-control inline-block">
+									<option  value="0">请选择区县</option>
+									<volist name="district" id="vo">
+										<option value="{$vo.id}" <if condition="$data['district'] eq $vo['id']"> selected </if>>{$vo.name}</option>
+									</volist>
+								</select>
+							</div>
+						</div>
+
+						<div class="form-group">
+							<label class="col-xs-2 control-label text-right">详细地址</label>
+							<div class="col-xs-5">
+								<input type="text" class="form-control" name="address" value="{$data.address}" placeholder="请输入详细地址" required>
+							</div>
+						</div>
+
+						<div class="form-group">
+							<label class="col-xs-2 control-label text-right">营业日期</label>
+							<div class="col-xs-5 ">
+								<label class="radio-inline" >
+									<input type="checkbox"   name="work_day[]" value="1" <if condition="in_array(1, $data['work_day'])"> checked </if> >周一&nbsp;&nbsp;&nbsp;
+								</label>
+								<label class="radio-inline">
+									<input type="checkbox"   name="work_day[]" value="2" <if condition="in_array(2, $data['work_day'])"> checked </if>>周二&nbsp;
+								</label>
+								<label class="radio-inline">
+									<input type="checkbox"   name="work_day[]" value="3" <if condition="in_array(3, $data['work_day'])"> checked </if>>周三&nbsp;
+								</label>
+								<label class="radio-inline">
+									<input type="checkbox"    name="work_day[]" value="4" <if condition="in_array(4, $data['work_day'])"> checked </if>>周四
+								</label>
+								<label class="radio-inline">
+									<input type="checkbox"    name="work_day[]" value="5" <if condition="in_array(5, $data['work_day'])"> checked </if>>周五
+								</label>
+								<label class="radio-inline">
+									<input type="checkbox"   name="work_day[]" value="6" <if condition="in_array(6, $data['work_day'])"> checked </if>>周六&nbsp;
+								</label>
+								<label class="radio-inline">
+									<input type="checkbox"    name="work_day[]" value="0" <if condition="in_array(0, $data['work_day'])"> checked </if>>周日&nbsp;
+								</label>
+
+							</div>
+						</div>
+
+						<div class="form-group">
+							<label class="col-xs-2 control-label text-right">营业时间</label>
+							<div class="col-xs-5">
+								<input type="text" style="width:50%"  id="starTime" class="form-control" name="work_time_start" value="" placeholder="开始时间" required>
+								<input type="text" style="width:50%" id="endTime" class="form-control" name="work_time_end" value="" placeholder="结束时间" required>
+							</div>
+						</div>
+
+						<div class="form-group">
+							<label class="col-xs-2 control-label"></label>
+							<div class="col-xs-8">
+								<button class="layui-btn layui-btn-sm layui-btn-normal" type="submit">提交</button>
+								<a href="javascript:history.go(-1);" class="layui-btn layui-btn-sm layui-btn-primary">返回</a>
+							</div>
+						</div>
+					</form>
+                        <div id="di"
+                             style="display:none;width: 1002px;height: 800px;background: #ffffff;top: 100px;left: 400px;position: fixed;z-index: 1000;border: 2px solid #ddd">
+
+                            <div style="margin-top: 20px">
+                                地址：<input type="text" name="address" id="address" value="" disabled="disabled">
+                                经度：<input type="text" name="lng" id="lng" value="" disabled="disabled">
+                                纬度：<input type="text" name="lat" id="lat" value="" disabled="disabled">
+                                <input type="button" value="确定" onclick="guanbi()">
+                                <div style="float: right;margin: 2px 52px 0 0 ">
+
+                                    <input type="text" placeholder="输入地址" id="dizhi" onchange="searchMap()" style="">
+                                    <dl class="select-child" id="information">
+
+                                    </dl>
+
+
+                                </div>
+                            </div>
+
+                            <div id="allmap" style="width:1000px;height:743px;margin-top: 15px"></div>
+                        </div>
+					</div>
+					<!-- page end -->
+
+					<!-- Footer -->
+					<include file="Public/footer" />
+					<!-- /footer -->
+
+				</div>
+				<!-- /content area -->
+
+			</div>
+			<!-- /main content -->
+
+		</div>
+		<!-- /page content -->
+
+	</div>
+</div>
+	<!-- /page container -->
+
+<script charset="utf-8" src="https://map.qq.com/api/js?v=2.exp&key=2AQBZ-IUJLF-GMSJR-NRL27-2RTBF-MSFMV"></script>
+
+<script type="text/javascript">
+	var searchService, map, markers = [];
+
+	function createMap() {
+		var center = new qq.maps.LatLng(35.42, 116.58);
+		map = new qq.maps.Map(allmap, {
+			center: center,
+			zoom: 15
+		});
+		qq.maps.event.addListener(
+				map,
+				'click',
+				function (event) {
+					console.log(event)
+					console.log()
+					// var latLn = new qq.maps.LatLng(event.latlng.lat, event.latlng.lng);
+					// geocoder.getAddress(latLn);
+
+
+				}
+		)
+		var latlngBounds = new qq.maps.LatLngBounds();
+		//调用Poi检索类
+		searchService = new qq.maps.SearchService({
+			complete: function (results) {
+
+				var pois = results.detail.pois;
+				console.log(pois)
+				var table = ""
+				for (var i = 0, l = pois.length; i < l; i++) {
+					var poi = pois[i];
+					//扩展边界范围，用来包含搜索到的Poi点
+					latlngBounds.extend(poi.latLng);
+					(function (n) {
+						var marker = new qq.maps.Marker({
+							map: map
+						});
+						marker.setPosition(pois[n].latLng);
+						marker.setTitle(i + 1);
+						markers.push(marker);
+						table += "<dd lay-value='" + i + "' onclick='info(\"" + pois[n].latLng + "\",\"" + pois[n].name + "\")'>" + pois[n].name + "</dd>";
+
+						qq.maps.event.addListener(marker, 'click', function () {
+							$("#information").css('display', 'none');
+							infoWin.open();
+							infoWin.setContent('<div style="width:200px;height:70px;"><p>' + pois[n].name + '</p><p>地址：' + pois[n].address + '</p></div>');
+							infoWin.setPosition(pois[n].latLng);
+						});
+					})(i);
+				}
+
+
+				$("#information").html(table)
+
+				map.fitBounds(latlngBounds);
+			}
+		})
+
+		//调用地址解析类，根据地址定位
+		geocoder = new qq.maps.Geocoder({
+			complete: function (result) {
+				console.log(result);
+				console.log(11)
+				map.setCenter(result.detail.location);
+				map.zoomBy(12);//设置指定等级
+				var marker = new qq.maps.Marker({
+					map: map,
+					position: result.detail.location
+				});
+				var infoWindow = new qq.maps.InfoWindow({
+					map: map,
+					position: result.detail.location,
+					offset: {x: -8, y: -32}, //设置信息窗相对position偏移像素
+					content: "<div style='width:200px;height:70px;'><p>" + result.detail.nearPois[0].name + "</p><p>地址：" + result.detail.nearPois[0].address + "</p></div>",
+					visible: true
+				});
+
+			}
+		});
+
+	}
+
+
+	createMap();
+
+
+	function guanbi() {
+		var state = $('#di').css('display');
+
+		if (state == 'none') {
+			$('#di').css('display', 'block')
+
+		} else {
+			$('#di').css('display', 'none')
+			$('#diz').attr('checked', false)
+			var address = $('#address').val();
+			var lng = $("#lng").val();
+			var lat = $("#lat").val();
+			$('#add').val(address)
+			$('#longitude').val(lng)
+			$('#latitude').val(lat)
+
+			layui.use('form', function () {
+
+
+				var form = layui.form;
+				form.render();
+			})
+
+		}
+	}
+
+	function searchMap() {
+
+		var di = $("#dizhi").val();
+		searchService.search(di)
+
+		searchService.setLocation('济宁');
+	}
+
+	//清除地图上的marker
+	function clearOverlays(overlays) {
+		var overlay;
+		while (overlay = overlays.pop()) {
+			overlay.setMap(null);
+		}
+	}
+
+	//点击搜索结果显示信息窗口
+	function info(latLng, name) {
+
+
+		clearOverlays(markers);
+		$("#information").empty('display', 'none');
+		$("#dizhi").val(name);//下拉地址显示在输入框
+
+		var latlngStr = latLng.split(",", 2);
+		var lat = parseFloat(latlngStr[0]);
+		var lng = parseFloat(latlngStr[1]);
+		var latLn = new qq.maps.LatLng(lat, lng);
+		$('#address').val(name);
+		$('#lng').val(lng);
+		$('#lat').val(lat)
+		//方法获取位置信息值
+		geocoder.getAddress(latLn);
+	}
+
+	//点击其他位置隐藏下拉框
+	$(".body").bind("click", function () {
+		$("#information").empty();
+	});
+	layui.use('form', function() {
+		var form = layui.form;
+		var table = layui.table;
+		var $ = layui.jquery;
+		form.render();
+		form.on('switch(dizhi)', function(data) {
+			var state = $('#di').css('display');
+			if (state == 'none') {
+				$('#di').css('display', 'block');
+			}
+		})
+
+
+	})
+	var start = "{$work_time_start}";
+	var end = "{$work_time_end}";
+
+	laydate.render({
+		elem: '#starTime',
+		type: 'time',
+		format: 'HH:mm',
+		value: start
+	});
+	laydate.render({
+		elem: '#endTime',
+		type: 'time',
+		format: 'HH:mm',
+		value: end
+	});
+
+	/**
+	 * 获取城市
+	 * @param t  省份select对象
+	 */
+	function get_city(t,m){
+		var parent_id = $(t).val();
+		if(!parent_id > 0){
+			return;
+		}
+		// var url = '/index.php?m=Admin&c=Api&a=getRegion&level=2&parent_id='+ parent_id;
+		var url = '/index.php/Api/Addressout/city?type=1&id='+ parent_id;
+		$.ajax({
+			type : "GET",
+			url  : url,
+			error: function(request) {
+				alert("服务器繁忙, 请联系管理员!");
+				return;
+			},
+			success: function(v) {
+				var v = eval('(' + v + ')');
+				v = '<option value="0">选择城市</option>'+ v.result;
+				$('#city').empty().html(v);
+			}
+		});
+	}
+
+	/**
+	 * 获取地区
+	 * @param t  城市select对象
+	 */
+	function get_area(t,m){
+		var parent_id = $(t).val();
+		if(!parent_id > 0){
+			return;
+		}
+		var url = '/index.php/Api/Addressout/district?type=1&id='+ parent_id;
+		$.ajax({
+			type : "GET",
+			url  : url,
+			error: function(request) {
+				alert("服务器繁忙, 请联系管理员!");
+				return;
+			},
+			success: function(v) {
+				var v = eval('(' + v + ')');
+				v = '<option value="0">选择区域</option>'+ v.result;
+				$('#district').empty().html(v);
+			}
+		});
+	}
+
+</script>
+
+</body>
+</html>

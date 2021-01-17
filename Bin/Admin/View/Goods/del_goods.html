@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!--<meta name="viewport" content="width=device-width, initial-scale=1">-->
+    <title>{:GC('web_title')}管理后台-删除商品</title>
+    <include file="Public/asset_top_page"/>
+    <style>
+        .shenhe {
+            height: 30px;
+            line-height: 30px;
+            padding: 0px 8px;
+        }
+    </style>
+</head>
+<body>
+<!-- header -->
+<include file="Public/header"/>
+<!-- /header -->
+<!-- Page container -->
+<div class="page-container">
+    <!-- Page content -->
+    <div class="page-content">
+        <!-- main sidebar -->
+        <include file="Public/left"/>
+        <!-- /main sidebar -->
+
+        <!-- Main content -->
+        <div class="content-wrapper">
+
+            <!-- Content area -->
+            <div class="content" style="padding-top: 10px;">
+                <!-- Pagination types -->
+                <div class="v-container">
+                    <div class="alert alert-tips alert-dismissible" role="alert">
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
+                        本页删除商品</div>
+
+                    <div class="panel panel-flat">
+                        <div class="panel-heading">
+
+                            <form class="v-filter-container" action="{:U('Goods/del_goods')}" method="get" style="width: 100%">
+
+                                <div class="filter-fields-wrap">
+                                    <div class="filter-item clearfix">
+                                        <div class="filter-item__field">
+
+                                            <div class="v__control-group">
+                                                <label class="v__control-label">类别</label>
+                                                <div class="v__controls">
+                                                    <select name="type" class="v__control_input" id="type" id="level">
+                                                        <option value="0" selected="">商品名</option>
+                                                        <option value="1">分类</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+
+                                            <div class="v__control-group">
+                                                <label class="v__control-label">关键字</label>
+                                                <div class="v__controls">
+                                                    <input type="text" id="shop_id" name="word" value="{$_REQUEST['word']}" class="v__control_input" placeholder="请输入搜索内容" autocomplete="off">
+                                                </div>
+                                            </div>
+
+
+
+                                        </div>
+                                    </div>
+
+
+                                    <div class="filter-item clearfix">
+                                        <div class="filter-item__field">
+                                            <div class="v__control-group">
+                                                <label class="v__control-label"></label>
+                                                <div class="v__controls">
+                                                    <!--													<a class="btn btn-primary search">搜索</a>-->
+                                                    <input type="submit" value="搜索" class="btn btn-primary search" style="width:100px;height: 35px;">
+                                                    <a class="btn btn-success ml-15 dataExcel" style="display: none;">导出订单</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                            <!--搜索框-->
+                            <div class="heading-elements">
+
+                            </div>
+                        </div>
+
+
+                        <div class="dataTables_wrapper no-footer">
+                            <table class="table datatable-tools-basic basic_table">
+                                <thead>
+                                <tr>
+                                    <th style="width: 1px;"></th>
+                                    <th>ID</th>
+                                    <th>图片</th>
+                                    <th>标题</th>
+                                    <th>价格</th>
+                                    <th>店铺</th>
+                                    <th>分类</th>
+                                    <th>商城分类</th>
+                                    <th>是否上架</th>
+                                    <th>添加时间</th>
+                                    <th class="text-center">操作</th>
+                                </tr>
+                                </thead>
+
+                                <volist name="res" id="vo">
+                                    <tr class="tt_color">
+                                        <td style="width: 1px;">
+                                            <input type="checkbox" name="much_id[]" value="{$vo.id}">
+                                        </td>
+
+                                        <td class="">{$vo.id}</td>
+
+                                        <td class="">
+                                            <div class="ed_stand">
+                                                <p><img src="{$vo.thumb}" width="50px"> </p>
+                                            </div>
+                                        </td>
+                                        <td class="">
+                                            <div class="ed_stand">
+                                                <p>{$vo.name} </p>
+                                            </div>
+                                        </td>
+                                        <td class="">
+                                            <div class="ed_stand">
+                                                <p>{$vo.price}</p>
+                                            </div>
+                                        </td>
+                                        <td class="">
+                                            <div class="ed_stand">
+                                                <p>{$vo.shop_name}</p>
+                                            </div>
+                                        </td>
+                                        <td class="">
+                                            <div class="ed_stand">
+                                                <p>{$vo.cate_name}</p>
+                                            </div>
+                                        </td>
+                                        <td class="">
+                                            <div class="ed_stand">
+                                                <p>{$vo.hot_name}</p>
+                                            </div>
+                                        </td>
+                                        <td class="">
+                                            <div class="ed_stand">
+                                                <p><if condition="$vo.is_on_sale eq 1">是
+                                                    <else/>否
+                                                </if></p>
+                                            </div>
+                                        </td>
+                                        <td class="">
+                                            <div class="ed_stand">
+                                                <p>{$vo.time|get_date=###,'Y-m-d H:i:s'}</p>
+                                            </div>
+                                        </td>
+                                        <td class="text-center">
+                                            <div class="tt_stand">
+                                                <a title="恢复正常" href="{:U('Goods/recoverMuch')}?ids={$vo.id}&type=5&isajax=0" class="layui-btn layui-btn-sm btn_detail">恢复正常</a>
+                                                <a title="彻底删除" href="{:U('deleteMuch')}?type=5_1&isajax=0&ids={$vo.id}" onClick="return confirm('彻底删除后无法恢复，是否彻底删除？')" class="layui-btn layui-btn-sm layui-btn-danger btn_detail">彻底删除</a>
+                                            </div>
+                                        </td>
+                                    </tr>
+
+                                </volist>
+                            </table>
+                            <!-- 分页 -->
+                            <div class="page_1028" >
+                                <div class="pull-left">
+	                                <!-- 这里一定要注意 整个页面只有，且只能在这里有 全选框，并且按钮的值有特殊要求 -->
+	                                <!-- 如：5_1   横线前面数字 代表删除的哪些内容，1=用户，2商家，3代理，4订单，5商品，6商品三级分类，7日志 -->
+	                                <!-- 如：5_1   横线后面数字 代理删除类型，0逻辑删除，1彻底删除 -->
+                                    <a class="num"><label><input type="checkbox" onclick="$('input[name*=\'much_id\']').prop('checked', this.checked);"> 全选</label></a>
+                                    <a onclick="delete_much('5_1', 1)" class="num">彻底删除</a>
+                                    <a onclick="recover_much(5)" class="num">恢复正常</a>
+                                </div>
+
+                                {$show}
+                                <div class="clear"></div>
+                            </div>
+
+                        </div>
+                        </div>
+                        <!-- /pagination types -->
+
+                    </div>
+                    <!-- Footer -->
+                    <include file="Public/footer" />
+                    <!-- /footer -->
+
+                </div>
+                <!-- /content area -->
+
+            </div>
+            <!-- /main content -->
+
+        </div>
+        <!-- /page content -->
+
+    </div>
+    <!-- /page container -->
+    <script>
+        //完成时间
+        laydate.render({
+            elem: '#cre_date'
+            ,type: 'datetime'
+            ,range: true
+        });
+
+
+        var page =1;//页码初始化
+        var max_page="{$res.max_page}";//最大页初始化
+        var data = '';//搜索内容
+        var type = '';//搜索条件
+        var page="{$res.page}";
+        $('input[name="page"]').val(parseInt(page)); // 为下面的跳转框赋值，易识别
+        // page=parseInt(page)+1;
+        max_page=max_page;
+        $('#prve').data('page', parseInt(page)-1);
+        $('#next').data('page', parseInt(page)+1);
+        $('#last').data('page',max_page);
+        //页码点击
+        $('#prve').click(function(){
+            if($(this).data('page')>0) {
+                page=$(this).data('page');
+                // inite();
+                skipHandle(page);
+            }else{
+                alert('已是第一页');
+            }
+        });
+        $('#jump').click(function(){
+            page =$('input[name="page"]').val();
+            if(page<=max_page && page>0) {
+                // inite();
+                skipHandle(page);
+            }else{
+                alert('无此页');
+            }
+
+        });
+        $('#last').click(function(){
+            page=$(this).data('page');
+            // inite();
+            skipHandle(page);
+        });
+        $('#first').click(function(){
+            page=$(this).data('page');
+            // inite();
+            skipHandle(page);
+        });
+        $('#next').click(function(){
+            if($(this).data('page')<=max_page) {
+                page=$(this).data('page');
+                // inite();
+                skipHandle(page);
+            }else{
+                alert('最后一页了');
+            }
+
+        });
+        //跳转处理
+        function skipHandle(page) {
+            var params = "?page=" + page + "&word=" + data + "&type=" + type;
+            location.href = "{:U('Goods/index')}" + params;
+        }
+    </script>
+</body>
+</html></html>

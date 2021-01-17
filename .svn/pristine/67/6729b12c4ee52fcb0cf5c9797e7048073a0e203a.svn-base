@@ -1,0 +1,456 @@
+<?php
+
+namespace Clas;
+class Agent
+{
+
+	private $_user_id;
+	private $_agent_id;
+
+	private $_user;
+	private $_agent;
+
+
+	// role: admin,user
+	public function __construct($data = null)
+	{
+
+		if ($data['agent_id'] > 0)
+		{
+			$agent = $this->getAgentByUserId($data['agent_id']);
+			if (!$agent)
+			{
+				return '代理不存在';
+			}
+		}
+		$this->_agent_id = $data['agent_id'];
+
+	}
+
+
+	public static function get_agent_region_id_str($level)
+	{
+		if ($level == 1)
+		{
+			return 'province_id';
+		}
+		elseif ($level == 2)
+		{
+			return 'city_id';
+		}
+		elseif ($level == 3)
+		{
+			return 'district_id';
+		}
+		else
+		{
+			return '';
+		}
+	}
+
+
+	/**
+	 * 代理商添加
+	 * 一般传入参数
+	 * @param int $shop_id 0为代理商添加  大于0为会员申请代理商
+	 * @param string $province_id 省ID
+	 * @param string $city_id 市ID
+	 * @param int $district_id 县ID
+	 * @param int $town_id 街道ID
+	 * @param int $phone 手机号
+	 * @param int $realname 真实姓名
+	 * @return
+	 * @yh
+	 */
+
+	public function add($data)
+	{
+
+		if (!$data)
+		{
+			return '不能为空';
+		}
+		//shop_id   0后台添加   >0会员申请
+		$shop_id = $data['shop_id'];
+		$province_id = $data['province_id'] ? $data['province_id'] : 0;
+		$city_id = $data['city_id'] ? $data['city_id'] : 0;
+		$district_id = $data['district_id'] ? $data['district_id'] : 0;
+		$town_id = $data['town_id'] ? $data['town_id'] : 0;
+
+		$phone = $data['phone'];
+		$realname = $data['realname'];
+
+		if (empty($phone))
+		{
+			return '用户手机号不能为空';
+		}
+
+		$user = M('user')->where("phone='$phone'")->find();
+		if (!$user)
+		{
+			return '未找到用户信息';
+		}
+
+		if (!$province_id)
+		{
+			return '请选择省';
+		}
+		if (!$city_id && !$district_id)
+		{
+			return '请选择市或县';
+		}
+
+		$area_id = $town_id ? $town_id : ($district_id ? $district_id : ($city_id ? $city_id : $province_id));
+		if (empty($area_id))
+		{
+			return '请输入代理区域';
+		}
+		if (!$data['id'])
+		{
+			$c = M('agent')->where('area_id=' . $area_id . ' and  user_id > 0 and  isdel=0')->count();
+			if ($c)
+			{
+				return '该区域已有代理';
+			}
+			// if ($user['is_agent']==1) {
+			// return '已经是代理'; 	// 可以是多个地区的代理
+			// }
+		}
+
+		// $status=$shop_id?3:1;
+		if ($shop_id)
+		{
+			$status = 3;
+		}
+		else
+		{
+			$status = I("status", 3);
+		}
+
+		$shop_fee_id = I("shop_fee_id", 0);
+		$da = array(
+			'user_id' => $user['id'],
+			'realname' => $realname,
+			'phone' => $phone,
+			'province' => $this->getRegionName($province_id),
+			'city' => $this->getRegionName($city_id),
+			'district' => $this->getRegionName($district_id),
+			'town' => $this->getRegionName($town_id),
+			'province_id' => $province_id,
+			'city_id' => $city_id,
+			'district_id' => $district_id,
+			'town_id' => $town_id,
+			'area_id' => $area_id,
+			'status' => $status,
+			'cre_date' => date('Y-m-d H:i:s'),
+			'cre_time' => time(),
+			'ip' => get_client_ip(),
+			'shop_fee_id' => $shop_fee_id,
+            'address' => $data['address']
+		);
+
+		if ($data['id'])
+		{
+			$agent = $this->getAgents($data['id']);
+			if (!$agent)
+			{
+				return '未找到代理';
+			}
+			$aid = M('agent')->where("isdel=0 and id=" . $data['id'])->save($da);
+		}
+		else
+		{
+			$aid = M('agent')->add($da);
+		}
+
+		if ($aid !== false)
+		{
+			if ($shop_id)
+			{
+				$res = M('user')->where('id=' . $user['id'])->setField('is_agent', $status);
+			}
+			else
+			{
+				$res = M('user')->where('id=' . $user['id'])->setField('is_agent', $status);
+			}
+		}
+		if (false !== $aid)
+		{
+			return $aid;
+		}
+		else
+		{
+			return '操作失败！';
+		}
+	}
+
+
+	public function addShop()
+	{
+		$card_number = I('card_number');
+		$user = M('user')->field('id,status,isshop')->where(array('card_number' => $card_number))->find();
+
+		if (empty($user) || $user['status'] != 1)
+		{
+			return '用户不存在';
+		}
+
+		$obj = new Shop(0, $this->_role, $user['id']);
+		$ok = $obj->add($this->_agent_id);
+		if (is_numeric($ok))
+		{
+			$ok = 'ok';
+		}
+		return $ok;
+	}
+
+
+	function getRegionName($id)
+	{
+		if (!isset($id) || empty($id) || !is_numeric($id))
+		{
+			return '';
+		}
+		$name = M('region')->where('id=' . $id)->getField('name');
+		if (empty($name))
+		{
+			return '';
+		}
+		return $name;
+	}
+
+	function getAgentByUserId($user_id)
+	{
+		if (empty($user_id))
+		{
+			return '';
+		}
+		if (is_array($user_id))
+		{
+			$agent = M('agent')->where('isdel=0 and user_id in(' . join(',', $user_id) . ')')->getField('user_id,id,agent_money,province,city,district,town,province_id,city_id,district_id,town_id,area_id');
+			return $agent;
+		}
+		$agent = M('agent')->where('isdel=0 and user_id=' . $user_id)->find();
+		return $agent;
+	}
+
+	function delAgent($data)
+	{
+
+		if (!$data)
+		{
+			return '不能为空';
+		}
+		if (empty($data['agent_id']))
+		{
+			return "代理商user_id不能为空";
+		}
+		$agent = $this->getAgentByUserId($data['agent_id']);
+
+		$user = M("user")->where("id=" . $data['agent_id'])->find();
+		if (!$agent && !$user)
+		{
+			return "未找到代理商";
+		}
+		$da['isdel'] = 1;
+		$da['status'] = 2;
+		$res = M("agent")->where("user_id=" . $data['agent_id'])->save($da);
+		$res1 = M("user")->where("id=" . $data['agent_id'])->setField("is_agent", 2);
+		if (false !== $res && false !== $res1)
+		{
+			return $res;
+		}
+		else
+		{
+			return "操作失败！";
+		}
+	}
+
+	//得到代理信息
+	function getAgents($id)
+	{
+
+		if (empty($id))
+		{
+			return '';
+		}
+
+		if (is_array($id))
+		{
+			$agent = M('agent')->where('isdel=0 and id in(' . join(',', $id) . ')')->getField('id,user_id,agent_money,province,city,district,town,province_id,city_id,district_id,town_id,area_id');
+			return $agent;
+
+		}
+		$agent = M('agent')->find($id);
+		return $agent;
+	}
+
+	public function agentList($data)
+	{
+		$getAgentList = $this->getAgentList($data);
+		return $getAgentList;
+	}
+
+	public function getAgentList($data)
+	{
+		if ($data['user_id'])
+		{
+			$where['user_id'] = $data['user_id'];
+		}
+		if ($data['content'])
+		{
+			if (is_numeric($data['content']) && strlen($data['content']) < 10)
+			{
+				// 小于10位，并且是数字，按用户ID搜索
+				$where_u['id'] = $data['content'];
+				$userArr = M('user')->where($where_u)->getField("id", true);
+				if ($userArr)
+				{
+					$where['user_id'] = array("in", $userArr);
+				}
+			}
+			else
+			{
+				// 非数字，或长度大于10位，按用户名或手机号搜索
+				$where_u['phone|realname'] = array("like", "%" . $data['content'] . "%");
+				$userArr = M('user')->where($where_u)->getField("id", true);
+				if ($userArr)
+				{
+					$where['user_id'] = array("in", $userArr);
+				}
+			}
+		}
+		if ($data['cre_time'])
+		{
+			$addTimeArr = explode(" - ", $data['cre_time']);
+			$addTimeArr[0] = strtotime($addTimeArr[0]);
+			$addTimeArr[1] = strtotime($addTimeArr[1]);
+			$where['cre_time'] = array(array("gt", $addTimeArr[0]), array("elt", $addTimeArr[1]));
+		}
+		if ($data['area_name'])
+		{
+			$map['name'] = array('like', '%' . $data['area_name'] . '%');
+			$areaData = M('region')->where($map)->select();
+			$sarea_data = array();
+			foreach ($areaData as $k => $v)
+			{
+				array_push($sarea_data, $v['id']);
+			}
+			$where['area_id'] = array('in', $sarea_data);
+		}
+
+
+//        $where['user_id'] = array('neq', 0);
+		$where['isdel'] = 0;
+		if ($data['type'] == 0)
+		{
+			if (!empty($data['content']))
+			{
+				$where['phone'] = array('eq', $data['content']);
+			}
+		}
+		else
+		{
+			if ($data['type'] == 1)
+			{
+				if (!empty($data['content']))
+				{
+					$where['realname'] = array('like', '%' . $data['content'] . '%');
+				}
+			}
+		}
+
+
+		if ($data["status"] == 99)
+		{
+			$where['status'] = 3;
+		}
+		elseif ($data["status"] > 0)
+		{
+			$where['status'] = $data["status"];
+		}
+		else
+		{
+			$where['status'] = 1;
+		}
+		$page_where = $where;
+		$row = 10;
+		if ($data['page'])
+		{
+			$where = get_page_last_id('agent', $page_where, 'desc', $row, 'id', $data['page']);
+		}
+		else
+		{
+			$where = request_last_id();
+		}
+		$agent = flow_page('agent', $where, '', false, $row);
+
+
+		foreach ($agent as $key => $value)
+		{
+			$area_name = "";
+			$area_name .= M('region')->where("id=" . $value["province_id"])->getField('name');
+			$area_name .= M('region')->where("id=" . $value["city_id"])->getField('name');
+			$area_name .= M('region')->where("id=" . $value["district_id"])->getField('name');
+
+			$agent[$key]['realname'] = $value['realname'];
+			$agent[$key]['phone'] = $value['phone'];
+			$agent[$key]['agent_money'] = $value['agent_money'];
+			$agent[$key]['area_name'] = $area_name;
+			$agent[$key]['cre_date'] = $value['cre_date'];
+		}
+
+
+		$last_id = get_last_id($agent, 'id', $row);
+		$page = get_page('agent', $page_where, 'desc', $row, 'id', $last_id);
+		return array(
+			'list' => $agent,
+			'last_id' => $last_id,
+			'page' => $page
+		);
+	}
+
+	// 代理信息 -- 一个用户可能是多个区域的代理，那么把多个代理区域整合在一起输出
+	public function agentInfo($data)
+	{
+		if (!$data["user_id"])
+		{
+			return array();
+		}
+		$info = M("agent")->where("user_id=" . $data["user_id"])->order("id desc")->find();
+
+		if (!$info)
+		{
+			return array();
+		}
+		$area = M("agent")->where("user_id=" . $data["user_id"])->field("province,city,district,town")->order("id asc")->select();
+		foreach ($area as $key => $value)
+		{
+			$agent_area[] = $value["province"] . $value["city"] . $value["district"];
+		}
+		$agent_area = implode(",", $agent_area);
+		$info["agent_area"] = $agent_area;
+
+		// 已提现
+		$tx_money = M("tx_log")->where("utype=3 and ischeck=1 and user_id=" . $data['user_id'])->sum("tx_money");
+		$tx_money = $tx_money > 0 ? $tx_money : 0;
+		$info["tx_money"] = $tx_money;
+		$headimgurl = M("user")->where("id=" . $data['user_id'])->getField('headimgurl');
+		$headimgurl = full_pre_url($headimgurl);
+		$info['headimgurl'] = $headimgurl;
+
+		if ($info['shop_fee_id'])
+		{
+			$feeInfo = get_config_shop_fee($info['shop_fee_id']);
+			$info["shop_fee_name"] = "服务费" . $feeInfo['percent1'] . "%";
+		}
+		else
+		{
+			$info["shop_fee_name"] = "请设置服务费";
+		}
+
+		return $info;
+	}
+
+
+}

@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<title>商品管理</title>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+		<meta name="Keywords" content="">
+		<meta name="description" content="">
+		<!-- UC强制全屏 -->
+		<meta name="full-screen" content="yes">
+		<!-- QQ强制全屏 -->
+		<meta name="x5-fullscreen" content="true">
+		<link rel="stylesheet" href="__PUBLIC__/mobile/style/jquery-weui.min.css">
+		<link rel="stylesheet" href="__PUBLIC__/mobile/css_v3/weui.min.css">
+		<link rel="stylesheet" href="__PUBLIC__/mobile/style/main_style.css">
+		<link rel="stylesheet" href="__PUBLIC__/mobile/css_v3/management.css">
+		<link href="__PUBLIC__/css/footer.css" rel="stylesheet" type="text/css" />
+		<!--上拉加载-->
+		<link rel="stylesheet" href="__PUBLIC__/mobile/style/dropload.css">
+		<script type="text/javascript" src="__PUBLIC__/layer/mobile/layer.js"></script>
+
+	</head>
+
+	<body style="background-color: #f7f8fa;">
+		<div class="manage_cont">
+			<div class="manage_list">
+				<img class="product_img" src="__PUBLIC__/mobile/images_v3/f_dm10.png" />
+				<div class="manage_list_lr">
+					<div class="list_lr_h2">优木良品 进口牛油果 鳄梨 生鲜水果</div>
+					<div class="inventory">
+						<span class="inv01">库存：36 </span>
+						<span class="inv02">销量：102</span>
+					</div>
+					<div class="shelves">
+						<div class="number">
+							￥<span class="size">69.9</span>
+						</div>
+						<button class="button">上架</button>
+					</div>
+				</div>
+            </div>
+            <div class="manage_list">
+				<img class="product_img" src="__PUBLIC__/mobile/images_v3/f_dm10.png" />
+				<div class="manage_list_lr">
+					<div class="list_lr_h2">优木良品 进口牛油果 鳄梨 生鲜水果</div>
+					<div class="inventory">
+						<span class="inv01">库存：36 </span>
+						<span class="inv02">销量：102</span>
+					</div>
+					<div class="shelves">
+						<div class="number">
+							￥<span class="size">69.9</span>
+						</div>
+						<button class="button">下架</button>
+					</div>
+				</div>
+            </div>
+            <div class="manage_list">
+				<img class="product_img" src="__PUBLIC__/mobile/images_v3/f_dm10.png" />
+				<div class="manage_list_lr">
+					<div class="list_lr_h2">优木良品 进口牛油果 鳄梨 生鲜水果</div>
+					<div class="inventory">
+						<span class="inv01">库存：36 </span>
+						<span class="inv02">销量：102</span>
+					</div>
+					<div class="shelves">
+						<div class="number">
+							￥<span class="size">69.9</span>
+						</div>
+						<button class="button">上架</button>
+					</div>
+				</div>
+            </div>
+			 
+			 
+
+		</div>
+
+		<include file="Public/tabbar" />
+		<script src="__PUBLIC__/mobile/js/vue.min.js"></script>
+		<script src="__PUBLIC__/mobile/js/jquery-2.1.4.js"></script>
+		<script src="__PUBLIC__/mobile/js/jquery-weui.min.js"></script>
+		<script src="__PUBLIC__/mobile/js/swiper.min.js"></script>
+		<script src="__PUBLIC__/mobile/js/dropload.min.js"></script>
+
+	</body>
+
+</html>

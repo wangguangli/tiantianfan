@@ -1,0 +1,11 @@
+<volist name="list" id="vo">
+	<li class="clearfix">
+		<div class="clearfix_top">
+			<div class="time_ex">{$vo.remark}</div>
+			<p class="qian <if condition="$vo['op_type'] eq 1"> qi_red <else />qi_green </if>" >{$vo.amount}</p>
+
+		</div>
+		<div class="acc_time">{$vo.cre_date}</div>
+	</li>
+
+</volist>

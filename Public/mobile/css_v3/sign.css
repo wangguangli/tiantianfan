@@ -1,0 +1,70 @@
+/*********初始化样式************/
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video { margin: 0;padding: 0;border: 0;font-size: 100%; vertical-align: baseline;box-sizing: border-box;text-decoration: none;list-style: none;-webkit-tap-highlight-color: rgba(0,0,0,0); -webkit-tap-highlight-color: transparent;   }
+input{-webkit-user-select:auto;}input[type=button], input[type=submit], input[type=file], button { cursor: pointer; -webkit-appearance: none; } 
+small { font-size: 12px; } /* 小于 12px 的中文很难阅读，让 small 正常化 */
+.clear{clear: both;}.fl{float:left}.fr{float:right}.tal{text-align: left;}.tac{text-align: center;}.tar{text-align: right;}
+/*********END************/
+/*************************个人中心样式********************************/
+/*头部*/
+.f_heade{width: 100%;overflow: hidden; height: 10vw;line-height: 10vw; padding: 0 3vw;color: #333; text-align: center; position: relative;}
+.f_heade .hd_img{width: 7vw;float: left;position: absolute;top: 1.5vw;left: 1.8vw;}
+.f_heade .title{display: inline-block; font-size: 4.3vw;}
+
+
+.Sign_cont{width: 100%;height:193vw;background: url(/Public/mobile/images_v3/qd1.png) no-repeat center center;background-size: 100% auto;padding-top: 20vw;position: relative;}
+.Sign_cont .Sign_img{width: 67.7vw;height: 14.8vw; display: block;margin: 0 auto;}
+.Sign_cont .rules_img{width: 14.9vw;height:8.9vw;position: absolute;top: 11vw;right: 0;}
+/*中间部分*/
+.calen_cont{width: 90vw;height:97vw;background: url(/Public/mobile/images_v3/qd2.png) no-repeat center center;background-size: 100% 100%;margin: 0 auto;margin-top: 11.5vw;}
+.calen_cont .day{font-weight:500;color:rgba(255,40,87,1);font-size: 3.5vw;text-align: center;display: block;padding-top: 6.5vw;}
+.calen_ret{width: 70%;overflow: hidden;display: flex;justify-content: space-around;margin: 0 auto;}
+.calen_ret .cal_list{width:27vw;height:10vw;border-radius:5vw;border:1px solid rgba(255,40,87,1);font-size: 3.5vw;text-align: center;line-height: 10vw;color:#FF2857;}
+.calen_ret .active{background-color:#FF2857; color: #fff;}
+/*日历*/
+.retroactive{width: 83%;margin: 0 auto;}
+.retroactive .week{overflow: hidden;display: flex;justify-content: space-between;margin-top: 10vw;border-bottom:1px solid #eee;padding-bottom: 3vw;margin-bottom: 4vw;}
+.week .week_list{width: 14.2%;text-align: center;font-size:3vw;color: #333;font-weight: bold;}
+/*日期*/
+.date_of{overflow: hidden;display: flex;flex-wrap:wrap; justify-content:flex-start;margin-bottom: 3vw;}
+.date_of li{text-align: center;font-size:3vw;color: #333;width: 6vw;height: 6vw;border-radius:50%;margin-bottom: 2vw;line-height: 6vw;margin: 0 2.3vw 3.2vw 2.3vw;}
+.date_of .bor{border: 1px solid #FF2857;}
+.date_of .active{border: 1px solid #FF2857; background-color: #FF2857; color: #fff;}
+/*签到规则*/
+.rules_cont{width: 89.8vw;height:89vw;background: url(/Public/mobile/images_v3/qd6.png) no-repeat center center;background-size: 100% 100%;margin: 0 auto;padding-top: 7vw;
+position: absolute; top: 36vw; left: 5.5vw;
+}
+.ru_top{font-size: 4vw;color: #fff;text-align: center;display: block;border-bottom:1px solid #fff;padding-bottom: 4.5vw;}
+.ru_top em{margin-right: 1vw;}
+.rules_cont .ru_bot{padding-left:11.6vw;margin-top: 5vw;}
+.ru_bot_list{overflow: hidden;font-size: 3vw;color: #fff;margin-bottom: 6vw;}
+.ru_bot_list .digital{display: block;float: left;width: 4vw;height: 4vw;border: 1px solid #fff;border-radius:50% ;text-align: center;line-height: 4vw;margin-right: 2vw;}
+.ru_bot_list .ru_bot_lr{width: 66vw;float: left;}
+.ru_bot_list .ru_bot_lr .bot_title{margin-bottom: 2vw;display: block;font-size: 3.7vw;}
+.ru_bot_list .ru_bot_lr p{color:rgba(255,228,226,1);margin-bottom: 2vw;}
+.guan_img{width: 8.8vw;height: 8.8vw;display:block;margin: 0 auto;margin-top: 8vw;}
+/*签到弹窗*/
+.win_cont{overflow: hidden;width: 100%;padding-bottom: 4vw;position: absolute;top:4vw;left:0;}
+.win_cont .vouchers{width: 89vw;height:43.5vw;display: block;margin: 0 auto;}
+/*积分*/
+.integral_cont{width: 89.8vw;height:72.4vw;background: url(/Public/mobile/images_v3/qd9.png) no-repeat center center;background-size: 100% 100%;margin: 0 auto;padding-top: 8.1vw;}
+.ru_top2{border-bottom:0;padding-bottom: 6vw;}
+.integral_middle{margin-bottom: 6vw;}
+.integral_middle .mid_img{width: 74.2vw;height: 37.6vw;margin: 0 auto;background: url(/Public/mobile/images_v3/qd8.png) no-repeat center center;background-size: 100% 100%;}
+.mid_img .obtain{font-size: 3.7vw;color: #401002;text-align: center;padding-top: 6vw;border-bottom:1px solid #fff; width: 78%;margin: 0 auto;padding-bottom: 4.5vw;}
+.mid_img .obtain span{font-weight: bold;margin: 0 1vw; font-size: 4.8vw;}
+.mid_img .mi_p{font-size: 3.2vw;color: #B48252;text-align: center;margin-top: 6.1vw;}
+.integral_middle .next{font-size: 3.2vw;color:#F79D90;text-align: center;}
+.next_img{width: 8.8vw;height: 8.8vw;display: block;margin: 0 auto;}
+

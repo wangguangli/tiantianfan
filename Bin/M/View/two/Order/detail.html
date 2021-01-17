@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>订单详情</title>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+		<meta name="Keywords" content="">
+		<meta name="description" content="">
+		<link rel="stylesheet" href="__PUBLIC__/mobile/style/jquery-weui.min.css">
+		<link rel="stylesheet" href="__PUBLIC__/mobile/style/weui.min.css">
+		<link rel="stylesheet" href="__PUBLIC__/mobile/style/main_style.css">
+		<link rel="stylesheet" href="__PUBLIC__/mobile/style/order_detail.css">
+		<link rel="stylesheet" href="../../../../Public/mobile/style/order_detail.css">
+	</head>
+	<body ontouchstart>
+		<div class="order-state" id="head">
+			<span>{$order.order_status_cn}</span>
+		</div>
+
+		<volist name="goods" id="vo">
+			<div class="order-li" id="orderDetail">
+				<div class="shop-name">
+					<i class="iconfont">&#xe63c;</i>
+					{$vo.shop_name}
+				</div>
+				<div class="goods-div   ">
+					<ul>
+						<volist name="vo['goods_list']" id="vo2">
+							<li>
+								<a href="javascript:;">
+									<img src="{$vo2.goods_thumb}"/>
+								</a>
+								<div class="goods-title">
+									<div class="title"><a href="javascript:;">{$vo2.goods_name}</a><div>
+									<div class="share">
+										<div class="pricenum">
+											<p>数量 x{$vo2.goods_num}</p>
+											<p class="pri">￥{$vo2.goods_price}</p>
+										</div>
+										<if condition="$vo2['order_status']==2">
+											<div class="but">
+												 <a href="{:U('Order/express',array('user_id' => $vo2['user_id'],'order_id' => $vo2['order_id'],'goods_id' => $vo2['goods_id'] ))}" class="but-wul">查看物流</a>
+												 <a href="{:U('Order/receive',array('user_id' => $vo2['user_id'],'order_id' => $vo2['order_id'],'goods_id' => $vo2['goods_id'] ))}" class="but-wul">确认收货</a>
+											</div>
+										<elseif condition="$vo2['order_status']==3" />
+											<div class="but">
+												<a href="{:U('Order/sale',array('order_id' => $vo2['order_id'] , 'goods_id' => $vo2['goods_id']))}" class="but-wul" >申请售后</a>
+												<a href="{:U('Order/comment',array('order_id' => $vo2['order_id'] , 'goods_id' => $vo2['goods_id']))}" class="but-wul">去评价</a>
+											</div>
+										<elseif condition="$vo2['order_status']==1" />
+											<div class="but">
+												<a href="{:U('Order/sale',array('order_id' => $vo2['order_id'] , 'goods_id' => $vo2['goods_id']))}" class="but-wul">申请售后</a>
+											</div>
+										<elseif condition="$vo2['order_status'] lt 0" />
+											<div class="but"><a class="but-wul">已售后</a></div>
+										</if>
+									</div>
+								</div>
+							</li>
+						</volist>
+
+					</ul>
+				</div>
+				<a href="tel:{$vo.phone}" class="lxkf" style="display:none"><i class="iconfont">&#xe65a;</i>联系客服</a>
+			</div>
+		</volist>
+
+
+		<div class="order-li" id="time">
+			<div class="text-div">
+				<div class="litext">
+					<p>
+						<label>订单编号：</label><font id="biao1">{$order.order_no}</font> <span onClick="copyUrl2()">复制</span>
+					</p>
+					<p>
+						<label>下单时间：</label>{$order.add_date}
+					</p>
+					<p>
+						<label>快递单号：</label>{$goods[0]['goods_list'][0]['tracking_number']}
+					</p>
+					<p>
+						<label>快递公司：</label>{$goods[0]['goods_list'][0]['express_name']}
+					</p>
+
+				</div>
+				<if condition="$order_status==2">
+					<!--待收货-->
+				<div class="litext">
+					<p>
+						<label>支付方式：</label>{$order.payment_type_cn}
+					</p>
+					<p>
+						<label>支付时间：</label>{$order.pay_date}
+					</p>
+				</div>
+					<elseif condition="$order_status==3" />
+					<!--已完成-->
+					<div class="litext">
+						<p>
+							<label>支付方式：</label>{$order.payment_type_cn}
+						</p>
+						<p>
+							<label>支付时间：</label>{$order.pay_date}
+						</p>
+					</div>
+					<elseif condition="$order_status==-3" />
+					<!--部分商品已收货-->
+					<div class="litext">
+						<p>
+							<label>支付方式：</label>{$order.payment_type_cn}
+						</p>
+						<p>
+							<label>支付时间：</label>{$order.pay_date}
+						</p>
+					</div>
+					<elseif condition="$order_status==-2" />
+					<!--部分商品已发货-->
+					<div class="litext">
+						<p>
+							<label>支付方式：</label>{$order.payment_type_cn}
+						</p>
+						<p>
+							<label>支付时间：</label>{$order.pay_date}
+						</p>
+					</div>
+				</if>
+			</div>
+		</div>
+		<div class="order-li" id="address">
+			<div class="address">
+				<i class="iconfont">&#xe606;</i>
+				<div class="add-xq">
+					<div class="title">
+						{$order.consignee} {$order.phone}
+					</div>
+					<div class="addinfo">
+						{$order.province_cn}{$order.city_cn}{$order.district_cn}{$order.address}
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="order-li" id="money">
+			<div class="price-div">
+				<!-- <div class="priceli">
+					商品总额
+					<span>￥{$order.total_commodity_price}</span>
+				</div> -->
+				<div class="priceli">
+					运费
+					<span>￥{$order.total_express_fee}</span>
+				</div>
+			</div>
+			<div class="zprice">
+				实付款：<span>￥{$order.total_commodity_price}</span>
+			</div>
+		</div>
+		<if condition="$order.is_share == 1">
+			<div class="order-li" id="fenxiang" style="display: none;">
+				<div class="address ">
+					<div class="add-xq">
+						<div class="title layui-btn layui-btn-primary" style="margin-left: 45%">
+							<a href="{:U('Order/pintuan',array('id'=>$order['id']))}">分享给朋友参加拼团</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</if>
+		<div class="bottom-div"></div>
+		<if condition="$order_status==0">
+			<!--待付款-->
+		<div class="bottom" id="but">
+			<a href="{:U('Order/cancelOrder','order_id='.$order['id'])}" class="but-wul">取消订单</a>
+			<div class="but-div">
+				<a href="{:U('Cart/sure_pay','order_id='.$order['id'])}" class="but-wul">去支付</a>
+			</div>
+		</div>
+			<elseif condition="$order_status==2" />
+			<!--待收货-->
+			<div class="bottom" id="but" style="display:none">
+				<div class="but-div">
+					<a href="javascript:;" class="but-wul">确认收货</a>
+				</div>
+			</div>
+			<elseif condition="$order_status==3" />
+			<!--已完成-->
+			<div class="bottom" id="but" style="display:none">
+				<div class="but-div">
+					<span onclick="deleteOrder()" class="but-wul">删除订单</span>
+				</div>
+			</div>
+			<elseif condition="$order_status==4" />
+			<!--已取消-->
+			<div class="bottom" id="but" style="display:none">
+				<div class="but-div">
+					<span onclick="deleteOrder()" class="but-wul">删除订单</span>
+				</div>
+			</div>
+		</if>
+
+	</body>
+	<script src="__PUBLIC__/mobile/js/jquery-2.1.4.js"></script>
+	<script src="__PUBLIC__/layer/mobile/layer.js"></script>
+	<script type="text/javascript">
+		//删除订单
+		function deleteOrder() {
+			var order_id = $("#order_id").val();
+			layer.open({
+				content: '您确定要删除该订单吗？'
+				,btn: ['确定', '不要']
+				,yes: function(index){
+					$.ajax({
+						type : "POST",
+						dataType: "json",
+						data : {"order_id" : order_id},
+						url : "{:U('Order/deleteOrder')}",
+						success:function (data) {
+							console.log(data);
+							layer.open({
+								content:data.msg
+								,skin: 'msg'
+								,time: 2 //2秒后自动关闭
+							});
+							window.location.reload()
+						}
+					});
+				}
+			});
+
+		}
+
+		function copyUrl2()
+		{
+			var Url2=$("#biao1").html();;
+			document.execCommand("Copy"); // 执行浏览器复制命令
+			var oInput = document.createElement('input');
+			oInput.value = Url2;
+			document.body.appendChild(oInput);
+			oInput.select(); // 选择对象
+			document.execCommand("Copy"); // 执行浏览器复制命令
+			oInput.className = 'oInput';
+			oInput.style.display='none';
+			layer.open({
+				content: '复制成功'
+				,skin: 'msg'
+				,time: 2 //2秒后自动关闭
+			});
+		}
+		</script>
+</html>

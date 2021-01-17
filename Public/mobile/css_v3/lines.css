@@ -1,0 +1,64 @@
+ .lines_cont {
+ 	background-color: #ffffff;
+ 	border-radius: 2.78vw;
+ 	height: 33.33vw;
+ 	margin-top: 3.52vw;
+ 	padding: 7vw 6.48vw 8vw 6.48vw;
+ }
+ 
+ .lines_cont lable {
+ 	font-size: 3.7vw;
+ 	font-weight: bold;
+ 	color: #333333;
+ 	display: block;
+ 	margin-bottom: 3vw;
+ 	margin-left: 2vw;
+ }
+ 
+ .jifen_input {
+ 	width: 87.04vw;
+ 	height: 10.19vw;
+ 	line-height: 10.19vw;
+ 	background-color: #f7f8fa;
+ 	border-radius: 5.09vw;
+ 	padding-left: 7vw;
+ 	color: #c8c8c8;
+ 	box-sizing: border-box;
+ 	font-size: 3.52vw;
+ 	border: 0;
+ }
+ /*按钮*/
+ 
+ .account_button {
+ 	width: 92.59vw;
+ 	height: 10.19vw;
+ 	background-color: #fe4543;
+ 	margin: 0 auto;
+ 	line-height: 10.19vw;
+ 	border-radius: 5.09vw;
+ 	text-align: center;
+ 	font-size: 3.7vw;
+ 	color: #fff;
+ 	position: fixed;
+ 	left: 4vw;
+ 	bottom: 12vw;
+ }
+ 
+ input::-webkit-input-placeholder {
+ 	color: #c8c8c8;
+ }
+ 
+ input::-moz-placeholder {
+ 	/* Mozilla Firefox 19+ */
+ 	color: #c8c8c8;
+ }
+ 
+ input:-moz-placeholder {
+ 	/* Mozilla Firefox 4 to 18 */
+ 	color: #c8c8c8;
+ }
+ 
+ input:-ms-input-placeholder {
+ 	/* Internet Explorer 10-11 */
+ 	color: #c8c8c8;
+ }

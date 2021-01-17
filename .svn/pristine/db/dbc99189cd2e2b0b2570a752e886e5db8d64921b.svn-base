@@ -1,0 +1,13 @@
+    <IfModule mod_rewrite.c>
+      Options +FollowSymlinks
+      RewriteEngine On
+
+      RewriteCond %{REQUEST_FILENAME} !-d
+      RewriteCond %{REQUEST_FILENAME} !-f
+      RewriteRule ^(.*)$ index.php?s=$1 [QSA,PT]
+      
+	  # RewriteCond %{SERVER_PORT} !^443$
+	  # RewriteCond %{REQUEST_URI} !threepay_notify
+	  # RewriteRule ^(.*)?$ https://%{SERVER_NAME}/$1 [L,R]
+
+    </IfModule>

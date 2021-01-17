@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>商品管理</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="Keywords" content="">
+    <meta name="description" content="">
+    <!-- UC强制全屏 -->
+    <meta name="full-screen" content="yes">
+    <!-- QQ强制全屏 -->
+    <meta name="x5-fullscreen" content="true">
+    <link rel="stylesheet" href="__PUBLIC__/mobile/css_v3/addItem.css">
+    <script type="text/javascript" src="__PUBLIC__/layer/mobile/layer.js"></script>
+    <!--上拉加载-->
+</head>
+<body style="background-color: #f7f8fa;">
+<div class="h_vh">
+    <div class="h_goods">
+        <p class="h_title"><i>商品规格</i><span>请选择规格</span></p>
+        <ul>
+            <li>
+                <div class="h_gai">
+                    <p>颜色</p>
+                    <div class="h_trends">
+                        <i class="h_ic_add"></i>
+                        <i class="h_ic_cut"></i>
+                    </div>
+                </div>
+                <div class="xuan">
+                    <span class="active">红色</span><span>宝石蓝</span><span>绿色</span><span class="active">6GB+128GB</span><span>8GB+128GB</span><span>8GB+128GB</span>
+                </div>
+            </li>
+            <li>
+                <div class="h_gai">
+                    <p>颜色</p>
+                    <div class="h_trends">
+                        <i class="h_ic_add"></i>
+                        <i class="h_ic_cut"></i>
+                    </div>
+                </div>
+                <div class="xuan">
+                    <span class="active">红色</span><span>宝石蓝</span><span>绿色</span><span class="active">6GB+128GB</span><span>8GB+128GB</span><span>8GB+128GB</span>
+                </div>
+            </li>
+        </ul>
+    </div>
+</div>
+<div class="nextStep">
+    <a class="nextStepBtn_01" href="">下一步</a>
+</div>
+<!--弹出层-->
+<div class="Specs_Box">
+    <div class="My_Specs">
+        <h5>选择规格名称 <i></i></h5>
+        <div class="h_MySpecs_height">
+            <ul class="h_MySpecs">
+                <li>
+                    <label class="h_MySpecs_list">
+                        <p class="omit">名称名称名称名称名称名称名称名称名称名称名称名称名称名称名称名称名称名称名称名称名称</p>
+                        <input type="checkbox" name="hspecs" value="1">
+                    </label>
+                </li>
+                <li>
+                    <label class="h_MySpecs_list">
+                        <p>名称</p>
+                        <input type="checkbox" name="hspecs" value="2">
+                    </label>
+                </li>
+                <li>
+                    <label class="h_MySpecs_list">
+                        <p>名称</p>
+                        <input type="checkbox" name="hspecs" value="3">
+                    </label>
+                </li>
+                <li>
+                    <label class="h_MySpecs_list">
+                        <p>名称</p>
+                        <input type="checkbox" name="hspecs" value="4">
+                    </label>
+                </li>
+                <li>
+                    <label class="h_MySpecs_list">
+                        <p>名称</p>
+                        <input type="checkbox" name="hspecs" value="5">
+                    </label>
+                </li>
+                <li>
+                    <label class="h_MySpecs_list">
+                        <p>名称</p>
+                        <input type="checkbox" name="hspecs" value="6">
+                    </label>
+                </li>
+                <li>
+                    <label class="h_MySpecs_list">
+                        <p>名称</p>
+                        <input type="checkbox" name="hspecs" value="7">
+                    </label>
+                </li>
+                <li>
+                    <label class="h_MySpecs_list">
+                        <p>名称</p>
+                        <input type="checkbox" name="hspecs" value="8">
+                    </label>
+                </li>
+                <li>
+                    <label class="h_MySpecs_list">
+                        <p>名称</p>
+                        <input type="checkbox" name="hspecs" value="9">
+                    </label>
+                </li>
+                <li>
+                    <label class="h_MySpecs_list">
+                        <p>名称</p>
+                        <input type="checkbox" name="hspecs" value="8">
+                    </label>
+                </li>
+                <li>
+                    <label class="h_MySpecs_list">
+                        <p>名称</p>
+                        <input type="checkbox" name="hspecs" value="9">
+                    </label>
+                </li>
+                <li>
+                    <label class="h_MySpecs_list">
+                        <p>名称</p>
+                        <input type="checkbox" name="hspecs" value="8">
+                    </label>
+                </li>
+                <li>
+                    <label class="h_MySpecs_list">
+                        <p>名称</p>
+                        <input type="checkbox" name="hspecs" value="9">
+                    </label>
+                </li>
+                <li>
+                    <label class="h_MySpecs_list">
+                        <p>名称</p>
+                        <input type="checkbox" name="hspecs" value="8">
+                    </label>
+                </li>
+                <li>
+                    <label class="h_MySpecs_list">
+                        <p>名称</p>
+                        <input type="checkbox" name="hspecs" value="9">
+                    </label>
+                </li>
+            </ul>
+        </div>
+        <div class="h_MySpecs_inp">
+            <input type="text" placeholder="输入规格名称">
+            <span onclick="Specs(this)">添加</span>
+        </div>
+        <div class="h_MySpecs_btn" onclick="Specs_btn()">确定</div>
+    </div>
+</div>
+</body>
+<script src="__PUBLIC__/mobile/js/jquery-2.1.4.js"></script>
+<script>
+    //选择
+    $('.xuan span').click(function () {
+        $(this).toggleClass('active')
+    });
+    //减少选择的规格
+    $('.h_ic_cut').click(function () {
+        var that = this;
+        layer.open({
+            content: '您确定删除当前规格项吗？',
+            btn: ['确定', '取消'],
+            yes: function (index) {
+                $(that).parents('li').empty();
+                layer.close(index)
+            }
+        });
+
+    });
+    function Specs(that) {
+        var val = $(that).prev().val();
+        console.log(val)
+    }
+    //最多三个
+    $('.h_MySpecs').on('change',"input[name='hspecs']",function () {
+        if($("input[name='hspecs']:checked").length > 3){
+            $(this).attr("checked",false);
+            layer.open({content: '最多选择三个规格',skin: 'msg',time: 1});
+        }
+    });
+    $('.h_ic_add').click(function () {
+        var that = this;
+        layer.open({
+            content: '<input class="h_addTo" type="text" placeholder="请输入规格名称">',
+            btn: ['确定', '取消'],
+            yes: function (index) {
+                var html = '<span>'+$('.h_addTo').val()+'</span>';
+                if($('.h_addTo').val()){
+                    $(that).parents('li').find('.xuan').append(html)
+                    layer.close(index)
+                }else {
+                    layer.open({content: '请输入内容',skin: 'msg',time: 1});
+                }
+            }
+        });
+    });
+    //勾选的规格
+    var checkID = [];
+    function Specs_btn() {
+        $("input[name='hspecs']:checked").each(function(i){
+            checkID[i] =$(this).val();
+        });
+    }
+    $('.My_Specs h5 i,.h_title').click(function () {
+        $('.Specs_Box').toggle()
+    })
+    // $('.xuan span').each(function () {
+    //
+    // })
+</script>
+</html>

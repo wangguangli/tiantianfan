@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<title>{:GC('web_title')}</title>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+		<meta name="Keywords" content="">
+		<meta name="description" content="">
+		<!-- UC强制全屏 -->
+		<meta name="full-screen" content="yes">
+		<!-- QQ强制全屏 -->
+		<meta name="x5-fullscreen" content="true">
+		<link rel="stylesheet" href="__PUBLIC__/mobile/style/jquery-weui.min.css">
+		<link rel="stylesheet" href="__PUBLIC__/mobile/css_v3/weui.min.css?n=2">
+		<link rel="stylesheet" href="__PUBLIC__/mobile/style/main_style.css">
+		<link rel="stylesheet" href="__PUBLIC__/mobile/css_v3/index-user.css?n=4">
+		<link rel="stylesheet" href="__PUBLIC__/css/footer.css" type="text/css" />
+		<script type="text/javascript" src="__PUBLIC__/layer/mobile/layer.js"></script>
+		<style>
+			.bottom-nav {
+				z-index: 2;
+			}
+		</style>
+	</head>
+
+	<body style="background-color: #f7f8fa;padding-bottom: 5vw;">
+		<div class="header_gr">
+			<div class="header_top head-pad">
+				<div class="header_top_lf">
+					<!--登陆后的状态-->
+					<if condition="$user neq ''">
+						<a href="{:U('user/header')}">
+							<img class="logo" src="{$user.headimgurl}" />
+							<div class="header_top_lf_nb">
+								<span class="number">{$user.nickname}</span>
+								<div class="header_top_lf_cont">
+									<img src="__PUBLIC__/mobile/images_v3/f-gr-4.png" />
+									<span>{$user.level_name}</span>
+								</div>
+							</div>
+						</a>
+						<else/>
+						<!--未登录的状态-->
+						<a href="#">
+							<img class="logo" src="__PUBLIC__/mobile/images_v3/f-tubiao.png" />
+							<div class="header_top_lf_nb" style="margin-top: 2.6vw;">
+								<div class="logged_in">登录/注册</div>
+								<p class="log_view">登录查看更多信息</p>
+							</div>
+						</a>
+					</if>
+
+				</div>
+				<!--二维码-->
+				<!--<a href="{:U('User/code')}">
+					<img class="erweima" src="__PUBLIC__/mobile/images_v3/f-gr-2.png" />
+				</a>-->
+				<div class="sign_in">
+					<div class="sign_qiandao" style="float: none">
+						<a href="{:('sign')}">
+							<img class="sign_img" src="__PUBLIC__/mobile/images_v3/f_qiandao.png" />
+							<span class="text">签到</span>
+						</a>
+					</div>
+					<!--<div class="sign_qiandao sign_qiandao2">
+						<img class="sign_img" src="__PUBLIC__/mobile/images_v3/f_shao.png" />
+						<span class="text">扫一扫</span>
+
+					</div>-->
+
+				</div>
+			</div>
+
+			<!--会员升级部分-->
+			<div class="members_cont">
+				<div class="members_lf">
+					<img class="erweima" src="__PUBLIC__/mobile/images_v3/f-gr-3.png" />
+					<span class="members_lf_text">会员升级</span>
+				</div>
+				<div class="members_lr">
+					<a href="{:U('upgrade')}">
+						<span class="hy_button">成为会员</span>
+					</a>
+					<p>只有会员才知道的世界</p>
+				</div>
+
+			</div>
+		</div>
+
+		<!--我的订单部分-->
+		<div class="order_cont">
+			<div class="order_cont_top pid">
+				<div class="order_text">我的订单</div>
+				<div class="order_fh">
+					<a href="{:U('Order/index','order_status=-1')}">
+						<span>查看全部订单</span><img class="erweima" src="/Public/mobile/images_v3/f_dm34.png" />
+					</a>
+				</div>
+			</div>
+			<!--导航-->
+			<div class="order_cont_nav">
+				<div class="order_cont_list">
+					<if condition="$payOrder gt 0">
+						<div class="order_num">{$payOrder}</div>
+					</if>
+					<a href="{:U('Order/index','order_status=0')}">
+						<img class="erweima" src="/Public/mobile/images_v3/f-gr-6.png" />
+						<span class="order_list_span">待付款</span>
+					</a>
+				</div>
+				<div class="order_cont_list">
+					<if condition="$ship gt 0">
+						<div class="order_num">{$ship}</div>
+					</if>
+					<a href="{:U('Order/index','order_status=1')}">
+						<img class="erweima" src="/Public/mobile/images_v3/f-gr-7.png" />
+						<span class="order_list_span">待发货</span>
+					</a>
+				</div>
+
+				<div class="order_cont_list">
+					<if condition="$receipt gt 0">
+						<div class="order_num">{$receipt}</div>
+					</if>
+					<a href="{:U('Order/index','order_status=2')}">
+						<img class="erweima" src="/Public/mobile/images_v3/f-gr-8.png" />
+						<span class="order_list_span">待收货</span>
+					</a>
+				</div>
+
+				<div class="order_cont_list">
+					<if condition="$comment gt 0">
+						<div class="order_num">{$comment}</div>
+					</if>
+					<a href="{:U('Order/index','order_status=3')}">
+						<img class="erweima" src="/Public/mobile/images_v3/f-gr-9.png" />
+						<span class="order_list_span">待评价</span>
+					</a>
+				</div>
+				<div class="order_cont_list">
+<!--					<div class="order_num" style="right: 2vw;">4</div>-->
+					<a href="{:U('Order/refund_index')}">
+						<img class="erweima" src="/Public/mobile/images_v3/f-gr-10.png" />
+						<span class="order_list_span">退款/售后</span>
+					</a>
+				</div>
+			</div>
+			<!--余额-->
+			<div class="balance_cont">
+				<ul class="balance_ul">
+					<li class="balance_li before">
+						<a href="{:U('User/accountDetail','type=16')}">
+							<span class="balance_li_qian">{$user.score}</span>
+							<span class="balance_li_text">金额</span>
+						</a>
+					</li>
+					<li class="balance_li">
+						<a href="{:U('User/accountDetail','type=1')}">
+							<span class="balance_li_qian">{$user.money}</span>
+							<span class="balance_li_text">佣金</span>
+						</a>
+					</li>
+
+					<li class="balance_li before">
+						<a href="{:U('User/accountDetail','type=18')}">
+							<span class="balance_li_qian">{$user.price}</span>
+							<span class="balance_li_text">已返金额</span>
+						</a>
+					</li>
+					<li class="balance_li before">
+						<a href="{:U('User/accountDetail','type=6')}">
+							<span class="balance_li_qian">{$user.money_wait}</span>
+							<span class="balance_li_text">待返金额</span>
+						</a>
+					</li>
+<!--					<li class="balance_li before">-->
+<!--						<a href="{:U('User/collect','type=1')}">-->
+<!--							<span class="balance_li_qian">{$fav_num}</span>-->
+<!--							<span class="balance_li_text">收藏</span>-->
+<!--						</a>-->
+<!--					</li>-->
+<!--					<li class="balance_li before2">-->
+<!--						<a href="{:U('Cart/index')}">-->
+<!--							<img class="car" src="/Public/mobile/images_v3/f-gr-11.png" />-->
+<!--							<span class="balance_li_text" style="margin-top: 1.5vw;">购物车</span>-->
+<!--						</a>-->
+<!--					</li>-->
+
+				</ul>
+
+			</div>
+
+		</div>
+		<!--积分商城-->
+		<div class="integra_mall" style="display: none;">
+			<a href="{:U('Goods/waitGoodsList')}">
+				<div class="int_lf">
+					<img class="cheng_img" src="/Public/mobile/images_v3/jifen_lw.png" alt="" />
+					<div class="int_lf_tit">
+						<div class="jf-title">积分商城</div>
+						<div class="jf_p">
+							激情换购,超值享受
+						</div>
+					</div>
+				</div>
+				<div class="int_lr">
+					<span class="duihuan">立即兑换</span>
+					<img class="fanhui" src="/Public/mobile/images_v3/jifen_f.png" alt="" />
+				</div>
+			</a>
+		</div>
+
+		<!--积分商城-->
+
+		<div class="integral2_mall" style="display: none;">
+			<a href="{:U('Goods/waitGoodsList')}">
+				<div class="agent_icon ag_line">
+					<img class="fanhui" src="/Public/mobile/images_v3/f_shangjia.png" alt="" />
+					<span class="icon_text">积分商城</span>
+				</div>
+			</a>
+
+			<div class="agent_icon ag_line" onclick="shangjia()">
+				<img class="fanhui" src="/Public/mobile/images_v3/f-shangjia2.png" alt="" />
+				<span class="icon_text">商家中心</span>
+			</div>
+
+			<div class="agent_icon ag_line" onclick="agent()">
+				<img class="fanhui" src="/Public/mobile/images_v3/f_shangjia3.png" alt="" />
+				<span class="icon_text">代理中心</span>
+			</div>
+
+		</div>
+
+		<!--常用工具-->
+		<div class="tool_cont">
+			<h3>常用工具</h3>
+			<div class="tool_ul">
+
+				<a href="{:U('distributionCenter')}">
+					<div class="tool_list">
+
+						<div class="tool_list_lf">
+							<img class="tool_tb" src="/Public/mobile/images_v3/f-gr-12.png" />
+							<h2>我的推荐</h2>
+						</div>
+						<img class="tool_fh" src="/Public/mobile/images_v3/f_dm34.png" />
+
+					</div>
+				</a>
+
+				<div class="tool_list" style="display: none;">
+					<a href="{:U('User/my_coupon')}">
+						<div class="tool_list_lf">
+							<img class="tool_tb" src="/Public/mobile/images_v3/f_dian4.png" />
+							<h2>我的优惠券</h2>
+						</div>
+						<img class="tool_fh" src="/Public/mobile/images_v3/f_dm34.png" />
+					</a>
+				</div>
+
+
+				<div class="tool_list" style="display: none;">
+					<a href="{:U('Order/recharge_order', array('type'=>1))}">
+						<div class="tool_list_lf">
+							<img class="tool_tb" src="/Public/mobile/images_v3/f_dian4.png" />
+							<h2>充值订单</h2>
+						</div>
+						<img class="tool_fh" src="/Public/mobile/images_v3/f_dm34.png" />
+					</a>
+				</div>
+				<div class="tool_list">
+					<a href="{:U('location', array('user_id'=>$user['id']))}">
+						<div class="tool_list_lf">
+							<img class="tool_tb" src="/Public/mobile/images_v3/f-gr-13.png" />
+							<h2>地址管理</h2>
+						</div>
+						<img class="tool_fh" src="/Public/mobile/images_v3/f_dm34.png" />
+					</a>
+				</div>
+				<div class="tool_list">
+					<a href="javascript:;" class="customer_service">
+						<div class="tool_list_lf">
+							<img class="tool_tb" src="/Public/mobile/images_v3/f-gr-14.png" />
+							<h2>客户服务</h2>
+						</div>
+						<img class="tool_fh" src="/Public/mobile/images_v3/f_dm34.png" />
+					</a>
+				</div>
+				<div class="tool_list">
+					<a href="{:U('bank_card')}">
+						<div class="tool_list_lf">
+							<img class="tool_tb" src="/Public/mobile/images_v3/f-gr-15.png" />
+							<h2>银行卡</h2>
+						</div>
+						<img class="tool_fh" src="/Public/mobile/images_v3/f_dm34.png" />
+					</a>
+				</div>
+
+				<div class="tool_list" style="display: block;">
+					<a href="{:U('Goods/waitGoodsList')}">
+						<div class="tool_list_lf">
+							<img class="tool_tb" src="/Public/mobile/images_v3/f_dian1.png" />
+							<h2>积分商城</h2>
+						</div>
+						<img class="tool_fh" src="/Public/mobile/images_v3/f_dm34.png" />
+					</a>
+				</div>
+
+				<div class="tool_list" style="border: 0;">
+					<a href="{:U('setting', array('user_id'=>$user['id']))}">
+						<div class="tool_list_lf">
+							<img class="tool_tb" src="/Public/mobile/images_v3/f-gr-16.png" />
+							<h2>设置</h2>
+						</div>
+						<img class="tool_fh" src="/Public/mobile/images_v3/f_dm34.png" />
+					</a>
+				</div>
+			</div>
+		</div>
+
+		<!--客服弹出-->
+		<div id="customer_service" class="weui-popup__container popup-bottom">
+			<div class="weui-popup__overlay"></div>
+			<div class="weui-popup__modal">
+				<div class="weui_pop_title">
+					<div class="weui_pop_title_txt">联系方式</div>
+					<button class="weui_pop_title_close close-popup"><img src="__PUBLIC__/mobile/images_v3/cross.png" class="weui_pop_title_close_img"></button>
+				</div>
+				<div class="weui_pop_content_wrap">
+					<if condition="$kefu['phone']">
+						<div class="weui_kefu_block">
+							<a href="tel:{$kefu['phone']}">电话：{$kefu['phone']}</a><span>（拨打）</span>
+						</div>
+					</if>
+					<if condition="$kefu['qq']">
+						<div class="weui_kefu_block">
+							<a type="button" class="icopy" data-clipboard-text="{$kefu.qq}" href="http://wpa.qq.com/msgrd?v=3&site=qq&menu=yes&uin={$kefu.qq}">QQ：{$kefu['qq']}</a><span>（复制）</span>
+						</div>
+					</if>
+
+					<div class="weui_kefu_block yzh_kefu" style="display: none;">
+						<a href="javascript:;">在线客服</a><span>（即时聊天）</span>
+					</div>
+
+					<div class="btn_center">
+						<button class="btn_ok btn_long close-popup">知道了</button>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<include file="Public/tabbar" />
+		<script src="__PUBLIC__/mobile/js/jquery-2.1.4.js"></script>
+		<script src="__PUBLIC__/mobile/js/jquery-weui.min.js"></script>
+
+
+		<!--腾讯云智服务在线客服-->
+		<script src="https://yzf.qq.com/xv/web/static/chat_sdk/yzf_chat.min.js"></script>
+		<script>
+			//参数说明
+			//sign：公司渠道唯一标识，复制即可，无需改动
+			//uid：用户唯一标识，如果没有则不填写，默认为空
+			//data：用于传递用户信息，最多支持5个，参数名分别为c1,c2,c3,c4,c5；默认为空
+			//selector：css选择器(document.querySelector, 如#btnid .chat-btn等)，用于替换默认的常驻客服入口
+			//callback(type, data): 回调函数,type表示事件类型， data表示事件相关数据
+			//type支持的类型：newmsg有新消息，error云智服页面发生错误， close聊天窗口关闭
+			window.yzf && window.yzf.init({
+				sign: '37ef9b97d47501c370439ae84fe4b66a51d42db04c5f1d6d9b7d735b651adccc2d888745595690cb91edb453bae136192e242976',
+				uid: '',
+				data: {
+					c1: '',
+					c2: '',
+					c3: '',
+					c4: '',
+					c5: ''
+				},
+				selector: '.yzh_kefu',
+				callback: function(type, data){}
+			})
+			//window.yzf.close() 关闭1已打开的回话窗口
+		</script>
+
+		<script>
+			var user_id = "{$user.id}";
+
+			function shangjia() {
+				var is_shop = "{$user.is_shop}";
+				if (is_shop == 0) {
+					layer.open({
+						content: '您现在还不是商家,请去申请',
+						btn: ['确定', '取消'],
+						yes: function(index) {
+							layer.close(index);
+							location.href = "{:U('Shopcenter/applyshop')}";
+						}
+					});
+				} else if (is_shop == 2) {
+					layer.open({
+						content: '你的账号已被冻结,请联系客服',
+						skin: 'msg',
+						time: 1.5
+					});
+				} else if (is_shop == 3) {
+					layer.open({
+						content: '你的账号正在审核中,请联系客服',
+						skin: 'msg',
+						time: 1.5
+					});
+				} else {
+					var shop_id = "{$user['shopinfo']['id']}";
+					location.href = "{:U('Shopcenter/index')}" + "?shop_id=" + shop_id;
+				}
+			}
+
+			function agent() {
+				var is_agent = "{$user.is_agent}";
+				console.log(is_agent);
+				if (is_agent == 0) {
+					layer.open({
+						content: '您现在还不是代理,请去申请',
+						btn: ['确定', '取消'],
+						yes: function(index) {
+							layer.close(index);
+							location.href = "{:U('Agent/applyagent')}";
+						}
+					});
+				} else if (is_agent == 2) {
+					layer.open({
+						content: '你的账号已被冻结,请联系客服',
+						skin: 'msg',
+						time: 1.5
+					});
+				} else if (is_agent == 3) {
+					layer.open({
+						content: '你的账号正在审核中,请联系客服',
+						skin: 'msg',
+						time: 1.5
+					});
+				} else {
+					location.href = "{:U('Agent/index')}?user_id=" + user_id;
+				}
+			}
+			$(function() {
+				// 打开客服联系方式
+				$(".customer_service").on("click", function() {
+					$("#customer_service").popup();
+				});
+			})
+		</script>
+
+	</body>
+
+</html>

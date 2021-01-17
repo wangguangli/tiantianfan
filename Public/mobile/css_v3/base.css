@@ -1,0 +1,16 @@
+@charset "UTF-8";
+
+@font-face {
+  font-family: "SourceHanSansCN-Normal";
+  src: url("../../font/SourceHanSansCN/SourceHanSansCN-Normal.woff2") format("woff2"),
+       url("../../font/SourceHanSansCN/SourceHanSansCN-Normal.woff") format("woff"),
+       url("../../font/SourceHanSansCN/SourceHanSansCN-Normal.ttf") format("truetype"),
+       url("../../font/SourceHanSansCN/SourceHanSansCN-Normal.eot") format("embedded-opentype"),
+       url("../../font/SourceHanSansCN/SourceHanSansCN-Normal.svg") format("svg"),
+       url("../../font/SourceHanSansCN/SourceHanSansCN-Normal.otf") format("opentype");
+  font-weight: normal;
+  font-style: normal;
+}
+* {
+	font-family:"SourceHanSansCN-Normal","Microsoft YaHei",sans-serif;
+}

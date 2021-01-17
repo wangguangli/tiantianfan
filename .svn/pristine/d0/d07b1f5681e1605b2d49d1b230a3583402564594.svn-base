@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta content="IE=edge" http-equiv="X-UA-Compatible">
+	<title>我的订单</title>
+	<meta content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"
+	      name="viewport">
+	<meta content="yes" name="apple-mobile-web-app-capable">
+	<meta content="black" name="apple-mobile-web-app-status-bar-style">
+	<link href="__PUBLIC__/mobile/style/jquery-weui.min.css" rel="stylesheet">
+	<link href="__PUBLIC__/mobile/style/main_style.css" rel="stylesheet">
+	<link href="__PUBLIC__/mobile/css_v3/order_index.css?n=4" rel="stylesheet">
+	<link rel="stylesheet" href="__PUBLIC__/mobile/css_v3/mui.min.css">
+	<link rel="stylesheet" href="__PUBLIC__/mobile/css_v3/goods_index.css?n=2">
+	<link rel="stylesheet" href="__PUBLIC__/mobile/style/main_style.css">
+	<link rel="stylesheet" href="__PUBLIC__/mobile/css_v3/near.css">
+	<link rel="stylesheet" href="__PUBLIC__/mobile/css_v3/property.css">
+	<script src="__PUBLIC__/layer/mobile/layer.js"></script>
+	<script src="__PUBLIC__/mobile/js/jquery-2.1.4.js"></script>
+	<script src="__PUBLIC__/mobile/js/jquery-weui.min.js"></script>
+	<script src="__PUBLIC__/layer/mobile/layer.js"></script>
+
+
+	<style type="text/css">
+		/*搜索*/
+
+		.f_search {
+			width: 100%;
+			padding: 4.4vw 3.8vw 4vw 3.8vw;
+			overflow: hidden;
+			background-color: #fff;
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+		}
+
+		.f_search .sea_fh {
+			width: 2.59vw;
+			height: 4.44vw;
+		}
+
+		.f_search .middle {
+			width: 65.37vw;
+			height: 8.89vw;
+			border-radius: 4.44vw;
+			background-color: #f7f8fa;
+			padding: 0 3.52vw 0 3.52vw;
+			display: flex;
+			align-items: center;
+			margin-left: 1vw;
+		}
+
+		.middle .return_img {
+			width: 3.98vw;
+			height: 4.07vw;
+			margin-right: 3vw;
+		}
+
+		.middle input {
+			width: 84%;
+			border: 0;
+			background-color: #f7f8fa;
+			font-size: 3.33vw;
+			color: #555555;
+			height: 7vw;
+			margin-bottom: 0;
+		}
+
+		.sea_button {
+			width: 17.87vw;
+			height: 8.89vw;
+			background-color: #fe4543;
+			border-radius: 4.44vw;
+			font-size: 3.33vw;
+			color: #fff;
+			text-align: center;
+			border: 0;
+		}
+
+		.pro-info-tootm1 {
+			font-size: 2.22vw;
+			color: #999;
+			margin-top: 1.68vw;
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+		}
+
+	</style>
+</head>
+<body ontouchstart id="index">
+
+<div class="order-case">
+	<span class="case_left" onclick="back()"><a class="mui-pull-left mui-icon mui_turn"><img
+			src="__PUBLIC__/mobile/images_v3/f_fanhui.png" style="width: 1.94vw;height: 3.33vw"/></a></span>
+	<ul class="case_ul">
+		<li>
+			<a href="{:U('index', 'order_status=-1')}"
+			<if condition="$order_status eq -1 "> class="cut"</if>
+			>全部</a>
+		</li>
+		<li>
+			<a href="{:U('index', 'order_status=0')}"
+			<if condition="$order_status eq 0 "> class="cut"</if>
+			>待付款</a>
+		</li>
+		<li>
+			<a href="{:U('index', 'order_status=1')}"
+			<if condition="$order_status eq 1 "> class="cut"</if>
+			>待发货</a>
+		</li>
+		<li>
+			<a href="{:U('index', 'order_status=2')}"
+			<if condition="$order_status eq 2 "> class="cut"</if>
+			>待收货</a>
+		</li>
+		<li>
+			<a href="{:U('index', 'order_status=3')}"
+			<if condition="$order_status eq 3 "> class="cut"</if>
+			>待评价</a>
+		</li>
+		<!--<li>-->
+		<!--<a href="{:U('index', 'order_status=6')}" <if condition="$order_status eq 6 "> class="cut" </if> >售后</a>-->
+		<!--</li>-->
+		<!--<li>
+			<a href="{:U('refund_index')}"
+			<if condition="$order_status eq 4 "> class="cut"</if>
+			>售后</a>
+		</li>-->
+	</ul>
+</div>
+<if condition="empty($list)">
+	<div class="empty_data">
+		<div class="empty_data_t0">
+			<img class="empty_cart_img_1" src="__PUBLIC__/mobile/images_v3/empty_cart_img_1.png">
+		</div>
+		<div class="empty_data_t1"><a href="{:U('Index/index')}" style="color: red;">进店逛逛</a></div>
+	</div>
+	<div class="goods-list">
+	<div class="good_list">
+		<ul class="ul_c" id="goods_list">
+			<volist name="goods" id="vo">
+				<li>
+					<div class="proshow">
+						<a href="{:U('Goods/detail', array('id'=>$vo['id']))}">
+							<img class="product_img" src="{$vo.thumb}" />
+							<div class="pro-info">
+								<p class="cakes_tit">
+									<span class="cakes">热销</span>
+									{$vo.name}
+								</p>
+
+								<div class="buy_cont">
+									<span class="price"><span class="symbol">￥</span>{$vo.price}</span>
+									<img class="gwc" src="__PUBLIC__/mobile/images_v3/f_dm26.png" />
+								</div>
+								<div class="pro-info-tootm1">
+									<div class="">
+										<span>已售:{$vo.sell_count}</span>
+										<span style="margin-left: 12vw;">评论:{$vo.common_count}</span>
+									</div>
+								</div>
+							</div>
+						</a>
+					</div>
+				</li>
+			</volist>
+		</ul>
+	</div>
+	</div>
+
+	<else/>
+	<div class="order-list">
+		<ul class="order_ul">
+			<volist id="vo" name="list">
+				<li class="order_li" id="order">
+					<input name="order_id" type="hidden" value="{$vo['id']}">
+					<div class="xmname">
+						<img class="shop_img" src="{$vo.thumb}">{$vo.shop_name}
+						<span>{$vo.order_status_cn}</span>
+					</div>
+					<if condition="$vo['order_status'] eq 0">
+						<a class="goods-li" href="{:U('Order/detail', array('order_id'=>$vo['id'],'user_id'=>$vo['user_id']))}">
+
+							<elseif condition="$vo['order_status'] eq -1"/>
+							<!--已完成-->
+							<a class="goods-li" href="{:U('Order/sale_trial', array('refund_id'=>$vo['id'] ))}">
+								<elseif condition="$vo['order_status'] eq -2"/>
+								<a class="goods-li" href="{:U('Order/refund_express', array('refund_id'=>$vo['id']))}">
+									<elseif condition="$vo['order_status'] eq -3"/>
+									<a class="goods-li" href="{:U('Order/refund_express_detail', array('refund_id'=>$vo['id']))}">
+										<elseif condition="$vo['order_status'] eq -4"/>
+										<a class="goods-li" href="{:U('Order/refund_express_detail', array('refund_id'=>$vo['id']))}">
+											<elseif condition="$vo['order_status'] eq -5"/>
+											<a class="goods-li" href="{:U('Order/refund_express_detail', array('refund_id'=>$vo['id']))}">
+												<elseif condition="$vo['order_status'] eq -6"/>
+												<a class="goods-li" href="{:U('Order/shop_express', array('refund_id'=>$vo['id']))}">
+													<elseif condition="$vo['order_status'] eq -7"/>
+													<a class="goods-li" href="{:U('Order/shop_express', array('refund_id'=>$vo['id']))}">
+
+														<elseif condition="$vo['order_status'] eq -8"/>
+														<a class="goods-li" href="{:U('Order/refund_money', array('refund_id'=>$vo['id']))}">
+
+															<elseif condition="$vo['order_status'] eq -9"/>
+															<if condition="$vo['refund_type'] eq 2">
+																<a class="goods-li" href="{:U('Order/shop_express', array('refund_id'=>$vo['id']))}">
+																	<else/>
+																	<a class="goods-li" href="{:U('Order/refund_money', array('refund_id'=>$vo['id']))}">
+															</if>
+														<else/>
+														<a class="goods-li" href="{:U('Order/detail',array('order_id'=>$vo['id'],'shop_id'=>$vo['shop_id'],'user_id'=>$vo['user_id']))}">
+					</if>
+						<if condition="$vo['goods_count'] gt 1">
+							<volist id="vo2" name="vo['goods']">
+								<img src="{$vo2.goods_thumb}"/>
+							</volist>
+							<else/>
+							<volist id="vo2" name="vo['goods']">
+								<img src="{$vo2['goods_thumb']}"/>
+								<div class="goods-title">
+									<div class="z_gt_1 h_omit2">{$vo2['goods_name']}</div>
+									<div class="z_gt_2">{$vo2['goods_spec_price_name']}</div>
+								</div>
+							</volist>
+						</if>
+					</a>
+					<div class="price-div">
+						共{$vo.goods_count}件商品 应付<span>￥{$vo.total_commodity_price}</span>
+					</div>
+					<div class="but-div">
+						<if condition="$vo['order_status'] eq 0">
+							<!--待付款-->
+<!--							<a href="{:U('Order/detail', array('order_id'=>$vo['id'], 'user_id'=>$vo['user_id']))}"-->
+<!--							   class="but-wul">查看详情</a>-->
+							<span class="but-wul" onclick="cancelOrder({$vo.id})">取消订单</span>
+							<a class="but-wul btn_red" href="{:U('Cart/sure_pay','order_id='.$vo['id'])}">去付款</a>
+							<!--代发货不显示按钮-->
+							<elseif condition="$vo['order_status'] eq 1"/>
+							<!--待收货-->
+<!--							<a href="{:U('Order/detail', array('order_id'=>$vo['id'],'shop_id'=>$vo['shop_id'], 'user_id'=>$vo['user_id']))}"-->
+<!--							   class="but-wul">查看详情</a>-->
+
+							<!-- -2商家同意售后-->
+							<elseif condition="$vo['order_status'] eq 2"/>
+							<!--待收货-->
+<!--							<a href="{:U('Order/detail', array('order_id'=>$vo['id'],'shop_id'=>$vo['shop_id'], 'user_id'=>$vo['user_id']))}"-->
+<!--							   class="but-wul">查看详情</a>-->
+							<a class="but-wul"
+							   href="{:U('Order/logistics', array('order_id'=>$vo['id'],'shop_id'=>$vo['shop_id'], 'user_id'=>$vo['user_id']))}">查看物流</a>
+							<a class="but-wul btn_red"
+							   href="{:U('Order/receive',array('user_id' => $vo['user_id'],'order_id' => $vo['id'],'shop_id'=>$vo['shop_id'] ))}">
+								全部收货</a>
+							<!-- -2商家同意售后-->
+							<elseif condition="$vo['order_status'] eq -1"/>
+							<!--已完成-->
+							<a class="but-wul" href="{:U('Order/sale_trial', array('refund_id'=>$vo['id'] ))}">查看详情</a>
+							<elseif condition="$vo['order_status'] eq -2"/>
+							<a class="but-wul" href="{:U('Order/refund_express', array('refund_id'=>$vo['id']))}">查看详情</a>
+							<elseif condition="$vo['order_status'] eq -3"/>
+							<a class="but-wul" href="{:U('Order/refund_express_detail', array('refund_id'=>$vo['id']))}">查看详情</a>
+							<elseif condition="$vo['order_status'] eq -4"/>
+							<a class="but-wul" href="{:U('Order/refund_express_detail', array('refund_id'=>$vo['id']))}">查看详情</a>
+							<elseif condition="$vo['order_status'] eq -5"/>
+							<a class="but-wul" href="{:U('Order/refund_express_detail', array('refund_id'=>$vo['id']))}">查看详情</a>
+							<elseif condition="$vo['order_status'] eq -6"/>
+							<a class="but-wul" href="{:U('Order/shop_express', array('refund_id'=>$vo['id']))}">查看详情</a>
+							<elseif condition="$vo['order_status'] eq -7"/>
+							<a class="but-wul" href="{:U('Order/shop_express', array('refund_id'=>$vo['id']))}">查看详情</a>
+							<a class="but-wul btn_red" href="{:U('Order/sale_complete', array('refund_id'=>$vo['id']))}">售后完成</a>
+							<elseif condition="$vo['order_status'] eq -8"/>
+							<a class="but-wul" href="{:U('Order/refund_money', array('refund_id'=>$vo['id']))}">查看详情</a>
+							<a class="but-wul btn_red" href="{:U('Order/sale_complete', array('refund_id'=>$vo['id']))}">售后完成</a>
+							<elseif condition="$vo['order_status'] eq -9"/>
+							<if condition="$vo['refund_type'] eq 2">
+								<a class="but-wul" href="{:U('Order/shop_express', array('refund_id'=>$vo['id']))}">查看详情</a>
+								<a href="{:U('Order/deleteRefund','order_id='.$vo['id'])}" class="but-wul">删除订单</a>
+								<else/>
+								<a class="but-wul" href="{:U('Order/refund_money', array('refund_id'=>$vo['id']))}">查看详情</a>
+								<a href="{:U('Order/deleteRefund','order_id='.$vo['id'])}" class="but-wul">删除订单</a>
+							</if>
+							<elseif condition="$vo['order_status'] eq 3"/>
+							<!--已完成-->
+							<span class="but-wul" onclick="deleteOrder({$vo.id},{$vo.shop_id})">删除订单</span>
+							<a class="but-wul"
+							   href="{:U('Order/logistics', array('order_id'=>$vo['id'],'shop_id'=>$vo['shop_id'], 'user_id'=>$vo['user_id']))}">查看物流</a>
+<!--							<a href="{:U('Order/detail', array('order_id'=>$vo['id'],'shop_id'=>$vo['shop_id'], 'user_id'=>$vo['user_id']))}"-->
+<!--							   class="but-wul">查看详情</a>-->
+							<elseif condition="$vo['order_status'] eq 6"/>
+							<!--已完成-->
+<!--							<a href="{:U('Order/detail', array('order_id'=>$vo['id'], 'shop_id'=>$vo['shop_id'],'user_id'=>$vo['user_id']))}"-->
+<!--							   class="but-wul">查看详情</a>-->
+							<a href="{:U('Order/deleteOrder','order_id='.$vo['id'])}" class="but-wul">删除订单</a>
+							<!--  -3 部分商品已收货-->
+							<elseif condition="$vo['order_status'] eq -3"/>
+							<a class="but-wul"
+							   href="{:U('Order/detail', array('order_id'=>$vo['id'], 'user_id'=>$vo['user_id']))}">查看详情</a>
+							<!--4已取消-->
+							<elseif condition="$vo['order_status'] eq 4"/>
+							<span class="but-wul" onclick="deleteOrder({$vo.id})">删除订单</span>
+							<!--4已评价-->
+							<elseif condition="$vo['order_status'] eq 5"/>
+							<span class="but-wul" onclick="deleteOrder({$vo.id},{$vo.shop_id})">删除订单</span>
+							<a class="but-wul"
+							   href="{:U('Order/detail', array('order_id'=>$vo['id'], 'user_id'=>$vo['user_id']))}">查看详情</a>
+							<elseif condition="$vo['order_status'] eq 1"/>
+
+							<a class="but-wul"
+							   href="{:U('Order/detail', array('order_id'=>$vo['id'], 'user_id'=>$vo['user_id']))}">查看详情</a>
+						</if>
+					</div>
+				</li>
+			</volist>
+		</ul>
+	</div>
+
+	<div class="load_more_content"></div>
+
+	<div class="load_more">
+		<span class="load_more_red">点击</span>加载更多
+	</div>
+</if>
+
+
+
+</body>
+<script src="__PUBLIC__/mobile/js/dropload.min.js"></script>
+<script type="text/javascript">
+	$('#index').dropload({
+		scrollArea: window,
+		loadUpFn : function(me){
+			location.reload()
+		}
+	})
+	//返回首页
+	function back() {
+		location.href = "{:U('User/index')}";
+	}
+
+	//取消订单
+	function cancelOrder(order_id) {
+		layer.open({
+			content: '您确定要取消该订单吗？'
+			, btn: ['确定', '不要']
+			, yes: function (index) {
+				$.ajax({
+					type: "POST",
+					dataType: "json",
+					data: {"order_id": order_id},
+					url: "{:U('Order/cancelOrder')}",
+					success: function (data) {
+						layer.open({
+							content: data.info
+							, skin: 'msg'
+							, time: 2 //2秒后自动关闭
+						});
+						window.location.reload()
+					}
+				});
+			}
+		});
+	}
+
+	function deleteOrder(order_id,shop_id) {
+		layer.open({
+			content: '您确定要删除该订单吗？'
+			, btn: ['确定', '不要']
+			, yes: function (index) {
+				$.ajax({
+					type: "POST",
+					dataType: "json",
+					data: {"order_id": order_id,"shop_id":shop_id},
+					url: "{:U('Order/deleteOrder')}",
+					success: function (data) {
+						console.log(data);
+						layer.open({
+							content: data.msg
+							, skin: 'msg'
+							, time: 2 //2秒后自动关闭
+						});
+						window.location.reload()
+					}
+				});
+			}
+		});
+
+	}
+
+	// 加载更多
+	var page = 2;           // 当前页码，默认从第2页开始，因为刚进来已经输出一次了
+	var max_page = "{$max_page}";   // 最大页码
+	var order_status = "{$order_status}";   // 当前类型
+	$(".load_more").on("click", function () {
+		if (page > max_page)
+		{
+			layer.open({
+				type: 2
+				, content: '数据已全部加载'
+				, time:1
+			});
+			$(".load_more").text("数据已全部加载");
+			return;
+		}
+
+		layer.open({
+			type: 2
+			, content: '加载中'
+		});
+		$(".load_more_content").load("{:U('index')}", {page:page, order_status:order_status}, function (response, status) {
+			if (status == "success") {
+				var html = $(".load_more_content").html();
+				$(".order_ul").append(html);
+				$(".load_more_content").html("");
+				page=parseInt(page)+1;    // 在本页自增
+			}
+			layer.closeAll();
+		});
+	});
+
+</script>
+</html>

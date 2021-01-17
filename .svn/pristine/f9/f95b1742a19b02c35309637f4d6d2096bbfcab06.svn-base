@@ -1,0 +1,40 @@
+<volist name="comment" id="vo">
+	<li>
+		<div class="clearfix comment_top">
+			<div class="ping_lf">
+				<img class="eva_img" src="{$vo['user']['headimgurl']}" width="100%" height="100%"/>
+				<div class="ping_lf_xx">
+					<h6 class="eva_h6">{$vo['user']['nickname']}</h6>
+					<div class="Satisfied">
+						<div class="star_eva">
+							<for start="0" end="$vo['commodity_quality']"><img
+									src="__PUBLIC__/mobile/images_v3/z_spxq_img_8.jpg"/></for>
+							<for start="0" end="5-$vo['commodity_quality']"><img
+									src="__PUBLIC__/mobile/images_v3/z_spxq_img_7_2.jpg"></for>
+						</div>
+						<div class="star_yi"></div>
+					</div>
+				</div>
+			</div>
+			<!--日期-->
+			<div class="ping_lr">
+				{$vo.time}
+			</div>
+		</div>
+		<p class="introduce">{$vo.content}</p>
+		<div class="pic_eva">
+			<div class="swiper-wrapper">
+				<if condition="!empty($vo['image'][0])">
+					<volist name="vo.image" id="image">
+						<div class="swiper-slide"><img src="{$image}" width="100%" height="100%"/>
+						</div>
+					</volist>
+				</if>
+
+			</div>
+		</div>
+		<div class="eva_st">
+
+		</div>
+	</li>
+</volist>

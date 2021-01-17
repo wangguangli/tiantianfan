@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>{:GC('web_title')}</title>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+		<meta name="Keywords" content="">
+		<meta name="description" content="">
+		   <!-- UC强制全屏 -->
+		<meta name="full-screen" content="yes">
+		<!-- QQ强制全屏 -->
+		<meta name="x5-fullscreen" content="true">
+		<link rel="stylesheet" href="__PUBLIC__/mobile/style/jquery-weui.min.css">		
+		<link rel="stylesheet" href="__PUBLIC__/mobile/style/weui.min.css">
+		<link rel="stylesheet" href="__PUBLIC__/mobile/style/main_style.css">
+		<!--<link rel="stylesheet" href="__PUBLIC__/mobile/style/index.css">-->		
+		<link rel="stylesheet" href="__PUBLIC__/mobile/css_v2/index_v2.css">
+		<!--<link rel="stylesheet" href="__PUBLIC__/mobile/css_v2/index-2.css">-->
+		<link href="__PUBLIC__/css/footer.css" rel="stylesheet" type="text/css" />
+		<!--上拉加载-->
+		<link rel="stylesheet" href="__PUBLIC__/mobile/style/dropload.css">		
+        <script type="text/javascript" src="__PUBLIC__/layer/mobile/layer.js"></script>
+		<!--banner轮播图模块-->
+		<style type="text/css">
+			.inx-banner .swiper-slide a,.inx-banner .swiper-slide a img{
+				height: 100%;
+				width: 100%;
+			}
+		</style>
+	</head>
+	<body ontouchstart style="background-color: #F9F9F9;height: auto;">	
+		<!--<input type="hidden" id="time" value="{$hour_end_time}" />-->
+		<div id="index">
+			<section class="header_ec" style="overflow: hidden;" >	
+				<img src="__PUBLIC__/mobile/images_v2/ttt.png" style="width: 100vw;height: 72vw;"/>
+				<div class=""style="width: 100%;position:absolute;top: -2vw;">								
+						<header>
+							<a class="scan">
+								<img src="__PUBLIC__/mobile/images_v2/n_scan.png" />
+								<span>扫一扫</span>
+							</a>
+					        <div class="input_tents">
+								<a href="{:U('Goods/goodssearch')}">
+									<div class="tents_in">	
+										<img src="__PUBLIC__/images/nsear.png" />
+										<input type="text" name="contents" id="contents" value="" placeholder="输入商品名" class="input_content" readonly="readonly" />
+									</div>
+								</a>
+							</div>
+							<a class="scan">
+								<img src="__PUBLIC__/mobile/images_v2/cart-simple.png" style="width: 7vw;height: 7vw;"   />
+								<span>购物车</span>
+							</a>
+					</header>
+				<!--</div>-->
+				<div class=""style="width: 100%;position: absolute;top:20vw;">
+						<div class="inx-banner">
+						<div class="swiper-container" style="height: 51vw;position: relative;">
+							<div class="swiper-wrapper">
+								<volist name="banner" id="vo">
+									<div class="swiper-slide swiper_img" >
+										<if condition="$vo['module']=='goods'">
+											<a href="{:U('Goods/detail','id='.$vo['link'])}"><img src="{$vo.photo}" /></a>
+										<elseif condition="$vo['module']=='shop'"/>
+											<a href="{:U('Shop/index','shop_id='.$vo['link'])}"><img src="{$vo.photo}" /></a>
+										<elseif condition="$vo['module']==category" />
+											<a href="{:U('Goods/index','id='.$vo['link'])}"><img src="{$vo.photo}" /></a>
+										<elseif condition="$vo['module']=='article'" />
+											<a href="{:U('Index/messageInfo','id='.$vo['link'])}"><img src="{$vo.photo}" /></a>
+										<elseif condition="$vo['module']=='link'" />
+											<a href="{$vo['link']}"><img src="{$vo.photo}" /></a>
+										<elseif condition="$vo['module']=='false'"/>
+											<a href="{$vo['link']}"><img src="{$vo.photo}" /></a>
+										<elseif condition="$vo['module']==''"/>
+											<img src="{$vo.photo}" />
+										</if>
+									</div>
+								</volist>
+							</div>
+							<div class="swiper-pagination"></div>
+						</div>
+				    </div>
+				</div>				
+			</section>	
+			<!--新鲜食材-->
+			  <div class="fress" style="display: none;">
+			  	<ul>
+			  		<li>
+			  			<img src="__PUBLIC__/images/n_select.png" width="15"height="15"/>
+			  			<span>{$banner_notice.banner_notice_1}</span>			  			
+			  		</li>
+			  		<li>
+			  			<img src="__PUBLIC__/images/n_select.png" width="15"height="15"/>
+			  			<span>{$banner_notice.banner_notice_2}</span>			  			
+			  		</li>
+			  		<li>
+			  			<img src="__PUBLIC__/images/n_select.png" width="15"height="15"/>
+			  			<span>{$banner_notice.banner_notice_3}</span>			  			
+			  		</li>
+			  	</ul>
+			  </div>
+			<!--商品分类模块-->
+			<div class="swiper-containers" style="background-color: #fff;">
+				<div class="swiper-wrapper">
+					<volist name="category" id="vo">
+						<div class="swiper-slide imgnav">
+							<a href="{:U('Goods/index','cat_id='.$vo['id'])}">
+								<div class="con_img_nav"><img src="{$vo.img}"/></div>
+								<p>{$vo.name}</p>
+							</a>
+						</div>
+					</volist>
+				</div>
+			</div>
+			 
+			<!--背景图-->		
+				<div class="ban_va">
+							<volist name="Advertisement" id="vo">
+								<if condition="$vo['module']=='goods'">
+									<a href="{:U('Goods/detail','id='.$vo['link'])}"><img src="{$vo.photo}" width="100%" height="100%"/></a>
+									<elseif condition="$vo['module']=='shop'"/>
+									<a href="{:U('Shop/index','shop_id='.$vo['link'])}"><img src="{$vo.photo}" width="100%" height="100%"/></a>
+									<elseif condition="$vo['module']==category" />
+									<a href="{:U('Goods/index','id='.$vo['link'])}"><img src="{$vo.photo}"width="100%" height="100%"/></a>
+									<elseif condition="$vo['module']=='article'" />
+									<a href="{:U('Index/messageInfo','id='.$vo['link'])}"><img src="{$vo.photo}" width="100%" height="100%"/></a>
+									<elseif condition="$vo['module']=='link'" />
+									<a href="{$vo['link']}"><img src="{$vo.photo}" width="100%" height="100%"/></a>
+									<elseif condition="$vo['module']=='false'"/>
+									<a href="{$vo['link']}"><img src="{$vo.photo}" width="100%" height="100%"/></a>
+									<elseif condition="$vo['module']==''"/>
+									<img src="{$vo.photo}" width="100%" height="100%"/>
+								</if>
+							</volist>
+				</div>	
+				<!--秒杀时间-->
+				<div class="seckill">
+						<div class="seckill_down" <if condition="$isHideTwo eq 1"> style="display:none;" </if> >
+							<!--秒杀时间-->
+							<div class="seckill_left">
+								<a href="{:U('Goods/limited_time')}">
+								<div class="kill_top clearfix">
+								 <h4>秒杀时间</h4>
+									<div class="ten_span">
+										<span id="hour">00</span>:<span id="minute">00</span>:<span id="second">00</span>	
+									</div>
+									<div class="kill_down clearfix">
+										<volist name="flash['goods_list']" id="vo">
+											<a href="{:U('Goods/limited_time')}">
+												 <div class="kill_img_left">
+													<div class="down_img"><img src="__PUBLIC__/mobile/images_v2/m1.png"/></div>
+													<span class="pri">¥2899</span>
+													<em class="delete">¥2999</em>
+												</div>
+												 <div class="kill_img_left">
+													<div class="down_img"><img src="__PUBLIC__/mobile/images_v2/m2.png"/></div>
+													<span class="pri">¥1690</span>
+													<em class="delete">¥1790</em>
+												</div>
+												 <div class="kill_img_left">
+													<div class="down_img"><img src="__PUBLIC__/mobile/images_v2/m3.png"/></div>
+													<span class="pri">¥1000</span>
+													<em class="delete">¥1200</em>
+												</div>
+										 </a>
+										</volist>
+									</div>
+								</a>
+							</div>				
+						</div>	
+					<!--购物拼团-->
+						<div class="seckill_left"  <if condition="$isHideTwo eq 1"> style="display:none;" </if> >
+							<div class="kill_top">
+							 <a href="{:U('Goods/goodsgroup')}"><h4>{$group['title']}</h4><span class="hw">好物超低够</span></a>
+							</div>
+							<div class="kill_down kill_down2">
+								<volist name="group['goods_list']" id="vo">
+									<a href="{:U('Goods/detail','goods_kind=1&id='.$vo['id'])}">
+									  <img src="{$vo.thumb}"width="100%"height="100%"/>
+								 </a>
+								 <a href="{:U('Goods/detail','goods_kind=1&id='.$vo['id'])}">
+									  <img src="{$vo.thumb}"width="100%"height="100%"/>
+								 </a>
+								</volist>
+							</div>
+						</div>
+					</div>
+				 <!--人气冠军-->
+					<div class="people_com">
+					   <ul>
+					   	<li>
+					   		<div class="people_top">
+					   		 <h4>{$popularity.title}</h4>
+					   		</div>
+					   		<p>人气NO.1</p>
+					        <div class="people_down">
+								<volist name="popularity['goods_list']" id="vo">
+									<if condition="$vo['module']=='goods'">
+										<a href="{:U('Goods/detail','id='.$vo['link'])}"><img src="{$vo.photo}"style="width: 16vw;height: 16vw;"/></a>
+										<elseif condition="$vo['module']=='shop'"/>
+										<a href="{:U('Shop/index','shop_id='.$vo['link'])}"><img src="{$vo.photo}"style="width: 16vw;height: 16vw;"/></a>
+										<elseif condition="$vo['module']==category" />
+										<a href="{:U('Goods/index','id='.$vo['link'])}"><img src="{$vo.photo}"style="width: 16vw;height: 16vw;"/></a>
+										<elseif condition="$vo['module']=='article'" />
+										<a href="{:U('Index/messageInfo','id='.$vo['link'])}"><img src="{$vo.photo}"style="width: 16vw;height: 16vw;"/></a>
+										<elseif condition="$vo['module']=='link'" />
+										<a href="{$vo['link']}"><img src="{$vo.photo}"style="width: 16vw;height: 16vw;"/></a>
+										<elseif condition="$vo['module']=='false'"/>
+										<a href="{$vo['link']}"><img src="{$vo.photo}"style="width: 16vw;height: 16vw;"/></a>
+										<elseif condition="$vo['module']==''"/>
+										<img src="{$vo.photo}"style="width: 16vw;height: 16vw;"/>
+									</if>
+								</volist>
+					       </div>
+					   	</li>
+					   	<li>
+					   		<div class="people_top">
+					   		 	<h4>{$seller.title}</h4>
+					   		</div>
+					   		<p>跟榜购好物</p>
+					        <div class="people_down">
+								<volist name="seller['goods_list']" id="vo">
+									<if condition="$vo['module']=='goods'">
+										<a href="{:U('Goods/detail','id='.$vo['link'])}"><img src="{$vo.photo}"style="width: 16vw;height: 16vw;"/></a>
+										<elseif condition="$vo['module']=='shop'"/>
+										<a href="{:U('Shop/index','shop_id='.$vo['link'])}"><img src="{$vo.photo}"style="width: 16vw;height: 16vw;"/></a>
+										<elseif condition="$vo['module']==category" />
+										<a href="{:U('Goods/index','id='.$vo['link'])}"><img src="{$vo.photo}"style="width: 16vw;height: 16vw;"/></a>
+										<elseif condition="$vo['module']=='article'" />
+										<a href="{:U('Index/messageInfo','id='.$vo['link'])}"><img src="{$vo.photo}"style="width: 16vw;height: 16vw;"/></a>
+										<elseif condition="$vo['module']=='link'" />
+										<a href="{$vo['link']}"><img src="{$vo.photo}"style="width: 16vw;height: 16vw;"/></a>
+										<elseif condition="$vo['module']=='false'"/>
+										<a href="{$vo['link']}"><img src="{$vo.photo}"style="width: 16vw;height: 16vw;"/></a>
+										<elseif condition="$vo['module']==''"/>
+										<img src="{$vo.photo}"style="width: 16vw;height: 16vw;"/>
+									</if>
+								</volist>
+
+					        </div>
+					   	</li>
+					   	<li>
+					   		<div class="people_top">
+					   		 <h4>{$newProducts.title}</h4>
+					   		</div>
+					   		<p style="color: #A42900;">好物种草</p>
+					        <div class="people_down">
+								<volist name="newProducts['goods_list']" id="vo" >
+									<if condition="$vo['module']=='goods'">
+										<a href="{:U('Goods/detail','id='.$vo['link'])}"><img src="{$vo.photo}"style="width: 16vw;height: 16vw;"/></a>
+										<elseif condition="$vo['module']=='shop'"/>
+										<a href="{:U('Shop/index','shop_id='.$vo['link'])}"><img src="{$vo.photo}"style="width: 16vw;height: 16vw;"/></a>
+										<elseif condition="$vo['module']==category" />
+										<a href="{:U('Goods/index','id='.$vo['link'])}"><img src="{$vo.photo}"style="width: 16vw;height: 16vw;"/></a>
+										<elseif condition="$vo['module']=='article'" />
+										<a href="{:U('Index/messageInfo','id='.$vo['link'])}"><img src="{$vo.photo}"style="width: 16vw;height: 16vw;"/></a>
+										<elseif condition="$vo['module']=='link'" />
+										<a href="{$vo['link']}"><img src="{$vo.photo}"style="width: 16vw;height: 16vw;"/></a>
+										<elseif condition="$vo['module']=='false'"/>
+										<a href="{$vo['link']}"><img src="{$vo.photo}"style="width: 16vw;height: 16vw;"/></a>
+										<elseif condition="$vo['module']==''"/>
+										<img src="{$vo.photo}"style="width: 16vw;height: 16vw;"/>
+									</if>
+								</volist>
+
+					        </div>
+					   	</li>
+					   	<li>
+					   		<div class="people_top">
+					   		 <h4>{$star.title}</h4>
+					   		</div>
+					   		<p style="color: #FFBF00">追星狂欢购</p>
+					        <div class="people_down">
+								<volist name="star['goods_list']" id="vo">
+									<if condition="$vo['module']=='goods'">
+										<a href="{:U('Goods/detail','id='.$vo['link'])}"><img src="{$vo.photo}"style="width: 16vw;height: 16vw;"/></a>
+										<elseif condition="$vo['module']=='shop'"/>
+										<a href="{:U('Shop/index','shop_id='.$vo['link'])}"><img src="{$vo.photo}"style="width: 16vw;height: 16vw;"/></a>
+										<elseif condition="$vo['module']==category" />
+										<a href="{:U('Goods/index','id='.$vo['link'])}"><img src="{$vo.photo}"style="width: 16vw;height: 16vw;"/></a>
+										<elseif condition="$vo['module']=='article'" />
+										<a href="{:U('Index/messageInfo','id='.$vo['link'])}"><img src="{$vo.photo}"style="width: 16vw;height: 16vw;"/></a>
+										<elseif condition="$vo['module']=='link'" />
+										<a href="{$vo['link']}"><img src="{$vo.photo}"style="width: 16vw;height: 16vw;"/></a>
+										<elseif condition="$vo['module']=='false'"/>
+										<a href="{$vo['link']}"><img src="{$vo.photo}"style="width: 16vw;height: 16vw;"/></a>
+										<elseif condition="$vo['module']==''"/>
+										<img src="{$vo.photo}"style="width: 16vw;height: 16vw;"/>
+									</if>
+								</volist>
+					        </div>
+					   	</li>
+					   </ul>
+					</div>
+				</div>
+		 	<!--发现好货-->
+				<div class="found_cont">
+					<div class="found_cont_top">
+					 <div class="found_lf">
+						 <h4>发现好货</h4>
+						 <p>品质新生活</p>
+					</div>
+					<div class="found_lr">
+						<a href="">
+							更多好货
+						<img src="__PUBLIC__/mobile/images_v2/xzjt.png">
+						</a>
+				    </div>
+				 </div>
+				 <!--主要内容部分-->
+				 <ul class="found_cont_mid">
+				 	<li>
+				 		<a href="">	<img src="__PUBLIC__/mobile/images_v2/sp01.png"></a>
+				 	</li>
+				 		<li>
+				 		<a href="">	<img src="__PUBLIC__/mobile/images_v2/sp02.png"></a>
+				 	</li>
+				 		<li>
+				 		<a href="">	<img src="__PUBLIC__/mobile/images_v2/sp03.png"></a>
+				 	</li>
+				 		<li>
+				 		<a href="">	<img src="__PUBLIC__/mobile/images_v2/sp04.png"></a>
+				 	</li>
+			  </ul>
+		 	</div>
+				
+		 	<!--小站快报渲染模块-->
+			<div class="inx-art-div">
+				<div class="inx-article">	
+					<span style="position: absolute;color: #FD2429;font-size:3.8vw;">HOT</span>
+					<ul class="marquee" style="margin-left: 10vw;">
+						<volist name="news" id="vo">
+						<li class="notice-li"  v-for="v in news">
+							<a href="{:U('index/messageInfo','id='.$vo['id'])}" >{$vo.title}</a>
+						</li>
+						</volist>						
+					</ul>					
+				</div>
+		 </div>	
+		 		
+			<!--猜你喜欢模块-->
+			<div class="guess_like">好物优选</div>
+			<div class="inx-like">
+				<ul id="inx_id" class="in_pad"></ul>					
+			</div>
+			<!--end-->
+			<div style="clear:both;color: #73777a;font-size: 3vw;text-align: center;padding-top: 2vw;">ICP备案号：<a target="_blank" href="http://www.beian.miit.gov.cn" style="color: #73777a;font-size: 3vw;text-align: center;">鲁ICP备14000487号</a></div>
+		</div>
+		<include file="Public/tabbar"/>
+		<script src="__PUBLIC__/mobile/js/vue.min.js"></script>
+		<script src="__PUBLIC__/mobile/js/jquery-2.1.4.js"></script>
+		<script src="__PUBLIC__/mobile/js/jquery-weui.min.js"></script>
+		<script src="__PUBLIC__/mobile/js/swiper.min.js"></script>
+		<script src="__PUBLIC__/mobile/js/dropload.min.js"></script>
+		<script type="text/javascript">
+			var swiper = new Swiper('.swiper-containers', {
+				pagination: '.swiper-pagination', //轮播点点
+				slidesPerView: 5, //一行显示5个
+				slidesPerColumn: 2, //显示两行
+				paginationClickable: true,// 此参数设置为true时，点击分页器的指示点分页器会控制Swiper切换。
+				spaceBetween: 1    // 滑块之间的距离5px
+			});
+			$(".swiper-container").swiper({
+				loop: true,
+				autoplay: 3000
+			});
+			$("#searchShow").click(function(){
+				$(".select-div").show();
+			});
+			$("#searcCancel").click(function(){
+				$(".select-div").hide();
+			});
+			var num = $('.inx-article').find('li').length;
+			if(num > 1){
+				var time=setInterval('time_play(".inx-article")',3500);
+				$('.gg_more a').mousemove(function(){
+					clearInterval(time);
+				}).mouseout(function(){
+					time = setInterval('timer(".inx-article")',3500);
+				}); 
+			}
+			function time_play(opj){
+				$(opj).find(".marquee").animate({
+					marginTop : "-8.5vw"  
+					},500,function(){  
+					$(this).css({marginTop : "0"}).find("li:first").appendTo(this);  
+				})  
+			} 
+			//上拉加载
+			   $(function(){
+				// 页数
+				var page = 0;
+				// dropload
+				$('.inx-like').dropload({
+					scrollArea : window,
+					loadDownFn : function(me){
+						page++;   // 拼接HTML
+						var html = '';
+						$.ajax({
+							type: 'GET',
+							url:"{:U('Index/goodsListIndex')}?page="+page,
+							dataType: 'json',
+							success:function(data){
+								console.log(data)
+								if (data.status == 1)
+								{
+									// $(".dropload-down").remove();
+									me.resetload();
+									return;
+								}
+
+								var arrLen = data.result.length;
+								if(arrLen > 0){
+									$.each(data.result,function(index,item) {
+										html+='<li><div class="proshow">';
+										html+='<a href="{:U(\'Goods/detail\')}?id='+item.id+'">'; 
+										html+='<div class="show_th"><img src="'+item.thumb +'"/><span class="proe_span">'+item.subhead+'</span>';
+										html+='</div><div class="pro-info">';
+										html+='<p class="elipe">'+item.name+'</p>';
+										html+='<span class="price">'+item.price+'</span>';
+//									    html+='<div><span class="discount_span"></span><span class="discount">'+item.price+'</span></div></div>';
+										html+='</div>';
+
+										html+='</a></div></li>';
+									});
+
+								// 如果没有数据
+								}else{			                       
+									me.lock(); // 锁定
+									me.noData(); // 无数据
+								}
+								// 为了测试，延迟1秒加载
+								setTimeout(function(){			                        
+								   // console.log(html) // 插入数据到页面，放到最后面
+									$('#inx_id').append(html); // 每次数据插入，必须重置			                       
+									me.resetload();
+								}, 8);
+							},
+							error: function(xhr, type){
+								alert('Ajax error!');  // 即使加载出错，也得重置			                  
+								me.resetload();
+							}
+						});
+					}
+				});
+			});
+			//秒杀时间倒计时
+			var time = $('#time').val();
+			var tmp = Date.parse( new Date() ).toString();
+			tmp = tmp.substr(0,10);
+			time = time-tmp;
+			if (time == 0) {
+				location.reload();
+			} 
+			if (time < 0) {
+				time = 3600;
+			}
+			//console.log(time);
+			if(time){
+				var maxtime = time;
+				timer = setInterval("CountDown()", 1000);	
+			}
+			 //一个小时，按秒计算，自己调整!
+			function CountDown(a) {
+		      // console.log(maxtime)
+				if (maxtime >= 0) {
+					hour = Math.floor(maxtime / 3600);
+					minutes = Math.floor((maxtime - hour*3600)/60);
+					seconds = Math.floor(maxtime % 60);
+					if(hour<10){
+						hour="0"+hour
+					}
+					if(minutes<10){
+						minutes="0"+minutes
+					}
+					if(seconds<10){
+						seconds="0"+seconds
+					}		
+		        $('#hour').html(hour);
+		        $('#minute').html(minutes);
+		        $('#second').html(seconds);       
+					--maxtime;
+				} else{
+					maxtime = 3600;
+					timer = setInterval("CountDown()", 1000);
+				}
+			}
+
+	  </script>
+   </body>
+</html>

@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<!--<meta name="viewport" content="width=device-width, initial-scale=1">-->
+	<title>{:GC('web_title')}管理后台</title>
+	<include file="Public/asset_top_page"/>
+</head>
+<body>
+<!-- header -->
+<include file="Public/header"/>
+<!-- /header -->
+<!-- Page container -->
+<div class="page-container">
+	<!-- Page content -->
+	<div class="page-content">
+		<!-- main sidebar -->
+		<include file="Public/left"/>
+		<!-- /main sidebar -->
+
+		<!-- Main content -->
+		<div class="content-wrapper">
+
+			<!-- Content area -->
+			<div class="content" style="padding-top: 10px;">
+				<!-- Pagination types -->
+				<div class="v-container">
+
+					<!-- page -->
+					<form class="form-horizontal pt-15" method="post" action="{:U('detail')}">
+						<input type="hidden" class="form-control" name="id" value="{$data.id}">
+						<div class="form-group">
+							<label class="col-xs-2 control-label text-right">ID</label>
+							<div class="col-xs-5  control-label">
+								{$data.id}
+							</div>
+						</div>
+
+						<div class="form-group">
+							<label class="col-xs-2 control-label text-right">UID</label>
+							<div class="col-xs-5  control-label">
+								{$data.user_id}
+							</div>
+						</div>
+
+						<div class="form-group">
+							<label class="col-xs-2 control-label text-right">店铺名称</label>
+							<div class="col-xs-5">
+								<input type="text" class="form-control" placeholder="请输入店铺名称" name="shop_name" value="{$data.shop_name}" required>
+							</div>
+						</div>
+
+						<div class="form-group">
+							<label class="col-xs-2 control-label text-right">店铺联系人</label>
+							<div class="col-xs-5">
+								<input type="text" class="form-control"  placeholder="请输入联系人" name="contact_person" value="{$data.contact_person}" required>
+							</div>
+						</div>
+
+						<div class="form-group">
+							<label class="col-xs-2 control-label text-right">联系电话</label>
+							<div class="col-xs-5">
+								<input type="text" class="form-control"  placeholder="请输入电话" name="tel" value="{$data.tel}" required>
+							</div>
+						</div>
+
+						<div class="form-group">
+							<label class="col-xs-2 control-label text-right">交易账户</label>
+							<div class="col-xs-5  control-label">
+								{$data.shop_money}
+							</div>
+						</div>
+
+						<div class="form-group">
+							<label class="col-xs-2 control-label text-right">账户积分</label>
+							<div class="col-xs-5  control-label">
+								{$data.money_wait}
+							</div>
+						</div>
+
+						<div class="form-group">
+							<label class="col-xs-2 control-label text-right">账户余额</label>
+							<div class="col-xs-5  control-label">
+								{$data.money}
+							</div>
+						</div>
+
+						<div class="form-group">
+							<label class="col-xs-2 control-label text-right">所属行业</label>
+							<div class="col-xs-5 ">
+								<select name="industry" class="form-control select-form-control inline-block">
+									<foreach name="industry" item="vo" >
+										<option value="{$vo['id']}" <if condition="$data['industry'] eq $vo['id']"> selected </if> >{$vo.name}</option>
+									</foreach>
+								</select>
+							</div>
+						</div>
+
+						<div class="form-group">
+							<label class="col-xs-2 control-label text-right">商家地址</label>
+							<div class="col-xs-5  control-label">
+								{$data.province}{$data.city}{$data.district}{$data.town}{$data.address}
+							</div>
+						</div>
+
+
+
+
+						<div class="form-group">
+							<label class="col-xs-2 control-label text-right">门店宣传照</label>
+							<div class="col-xs-5 control-label">
+								<div class="placeholder">
+									<img src="{$data.thumb}" class="img_headimgurl">
+								</div>
+
+							</div>
+						</div>
+
+
+						<div class="form-group">
+							<label class="col-xs-2 control-label text-right">身份证正/反面/营业执照</label>
+							<div class="col-xs-5 control-label" style="width:118px">
+								<div class="placeholder">
+									<img src="{$data.card_img1}" class="img_headimgurl">
+								</div>
+
+							</div>
+
+							<div class="col-xs-5 control-label" style="width:118px">
+								<div class="placeholder">
+									<img src="{$data.card_img2}" class="img_headimgurl">
+								</div>
+
+							</div>
+
+							<div class="col-xs-5 control-label">
+								<div class="placeholder">
+									<img src="{$data.license}" class="img_headimgurl">
+								</div>
+
+							</div>
+						</div>
+
+						<div class="form-group">
+							<label class="col-xs-2 control-label text-right">店铺环境展示列表</label>
+							<div class="col-xs-5 control-label">
+								<div class="placeholder">
+									<foreach name="data.list_img" item="vo" >
+										<img src="{$vo}" class="img_headimgurl">
+									</foreach>
+
+								</div>
+
+							</div>
+						</div>
+
+						<div class="form-group">
+							<label class="col-xs-2 control-label text-right">注册时间</label>
+							<div class="col-xs-5  control-label">
+								{$data.cre_date}
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-xs-2 control-label text-right">是否开通线下门店</label>
+							<div class="col-xs-5 ">
+								<select name="offline_shop_auth" class="form-control select-form-control inline-block">
+									<option value="0" <if condition="$data['offline_shop_auth'] eq 0"> selected </if> >否</option>
+									<option value="1" <if condition="$data['offline_shop_auth'] eq 1"> selected </if> >是</option>
+								</select>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-xs-2 control-label text-right">审核</label>
+							<div class="col-xs-5 ">
+								<select name="status" class="form-control select-form-control inline-block">
+									<option value="0" <if condition="$data['status'] eq 0"> selected </if> >审核中</option>
+									<option value="1" <if condition="$data['status'] eq 1"> selected </if> >通过</option>
+									<option value="2" <if condition="$data['status'] eq 2"> selected </if>>冻结</option>
+									<option value="3" <if condition="$data['status'] eq 3"> selected </if> >审核中</option>
+								</select>
+							</div>
+						</div>
+
+						<div class="form-group">
+							<label class="col-xs-2 control-label text-right">服务费</label>
+							<div class="col-xs-5 ">
+								<select name="shop_fee_id" class="form-control select-form-control inline-block">
+									<option value="{$vo['id']}" >请选择服务费</option>
+									<foreach name="feelist" item="vo">
+										<option value="{$vo['id']}" <if condition="$data['shop_fee_id'] eq $vo['id']"> selected </if> >服务费{$vo.percent1}%</option>
+									</foreach>
+								</select>
+							</div>
+						</div>
+
+						<!-- 多行文本 文本域 -->
+						<div class="form-group">
+							<label class="col-xs-2 control-label text-right">店铺介绍</label>
+							<div class="col-xs-5  control-label">
+								<textarea class="form-control" name="description" rows="3">{$data.description}</textarea>
+							</div>
+						</div>
+
+						<div class="form-group">
+							<label class="col-xs-2 control-label"></label>
+							<div class="col-xs-8">
+								<button class="layui-btn layui-btn-sm layui-btn-normal" type="submit">提交</button>
+								<a href="javascript:history.go(-1);" class="layui-btn layui-btn-sm layui-btn-primary">返回</a>
+							</div>
+						</div>
+					</form>
+
+					<!-- page end -->
+
+					<!-- Footer -->
+					<include file="Public/footer" />
+					<!-- /footer -->
+
+				</div>
+				<!-- /content area -->
+
+			</div>
+			<!-- /main content -->
+
+		</div>
+		<!-- /page content -->
+
+	</div>
+	<!-- /page container -->
+
+
+
+</body>
+</html>

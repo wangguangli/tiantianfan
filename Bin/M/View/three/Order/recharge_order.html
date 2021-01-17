@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>充值订单</title>
+	<meta name="viewport"
+	      content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+	<link rel="stylesheet" href="__PUBLIC__/mobile/style/jquery-weui.min.css">
+	<link rel="stylesheet" href="__PUBLIC__/mobile/style/main_style.css">
+	<link rel="stylesheet" href="__PUBLIC__/mobile/css_v3/order_index.css?n=4">
+	<script src="__PUBLIC__/layer/mobile/layer.js"></script>
+	<script src="__PUBLIC__/mobile/js/jquery-2.1.4.js"></script>
+	<script src="__PUBLIC__/mobile/js/jquery-weui.min.js"></script>
+
+</head>
+<div ontouchstart>
+
+<if condition="empty($list)">
+	<div class="empty_data">
+		<div class="empty_data_t0">
+			<img src="__PUBLIC__/mobile/images_v3/empty_cart_img_1.png" class="empty_cart_img_1">
+		</div>
+		<div class="empty_data_t1">暂无数据</div>
+	</div>
+	<else/>
+	<div class="order-list">
+		<ul class="order_ul">
+			<volist name="list" id="vo">
+				<li id="order" class="order_li">
+					<input type="hidden" name="order_id" value="{$vo['id']}">
+					<div class="xmname">
+						<img src="{$vo.thumb}" class="shop_img">{$vo.shop_name}
+						<span>{$vo.payment_type_cn}</span>
+					</div>
+
+					<div class="price-div">
+						<span style="float: left">{$vo.pay_time_format}</span> 实付<span>￥{$vo.total_commodity_price}</span>
+
+					</div>
+
+				</li>
+			</volist>
+		</ul>
+	</div>
+
+	<div class="load_more_content"></div>
+
+	<div class="load_more">
+		<if condition="$page gt $max_page">
+			数据已全部加载
+			<else/>
+			<span class="load_more_red">点击</span>加载更多
+		</if>
+
+	</div>
+</if>
+
+
+
+</body>
+<script type="text/javascript">
+	//返回首页
+	function back() {
+		location.href = "{:U('User/index')}";
+	}
+
+	//取消订单
+	function cancelOrder(order_id) {
+		layer.open({
+			content: '您确定要取消该订单吗？'
+			, btn: ['确定', '不要']
+			, yes: function (index) {
+				$.ajax({
+					type: "POST",
+					dataType: "json",
+					data: {"order_id": order_id},
+					url: "{:U('Order/cancelOrder')}",
+					success: function (data) {
+						layer.open({
+							content: data.info
+							, skin: 'msg'
+							, time: 2 //2秒后自动关闭
+						});
+						window.location.reload()
+					}
+				});
+			}
+		});
+	}
+
+	function deleteOrder(order_id) {
+		layer.open({
+			content: '您确定要删除该订单吗？'
+			, btn: ['确定', '不要']
+			, yes: function (index) {
+				$.ajax({
+					type: "POST",
+					dataType: "json",
+					data: {"order_id": order_id},
+					url: "{:U('Order/deleteOrder')}",
+					success: function (data) {
+						console.log(data);
+						layer.open({
+							content: data.msg
+							, skin: 'msg'
+							, time: 2 //2秒后自动关闭
+						});
+						window.location.reload()
+					}
+				});
+			}
+		});
+
+	}
+
+	// 加载更多
+	var page = 2;           // 当前页码，默认从第2页开始，因为刚进来已经输出一次了
+	var max_page = "{$max_page}";   // 最大页码
+	$(".load_more").on("click", function () {
+		if (page > max_page)
+		{
+			layer.open({
+				type: 2
+				, content: '数据已全部加载'
+				, time:1
+			});
+			$(".load_more").text("数据已全部加载");
+			return;
+		}
+
+		layer.open({
+			type: 2
+			, content: '加载中'
+		});
+		$(".load_more_content").load("{:U('recharge_order')}", {page:page}, function (response, status) {
+			console.log("--------xxx---------")
+			console.log(response)
+			if (status == "success") {
+				var html = $(".load_more_content").html();
+				$(".order_ul").append(html);
+				$(".load_more_content").html("");
+				page=parseInt(page)+1;    // 在本页自增
+			}
+			layer.closeAll();
+		});
+	});
+
+</script>
+</html>

@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>售后订单详情</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="Keywords" content="">
+    <meta name="description" content="">
+    <link rel="stylesheet" href="__PUBLIC__/mobile/style/jquery-weui.min.css">
+    <link rel="stylesheet" href="__PUBLIC__/mobile/css_v3/weui.min.css">
+    <link rel="stylesheet" href="__PUBLIC__/mobile/style/main_style.css">
+    <link rel="stylesheet" href="__PUBLIC__/mobile/style/order_detail.css">
+</head>
+<body ontouchstart>
+<div class="order-state" id="head">
+    <span>{$order.order_status_cn}</span>
+</div>
+
+
+<div class="order-li" id="orderDetail">
+    <div class="shop-name">
+        <i class="iconfont">&#xe63c;</i>
+        {$goods.shop_name}
+        <i class="iconfont">&#xe632;</i>
+    </div>
+    <div class="goods-div">
+        <ul>
+            <li>
+                <a href="javascript:;">
+                    <img src="{$order.goods_thumb}"/>
+                </a>
+                <div class="goods-title">
+                    <div class="title"><a href="javascript:;">{$order.goods_name}</a>
+                        <div>
+                            <div class="share">
+                                <div class="pricenum">
+                                    <p>数量 x{$order.goods_num}</p>
+                                    <p class="pri">￥{$order.goods_price}</p>
+                                </div>
+
+                            </div>
+                        </div>
+            </li>
+
+
+        </ul>
+    </div>
+    <a href="tel:{$vo.phone}" class="lxkf" style="display:none"><i class="iconfont">&#xe65a;</i>联系客服</a>
+</div>
+
+
+<div class="order-li" id="time">
+    <div class="text-div">
+        <div class="litext">
+            <p>
+                <label><if condition="$order.refund_type eq 1">退货原因 <elseif condition="$order.refund_type eq 2"/>换货原因<elseif condition="$order.refund_type eq 3"/>仅退款原因</if>：</label><font id="biao1">{$order.refund_reason}</font>
+            </p>
+            <p>
+                <label>申请时间：</label>{$order.add_date}
+            </p>
+            <p>
+                <label>售后编号：</label>{$order.refund_no}
+            </p>
+
+
+        </div>
+
+    </div>
+</div>
+
+
+</body>
+<script src="__PUBLIC__/mobile/js/jquery-2.1.4.js"></script>
+<script src="__PUBLIC__/layer/mobile/layer.js"></script>
+<script type="text/javascript">
+    //删除订单
+    function deleteOrder() {
+        var order_id = $("#order_id").val();
+        layer.open({
+            content: '您确定要删除该订单吗？'
+            , btn: ['确定', '不要']
+            , yes: function (index) {
+                $.ajax({
+                    type: "POST",
+                    dataType: "json",
+                    data: {"order_id": order_id},
+                    url: "{:U('Order/deleteOrder')}",
+                    success: function (data) {
+                        console.log(data);
+                        layer.open({
+                            content: data.msg
+                            , skin: 'msg'
+                            , time: 2 //2秒后自动关闭
+                        });
+                        window.location.reload()
+                    }
+                });
+            }
+        });
+
+    }
+
+    function copyUrl2() {
+        var Url2 = $("#biao1").html();
+        ;
+        document.execCommand("Copy"); // 执行浏览器复制命令
+        var oInput = document.createElement('input');
+        oInput.value = Url2;
+        document.body.appendChild(oInput);
+        oInput.select(); // 选择对象
+        document.execCommand("Copy"); // 执行浏览器复制命令
+        oInput.className = 'oInput';
+        oInput.style.display = 'none';
+        layer.open({
+            content: '复制成功'
+            , skin: 'msg'
+            , time: 2 //2秒后自动关闭
+        });
+    }
+</script>
+</html>

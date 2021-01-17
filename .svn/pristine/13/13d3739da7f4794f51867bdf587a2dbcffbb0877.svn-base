@@ -1,0 +1,156 @@
+input:focus {
+	outline: 0;
+}
+
+input::-webkit-input-placeholder {
+	color: #c8c8c8;
+}
+
+input::-moz-placeholder {
+	/* Mozilla Firefox 19+ */
+	color: #c8c8c8;
+}
+
+input:-moz-placeholder {
+	/* Mozilla Firefox 4 to 18 */
+	color: #c8c8c8;
+}
+
+input:-ms-input-placeholder {
+	/* Internet Explorer 10-11 */
+	color: #c8c8c8;
+}
+
+.input_tents {
+	padding: 0 3.7vw;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	margin-top: 7vw;
+}
+
+.tents_in {
+	width: 82.41vw;
+	height: 10.19vw;
+	background-color: #f7f8fa;
+	border-radius: 5.09vw;
+	padding-left: 4.26vw;
+	display: flex;
+	align-items: center;
+}
+
+.search_img {
+	width: 4.54vw;
+	height: 4.54vw;
+	float: left;
+	margin-right: 3.24vw;
+}
+
+.tents_in .input {
+	width: 87%;
+	padding-left: 2vw;
+	border: 0;
+	background-color: #f7f8fa;
+	font-size: 3.33vw;
+	color: #c8c8c8;
+	padding: 0;
+	margin: 0;
+	border-radius: 5.09vw;
+}
+
+.search_text {
+	font-size: 3.52vw;
+	color: #999999;
+}
+
+.point_cont {
+	overflow: hidden;
+	padding: 0 5.56vw;
+	margin-top: 4vw;
+	margin-bottom: 5vw;
+}
+
+.point_cont .point_lf {
+	width: 60%;
+	float: left;
+}
+
+.point_lf select {
+	width: 50%;
+	font-size: 3.89vw;
+	color: #333333;
+	margin: 0;
+	padding: 0;
+	border: 0;
+	outline: 0
+}
+
+.point_cont .point_lr {
+	font-size: 3.33vw;
+	color: #555555;
+	float: right;
+	text-align: right;
+}
+
+
+/*列表部分*/
+
+.address_cont {
+	padding: 0 5.56vw;
+}
+
+.address_list {
+	overflow: hidden;
+	border-bottom: 1px solid #f2f2f2;
+	padding-bottom: 4vw;
+	margin-bottom: 4vw;
+}
+
+.address_list_top {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	margin-bottom: 0.6vw;
+}
+
+.list_top_title {
+	font-size: 3.52vw;
+	font-weight: bold;
+	color: #333333;
+}
+
+.address_list_top .distance {
+	font-size: 3.33vw;
+	color: #fe4543;
+}
+
+.add_details {
+	font-size: 3.33vw;
+	color: #999999;
+}
+.empty_data {
+	width: 90vw;
+	margin: 0 auto;
+	padding-top: 30vw;
+}
+
+.empty_data_t1 {
+	width: 100%;
+	text-align: center;
+	font-size: 3.89vw;
+	color: #a1adbd;
+	padding-top: 2vw;
+}
+
+.empty_cart_img_1 {
+	width: 72.87vw;
+	height: 45.37vw;
+	margin: 0 auto;
+	display: block;
+}
+
+.empty_data_t2 {
+	width: 100%;
+	text-align: center;
+	padding-top: 5vw;
+}

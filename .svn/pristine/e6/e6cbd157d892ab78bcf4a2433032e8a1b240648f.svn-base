@@ -1,0 +1,112 @@
+<!DOCTYPE html >
+<html>
+<head>
+	<meta name="Generator" content="tpshop v1.1" />
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width">
+	<title>我的优惠卷</title>
+	<meta http-equiv="keywords" content="{$tpshop_config['shop_info_store_keyword']}" />
+	<meta name="description" content="{$tpshop_config['shop_info_store_desc']}" />
+	<meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
+	<link rel="stylesheet" href="__PUBLIC__/mobile/style/main_style.css">
+	<link rel="stylesheet" href="__PUBLIC__/css/mui.min.css">
+	<link rel="stylesheet" type="text/css" href="__PUBLIC__/mobile/style/user_index.css"/>
+	<link href="__PUBLIC__/css/footer.css" rel="stylesheet" type="text/css" />
+	<script src="__PUBLIC__/layer/mobile/layer.js"></script>	
+	<style type="text/css">
+		ul.volume{display: none;}
+		ul.volume:nth-child(1){display: block;}
+	</style>
+</head>
+	<body style="background: #efeff4;">
+		<header class="mui-bar mui-bar-nav" style="background: #FE274E;">
+		        <a href="javascript:history.back();" class="mui-pull-left mui-icon mui_turn"><img src="__PUBLIC__/img/return.png" width="20vw" height="20vw"/></a>
+		    <h1 class="mui-title tit_login" style="color: #fff;">我的优惠卷</h1>
+		</header>
+		<div class="mui-content">
+			<ul class="coupon_ul" id="tabs">
+				<li class="active">未使用</li>
+				<li>已使用</li>
+				<li>已过期</li>
+				<div class="clear"></div>
+			</ul>
+			<div style="height: 12vw;"></div>
+			<!--未使用-->
+			<div id="content">							
+				   <ul class="volume">
+				   	  <!--未使用-->
+					   <volist name="yhq_w" id="vo">
+				   	   <li>
+				   	  	 <div class="volume_left" style="background: url(__PUBLIC__/images/back_yellow.png) no-repeat top center;">
+				   	  	 	<h6 class="left_h6">￥<span class="left_span">{$vo.money}</span></h6>
+				   	  	 	<p class="money_pp">{$vo.conditions_cn}</p>
+				   	  	 </div>
+				   	  	<div class="volume_right">
+				   	  		<p class="right_pp"><span class="shop_volume">{$vo.coupon_type}</span>{$vo.shop_name}</p>
+				   	  		<div class="right_time">
+				   	  			<span class="time_sp">{$vo.use_start_time|date="Y.m.d",###} - {$vo.use_end_time|date="Y.m.d",###}</span>
+				   	  			<span class="received_go" onclick="window.location.href='{:U('index/index')}'">立即使用</span>
+
+				   	  			<div class="clear"></div>
+				   	  		</div>
+				   	  	</div>
+				   	  	<div class="clear"></div>
+				   	  </li>
+					   </volist>
+
+				   </ul>
+				   <!--已使用-->
+				    <ul class="volume">
+					   	<!--已使用-->
+						<volist name="yhq_y" id="vo">
+					   	  <li>
+					   	  	 <div class="volume_left" style="background: url(__PUBLIC__/images/back_gray.png) no-repeat top center;">
+					   	  	 	<h6 class="left_h6">￥<span class="left_span">{$vo.money}</span></h6>
+					   	  	 	<p class="money_pp">{$vo.conditions_cn}</p>
+					   	  	 </div>
+					   	  	<div class="volume_right">
+					   	  		<p class="right_pp"><span class="shop_volume">{$vo.coupon_type}</span>{$vo.shop_name}</p>
+					   	  		<div class="right_time">
+					   	  			<span class="time_sp">{$vo.use_start_time|date="Y.m.d",###} - {$vo.use_end_time|date="Y.m.d",###}</span>
+					   	  			<img src="__PUBLIC__/images/used.png" style="width:14vw;height: 12vw;" class="received_right"/>
+					   	  			<div class="clear"></div>
+					   	  		</div>
+					   	  	</div>
+					   	  	<div class="clear"></div>
+					   	  </li>
+						</volist>
+				   	</ul>
+				   <!--已过期-->
+				    <ul class="volume">
+						<volist name="yhq_g" id="vo">
+					    <li>
+					   	  	 <div class="volume_left" style="background: url(__PUBLIC__/images/back_gray.png) no-repeat top center;">
+					   	  	 	<h6 class="left_h6">￥<span class="left_span">{$vo.money}</span></h6>
+					   	  	 	<p class="money_pp">{$vo.conditions_cn}</p>
+					   	  	 </div>
+					   	  	<div class="volume_right">
+					   	  		<p class="right_pp"><span class="shop_volume">{$vo.coupon_type}</span>{$vo.shop_name}</p>
+					   	  		<div class="right_time">
+					   	  			<span class="time_sp">{$vo.use_start_time|date="Y.m.d",###} - {$vo.use_end_time|date="Y.m.d",###}</span>
+					   	  			<img src="__PUBLIC__/images/guoqi.png" style="width:14vw;height: 14vw;" class="received_right"/>
+					   	  			<div class="clear"></div>
+					   	  		</div>
+					   	  	</div>
+					   	  	<div class="clear"></div>
+					   	</li>
+						</volist>
+				    </ul>
+		    </div>
+		   <!--end-->
+		</div>
+		<script src="__PUBLIC__/js/jquery-1.11.1.min.js"></script>
+		<script type="text/javascript">			
+			$("#tabs").find("li").each(function(n){
+	            $(this).click(function(){
+	                $(this).addClass("active").siblings().removeClass("active");
+	                $("#content").find(".volume").eq(n).show().siblings().hide();
+	            })
+            });
+		</script>
+	</body>
+</html>

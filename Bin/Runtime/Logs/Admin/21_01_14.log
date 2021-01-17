@@ -1,0 +1,1391 @@
+[ 2021-01-14T10:39:25+08:00 ] 172.17.0.1 /Admin/Account/tixian/ischeck/1/
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000013s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000379s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000313s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000362s ]
+SQL: SHOW COLUMNS FROM `sns_article_category` [ RunTime:0.0175s ]
+SQL: SELECT * FROM `sns_article_category` WHERE ( is_pc_show=1 )  [ RunTime:0.0011s ]
+SQL: SHOW COLUMNS FROM `sns_article` [ RunTime:0.0033s ]
+SQL: SELECT `id`,`title` FROM `sns_article` WHERE ( cat_id=8 )  [ RunTime:0.0010s ]
+SQL: SELECT `id`,`title` FROM `sns_article` WHERE ( cat_id=9 )  [ RunTime:0.0009s ]
+SQL: SELECT `id`,`title` FROM `sns_article` WHERE ( cat_id=10 )  [ RunTime:0.0010s ]
+SQL: SELECT `id`,`title` FROM `sns_article` WHERE ( cat_id=11 )  [ RunTime:0.0009s ]
+SQL: SELECT `id`,`title` FROM `sns_article` WHERE ( cat_id=12 )  [ RunTime:0.0009s ]
+SQL: SELECT `id`,`title` FROM `sns_article` WHERE ( cat_id=13 )  [ RunTime:0.0010s ]
+SQL: SHOW COLUMNS FROM `sns_jscd` [ RunTime:0.0031s ]
+SQL: SELECT * FROM `sns_jscd` WHERE ( level=1 and is_del=0 ) ORDER BY id asc  [ RunTime:0.0015s ]
+SQL: SELECT * FROM `sns_jscd` WHERE ( level=2 and is_del=0 and parent_id=83 ) ORDER BY id asc  [ RunTime:0.0015s ]
+SQL: SELECT * FROM `sns_jscd` WHERE ( level=2 and is_del=0 and parent_id=88 ) ORDER BY id asc  [ RunTime:0.0014s ]
+SQL: SELECT * FROM `sns_jscd` WHERE ( level=2 and is_del=0 and parent_id=95 ) ORDER BY id asc  [ RunTime:0.0014s ]
+SQL: SELECT * FROM `sns_jscd` WHERE ( level=2 and is_del=0 and parent_id=100 ) ORDER BY id asc  [ RunTime:0.0014s ]
+SQL: SELECT * FROM `sns_jscd` WHERE ( level=2 and is_del=0 and parent_id=105 ) ORDER BY id asc  [ RunTime:0.0014s ]
+SQL: SELECT * FROM `sns_jscd` WHERE ( level=2 and is_del=0 and parent_id=114 ) ORDER BY id asc  [ RunTime:0.0015s ]
+SQL: SELECT * FROM `sns_jscd` WHERE ( level=2 and is_del=0 and parent_id=121 ) ORDER BY id asc  [ RunTime:0.0013s ]
+SQL: SELECT * FROM `sns_jscd` WHERE ( level=2 and is_del=0 and parent_id=136 ) ORDER BY id asc  [ RunTime:0.0015s ]
+SQL: SELECT * FROM `sns_jscd` WHERE ( level=2 and is_del=0 and parent_id=179 ) ORDER BY id asc  [ RunTime:0.0013s ]
+SQL: SHOW COLUMNS FROM `sns_admin` [ RunTime:0.0030s ]
+SQL: SELECT * FROM `sns_admin` WHERE `id` = 1 LIMIT 1   [ RunTime:0.0009s ]
+SQL: SELECT * FROM `sns_jscd` WHERE `group1` = 'Account' AND `level` = 1 LIMIT 1   [ RunTime:0.0010s ]
+SQL: SELECT * FROM `sns_jscd` WHERE `parent_id` = '83' AND `group1` = 'tixian' LIMIT 1   [ RunTime:0.0010s ]
+SQL: SHOW COLUMNS FROM `sns_tx_log` [ RunTime:0.0038s ]
+SQL: SELECT COUNT(*) AS tp_count FROM `sns_tx_log` WHERE `ischeck` > 0 LIMIT 1   [ RunTime:0.0009s ]
+SQL: SELECT * FROM `sns_tx_log` WHERE `ischeck` > 0 ORDER BY id desc LIMIT 0,10   [ RunTime:0.0014s ]
+NOTIC: [8] Use of undefined constant x9x9x - assumed 'x9x9x' /var/www/html/tiantianfan/ThinkPHP/Library/Think/Page.class.php 第 151 行.
+SQL: SHOW COLUMNS FROM `sns_user` [ RunTime:0.0048s ]
+SQL: SELECT * FROM `sns_user` WHERE `id` = 35 LIMIT 1   [ RunTime:0.0015s ]
+SQL: SELECT * FROM `sns_user` WHERE `id` = 36 LIMIT 1   [ RunTime:0.0013s ]
+SQL: SELECT * FROM `sns_user` WHERE `id` = 36 LIMIT 1   [ RunTime:0.0013s ]
+SQL: SELECT SUM(tx_money) AS tp_sum FROM `sns_tx_log` WHERE `ischeck` = 1 LIMIT 1   [ RunTime:0.0008s ]
+SQL: SELECT SUM(tx_money) AS tp_sum FROM `sns_tx_log` WHERE `ischeck` = 1 AND `cre_time` BETWEEN 1610553600 AND 1610640000 LIMIT 1   [ RunTime:0.0010s ]
+INFO: [ view_parse ] --START--
+INFO: [ template_filter ] --START--
+INFO: Run Behavior\ContentReplaceBehavior [ RunTime:0.000100s ]
+INFO: [ template_filter ] --END-- [ RunTime:0.000148s ]
+NOTIC: [8] Undefined index: user_type /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/dd6f21da89cb9b049f44d8d389f547db.php 第 97 行.
+NOTIC: [8] Undefined index: user_type /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/dd6f21da89cb9b049f44d8d389f547db.php 第 97 行.
+NOTIC: [8] Undefined index: user_type /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/dd6f21da89cb9b049f44d8d389f547db.php 第 97 行.
+NOTIC: [8] Undefined index: user_type /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/dd6f21da89cb9b049f44d8d389f547db.php 第 97 行.
+NOTIC: [8] Undefined index: user_type /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/dd6f21da89cb9b049f44d8d389f547db.php 第 97 行.
+NOTIC: [8] Undefined index: user_type /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/dd6f21da89cb9b049f44d8d389f547db.php 第 97 行.
+NOTIC: [8] Undefined index: user_type /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/dd6f21da89cb9b049f44d8d389f547db.php 第 97 行.
+NOTIC: [8] Undefined index: user_type /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/dd6f21da89cb9b049f44d8d389f547db.php 第 97 行.
+NOTIC: [8] Undefined index: user_type /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/dd6f21da89cb9b049f44d8d389f547db.php 第 97 行.
+NOTIC: [8] Undefined index: user_type /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/dd6f21da89cb9b049f44d8d389f547db.php 第 97 行.
+NOTIC: [8] Undefined index: user_type /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/dd6f21da89cb9b049f44d8d389f547db.php 第 97 行.
+NOTIC: [8] Undefined index: user_type /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/dd6f21da89cb9b049f44d8d389f547db.php 第 97 行.
+NOTIC: [8] Undefined index: user_type /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/dd6f21da89cb9b049f44d8d389f547db.php 第 97 行.
+NOTIC: [8] Undefined index: user_type /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/dd6f21da89cb9b049f44d8d389f547db.php 第 97 行.
+NOTIC: [8] Undefined index: user_type /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/dd6f21da89cb9b049f44d8d389f547db.php 第 97 行.
+NOTIC: [8] Undefined index: user_type /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/dd6f21da89cb9b049f44d8d389f547db.php 第 97 行.
+NOTIC: [8] Undefined index: user_type /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/dd6f21da89cb9b049f44d8d389f547db.php 第 97 行.
+NOTIC: [8] Undefined index: user_type /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/dd6f21da89cb9b049f44d8d389f547db.php 第 97 行.
+NOTIC: [8] Undefined index: user_type /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/dd6f21da89cb9b049f44d8d389f547db.php 第 97 行.
+NOTIC: [8] Undefined index: user_type /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/dd6f21da89cb9b049f44d8d389f547db.php 第 97 行.
+NOTIC: [8] Undefined index: user_type /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/dd6f21da89cb9b049f44d8d389f547db.php 第 97 行.
+NOTIC: [8] Undefined index: user_type /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/dd6f21da89cb9b049f44d8d389f547db.php 第 97 行.
+NOTIC: [8] Undefined index: user_type /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/dd6f21da89cb9b049f44d8d389f547db.php 第 97 行.
+NOTIC: [8] Undefined index: user_type /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/dd6f21da89cb9b049f44d8d389f547db.php 第 97 行.
+NOTIC: [8] Undefined index: user_type /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/dd6f21da89cb9b049f44d8d389f547db.php 第 97 行.
+NOTIC: [8] Undefined index: user_type /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/dd6f21da89cb9b049f44d8d389f547db.php 第 97 行.
+NOTIC: [8] Undefined index: user_type /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/dd6f21da89cb9b049f44d8d389f547db.php 第 97 行.
+NOTIC: [8] Undefined index: user_type /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/dd6f21da89cb9b049f44d8d389f547db.php 第 97 行.
+NOTIC: [8] Undefined index: user_type /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/dd6f21da89cb9b049f44d8d389f547db.php 第 97 行.
+NOTIC: [8] Undefined index: user_type /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/dd6f21da89cb9b049f44d8d389f547db.php 第 97 行.
+NOTIC: [8] Undefined index: user_type /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/dd6f21da89cb9b049f44d8d389f547db.php 第 97 行.
+NOTIC: [8] Undefined index: user_type /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/dd6f21da89cb9b049f44d8d389f547db.php 第 97 行.
+NOTIC: [8] Undefined index: user_type /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/dd6f21da89cb9b049f44d8d389f547db.php 第 97 行.
+NOTIC: [8] Undefined index: user_type /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/dd6f21da89cb9b049f44d8d389f547db.php 第 97 行.
+NOTIC: [8] Undefined index: user_type /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/dd6f21da89cb9b049f44d8d389f547db.php 第 97 行.
+NOTIC: [8] Undefined index: data /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/dd6f21da89cb9b049f44d8d389f547db.php 第 158 行.
+NOTIC: [8] Undefined index: startTime /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/dd6f21da89cb9b049f44d8d389f547db.php 第 168 行.
+NOTIC: [8] Undefined index: endTime /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/dd6f21da89cb9b049f44d8d389f547db.php 第 177 行.
+INFO: Run Behavior\ParseTemplateBehavior [ RunTime:0.026098s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.026184s ]
+INFO: [ view_filter ] --START--
+INFO: Run Behavior\WriteHtmlCacheBehavior [ RunTime:0.000115s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.000143s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.000494s ]
+INFO: [ app_end ] --END-- [ RunTime:0.000548s ]
+
+[ 2021-01-14T10:39:31+08:00 ] 172.17.0.1 /index.php/Admin/Account/commodityanalysis/
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000010s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000233s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000297s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000331s ]
+SQL: SHOW COLUMNS FROM `sns_article_category` [ RunTime:0.0008s ]
+SQL: SELECT * FROM `sns_article_category` WHERE ( is_pc_show=1 )  [ RunTime:0.0003s ]
+SQL: SHOW COLUMNS FROM `sns_article` [ RunTime:0.0008s ]
+SQL: SELECT `id`,`title` FROM `sns_article` WHERE ( cat_id=8 )  [ RunTime:0.0003s ]
+SQL: SELECT `id`,`title` FROM `sns_article` WHERE ( cat_id=9 )  [ RunTime:0.0003s ]
+SQL: SELECT `id`,`title` FROM `sns_article` WHERE ( cat_id=10 )  [ RunTime:0.0003s ]
+SQL: SELECT `id`,`title` FROM `sns_article` WHERE ( cat_id=11 )  [ RunTime:0.0003s ]
+SQL: SELECT `id`,`title` FROM `sns_article` WHERE ( cat_id=12 )  [ RunTime:0.0003s ]
+SQL: SELECT `id`,`title` FROM `sns_article` WHERE ( cat_id=13 )  [ RunTime:0.0003s ]
+SQL: SHOW COLUMNS FROM `sns_jscd` [ RunTime:0.0008s ]
+SQL: SELECT * FROM `sns_jscd` WHERE ( level=1 and is_del=0 ) ORDER BY id asc  [ RunTime:0.0004s ]
+SQL: SELECT * FROM `sns_jscd` WHERE ( level=2 and is_del=0 and parent_id=83 ) ORDER BY id asc  [ RunTime:0.0004s ]
+SQL: SELECT * FROM `sns_jscd` WHERE ( level=2 and is_del=0 and parent_id=88 ) ORDER BY id asc  [ RunTime:0.0004s ]
+SQL: SELECT * FROM `sns_jscd` WHERE ( level=2 and is_del=0 and parent_id=95 ) ORDER BY id asc  [ RunTime:0.0004s ]
+SQL: SELECT * FROM `sns_jscd` WHERE ( level=2 and is_del=0 and parent_id=100 ) ORDER BY id asc  [ RunTime:0.0004s ]
+SQL: SELECT * FROM `sns_jscd` WHERE ( level=2 and is_del=0 and parent_id=105 ) ORDER BY id asc  [ RunTime:0.0003s ]
+SQL: SELECT * FROM `sns_jscd` WHERE ( level=2 and is_del=0 and parent_id=114 ) ORDER BY id asc  [ RunTime:0.0003s ]
+SQL: SELECT * FROM `sns_jscd` WHERE ( level=2 and is_del=0 and parent_id=121 ) ORDER BY id asc  [ RunTime:0.0003s ]
+SQL: SELECT * FROM `sns_jscd` WHERE ( level=2 and is_del=0 and parent_id=136 ) ORDER BY id asc  [ RunTime:0.0003s ]
+SQL: SELECT * FROM `sns_jscd` WHERE ( level=2 and is_del=0 and parent_id=179 ) ORDER BY id asc  [ RunTime:0.0002s ]
+SQL: SHOW COLUMNS FROM `sns_admin` [ RunTime:0.0008s ]
+SQL: SELECT * FROM `sns_admin` WHERE `id` = 1 LIMIT 1   [ RunTime:0.0002s ]
+SQL: SELECT * FROM `sns_jscd` WHERE `group1` = 'Account' AND `level` = 1 LIMIT 1   [ RunTime:0.0004s ]
+SQL: SELECT * FROM `sns_jscd` WHERE `parent_id` = '83' AND `group1` = 'commodityanalysis' LIMIT 1   [ RunTime:0.0003s ]
+SQL: SHOW COLUMNS FROM `sns_order_goods` [ RunTime:0.0010s ]
+SQL: SELECT `goods_id`,sum(goods_num) as goods_num,sum(goods_total) as goods_tital,`goods_name`,`goods_thumb` FROM `sns_order_goods` WHERE `order_status` IN ('1','2','3','5','8') AND `pay_status` = 1 AND `isdel` = 0 GROUP BY goods_id ORDER BY goods_num desc LIMIT 20   [ RunTime:0.0155s ]
+SQL: SHOW COLUMNS FROM `sns_goods` [ RunTime:0.0011s ]
+SQL: SELECT COUNT(*) AS tp_count FROM `sns_goods` WHERE `is_on_sale` = 1 AND `isdel` = 0 LIMIT 1   [ RunTime:0.0005s ]
+SQL: SELECT SUM(goods_num) AS tp_sum FROM `sns_order_goods` WHERE `order_status` IN ('1','2','3','5','8') AND `pay_status` = 1 LIMIT 1   [ RunTime:0.0002s ]
+SQL: SELECT SUM(goods_total) AS tp_sum FROM `sns_order_goods` WHERE `order_status` IN ('1','2','3','5','8') AND `pay_status` = 1 LIMIT 1   [ RunTime:0.0002s ]
+SQL: SHOW COLUMNS FROM `sns_order` [ RunTime:0.0010s ]
+SQL: SELECT SUM(total_commodity_price) AS tp_sum FROM `sns_order` WHERE `isdel` = 0 AND `pay_time` > 0 LIMIT 1   [ RunTime:0.0002s ]
+SQL: SELECT SUM(user_coupon_money) AS tp_sum FROM `sns_order` WHERE `isdel` = 0 AND `pay_time` > 0 LIMIT 1   [ RunTime:0.0002s ]
+INFO: [ view_parse ] --START--
+INFO: [ template_filter ] --START--
+INFO: Run Behavior\ContentReplaceBehavior [ RunTime:0.000092s ]
+INFO: [ template_filter ] --END-- [ RunTime:0.000137s ]
+NOTIC: [8] Undefined index: user_type /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/b331bf21bcc1959980c8df8cab117c8a.php 第 97 行.
+NOTIC: [8] Undefined index: user_type /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/b331bf21bcc1959980c8df8cab117c8a.php 第 97 行.
+NOTIC: [8] Undefined index: user_type /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/b331bf21bcc1959980c8df8cab117c8a.php 第 97 行.
+NOTIC: [8] Undefined index: user_type /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/b331bf21bcc1959980c8df8cab117c8a.php 第 97 行.
+NOTIC: [8] Undefined index: user_type /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/b331bf21bcc1959980c8df8cab117c8a.php 第 97 行.
+NOTIC: [8] Undefined index: user_type /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/b331bf21bcc1959980c8df8cab117c8a.php 第 97 行.
+NOTIC: [8] Undefined index: user_type /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/b331bf21bcc1959980c8df8cab117c8a.php 第 97 行.
+NOTIC: [8] Undefined index: user_type /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/b331bf21bcc1959980c8df8cab117c8a.php 第 97 行.
+NOTIC: [8] Undefined index: user_type /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/b331bf21bcc1959980c8df8cab117c8a.php 第 97 行.
+NOTIC: [8] Undefined index: user_type /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/b331bf21bcc1959980c8df8cab117c8a.php 第 97 行.
+NOTIC: [8] Undefined index: user_type /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/b331bf21bcc1959980c8df8cab117c8a.php 第 97 行.
+NOTIC: [8] Undefined index: user_type /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/b331bf21bcc1959980c8df8cab117c8a.php 第 97 行.
+NOTIC: [8] Undefined index: user_type /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/b331bf21bcc1959980c8df8cab117c8a.php 第 97 行.
+NOTIC: [8] Undefined index: user_type /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/b331bf21bcc1959980c8df8cab117c8a.php 第 97 行.
+NOTIC: [8] Undefined index: user_type /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/b331bf21bcc1959980c8df8cab117c8a.php 第 97 行.
+NOTIC: [8] Undefined index: user_type /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/b331bf21bcc1959980c8df8cab117c8a.php 第 97 行.
+NOTIC: [8] Undefined index: user_type /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/b331bf21bcc1959980c8df8cab117c8a.php 第 97 行.
+NOTIC: [8] Undefined index: user_type /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/b331bf21bcc1959980c8df8cab117c8a.php 第 97 行.
+NOTIC: [8] Undefined index: user_type /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/b331bf21bcc1959980c8df8cab117c8a.php 第 97 行.
+NOTIC: [8] Undefined index: user_type /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/b331bf21bcc1959980c8df8cab117c8a.php 第 97 行.
+NOTIC: [8] Undefined index: user_type /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/b331bf21bcc1959980c8df8cab117c8a.php 第 97 行.
+NOTIC: [8] Undefined index: user_type /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/b331bf21bcc1959980c8df8cab117c8a.php 第 97 行.
+NOTIC: [8] Undefined index: user_type /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/b331bf21bcc1959980c8df8cab117c8a.php 第 97 行.
+NOTIC: [8] Undefined index: user_type /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/b331bf21bcc1959980c8df8cab117c8a.php 第 97 行.
+NOTIC: [8] Undefined index: user_type /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/b331bf21bcc1959980c8df8cab117c8a.php 第 97 行.
+NOTIC: [8] Undefined index: user_type /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/b331bf21bcc1959980c8df8cab117c8a.php 第 97 行.
+NOTIC: [8] Undefined index: user_type /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/b331bf21bcc1959980c8df8cab117c8a.php 第 97 行.
+NOTIC: [8] Undefined index: user_type /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/b331bf21bcc1959980c8df8cab117c8a.php 第 97 行.
+NOTIC: [8] Undefined index: user_type /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/b331bf21bcc1959980c8df8cab117c8a.php 第 97 行.
+NOTIC: [8] Undefined index: user_type /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/b331bf21bcc1959980c8df8cab117c8a.php 第 97 行.
+NOTIC: [8] Undefined index: user_type /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/b331bf21bcc1959980c8df8cab117c8a.php 第 97 行.
+NOTIC: [8] Undefined index: user_type /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/b331bf21bcc1959980c8df8cab117c8a.php 第 97 行.
+NOTIC: [8] Undefined index: user_type /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/b331bf21bcc1959980c8df8cab117c8a.php 第 97 行.
+NOTIC: [8] Undefined index: user_type /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/b331bf21bcc1959980c8df8cab117c8a.php 第 97 行.
+NOTIC: [8] Undefined index: user_type /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/b331bf21bcc1959980c8df8cab117c8a.php 第 97 行.
+NOTIC: [8] Undefined index: ischeck /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/b331bf21bcc1959980c8df8cab117c8a.php 第 133 行.
+NOTIC: [8] Undefined index: name /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/b331bf21bcc1959980c8df8cab117c8a.php 第 138 行.
+NOTIC: [8] Undefined index: startTime /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/b331bf21bcc1959980c8df8cab117c8a.php 第 157 行.
+INFO: Run Behavior\ParseTemplateBehavior [ RunTime:0.013644s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.013685s ]
+INFO: [ view_filter ] --START--
+INFO: Run Behavior\WriteHtmlCacheBehavior [ RunTime:0.000108s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.000137s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.000441s ]
+INFO: [ app_end ] --END-- [ RunTime:0.000490s ]
+
+[ 2021-01-14T10:39:34+08:00 ] 172.17.0.1 /index.php/Admin/Account/management/
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000010s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000217s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000301s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000334s ]
+SQL: SHOW COLUMNS FROM `sns_article_category` [ RunTime:0.0008s ]
+SQL: SELECT * FROM `sns_article_category` WHERE ( is_pc_show=1 )  [ RunTime:0.0003s ]
+SQL: SHOW COLUMNS FROM `sns_article` [ RunTime:0.0008s ]
+SQL: SELECT `id`,`title` FROM `sns_article` WHERE ( cat_id=8 )  [ RunTime:0.0003s ]
+SQL: SELECT `id`,`title` FROM `sns_article` WHERE ( cat_id=9 )  [ RunTime:0.0002s ]
+SQL: SELECT `id`,`title` FROM `sns_article` WHERE ( cat_id=10 )  [ RunTime:0.0002s ]
+SQL: SELECT `id`,`title` FROM `sns_article` WHERE ( cat_id=11 )  [ RunTime:0.0002s ]
+SQL: SELECT `id`,`title` FROM `sns_article` WHERE ( cat_id=12 )  [ RunTime:0.0001s ]
+SQL: SELECT `id`,`title` FROM `sns_article` WHERE ( cat_id=13 )  [ RunTime:0.0001s ]
+SQL: SHOW COLUMNS FROM `sns_jscd` [ RunTime:0.0006s ]
+SQL: SELECT * FROM `sns_jscd` WHERE ( level=1 and is_del=0 ) ORDER BY id asc  [ RunTime:0.0003s ]
+SQL: SELECT * FROM `sns_jscd` WHERE ( level=2 and is_del=0 and parent_id=83 ) ORDER BY id asc  [ RunTime:0.0003s ]
+SQL: SELECT * FROM `sns_jscd` WHERE ( level=2 and is_del=0 and parent_id=88 ) ORDER BY id asc  [ RunTime:0.0002s ]
+SQL: SELECT * FROM `sns_jscd` WHERE ( level=2 and is_del=0 and parent_id=95 ) ORDER BY id asc  [ RunTime:0.0003s ]
+SQL: SELECT * FROM `sns_jscd` WHERE ( level=2 and is_del=0 and parent_id=100 ) ORDER BY id asc  [ RunTime:0.0002s ]
+SQL: SELECT * FROM `sns_jscd` WHERE ( level=2 and is_del=0 and parent_id=105 ) ORDER BY id asc  [ RunTime:0.0003s ]
+SQL: SELECT * FROM `sns_jscd` WHERE ( level=2 and is_del=0 and parent_id=114 ) ORDER BY id asc  [ RunTime:0.0002s ]
+SQL: SELECT * FROM `sns_jscd` WHERE ( level=2 and is_del=0 and parent_id=121 ) ORDER BY id asc  [ RunTime:0.0002s ]
+SQL: SELECT * FROM `sns_jscd` WHERE ( level=2 and is_del=0 and parent_id=136 ) ORDER BY id asc  [ RunTime:0.0002s ]
+SQL: SELECT * FROM `sns_jscd` WHERE ( level=2 and is_del=0 and parent_id=179 ) ORDER BY id asc  [ RunTime:0.0002s ]
+SQL: SHOW COLUMNS FROM `sns_admin` [ RunTime:0.0006s ]
+SQL: SELECT * FROM `sns_admin` WHERE `id` = 1 LIMIT 1   [ RunTime:0.0002s ]
+SQL: SELECT * FROM `sns_jscd` WHERE `group1` = 'Account' AND `level` = 1 LIMIT 1   [ RunTime:0.0002s ]
+SQL: SELECT * FROM `sns_jscd` WHERE `parent_id` = '83' AND `group1` = 'management' LIMIT 1   [ RunTime:0.0003s ]
+SQL: SHOW COLUMNS FROM `sns_order` [ RunTime:0.0013s ]
+SQL: SELECT COUNT(*) AS tp_count FROM `sns_order` WHERE `isdel` = 0 AND `order_type` <> 12 AND `confirm_time` > 0 AND `pay_time` BETWEEN 1610553600 AND 1610639999 LIMIT 1   [ RunTime:0.0003s ]
+SQL: SELECT SUM(total_commodity_price) AS tp_sum FROM `sns_order` WHERE `isdel` = 0 AND `order_type` <> 12 AND `confirm_time` > 0 AND `pay_time` BETWEEN 1610553600 AND 1610639999 LIMIT 1   [ RunTime:0.0003s ]
+SQL: SELECT SUM(user_coupon_money) AS tp_sum FROM `sns_order` WHERE `isdel` = 0 AND `order_type` <> 12 AND `confirm_time` > 0 AND `pay_time` BETWEEN 1610553600 AND 1610639999 LIMIT 1   [ RunTime:0.0003s ]
+SQL: SELECT COUNT(*) AS tp_count FROM `sns_order` WHERE `pay_status` = 1 AND `order_status` IN ('1','2','3','5','8') AND `pay_time` BETWEEN 1610553600 AND 1610639999 LIMIT 1   [ RunTime:0.0003s ]
+SQL: SELECT COUNT(*) AS tp_count FROM `sns_order` WHERE `pay_status` = 1 AND `order_status` = 6 AND `pay_time` BETWEEN 1610553600 AND 1610639999 LIMIT 1   [ RunTime:0.0003s ]
+SQL: SELECT COUNT(*) AS tp_count FROM `sns_order` WHERE `isdel` = 0 AND `order_type` <> 12 AND `confirm_time` > 0 AND `pay_time` BETWEEN 1610467200 AND 1610553599 LIMIT 1   [ RunTime:0.0003s ]
+SQL: SELECT SUM(total_commodity_price) AS tp_sum FROM `sns_order` WHERE `isdel` = 0 AND `order_type` <> 12 AND `confirm_time` > 0 AND `pay_time` BETWEEN 1610467200 AND 1610553599 LIMIT 1   [ RunTime:0.0003s ]
+SQL: SELECT SUM(user_coupon_money) AS tp_sum FROM `sns_order` WHERE `isdel` = 0 AND `order_type` <> 12 AND `confirm_time` > 0 AND `pay_time` BETWEEN 1610467200 AND 1610553599 LIMIT 1   [ RunTime:0.0003s ]
+SQL: SELECT COUNT(*) AS tp_count FROM `sns_order` WHERE `pay_status` = 1 AND `order_status` IN ('1','2','3','5','8') AND `pay_time` BETWEEN 1610467200 AND 1610553599 LIMIT 1   [ RunTime:0.0003s ]
+SQL: SELECT COUNT(*) AS tp_count FROM `sns_order` WHERE `pay_status` = 1 AND `order_status` = 6 AND `pay_time` BETWEEN 1610467200 AND 1610553599 LIMIT 1   [ RunTime:0.0003s ]
+SQL: SELECT COUNT(*) AS tp_count FROM `sns_order` WHERE `isdel` = 0 AND `order_type` <> 12 AND `confirm_time` > 0 AND `pay_time` BETWEEN 1610380800 AND 1610467199 LIMIT 1   [ RunTime:0.0003s ]
+SQL: SELECT SUM(total_commodity_price) AS tp_sum FROM `sns_order` WHERE `isdel` = 0 AND `order_type` <> 12 AND `confirm_time` > 0 AND `pay_time` BETWEEN 1610380800 AND 1610467199 LIMIT 1   [ RunTime:0.0003s ]
+SQL: SELECT SUM(user_coupon_money) AS tp_sum FROM `sns_order` WHERE `isdel` = 0 AND `order_type` <> 12 AND `confirm_time` > 0 AND `pay_time` BETWEEN 1610380800 AND 1610467199 LIMIT 1   [ RunTime:0.0003s ]
+SQL: SELECT COUNT(*) AS tp_count FROM `sns_order` WHERE `pay_status` = 1 AND `order_status` IN ('1','2','3','5','8') AND `pay_time` BETWEEN 1610380800 AND 1610467199 LIMIT 1   [ RunTime:0.0003s ]
+SQL: SELECT COUNT(*) AS tp_count FROM `sns_order` WHERE `pay_status` = 1 AND `order_status` = 6 AND `pay_time` BETWEEN 1610380800 AND 1610467199 LIMIT 1   [ RunTime:0.0002s ]
+SQL: SELECT COUNT(*) AS tp_count FROM `sns_order` WHERE `isdel` = 0 AND `order_type` <> 12 AND `confirm_time` > 0 AND `pay_time` BETWEEN 1610294400 AND 1610380799 LIMIT 1   [ RunTime:0.0003s ]
+SQL: SELECT SUM(total_commodity_price) AS tp_sum FROM `sns_order` WHERE `isdel` = 0 AND `order_type` <> 12 AND `confirm_time` > 0 AND `pay_time` BETWEEN 1610294400 AND 1610380799 LIMIT 1   [ RunTime:0.0003s ]
+SQL: SELECT SUM(user_coupon_money) AS tp_sum FROM `sns_order` WHERE `isdel` = 0 AND `order_type` <> 12 AND `confirm_time` > 0 AND `pay_time` BETWEEN 1610294400 AND 1610380799 LIMIT 1   [ RunTime:0.0003s ]
+SQL: SELECT COUNT(*) AS tp_count FROM `sns_order` WHERE `pay_status` = 1 AND `order_status` IN ('1','2','3','5','8') AND `pay_time` BETWEEN 1610294400 AND 1610380799 LIMIT 1   [ RunTime:0.0003s ]
+SQL: SELECT COUNT(*) AS tp_count FROM `sns_order` WHERE `pay_status` = 1 AND `order_status` = 6 AND `pay_time` BETWEEN 1610294400 AND 1610380799 LIMIT 1   [ RunTime:0.0002s ]
+SQL: SELECT COUNT(*) AS tp_count FROM `sns_order` WHERE `isdel` = 0 AND `order_type` <> 12 AND `confirm_time` > 0 AND `pay_time` BETWEEN 1610208000 AND 1610294399 LIMIT 1   [ RunTime:0.0003s ]
+SQL: SELECT SUM(total_commodity_price) AS tp_sum FROM `sns_order` WHERE `isdel` = 0 AND `order_type` <> 12 AND `confirm_time` > 0 AND `pay_time` BETWEEN 1610208000 AND 1610294399 LIMIT 1   [ RunTime:0.0003s ]
+SQL: SELECT SUM(user_coupon_money) AS tp_sum FROM `sns_order` WHERE `isdel` = 0 AND `order_type` <> 12 AND `confirm_time` > 0 AND `pay_time` BETWEEN 1610208000 AND 1610294399 LIMIT 1   [ RunTime:0.0003s ]
+SQL: SELECT COUNT(*) AS tp_count FROM `sns_order` WHERE `pay_status` = 1 AND `order_status` IN ('1','2','3','5','8') AND `pay_time` BETWEEN 1610208000 AND 1610294399 LIMIT 1   [ RunTime:0.0004s ]
+SQL: SELECT COUNT(*) AS tp_count FROM `sns_order` WHERE `pay_status` = 1 AND `order_status` = 6 AND `pay_time` BETWEEN 1610208000 AND 1610294399 LIMIT 1   [ RunTime:0.0003s ]
+SQL: SELECT COUNT(*) AS tp_count FROM `sns_order` WHERE `isdel` = 0 AND `order_type` <> 12 AND `confirm_time` > 0 AND `pay_time` BETWEEN 1610121600 AND 1610207999 LIMIT 1   [ RunTime:0.0003s ]
+SQL: SELECT SUM(total_commodity_price) AS tp_sum FROM `sns_order` WHERE `isdel` = 0 AND `order_type` <> 12 AND `confirm_time` > 0 AND `pay_time` BETWEEN 1610121600 AND 1610207999 LIMIT 1   [ RunTime:0.0006s ]
+SQL: SELECT SUM(user_coupon_money) AS tp_sum FROM `sns_order` WHERE `isdel` = 0 AND `order_type` <> 12 AND `confirm_time` > 0 AND `pay_time` BETWEEN 1610121600 AND 1610207999 LIMIT 1   [ RunTime:0.0005s ]
+SQL: SELECT COUNT(*) AS tp_count FROM `sns_order` WHERE `pay_status` = 1 AND `order_status` IN ('1','2','3','5','8') AND `pay_time` BETWEEN 1610121600 AND 1610207999 LIMIT 1   [ RunTime:0.0003s ]
+SQL: SELECT COUNT(*) AS tp_count FROM `sns_order` WHERE `pay_status` = 1 AND `order_status` = 6 AND `pay_time` BETWEEN 1610121600 AND 1610207999 LIMIT 1   [ RunTime:0.0002s ]
+SQL: SELECT COUNT(*) AS tp_count FROM `sns_order` WHERE `isdel` = 0 AND `order_type` <> 12 AND `confirm_time` > 0 AND `pay_time` BETWEEN 1610035200 AND 1610121599 LIMIT 1   [ RunTime:0.0002s ]
+SQL: SELECT SUM(total_commodity_price) AS tp_sum FROM `sns_order` WHERE `isdel` = 0 AND `order_type` <> 12 AND `confirm_time` > 0 AND `pay_time` BETWEEN 1610035200 AND 1610121599 LIMIT 1   [ RunTime:0.0002s ]
+SQL: SELECT SUM(user_coupon_money) AS tp_sum FROM `sns_order` WHERE `isdel` = 0 AND `order_type` <> 12 AND `confirm_time` > 0 AND `pay_time` BETWEEN 1610035200 AND 1610121599 LIMIT 1   [ RunTime:0.0003s ]
+SQL: SELECT COUNT(*) AS tp_count FROM `sns_order` WHERE `pay_status` = 1 AND `order_status` IN ('1','2','3','5','8') AND `pay_time` BETWEEN 1610035200 AND 1610121599 LIMIT 1   [ RunTime:0.0003s ]
+SQL: SELECT COUNT(*) AS tp_count FROM `sns_order` WHERE `pay_status` = 1 AND `order_status` = 6 AND `pay_time` BETWEEN 1610035200 AND 1610121599 LIMIT 1   [ RunTime:0.0002s ]
+SQL: SELECT SUM(total_commodity_price) AS tp_sum FROM `sns_order` WHERE `pay_time` > 1610553599 AND `order_type` IN (0,12) LIMIT 1   [ RunTime:0.0002s ]
+SQL: SELECT SUM(user_coupon_money) AS tp_sum FROM `sns_order` WHERE `pay_time` > 1610553599 AND `order_type` IN (0,12) LIMIT 1   [ RunTime:0.0002s ]
+SQL: SELECT SUM(total_commodity_price) AS tp_sum FROM `sns_order` WHERE `pay_time` > 1610553599 AND `order_type` = 5 LIMIT 1   [ RunTime:0.0002s ]
+SQL: SELECT SUM(total_commodity_price) AS tp_sum FROM `sns_order` WHERE `pay_time` > 1610553599 AND `order_type` = 6 LIMIT 1   [ RunTime:0.0002s ]
+INFO: [ view_parse ] --START--
+INFO: [ template_filter ] --START--
+INFO: Run Behavior\ContentReplaceBehavior [ RunTime:0.000073s ]
+INFO: [ template_filter ] --END-- [ RunTime:0.000111s ]
+NOTIC: [8] Undefined index: user_type /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/fb786a0d3e7d88231e489db59974a156.php 第 97 行.
+NOTIC: [8] Undefined index: user_type /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/fb786a0d3e7d88231e489db59974a156.php 第 97 行.
+NOTIC: [8] Undefined index: user_type /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/fb786a0d3e7d88231e489db59974a156.php 第 97 行.
+NOTIC: [8] Undefined index: user_type /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/fb786a0d3e7d88231e489db59974a156.php 第 97 行.
+NOTIC: [8] Undefined index: user_type /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/fb786a0d3e7d88231e489db59974a156.php 第 97 行.
+NOTIC: [8] Undefined index: user_type /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/fb786a0d3e7d88231e489db59974a156.php 第 97 行.
+NOTIC: [8] Undefined index: user_type /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/fb786a0d3e7d88231e489db59974a156.php 第 97 行.
+NOTIC: [8] Undefined index: user_type /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/fb786a0d3e7d88231e489db59974a156.php 第 97 行.
+NOTIC: [8] Undefined index: user_type /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/fb786a0d3e7d88231e489db59974a156.php 第 97 行.
+NOTIC: [8] Undefined index: user_type /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/fb786a0d3e7d88231e489db59974a156.php 第 97 行.
+NOTIC: [8] Undefined index: user_type /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/fb786a0d3e7d88231e489db59974a156.php 第 97 行.
+NOTIC: [8] Undefined index: user_type /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/fb786a0d3e7d88231e489db59974a156.php 第 97 行.
+NOTIC: [8] Undefined index: user_type /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/fb786a0d3e7d88231e489db59974a156.php 第 97 行.
+NOTIC: [8] Undefined index: user_type /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/fb786a0d3e7d88231e489db59974a156.php 第 97 行.
+NOTIC: [8] Undefined index: user_type /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/fb786a0d3e7d88231e489db59974a156.php 第 97 行.
+NOTIC: [8] Undefined index: user_type /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/fb786a0d3e7d88231e489db59974a156.php 第 97 行.
+NOTIC: [8] Undefined index: user_type /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/fb786a0d3e7d88231e489db59974a156.php 第 97 行.
+NOTIC: [8] Undefined index: user_type /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/fb786a0d3e7d88231e489db59974a156.php 第 97 行.
+NOTIC: [8] Undefined index: user_type /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/fb786a0d3e7d88231e489db59974a156.php 第 97 行.
+NOTIC: [8] Undefined index: user_type /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/fb786a0d3e7d88231e489db59974a156.php 第 97 行.
+NOTIC: [8] Undefined index: user_type /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/fb786a0d3e7d88231e489db59974a156.php 第 97 行.
+NOTIC: [8] Undefined index: user_type /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/fb786a0d3e7d88231e489db59974a156.php 第 97 行.
+NOTIC: [8] Undefined index: user_type /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/fb786a0d3e7d88231e489db59974a156.php 第 97 行.
+NOTIC: [8] Undefined index: user_type /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/fb786a0d3e7d88231e489db59974a156.php 第 97 行.
+NOTIC: [8] Undefined index: user_type /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/fb786a0d3e7d88231e489db59974a156.php 第 97 行.
+NOTIC: [8] Undefined index: user_type /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/fb786a0d3e7d88231e489db59974a156.php 第 97 行.
+NOTIC: [8] Undefined index: user_type /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/fb786a0d3e7d88231e489db59974a156.php 第 97 行.
+NOTIC: [8] Undefined index: user_type /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/fb786a0d3e7d88231e489db59974a156.php 第 97 行.
+NOTIC: [8] Undefined index: user_type /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/fb786a0d3e7d88231e489db59974a156.php 第 97 行.
+NOTIC: [8] Undefined index: user_type /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/fb786a0d3e7d88231e489db59974a156.php 第 97 行.
+NOTIC: [8] Undefined index: user_type /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/fb786a0d3e7d88231e489db59974a156.php 第 97 行.
+NOTIC: [8] Undefined index: user_type /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/fb786a0d3e7d88231e489db59974a156.php 第 97 行.
+NOTIC: [8] Undefined index: user_type /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/fb786a0d3e7d88231e489db59974a156.php 第 97 行.
+NOTIC: [8] Undefined index: user_type /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/fb786a0d3e7d88231e489db59974a156.php 第 97 行.
+NOTIC: [8] Undefined index: user_type /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/fb786a0d3e7d88231e489db59974a156.php 第 97 行.
+NOTIC: [8] Undefined index: ischeck /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/fb786a0d3e7d88231e489db59974a156.php 第 133 行.
+NOTIC: [8] Undefined index: startTime /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/fb786a0d3e7d88231e489db59974a156.php 第 149 行.
+INFO: Run Behavior\ParseTemplateBehavior [ RunTime:0.011796s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.011837s ]
+INFO: [ view_filter ] --START--
+INFO: Run Behavior\WriteHtmlCacheBehavior [ RunTime:0.000099s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.000124s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.000392s ]
+INFO: [ app_end ] --END-- [ RunTime:0.000443s ]
+
+[ 2021-01-14T10:39:41+08:00 ] 172.17.0.1 /index.php/Admin/order/index/
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000041s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000454s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000492s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000559s ]
+SQL: SHOW COLUMNS FROM `sns_article_category` [ RunTime:0.0006s ]
+SQL: SELECT * FROM `sns_article_category` WHERE ( is_pc_show=1 )  [ RunTime:0.0002s ]
+SQL: SHOW COLUMNS FROM `sns_article` [ RunTime:0.0008s ]
+SQL: SELECT `id`,`title` FROM `sns_article` WHERE ( cat_id=8 )  [ RunTime:0.0002s ]
+SQL: SELECT `id`,`title` FROM `sns_article` WHERE ( cat_id=9 )  [ RunTime:0.0002s ]
+SQL: SELECT `id`,`title` FROM `sns_article` WHERE ( cat_id=10 )  [ RunTime:0.0002s ]
+SQL: SELECT `id`,`title` FROM `sns_article` WHERE ( cat_id=11 )  [ RunTime:0.0002s ]
+SQL: SELECT `id`,`title` FROM `sns_article` WHERE ( cat_id=12 )  [ RunTime:0.0002s ]
+SQL: SELECT `id`,`title` FROM `sns_article` WHERE ( cat_id=13 )  [ RunTime:0.0001s ]
+SQL: SHOW COLUMNS FROM `sns_jscd` [ RunTime:0.0007s ]
+SQL: SELECT * FROM `sns_jscd` WHERE ( level=1 and is_del=0 ) ORDER BY id asc  [ RunTime:0.0005s ]
+SQL: SELECT * FROM `sns_jscd` WHERE ( level=2 and is_del=0 and parent_id=83 ) ORDER BY id asc  [ RunTime:0.0004s ]
+SQL: SELECT * FROM `sns_jscd` WHERE ( level=2 and is_del=0 and parent_id=88 ) ORDER BY id asc  [ RunTime:0.0006s ]
+SQL: SELECT * FROM `sns_jscd` WHERE ( level=2 and is_del=0 and parent_id=95 ) ORDER BY id asc  [ RunTime:0.0005s ]
+SQL: SELECT * FROM `sns_jscd` WHERE ( level=2 and is_del=0 and parent_id=100 ) ORDER BY id asc  [ RunTime:0.0004s ]
+SQL: SELECT * FROM `sns_jscd` WHERE ( level=2 and is_del=0 and parent_id=105 ) ORDER BY id asc  [ RunTime:0.0004s ]
+SQL: SELECT * FROM `sns_jscd` WHERE ( level=2 and is_del=0 and parent_id=114 ) ORDER BY id asc  [ RunTime:0.0004s ]
+SQL: SELECT * FROM `sns_jscd` WHERE ( level=2 and is_del=0 and parent_id=121 ) ORDER BY id asc  [ RunTime:0.0003s ]
+SQL: SELECT * FROM `sns_jscd` WHERE ( level=2 and is_del=0 and parent_id=136 ) ORDER BY id asc  [ RunTime:0.0004s ]
+SQL: SELECT * FROM `sns_jscd` WHERE ( level=2 and is_del=0 and parent_id=179 ) ORDER BY id asc  [ RunTime:0.0003s ]
+SQL: SHOW COLUMNS FROM `sns_admin` [ RunTime:0.0009s ]
+SQL: SELECT * FROM `sns_admin` WHERE `id` = 1 LIMIT 1   [ RunTime:0.0004s ]
+SQL: SELECT * FROM `sns_jscd` WHERE `group1` = 'order' AND `level` = 1 LIMIT 1   [ RunTime:0.0003s ]
+SQL: SELECT * FROM `sns_jscd` WHERE `parent_id` = '100' AND `group1` = 'index' LIMIT 1   [ RunTime:0.0003s ]
+NOTIC: [2] Missing argument 1 for I(), called in /var/www/html/tiantianfan/Bin/Admin/Controller/OrderController.class.php on line 27 and defined /var/www/html/tiantianfan/ThinkPHP/Common/functions.php 第 271 行.
+NOTIC: [8] Undefined variable: name /var/www/html/tiantianfan/ThinkPHP/Common/functions.php 第 273 行.
+NOTIC: [8] Undefined variable: name /var/www/html/tiantianfan/ThinkPHP/Common/functions.php 第 278 行.
+NOTIC: [8] Undefined variable: name /var/www/html/tiantianfan/ThinkPHP/Common/functions.php 第 339 行.
+NOTIC: [8] Undefined index: order_no /var/www/html/tiantianfan/Bin/Clas/Orderout.class.php 第 874 行.
+NOTIC: [8] Undefined index: payment_type /var/www/html/tiantianfan/Bin/Clas/Orderout.class.php 第 878 行.
+NOTIC: [8] Undefined index: user_id /var/www/html/tiantianfan/Bin/Clas/Orderout.class.php 第 891 行.
+NOTIC: [8] Undefined index: isdel /var/www/html/tiantianfan/Bin/Clas/Orderout.class.php 第 895 行.
+NOTIC: [8] Undefined index: add_time /var/www/html/tiantianfan/Bin/Clas/Orderout.class.php 第 904 行.
+NOTIC: [8] Undefined index: pay_time /var/www/html/tiantianfan/Bin/Clas/Orderout.class.php 第 911 行.
+NOTIC: [8] Undefined index: shipping_time /var/www/html/tiantianfan/Bin/Clas/Orderout.class.php 第 918 行.
+NOTIC: [8] Undefined index: confirm_time /var/www/html/tiantianfan/Bin/Clas/Orderout.class.php 第 925 行.
+NOTIC: [8] Undefined index: content /var/www/html/tiantianfan/Bin/Clas/Orderout.class.php 第 932 行.
+NOTIC: [8] Undefined index: goods_name /var/www/html/tiantianfan/Bin/Clas/Orderout.class.php 第 955 行.
+NOTIC: [8] Undefined index: tracking_number /var/www/html/tiantianfan/Bin/Clas/Orderout.class.php 第 964 行.
+NOTIC: [8] Undefined index: trade_no /var/www/html/tiantianfan/Bin/Clas/Orderout.class.php 第 973 行.
+NOTIC: [8] Undefined index: shop_id /var/www/html/tiantianfan/Bin/Clas/Orderout.class.php 第 991 行.
+NOTIC: [8] Undefined index: pay_status /var/www/html/tiantianfan/Bin/Clas/Orderout.class.php 第 995 行.
+NOTIC: [8] Undefined index: page_size /var/www/html/tiantianfan/Bin/Clas/Orderout.class.php 第 1004 行.
+SQL: SHOW COLUMNS FROM `sns_order` [ RunTime:0.0018s ]
+SQL: SELECT COUNT(*) AS tp_count FROM `sns_order` WHERE `order_type` IN (0,5,6) AND `isdel` = 0 LIMIT 1   [ RunTime:0.0003s ]
+SQL: SELECT * FROM `sns_order` WHERE `order_type` IN (0,5,6) AND `isdel` = 0 ORDER BY id desc LIMIT 0,10   [ RunTime:0.0005s ]
+NOTIC: [8] Use of undefined constant x9x9x - assumed 'x9x9x' /var/www/html/tiantianfan/ThinkPHP/Library/Think/Page.class.php 第 151 行.
+SQL: SHOW COLUMNS FROM `sns_order_goods` [ RunTime:0.0009s ]
+SQL: SELECT SUM(goods_total) AS tp_sum FROM `sns_order_goods` WHERE ( order_id=17 ) LIMIT 1   [ RunTime:0.0002s ]
+SQL: SELECT COUNT(*) AS tp_count FROM `sns_order_goods` WHERE ( order_id=17 ) LIMIT 1   [ RunTime:0.0001s ]
+SQL: SELECT * FROM `sns_order_goods` WHERE ( order_id=17 ) LIMIT 1   [ RunTime:0.0002s ]
+SQL: SELECT * FROM `sns_order_goods` WHERE ( order_id=17 )  [ RunTime:0.0002s ]
+SQL: SHOW COLUMNS FROM `sns_express_service` [ RunTime:0.0006s ]
+SQL: SELECT * FROM `sns_express_service` WHERE ( is_start=1 ) LIMIT 1   [ RunTime:0.0002s ]
+NOTIC: [8] Undefined variable: region_list /var/www/html/tiantianfan/Bin/Common/Common/function.php 第 4050 行.
+SQL: SHOW COLUMNS FROM `sns_region` [ RunTime:0.0007s ]
+SQL: SELECT `name` FROM `sns_region` WHERE ( id=32482 ) LIMIT 1   [ RunTime:0.0002s ]
+SQL: SELECT `name` FROM `sns_region` WHERE ( id=32483 ) LIMIT 1   [ RunTime:0.0001s ]
+SQL: SELECT `name` FROM `sns_region` WHERE ( id=32484 ) LIMIT 1   [ RunTime:0.0001s ]
+SQL: SHOW COLUMNS FROM `sns_pay3_log` [ RunTime:0.0006s ]
+SQL: SELECT `serial_no` FROM `sns_pay3_log` WHERE `order_id` = 17 LIMIT 1   [ RunTime:0.0002s ]
+SQL: SELECT `trade_no` FROM `sns_pay3_log` WHERE `order_id` = 17 LIMIT 1   [ RunTime:0.0001s ]
+SQL: SELECT SUM(goods_total) AS tp_sum FROM `sns_order_goods` WHERE ( order_id=16 ) LIMIT 1   [ RunTime:0.0001s ]
+SQL: SELECT COUNT(*) AS tp_count FROM `sns_order_goods` WHERE ( order_id=16 ) LIMIT 1   [ RunTime:0.0001s ]
+SQL: SELECT * FROM `sns_order_goods` WHERE ( order_id=16 ) LIMIT 1   [ RunTime:0.0002s ]
+SQL: SELECT * FROM `sns_order_goods` WHERE ( order_id=16 )  [ RunTime:0.0002s ]
+SQL: SELECT * FROM `sns_express_service` WHERE ( is_start=1 ) LIMIT 1   [ RunTime:0.0001s ]
+NOTIC: [8] Undefined variable: region_list /var/www/html/tiantianfan/Bin/Common/Common/function.php 第 4050 行.
+SQL: SELECT `name` FROM `sns_region` WHERE ( id=44336 ) LIMIT 1   [ RunTime:0.0001s ]
+SQL: SELECT `name` FROM `sns_region` WHERE ( id=44337 ) LIMIT 1   [ RunTime:0.0001s ]
+SQL: SELECT `name` FROM `sns_region` WHERE ( id=44658 ) LIMIT 1   [ RunTime:0.0001s ]
+SQL: SELECT `serial_no` FROM `sns_pay3_log` WHERE `order_id` = 16 LIMIT 1   [ RunTime:0.0001s ]
+SQL: SELECT `trade_no` FROM `sns_pay3_log` WHERE `order_id` = 16 LIMIT 1   [ RunTime:0.0001s ]
+SQL: SELECT SUM(goods_total) AS tp_sum FROM `sns_order_goods` WHERE ( order_id=15 ) LIMIT 1   [ RunTime:0.0002s ]
+SQL: SELECT COUNT(*) AS tp_count FROM `sns_order_goods` WHERE ( order_id=15 ) LIMIT 1   [ RunTime:0.0002s ]
+SQL: SELECT * FROM `sns_order_goods` WHERE ( order_id=15 ) LIMIT 1   [ RunTime:0.0002s ]
+SQL: SELECT * FROM `sns_order_goods` WHERE ( order_id=15 )  [ RunTime:0.0002s ]
+SQL: SELECT * FROM `sns_express_service` WHERE ( is_start=1 ) LIMIT 1   [ RunTime:0.0001s ]
+NOTIC: [8] Undefined variable: region_list /var/www/html/tiantianfan/Bin/Common/Common/function.php 第 4050 行.
+SQL: SELECT `name` FROM `sns_region` WHERE ( id=44336 ) LIMIT 1   [ RunTime:0.0001s ]
+SQL: SELECT `name` FROM `sns_region` WHERE ( id=44337 ) LIMIT 1   [ RunTime:0.0001s ]
+SQL: SELECT `name` FROM `sns_region` WHERE ( id=44658 ) LIMIT 1   [ RunTime:0.0001s ]
+SQL: SELECT `serial_no` FROM `sns_pay3_log` WHERE `order_id` = 15 LIMIT 1   [ RunTime:0.0001s ]
+SQL: SELECT `trade_no` FROM `sns_pay3_log` WHERE `order_id` = 15 LIMIT 1   [ RunTime:0.0001s ]
+SQL: SELECT SUM(goods_total) AS tp_sum FROM `sns_order_goods` WHERE ( order_id=14 ) LIMIT 1   [ RunTime:0.0001s ]
+SQL: SELECT COUNT(*) AS tp_count FROM `sns_order_goods` WHERE ( order_id=14 ) LIMIT 1   [ RunTime:0.0001s ]
+SQL: SELECT * FROM `sns_order_goods` WHERE ( order_id=14 )  [ RunTime:0.0002s ]
+SQL: SELECT * FROM `sns_express_service` WHERE ( is_start=1 ) LIMIT 1   [ RunTime:0.0001s ]
+NOTIC: [8] Undefined variable: region_list /var/www/html/tiantianfan/Bin/Common/Common/function.php 第 4050 行.
+SQL: SELECT `name` FROM `sns_region` WHERE ( id=1 ) LIMIT 1   [ RunTime:0.0001s ]
+SQL: SELECT `name` FROM `sns_region` WHERE ( id=209 ) LIMIT 1   [ RunTime:0.0001s ]
+SQL: SELECT `name` FROM `sns_region` WHERE ( id=277 ) LIMIT 1   [ RunTime:0.0001s ]
+SQL: SELECT `serial_no` FROM `sns_pay3_log` WHERE `order_id` = 14 LIMIT 1   [ RunTime:0.0001s ]
+SQL: SELECT `trade_no` FROM `sns_pay3_log` WHERE `order_id` = 14 LIMIT 1   [ RunTime:0.0001s ]
+SQL: SELECT SUM(goods_total) AS tp_sum FROM `sns_order_goods` WHERE ( order_id=13 ) LIMIT 1   [ RunTime:0.0001s ]
+SQL: SELECT COUNT(*) AS tp_count FROM `sns_order_goods` WHERE ( order_id=13 ) LIMIT 1   [ RunTime:0.0001s ]
+SQL: SELECT * FROM `sns_order_goods` WHERE ( order_id=13 ) LIMIT 1   [ RunTime:0.0002s ]
+SQL: SELECT * FROM `sns_order_goods` WHERE ( order_id=13 )  [ RunTime:0.0002s ]
+SQL: SELECT * FROM `sns_express_service` WHERE ( is_start=1 ) LIMIT 1   [ RunTime:0.0001s ]
+NOTIC: [8] Undefined variable: region_list /var/www/html/tiantianfan/Bin/Common/Common/function.php 第 4050 行.
+SQL: SELECT `name` FROM `sns_region` WHERE ( id=2694 ) LIMIT 1   [ RunTime:0.0001s ]
+SQL: SELECT `name` FROM `sns_region` WHERE ( id=2695 ) LIMIT 1   [ RunTime:0.0002s ]
+SQL: SELECT `name` FROM `sns_region` WHERE ( id=2696 ) LIMIT 1   [ RunTime:0.0001s ]
+SQL: SELECT `serial_no` FROM `sns_pay3_log` WHERE `order_id` = 13 LIMIT 1   [ RunTime:0.0001s ]
+SQL: SELECT `trade_no` FROM `sns_pay3_log` WHERE `order_id` = 13 LIMIT 1   [ RunTime:0.0001s ]
+SQL: SELECT SUM(goods_total) AS tp_sum FROM `sns_order_goods` WHERE ( order_id=12 ) LIMIT 1   [ RunTime:0.0001s ]
+SQL: SELECT COUNT(*) AS tp_count FROM `sns_order_goods` WHERE ( order_id=12 ) LIMIT 1   [ RunTime:0.0001s ]
+SQL: SELECT * FROM `sns_order_goods` WHERE ( order_id=12 ) LIMIT 1   [ RunTime:0.0002s ]
+SQL: SELECT * FROM `sns_order_goods` WHERE ( order_id=12 )  [ RunTime:0.0002s ]
+SQL: SELECT * FROM `sns_express_service` WHERE ( is_start=1 ) LIMIT 1   [ RunTime:0.0001s ]
+NOTIC: [8] Undefined variable: region_list /var/www/html/tiantianfan/Bin/Common/Common/function.php 第 4050 行.
+SQL: SELECT `name` FROM `sns_region` WHERE ( id=44336 ) LIMIT 1   [ RunTime:0.0002s ]
+SQL: SELECT `name` FROM `sns_region` WHERE ( id=44337 ) LIMIT 1   [ RunTime:0.0003s ]
+SQL: SELECT `name` FROM `sns_region` WHERE ( id=44658 ) LIMIT 1   [ RunTime:0.0003s ]
+SQL: SELECT `serial_no` FROM `sns_pay3_log` WHERE `order_id` = 12 LIMIT 1   [ RunTime:0.0003s ]
+SQL: SELECT `trade_no` FROM `sns_pay3_log` WHERE `order_id` = 12 LIMIT 1   [ RunTime:0.0003s ]
+SQL: SELECT SUM(goods_total) AS tp_sum FROM `sns_order_goods` WHERE ( order_id=11 ) LIMIT 1   [ RunTime:0.0002s ]
+SQL: SELECT COUNT(*) AS tp_count FROM `sns_order_goods` WHERE ( order_id=11 ) LIMIT 1   [ RunTime:0.0002s ]
+SQL: SELECT * FROM `sns_order_goods` WHERE ( order_id=11 ) LIMIT 1   [ RunTime:0.0003s ]
+SQL: SELECT * FROM `sns_order_goods` WHERE ( order_id=11 )  [ RunTime:0.0007s ]
+SQL: SELECT * FROM `sns_express_service` WHERE ( is_start=1 ) LIMIT 1   [ RunTime:0.0003s ]
+NOTIC: [8] Undefined variable: region_list /var/www/html/tiantianfan/Bin/Common/Common/function.php 第 4050 行.
+SQL: SELECT `name` FROM `sns_region` WHERE ( id=44336 ) LIMIT 1   [ RunTime:0.0007s ]
+SQL: SELECT `name` FROM `sns_region` WHERE ( id=44337 ) LIMIT 1   [ RunTime:0.0005s ]
+SQL: SELECT `name` FROM `sns_region` WHERE ( id=44658 ) LIMIT 1   [ RunTime:0.0002s ]
+SQL: SELECT `serial_no` FROM `sns_pay3_log` WHERE `order_id` = 11 LIMIT 1   [ RunTime:0.0002s ]
+SQL: SELECT `trade_no` FROM `sns_pay3_log` WHERE `order_id` = 11 LIMIT 1   [ RunTime:0.0002s ]
+SQL: SELECT SUM(goods_total) AS tp_sum FROM `sns_order_goods` WHERE ( order_id=10 ) LIMIT 1   [ RunTime:0.0002s ]
+SQL: SELECT COUNT(*) AS tp_count FROM `sns_order_goods` WHERE ( order_id=10 ) LIMIT 1   [ RunTime:0.0003s ]
+SQL: SELECT * FROM `sns_order_goods` WHERE ( order_id=10 ) LIMIT 1   [ RunTime:0.0004s ]
+SQL: SELECT * FROM `sns_order_goods` WHERE ( order_id=10 )  [ RunTime:0.0004s ]
+SQL: SELECT * FROM `sns_express_service` WHERE ( is_start=1 ) LIMIT 1   [ RunTime:0.0003s ]
+NOTIC: [8] Undefined variable: region_list /var/www/html/tiantianfan/Bin/Common/Common/function.php 第 4050 行.
+SQL: SELECT `name` FROM `sns_region` WHERE ( id=44336 ) LIMIT 1   [ RunTime:0.0002s ]
+SQL: SELECT `name` FROM `sns_region` WHERE ( id=44337 ) LIMIT 1   [ RunTime:0.0002s ]
+SQL: SELECT `name` FROM `sns_region` WHERE ( id=44658 ) LIMIT 1   [ RunTime:0.0002s ]
+SQL: SELECT `serial_no` FROM `sns_pay3_log` WHERE `order_id` = 10 LIMIT 1   [ RunTime:0.0003s ]
+SQL: SELECT `trade_no` FROM `sns_pay3_log` WHERE `order_id` = 10 LIMIT 1   [ RunTime:0.0003s ]
+SQL: SELECT SUM(goods_total) AS tp_sum FROM `sns_order_goods` WHERE ( order_id=9 ) LIMIT 1   [ RunTime:0.0002s ]
+SQL: SELECT COUNT(*) AS tp_count FROM `sns_order_goods` WHERE ( order_id=9 ) LIMIT 1   [ RunTime:0.0002s ]
+SQL: SELECT * FROM `sns_order_goods` WHERE ( order_id=9 ) LIMIT 1   [ RunTime:0.0002s ]
+SQL: SELECT * FROM `sns_order_goods` WHERE ( order_id=9 )  [ RunTime:0.0002s ]
+SQL: SELECT * FROM `sns_express_service` WHERE ( is_start=1 ) LIMIT 1   [ RunTime:0.0002s ]
+NOTIC: [8] Undefined variable: region_list /var/www/html/tiantianfan/Bin/Common/Common/function.php 第 4050 行.
+SQL: SELECT `name` FROM `sns_region` WHERE ( id=32482 ) LIMIT 1   [ RunTime:0.0002s ]
+SQL: SELECT `name` FROM `sns_region` WHERE ( id=32483 ) LIMIT 1   [ RunTime:0.0002s ]
+SQL: SELECT `name` FROM `sns_region` WHERE ( id=32484 ) LIMIT 1   [ RunTime:0.0002s ]
+SQL: SELECT `serial_no` FROM `sns_pay3_log` WHERE `order_id` = 9 LIMIT 1   [ RunTime:0.0003s ]
+SQL: SELECT `trade_no` FROM `sns_pay3_log` WHERE `order_id` = 9 LIMIT 1   [ RunTime:0.0002s ]
+SQL: SELECT SUM(goods_total) AS tp_sum FROM `sns_order_goods` WHERE ( order_id=8 ) LIMIT 1   [ RunTime:0.0002s ]
+SQL: SELECT COUNT(*) AS tp_count FROM `sns_order_goods` WHERE ( order_id=8 ) LIMIT 1   [ RunTime:0.0001s ]
+SQL: SELECT * FROM `sns_order_goods` WHERE ( order_id=8 ) LIMIT 1   [ RunTime:0.0002s ]
+SQL: SELECT * FROM `sns_order_goods` WHERE ( order_id=8 )  [ RunTime:0.0004s ]
+SQL: SELECT * FROM `sns_express_service` WHERE ( is_start=1 ) LIMIT 1   [ RunTime:0.0002s ]
+NOTIC: [8] Undefined variable: region_list /var/www/html/tiantianfan/Bin/Common/Common/function.php 第 4050 行.
+SQL: SELECT `name` FROM `sns_region` WHERE ( id=44336 ) LIMIT 1   [ RunTime:0.0004s ]
+SQL: SELECT `name` FROM `sns_region` WHERE ( id=44337 ) LIMIT 1   [ RunTime:0.0002s ]
+SQL: SELECT `name` FROM `sns_region` WHERE ( id=44658 ) LIMIT 1   [ RunTime:0.0001s ]
+SQL: SELECT `serial_no` FROM `sns_pay3_log` WHERE `order_id` = 8 LIMIT 1   [ RunTime:0.0001s ]
+SQL: SELECT `trade_no` FROM `sns_pay3_log` WHERE `order_id` = 8 LIMIT 1   [ RunTime:0.0001s ]
+INFO: [ view_parse ] --START--
+INFO: [ template_filter ] --START--
+INFO: Run Behavior\ContentReplaceBehavior [ RunTime:0.000184s ]
+INFO: [ template_filter ] --END-- [ RunTime:0.000235s ]
+NOTIC: [8] Undefined index: user_type /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/6c74acf06d2eb1d95b41a4e56c3b9793.php 第 96 行.
+NOTIC: [8] Undefined index: user_type /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/6c74acf06d2eb1d95b41a4e56c3b9793.php 第 96 行.
+NOTIC: [8] Undefined index: user_type /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/6c74acf06d2eb1d95b41a4e56c3b9793.php 第 96 行.
+NOTIC: [8] Undefined index: user_type /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/6c74acf06d2eb1d95b41a4e56c3b9793.php 第 96 行.
+NOTIC: [8] Undefined index: user_type /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/6c74acf06d2eb1d95b41a4e56c3b9793.php 第 96 行.
+NOTIC: [8] Undefined index: user_type /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/6c74acf06d2eb1d95b41a4e56c3b9793.php 第 96 行.
+NOTIC: [8] Undefined index: user_type /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/6c74acf06d2eb1d95b41a4e56c3b9793.php 第 96 行.
+NOTIC: [8] Undefined index: user_type /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/6c74acf06d2eb1d95b41a4e56c3b9793.php 第 96 行.
+NOTIC: [8] Undefined index: user_type /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/6c74acf06d2eb1d95b41a4e56c3b9793.php 第 96 行.
+NOTIC: [8] Undefined index: user_type /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/6c74acf06d2eb1d95b41a4e56c3b9793.php 第 96 行.
+NOTIC: [8] Undefined index: user_type /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/6c74acf06d2eb1d95b41a4e56c3b9793.php 第 96 行.
+NOTIC: [8] Undefined index: user_type /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/6c74acf06d2eb1d95b41a4e56c3b9793.php 第 96 行.
+NOTIC: [8] Undefined index: user_type /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/6c74acf06d2eb1d95b41a4e56c3b9793.php 第 96 行.
+NOTIC: [8] Undefined index: user_type /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/6c74acf06d2eb1d95b41a4e56c3b9793.php 第 96 行.
+NOTIC: [8] Undefined index: user_type /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/6c74acf06d2eb1d95b41a4e56c3b9793.php 第 96 行.
+NOTIC: [8] Undefined index: user_type /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/6c74acf06d2eb1d95b41a4e56c3b9793.php 第 96 行.
+NOTIC: [8] Undefined index: user_type /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/6c74acf06d2eb1d95b41a4e56c3b9793.php 第 96 行.
+NOTIC: [8] Undefined index: user_type /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/6c74acf06d2eb1d95b41a4e56c3b9793.php 第 96 行.
+NOTIC: [8] Undefined index: user_type /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/6c74acf06d2eb1d95b41a4e56c3b9793.php 第 96 行.
+NOTIC: [8] Undefined index: user_type /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/6c74acf06d2eb1d95b41a4e56c3b9793.php 第 96 行.
+NOTIC: [8] Undefined index: user_type /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/6c74acf06d2eb1d95b41a4e56c3b9793.php 第 96 行.
+NOTIC: [8] Undefined index: user_type /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/6c74acf06d2eb1d95b41a4e56c3b9793.php 第 96 行.
+NOTIC: [8] Undefined index: user_type /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/6c74acf06d2eb1d95b41a4e56c3b9793.php 第 96 行.
+NOTIC: [8] Undefined index: user_type /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/6c74acf06d2eb1d95b41a4e56c3b9793.php 第 96 行.
+NOTIC: [8] Undefined index: user_type /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/6c74acf06d2eb1d95b41a4e56c3b9793.php 第 96 行.
+NOTIC: [8] Undefined index: user_type /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/6c74acf06d2eb1d95b41a4e56c3b9793.php 第 96 行.
+NOTIC: [8] Undefined index: user_type /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/6c74acf06d2eb1d95b41a4e56c3b9793.php 第 96 行.
+NOTIC: [8] Undefined index: user_type /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/6c74acf06d2eb1d95b41a4e56c3b9793.php 第 96 行.
+NOTIC: [8] Undefined index: user_type /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/6c74acf06d2eb1d95b41a4e56c3b9793.php 第 96 行.
+NOTIC: [8] Undefined index: user_type /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/6c74acf06d2eb1d95b41a4e56c3b9793.php 第 96 行.
+NOTIC: [8] Undefined index: user_type /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/6c74acf06d2eb1d95b41a4e56c3b9793.php 第 96 行.
+NOTIC: [8] Undefined index: user_type /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/6c74acf06d2eb1d95b41a4e56c3b9793.php 第 96 行.
+NOTIC: [8] Undefined index: user_type /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/6c74acf06d2eb1d95b41a4e56c3b9793.php 第 96 行.
+NOTIC: [8] Undefined index: user_type /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/6c74acf06d2eb1d95b41a4e56c3b9793.php 第 96 行.
+NOTIC: [8] Undefined index: user_type /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/6c74acf06d2eb1d95b41a4e56c3b9793.php 第 96 行.
+NOTIC: [8] Undefined index: order_no /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/6c74acf06d2eb1d95b41a4e56c3b9793.php 第 134 行.
+NOTIC: [8] Undefined index: goods_name /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/6c74acf06d2eb1d95b41a4e56c3b9793.php 第 143 行.
+NOTIC: [8] Undefined index: tracking_number /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/6c74acf06d2eb1d95b41a4e56c3b9793.php 第 151 行.
+NOTIC: [8] Undefined index: content /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/6c74acf06d2eb1d95b41a4e56c3b9793.php 第 159 行.
+NOTIC: [8] Undefined index: payment_type /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/6c74acf06d2eb1d95b41a4e56c3b9793.php 第 170 行.
+NOTIC: [8] Undefined index: payment_type /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/6c74acf06d2eb1d95b41a4e56c3b9793.php 第 174 行.
+NOTIC: [8] Undefined index: payment_type /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/6c74acf06d2eb1d95b41a4e56c3b9793.php 第 178 行.
+NOTIC: [8] Undefined index: payment_type /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/6c74acf06d2eb1d95b41a4e56c3b9793.php 第 182 行.
+NOTIC: [8] Undefined index: payment_type /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/6c74acf06d2eb1d95b41a4e56c3b9793.php 第 188 行.
+NOTIC: [8] Undefined index: payment_type /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/6c74acf06d2eb1d95b41a4e56c3b9793.php 第 192 行.
+NOTIC: [8] Undefined index: payment_type /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/6c74acf06d2eb1d95b41a4e56c3b9793.php 第 196 行.
+NOTIC: [8] Undefined index: payment_type /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/6c74acf06d2eb1d95b41a4e56c3b9793.php 第 200 行.
+NOTIC: [8] Undefined index: payment_type /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/6c74acf06d2eb1d95b41a4e56c3b9793.php 第 204 行.
+NOTIC: [8] Undefined index: payment_type /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/6c74acf06d2eb1d95b41a4e56c3b9793.php 第 209 行.
+NOTIC: [8] Undefined index: payment_type /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/6c74acf06d2eb1d95b41a4e56c3b9793.php 第 213 行.
+NOTIC: [8] Undefined index: payment_type /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/6c74acf06d2eb1d95b41a4e56c3b9793.php 第 219 行.
+NOTIC: [8] Undefined index: payment_type /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/6c74acf06d2eb1d95b41a4e56c3b9793.php 第 223 行.
+NOTIC: [8] Undefined index: payment_type /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/6c74acf06d2eb1d95b41a4e56c3b9793.php 第 227 行.
+NOTIC: [8] Undefined index: order_status /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/6c74acf06d2eb1d95b41a4e56c3b9793.php 第 238 行.
+NOTIC: [8] Undefined index: order_status /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/6c74acf06d2eb1d95b41a4e56c3b9793.php 第 241 行.
+NOTIC: [8] Undefined index: order_status /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/6c74acf06d2eb1d95b41a4e56c3b9793.php 第 244 行.
+NOTIC: [8] Undefined index: order_status /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/6c74acf06d2eb1d95b41a4e56c3b9793.php 第 247 行.
+NOTIC: [8] Undefined index: order_status /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/6c74acf06d2eb1d95b41a4e56c3b9793.php 第 250 行.
+NOTIC: [8] Undefined index: order_status /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/6c74acf06d2eb1d95b41a4e56c3b9793.php 第 253 行.
+NOTIC: [8] Undefined index: order_status /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/6c74acf06d2eb1d95b41a4e56c3b9793.php 第 256 行.
+NOTIC: [8] Undefined index: order_status /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/6c74acf06d2eb1d95b41a4e56c3b9793.php 第 259 行.
+NOTIC: [8] Undefined index: add_time /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/6c74acf06d2eb1d95b41a4e56c3b9793.php 第 287 行.
+NOTIC: [8] Undefined index: pay_time /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/6c74acf06d2eb1d95b41a4e56c3b9793.php 第 299 行.
+NOTIC: [8] Undefined index: shipping_time /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/6c74acf06d2eb1d95b41a4e56c3b9793.php 第 312 行.
+NOTIC: [8] Undefined index: confirm_time /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/6c74acf06d2eb1d95b41a4e56c3b9793.php 第 324 行.
+NOTIC: [8] Undefined index: trade_no /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/6c74acf06d2eb1d95b41a4e56c3b9793.php 第 334 行.
+NOTIC: [8] Use of undefined constant realname - assumed 'realname' /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/6c74acf06d2eb1d95b41a4e56c3b9793.php 第 394 行.
+SQL: SHOW COLUMNS FROM `sns_user` [ RunTime:0.0012s ]
+SQL: SELECT `realname` FROM `sns_user` WHERE `id` = 99 LIMIT 1   [ RunTime:0.0003s ]
+NOTIC: [8] Use of undefined constant phone - assumed 'phone' /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/6c74acf06d2eb1d95b41a4e56c3b9793.php 第 395 行.
+SQL: SELECT `phone` FROM `sns_user` WHERE `id` = 99 LIMIT 1   [ RunTime:0.0003s ]
+NOTIC: [8] Use of undefined constant realname - assumed 'realname' /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/6c74acf06d2eb1d95b41a4e56c3b9793.php 第 394 行.
+SQL: SELECT `realname` FROM `sns_user` WHERE `id` = 105 LIMIT 1   [ RunTime:0.0002s ]
+NOTIC: [8] Use of undefined constant phone - assumed 'phone' /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/6c74acf06d2eb1d95b41a4e56c3b9793.php 第 395 行.
+SQL: SELECT `phone` FROM `sns_user` WHERE `id` = 105 LIMIT 1   [ RunTime:0.0003s ]
+NOTIC: [8] Use of undefined constant realname - assumed 'realname' /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/6c74acf06d2eb1d95b41a4e56c3b9793.php 第 394 行.
+SQL: SELECT `realname` FROM `sns_user` WHERE `id` = 105 LIMIT 1   [ RunTime:0.0002s ]
+NOTIC: [8] Use of undefined constant phone - assumed 'phone' /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/6c74acf06d2eb1d95b41a4e56c3b9793.php 第 395 行.
+SQL: SELECT `phone` FROM `sns_user` WHERE `id` = 105 LIMIT 1   [ RunTime:0.0002s ]
+NOTIC: [8] Use of undefined constant realname - assumed 'realname' /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/6c74acf06d2eb1d95b41a4e56c3b9793.php 第 394 行.
+SQL: SELECT `realname` FROM `sns_user` WHERE `id` = 110 LIMIT 1   [ RunTime:0.0003s ]
+NOTIC: [8] Use of undefined constant phone - assumed 'phone' /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/6c74acf06d2eb1d95b41a4e56c3b9793.php 第 395 行.
+SQL: SELECT `phone` FROM `sns_user` WHERE `id` = 110 LIMIT 1   [ RunTime:0.0002s ]
+NOTIC: [8] Use of undefined constant realname - assumed 'realname' /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/6c74acf06d2eb1d95b41a4e56c3b9793.php 第 394 行.
+SQL: SELECT `realname` FROM `sns_user` WHERE `id` = 112 LIMIT 1   [ RunTime:0.0003s ]
+NOTIC: [8] Use of undefined constant phone - assumed 'phone' /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/6c74acf06d2eb1d95b41a4e56c3b9793.php 第 395 行.
+SQL: SELECT `phone` FROM `sns_user` WHERE `id` = 112 LIMIT 1   [ RunTime:0.0003s ]
+NOTIC: [8] Use of undefined constant realname - assumed 'realname' /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/6c74acf06d2eb1d95b41a4e56c3b9793.php 第 394 行.
+SQL: SELECT `realname` FROM `sns_user` WHERE `id` = 120 LIMIT 1   [ RunTime:0.0002s ]
+NOTIC: [8] Use of undefined constant phone - assumed 'phone' /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/6c74acf06d2eb1d95b41a4e56c3b9793.php 第 395 行.
+SQL: SELECT `phone` FROM `sns_user` WHERE `id` = 120 LIMIT 1   [ RunTime:0.0002s ]
+NOTIC: [8] Use of undefined constant realname - assumed 'realname' /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/6c74acf06d2eb1d95b41a4e56c3b9793.php 第 394 行.
+SQL: SELECT `realname` FROM `sns_user` WHERE `id` = 120 LIMIT 1   [ RunTime:0.0002s ]
+NOTIC: [8] Use of undefined constant phone - assumed 'phone' /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/6c74acf06d2eb1d95b41a4e56c3b9793.php 第 395 行.
+SQL: SELECT `phone` FROM `sns_user` WHERE `id` = 120 LIMIT 1   [ RunTime:0.0002s ]
+NOTIC: [8] Use of undefined constant realname - assumed 'realname' /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/6c74acf06d2eb1d95b41a4e56c3b9793.php 第 394 行.
+SQL: SELECT `realname` FROM `sns_user` WHERE `id` = 120 LIMIT 1   [ RunTime:0.0002s ]
+NOTIC: [8] Use of undefined constant phone - assumed 'phone' /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/6c74acf06d2eb1d95b41a4e56c3b9793.php 第 395 行.
+SQL: SELECT `phone` FROM `sns_user` WHERE `id` = 120 LIMIT 1   [ RunTime:0.0002s ]
+NOTIC: [8] Use of undefined constant realname - assumed 'realname' /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/6c74acf06d2eb1d95b41a4e56c3b9793.php 第 394 行.
+SQL: SELECT `realname` FROM `sns_user` WHERE `id` = 99 LIMIT 1   [ RunTime:0.0002s ]
+NOTIC: [8] Use of undefined constant phone - assumed 'phone' /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/6c74acf06d2eb1d95b41a4e56c3b9793.php 第 395 行.
+SQL: SELECT `phone` FROM `sns_user` WHERE `id` = 99 LIMIT 1   [ RunTime:0.0002s ]
+NOTIC: [8] Use of undefined constant realname - assumed 'realname' /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/6c74acf06d2eb1d95b41a4e56c3b9793.php 第 394 行.
+SQL: SELECT `realname` FROM `sns_user` WHERE `id` = 102 LIMIT 1   [ RunTime:0.0001s ]
+NOTIC: [8] Use of undefined constant phone - assumed 'phone' /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/6c74acf06d2eb1d95b41a4e56c3b9793.php 第 395 行.
+SQL: SELECT `phone` FROM `sns_user` WHERE `id` = 102 LIMIT 1   [ RunTime:0.0001s ]
+INFO: Run Behavior\ParseTemplateBehavior [ RunTime:0.032850s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.032886s ]
+INFO: [ view_filter ] --START--
+INFO: Run Behavior\WriteHtmlCacheBehavior [ RunTime:0.000127s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.000153s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.000426s ]
+INFO: [ app_end ] --END-- [ RunTime:0.000474s ]
+
+[ 2021-01-14T10:40:05+08:00 ] 172.17.0.1 /index.php/Admin/order/refunds/
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000008s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000201s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000261s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000291s ]
+SQL: SHOW COLUMNS FROM `sns_article_category` [ RunTime:0.0007s ]
+SQL: SELECT * FROM `sns_article_category` WHERE ( is_pc_show=1 )  [ RunTime:0.0002s ]
+SQL: SHOW COLUMNS FROM `sns_article` [ RunTime:0.0007s ]
+SQL: SELECT `id`,`title` FROM `sns_article` WHERE ( cat_id=8 )  [ RunTime:0.0002s ]
+SQL: SELECT `id`,`title` FROM `sns_article` WHERE ( cat_id=9 )  [ RunTime:0.0001s ]
+SQL: SELECT `id`,`title` FROM `sns_article` WHERE ( cat_id=10 )  [ RunTime:0.0001s ]
+SQL: SELECT `id`,`title` FROM `sns_article` WHERE ( cat_id=11 )  [ RunTime:0.0001s ]
+SQL: SELECT `id`,`title` FROM `sns_article` WHERE ( cat_id=12 )  [ RunTime:0.0001s ]
+SQL: SELECT `id`,`title` FROM `sns_article` WHERE ( cat_id=13 )  [ RunTime:0.0001s ]
+SQL: SHOW COLUMNS FROM `sns_jscd` [ RunTime:0.0007s ]
+SQL: SELECT * FROM `sns_jscd` WHERE ( level=1 and is_del=0 ) ORDER BY id asc  [ RunTime:0.0003s ]
+SQL: SELECT * FROM `sns_jscd` WHERE ( level=2 and is_del=0 and parent_id=83 ) ORDER BY id asc  [ RunTime:0.0002s ]
+SQL: SELECT * FROM `sns_jscd` WHERE ( level=2 and is_del=0 and parent_id=88 ) ORDER BY id asc  [ RunTime:0.0002s ]
+SQL: SELECT * FROM `sns_jscd` WHERE ( level=2 and is_del=0 and parent_id=95 ) ORDER BY id asc  [ RunTime:0.0003s ]
+SQL: SELECT * FROM `sns_jscd` WHERE ( level=2 and is_del=0 and parent_id=100 ) ORDER BY id asc  [ RunTime:0.0002s ]
+SQL: SELECT * FROM `sns_jscd` WHERE ( level=2 and is_del=0 and parent_id=105 ) ORDER BY id asc  [ RunTime:0.0002s ]
+SQL: SELECT * FROM `sns_jscd` WHERE ( level=2 and is_del=0 and parent_id=114 ) ORDER BY id asc  [ RunTime:0.0002s ]
+SQL: SELECT * FROM `sns_jscd` WHERE ( level=2 and is_del=0 and parent_id=121 ) ORDER BY id asc  [ RunTime:0.0002s ]
+SQL: SELECT * FROM `sns_jscd` WHERE ( level=2 and is_del=0 and parent_id=136 ) ORDER BY id asc  [ RunTime:0.0002s ]
+SQL: SELECT * FROM `sns_jscd` WHERE ( level=2 and is_del=0 and parent_id=179 ) ORDER BY id asc  [ RunTime:0.0002s ]
+SQL: SHOW COLUMNS FROM `sns_admin` [ RunTime:0.0006s ]
+SQL: SELECT * FROM `sns_admin` WHERE `id` = 1 LIMIT 1   [ RunTime:0.0002s ]
+SQL: SELECT * FROM `sns_jscd` WHERE `group1` = 'order' AND `level` = 1 LIMIT 1   [ RunTime:0.0002s ]
+SQL: SELECT * FROM `sns_jscd` WHERE `parent_id` = '100' AND `group1` = 'refunds' LIMIT 1   [ RunTime:0.0002s ]
+SQL: SHOW COLUMNS FROM `sns_order_refund` [ RunTime:0.0010s ]
+SQL: SELECT COUNT(*) AS tp_count FROM `sns_order_refund` WHERE `isdel` = 0 LIMIT 1   [ RunTime:0.0002s ]
+SQL: SELECT * FROM `sns_order_refund` WHERE `isdel` = 0 ORDER BY id desc LIMIT 0,10   [ RunTime:0.0003s ]
+INFO: [ view_parse ] --START--
+INFO: [ template_filter ] --START--
+INFO: Run Behavior\ContentReplaceBehavior [ RunTime:0.000122s ]
+INFO: [ template_filter ] --END-- [ RunTime:0.000179s ]
+NOTIC: [8] Undefined index: user_type /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/f0a0b9cba7d9d6b6b766b05a2e8d8ee3.php 第 96 行.
+NOTIC: [8] Undefined index: user_type /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/f0a0b9cba7d9d6b6b766b05a2e8d8ee3.php 第 96 行.
+NOTIC: [8] Undefined index: user_type /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/f0a0b9cba7d9d6b6b766b05a2e8d8ee3.php 第 96 行.
+NOTIC: [8] Undefined index: user_type /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/f0a0b9cba7d9d6b6b766b05a2e8d8ee3.php 第 96 行.
+NOTIC: [8] Undefined index: user_type /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/f0a0b9cba7d9d6b6b766b05a2e8d8ee3.php 第 96 行.
+NOTIC: [8] Undefined index: user_type /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/f0a0b9cba7d9d6b6b766b05a2e8d8ee3.php 第 96 行.
+NOTIC: [8] Undefined index: user_type /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/f0a0b9cba7d9d6b6b766b05a2e8d8ee3.php 第 96 行.
+NOTIC: [8] Undefined index: user_type /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/f0a0b9cba7d9d6b6b766b05a2e8d8ee3.php 第 96 行.
+NOTIC: [8] Undefined index: user_type /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/f0a0b9cba7d9d6b6b766b05a2e8d8ee3.php 第 96 行.
+NOTIC: [8] Undefined index: user_type /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/f0a0b9cba7d9d6b6b766b05a2e8d8ee3.php 第 96 行.
+NOTIC: [8] Undefined index: user_type /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/f0a0b9cba7d9d6b6b766b05a2e8d8ee3.php 第 96 行.
+NOTIC: [8] Undefined index: user_type /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/f0a0b9cba7d9d6b6b766b05a2e8d8ee3.php 第 96 行.
+NOTIC: [8] Undefined index: user_type /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/f0a0b9cba7d9d6b6b766b05a2e8d8ee3.php 第 96 行.
+NOTIC: [8] Undefined index: user_type /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/f0a0b9cba7d9d6b6b766b05a2e8d8ee3.php 第 96 行.
+NOTIC: [8] Undefined index: user_type /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/f0a0b9cba7d9d6b6b766b05a2e8d8ee3.php 第 96 行.
+NOTIC: [8] Undefined index: user_type /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/f0a0b9cba7d9d6b6b766b05a2e8d8ee3.php 第 96 行.
+NOTIC: [8] Undefined index: user_type /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/f0a0b9cba7d9d6b6b766b05a2e8d8ee3.php 第 96 行.
+NOTIC: [8] Undefined index: user_type /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/f0a0b9cba7d9d6b6b766b05a2e8d8ee3.php 第 96 行.
+NOTIC: [8] Undefined index: user_type /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/f0a0b9cba7d9d6b6b766b05a2e8d8ee3.php 第 96 行.
+NOTIC: [8] Undefined index: user_type /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/f0a0b9cba7d9d6b6b766b05a2e8d8ee3.php 第 96 行.
+NOTIC: [8] Undefined index: user_type /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/f0a0b9cba7d9d6b6b766b05a2e8d8ee3.php 第 96 行.
+NOTIC: [8] Undefined index: user_type /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/f0a0b9cba7d9d6b6b766b05a2e8d8ee3.php 第 96 行.
+NOTIC: [8] Undefined index: user_type /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/f0a0b9cba7d9d6b6b766b05a2e8d8ee3.php 第 96 行.
+NOTIC: [8] Undefined index: user_type /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/f0a0b9cba7d9d6b6b766b05a2e8d8ee3.php 第 96 行.
+NOTIC: [8] Undefined index: user_type /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/f0a0b9cba7d9d6b6b766b05a2e8d8ee3.php 第 96 行.
+NOTIC: [8] Undefined index: user_type /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/f0a0b9cba7d9d6b6b766b05a2e8d8ee3.php 第 96 行.
+NOTIC: [8] Undefined index: user_type /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/f0a0b9cba7d9d6b6b766b05a2e8d8ee3.php 第 96 行.
+NOTIC: [8] Undefined index: user_type /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/f0a0b9cba7d9d6b6b766b05a2e8d8ee3.php 第 96 行.
+NOTIC: [8] Undefined index: user_type /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/f0a0b9cba7d9d6b6b766b05a2e8d8ee3.php 第 96 行.
+NOTIC: [8] Undefined index: user_type /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/f0a0b9cba7d9d6b6b766b05a2e8d8ee3.php 第 96 行.
+NOTIC: [8] Undefined index: user_type /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/f0a0b9cba7d9d6b6b766b05a2e8d8ee3.php 第 96 行.
+NOTIC: [8] Undefined index: user_type /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/f0a0b9cba7d9d6b6b766b05a2e8d8ee3.php 第 96 行.
+NOTIC: [8] Undefined index: user_type /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/f0a0b9cba7d9d6b6b766b05a2e8d8ee3.php 第 96 行.
+NOTIC: [8] Undefined index: user_type /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/f0a0b9cba7d9d6b6b766b05a2e8d8ee3.php 第 96 行.
+NOTIC: [8] Undefined index: user_type /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/f0a0b9cba7d9d6b6b766b05a2e8d8ee3.php 第 96 行.
+NOTIC: [8] Undefined index: refund_no /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/f0a0b9cba7d9d6b6b766b05a2e8d8ee3.php 第 134 行.
+NOTIC: [8] Undefined index: content /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/f0a0b9cba7d9d6b6b766b05a2e8d8ee3.php 第 144 行.
+NOTIC: [8] Undefined index: refund_status /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/f0a0b9cba7d9d6b6b766b05a2e8d8ee3.php 第 154 行.
+NOTIC: [8] Undefined index: refund_status /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/f0a0b9cba7d9d6b6b766b05a2e8d8ee3.php 第 157 行.
+NOTIC: [8] Undefined index: refund_status /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/f0a0b9cba7d9d6b6b766b05a2e8d8ee3.php 第 160 行.
+NOTIC: [8] Undefined index: refund_status /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/f0a0b9cba7d9d6b6b766b05a2e8d8ee3.php 第 163 行.
+NOTIC: [8] Undefined index: refund_status /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/f0a0b9cba7d9d6b6b766b05a2e8d8ee3.php 第 166 行.
+NOTIC: [8] Undefined index: refund_status /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/f0a0b9cba7d9d6b6b766b05a2e8d8ee3.php 第 169 行.
+NOTIC: [8] Undefined index: refund_status /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/f0a0b9cba7d9d6b6b766b05a2e8d8ee3.php 第 172 行.
+NOTIC: [8] Undefined index: refund_status /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/f0a0b9cba7d9d6b6b766b05a2e8d8ee3.php 第 175 行.
+NOTIC: [8] Undefined index: refund_status /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/f0a0b9cba7d9d6b6b766b05a2e8d8ee3.php 第 178 行.
+NOTIC: [8] Undefined index: refund_status /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/f0a0b9cba7d9d6b6b766b05a2e8d8ee3.php 第 181 行.
+NOTIC: [8] Undefined index: add_time /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/f0a0b9cba7d9d6b6b766b05a2e8d8ee3.php 第 193 行.
+NOTIC: [8] Undefined variable: express_type /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/f0a0b9cba7d9d6b6b766b05a2e8d8ee3.php 第 317 行.
+INFO: Run Behavior\ParseTemplateBehavior [ RunTime:0.041303s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.041405s ]
+INFO: [ view_filter ] --START--
+INFO: Run Behavior\WriteHtmlCacheBehavior [ RunTime:0.000120s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.000155s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.000488s ]
+INFO: [ app_end ] --END-- [ RunTime:0.000540s ]
+
+[ 2021-01-14T10:40:11+08:00 ] 172.17.0.1 /index.php/Admin/order/hour/
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000010s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000215s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000301s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000334s ]
+SQL: SHOW COLUMNS FROM `sns_article_category` [ RunTime:0.0008s ]
+SQL: SELECT * FROM `sns_article_category` WHERE ( is_pc_show=1 )  [ RunTime:0.0002s ]
+SQL: SHOW COLUMNS FROM `sns_article` [ RunTime:0.0007s ]
+SQL: SELECT `id`,`title` FROM `sns_article` WHERE ( cat_id=8 )  [ RunTime:0.0002s ]
+SQL: SELECT `id`,`title` FROM `sns_article` WHERE ( cat_id=9 )  [ RunTime:0.0002s ]
+SQL: SELECT `id`,`title` FROM `sns_article` WHERE ( cat_id=10 )  [ RunTime:0.0002s ]
+SQL: SELECT `id`,`title` FROM `sns_article` WHERE ( cat_id=11 )  [ RunTime:0.0001s ]
+SQL: SELECT `id`,`title` FROM `sns_article` WHERE ( cat_id=12 )  [ RunTime:0.0002s ]
+SQL: SELECT `id`,`title` FROM `sns_article` WHERE ( cat_id=13 )  [ RunTime:0.0001s ]
+SQL: SHOW COLUMNS FROM `sns_jscd` [ RunTime:0.0006s ]
+SQL: SELECT * FROM `sns_jscd` WHERE ( level=1 and is_del=0 ) ORDER BY id asc  [ RunTime:0.0003s ]
+SQL: SELECT * FROM `sns_jscd` WHERE ( level=2 and is_del=0 and parent_id=83 ) ORDER BY id asc  [ RunTime:0.0003s ]
+SQL: SELECT * FROM `sns_jscd` WHERE ( level=2 and is_del=0 and parent_id=88 ) ORDER BY id asc  [ RunTime:0.0002s ]
+SQL: SELECT * FROM `sns_jscd` WHERE ( level=2 and is_del=0 and parent_id=95 ) ORDER BY id asc  [ RunTime:0.0002s ]
+SQL: SELECT * FROM `sns_jscd` WHERE ( level=2 and is_del=0 and parent_id=100 ) ORDER BY id asc  [ RunTime:0.0004s ]
+SQL: SELECT * FROM `sns_jscd` WHERE ( level=2 and is_del=0 and parent_id=105 ) ORDER BY id asc  [ RunTime:0.0004s ]
+SQL: SELECT * FROM `sns_jscd` WHERE ( level=2 and is_del=0 and parent_id=114 ) ORDER BY id asc  [ RunTime:0.0003s ]
+SQL: SELECT * FROM `sns_jscd` WHERE ( level=2 and is_del=0 and parent_id=121 ) ORDER BY id asc  [ RunTime:0.0002s ]
+SQL: SELECT * FROM `sns_jscd` WHERE ( level=2 and is_del=0 and parent_id=136 ) ORDER BY id asc  [ RunTime:0.0002s ]
+SQL: SELECT * FROM `sns_jscd` WHERE ( level=2 and is_del=0 and parent_id=179 ) ORDER BY id asc  [ RunTime:0.0002s ]
+SQL: SHOW COLUMNS FROM `sns_admin` [ RunTime:0.0007s ]
+SQL: SELECT * FROM `sns_admin` WHERE `id` = 1 LIMIT 1   [ RunTime:0.0002s ]
+SQL: SELECT * FROM `sns_jscd` WHERE `group1` = 'order' AND `level` = 1 LIMIT 1   [ RunTime:0.0002s ]
+SQL: SELECT * FROM `sns_jscd` WHERE `parent_id` = '100' AND `group1` = 'hour' LIMIT 1   [ RunTime:0.0002s ]
+NOTIC: [2] Missing argument 1 for I(), called in /var/www/html/tiantianfan/Bin/Admin/Controller/OrderController.class.php on line 778 and defined /var/www/html/tiantianfan/ThinkPHP/Common/functions.php 第 271 行.
+NOTIC: [8] Undefined variable: name /var/www/html/tiantianfan/ThinkPHP/Common/functions.php 第 273 行.
+NOTIC: [8] Undefined variable: name /var/www/html/tiantianfan/ThinkPHP/Common/functions.php 第 278 行.
+NOTIC: [8] Undefined variable: name /var/www/html/tiantianfan/ThinkPHP/Common/functions.php 第 339 行.
+NOTIC: [8] Undefined index: order_no /var/www/html/tiantianfan/Bin/Clas/Orderout.class.php 第 874 行.
+NOTIC: [8] Undefined index: payment_type /var/www/html/tiantianfan/Bin/Clas/Orderout.class.php 第 878 行.
+NOTIC: [8] Undefined index: user_id /var/www/html/tiantianfan/Bin/Clas/Orderout.class.php 第 891 行.
+NOTIC: [8] Undefined index: isdel /var/www/html/tiantianfan/Bin/Clas/Orderout.class.php 第 895 行.
+NOTIC: [8] Undefined index: add_time /var/www/html/tiantianfan/Bin/Clas/Orderout.class.php 第 904 行.
+NOTIC: [8] Undefined index: pay_time /var/www/html/tiantianfan/Bin/Clas/Orderout.class.php 第 911 行.
+NOTIC: [8] Undefined index: shipping_time /var/www/html/tiantianfan/Bin/Clas/Orderout.class.php 第 918 行.
+NOTIC: [8] Undefined index: confirm_time /var/www/html/tiantianfan/Bin/Clas/Orderout.class.php 第 925 行.
+NOTIC: [8] Undefined index: content /var/www/html/tiantianfan/Bin/Clas/Orderout.class.php 第 932 行.
+NOTIC: [8] Undefined index: goods_name /var/www/html/tiantianfan/Bin/Clas/Orderout.class.php 第 955 行.
+NOTIC: [8] Undefined index: tracking_number /var/www/html/tiantianfan/Bin/Clas/Orderout.class.php 第 964 行.
+NOTIC: [8] Undefined index: trade_no /var/www/html/tiantianfan/Bin/Clas/Orderout.class.php 第 973 行.
+NOTIC: [8] Undefined index: shop_id /var/www/html/tiantianfan/Bin/Clas/Orderout.class.php 第 991 行.
+NOTIC: [8] Undefined index: pay_status /var/www/html/tiantianfan/Bin/Clas/Orderout.class.php 第 995 行.
+NOTIC: [8] Undefined index: page_size /var/www/html/tiantianfan/Bin/Clas/Orderout.class.php 第 1004 行.
+SQL: SHOW COLUMNS FROM `sns_order` [ RunTime:0.0013s ]
+SQL: SELECT COUNT(*) AS tp_count FROM `sns_order` WHERE `order_type` = 6 AND `isdel` = 0 LIMIT 1   [ RunTime:0.0002s ]
+SQL: SELECT * FROM `sns_order` WHERE `order_type` = 6 AND `isdel` = 0 ORDER BY id desc LIMIT 0,10   [ RunTime:0.0005s ]
+NOTIC: [8] Use of undefined constant x9x9x - assumed 'x9x9x' /var/www/html/tiantianfan/ThinkPHP/Library/Think/Page.class.php 第 151 行.
+SQL: SHOW COLUMNS FROM `sns_order_goods` [ RunTime:0.0011s ]
+SQL: SELECT SUM(goods_total) AS tp_sum FROM `sns_order_goods` WHERE ( order_id=9 ) LIMIT 1   [ RunTime:0.0004s ]
+SQL: SELECT COUNT(*) AS tp_count FROM `sns_order_goods` WHERE ( order_id=9 ) LIMIT 1   [ RunTime:0.0003s ]
+SQL: SELECT * FROM `sns_order_goods` WHERE ( order_id=9 ) LIMIT 1   [ RunTime:0.0004s ]
+SQL: SELECT * FROM `sns_order_goods` WHERE ( order_id=9 )  [ RunTime:0.0004s ]
+SQL: SHOW COLUMNS FROM `sns_express_service` [ RunTime:0.0011s ]
+SQL: SELECT * FROM `sns_express_service` WHERE ( is_start=1 ) LIMIT 1   [ RunTime:0.0005s ]
+NOTIC: [8] Undefined variable: region_list /var/www/html/tiantianfan/Bin/Common/Common/function.php 第 4050 行.
+SQL: SHOW COLUMNS FROM `sns_region` [ RunTime:0.0007s ]
+SQL: SELECT `name` FROM `sns_region` WHERE ( id=32482 ) LIMIT 1   [ RunTime:0.0002s ]
+SQL: SELECT `name` FROM `sns_region` WHERE ( id=32483 ) LIMIT 1   [ RunTime:0.0001s ]
+SQL: SELECT `name` FROM `sns_region` WHERE ( id=32484 ) LIMIT 1   [ RunTime:0.0001s ]
+SQL: SHOW COLUMNS FROM `sns_pay3_log` [ RunTime:0.0007s ]
+SQL: SELECT `serial_no` FROM `sns_pay3_log` WHERE `order_id` = 9 LIMIT 1   [ RunTime:0.0002s ]
+SQL: SELECT `trade_no` FROM `sns_pay3_log` WHERE `order_id` = 9 LIMIT 1   [ RunTime:0.0001s ]
+INFO: [ view_parse ] --START--
+INFO: [ template_filter ] --START--
+INFO: Run Behavior\ContentReplaceBehavior [ RunTime:0.000129s ]
+INFO: [ template_filter ] --END-- [ RunTime:0.000169s ]
+NOTIC: [8] Undefined index: user_type /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/7227c96e9770a06e35062cf098ce0da8.php 第 96 行.
+NOTIC: [8] Undefined index: user_type /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/7227c96e9770a06e35062cf098ce0da8.php 第 96 行.
+NOTIC: [8] Undefined index: user_type /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/7227c96e9770a06e35062cf098ce0da8.php 第 96 行.
+NOTIC: [8] Undefined index: user_type /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/7227c96e9770a06e35062cf098ce0da8.php 第 96 行.
+NOTIC: [8] Undefined index: user_type /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/7227c96e9770a06e35062cf098ce0da8.php 第 96 行.
+NOTIC: [8] Undefined index: user_type /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/7227c96e9770a06e35062cf098ce0da8.php 第 96 行.
+NOTIC: [8] Undefined index: user_type /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/7227c96e9770a06e35062cf098ce0da8.php 第 96 行.
+NOTIC: [8] Undefined index: user_type /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/7227c96e9770a06e35062cf098ce0da8.php 第 96 行.
+NOTIC: [8] Undefined index: user_type /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/7227c96e9770a06e35062cf098ce0da8.php 第 96 行.
+NOTIC: [8] Undefined index: user_type /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/7227c96e9770a06e35062cf098ce0da8.php 第 96 行.
+NOTIC: [8] Undefined index: user_type /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/7227c96e9770a06e35062cf098ce0da8.php 第 96 行.
+NOTIC: [8] Undefined index: user_type /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/7227c96e9770a06e35062cf098ce0da8.php 第 96 行.
+NOTIC: [8] Undefined index: user_type /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/7227c96e9770a06e35062cf098ce0da8.php 第 96 行.
+NOTIC: [8] Undefined index: user_type /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/7227c96e9770a06e35062cf098ce0da8.php 第 96 行.
+NOTIC: [8] Undefined index: user_type /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/7227c96e9770a06e35062cf098ce0da8.php 第 96 行.
+NOTIC: [8] Undefined index: user_type /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/7227c96e9770a06e35062cf098ce0da8.php 第 96 行.
+NOTIC: [8] Undefined index: user_type /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/7227c96e9770a06e35062cf098ce0da8.php 第 96 行.
+NOTIC: [8] Undefined index: user_type /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/7227c96e9770a06e35062cf098ce0da8.php 第 96 行.
+NOTIC: [8] Undefined index: user_type /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/7227c96e9770a06e35062cf098ce0da8.php 第 96 行.
+NOTIC: [8] Undefined index: user_type /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/7227c96e9770a06e35062cf098ce0da8.php 第 96 行.
+NOTIC: [8] Undefined index: user_type /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/7227c96e9770a06e35062cf098ce0da8.php 第 96 行.
+NOTIC: [8] Undefined index: user_type /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/7227c96e9770a06e35062cf098ce0da8.php 第 96 行.
+NOTIC: [8] Undefined index: user_type /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/7227c96e9770a06e35062cf098ce0da8.php 第 96 行.
+NOTIC: [8] Undefined index: user_type /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/7227c96e9770a06e35062cf098ce0da8.php 第 96 行.
+NOTIC: [8] Undefined index: user_type /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/7227c96e9770a06e35062cf098ce0da8.php 第 96 行.
+NOTIC: [8] Undefined index: user_type /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/7227c96e9770a06e35062cf098ce0da8.php 第 96 行.
+NOTIC: [8] Undefined index: user_type /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/7227c96e9770a06e35062cf098ce0da8.php 第 96 行.
+NOTIC: [8] Undefined index: user_type /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/7227c96e9770a06e35062cf098ce0da8.php 第 96 行.
+NOTIC: [8] Undefined index: user_type /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/7227c96e9770a06e35062cf098ce0da8.php 第 96 行.
+NOTIC: [8] Undefined index: user_type /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/7227c96e9770a06e35062cf098ce0da8.php 第 96 行.
+NOTIC: [8] Undefined index: user_type /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/7227c96e9770a06e35062cf098ce0da8.php 第 96 行.
+NOTIC: [8] Undefined index: user_type /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/7227c96e9770a06e35062cf098ce0da8.php 第 96 行.
+NOTIC: [8] Undefined index: user_type /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/7227c96e9770a06e35062cf098ce0da8.php 第 96 行.
+NOTIC: [8] Undefined index: user_type /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/7227c96e9770a06e35062cf098ce0da8.php 第 96 行.
+NOTIC: [8] Undefined index: user_type /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/7227c96e9770a06e35062cf098ce0da8.php 第 96 行.
+NOTIC: [8] Undefined index: order_no /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/7227c96e9770a06e35062cf098ce0da8.php 第 132 行.
+NOTIC: [8] Undefined index: goods_name /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/7227c96e9770a06e35062cf098ce0da8.php 第 138 行.
+NOTIC: [8] Undefined index: tracking_number /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/7227c96e9770a06e35062cf098ce0da8.php 第 144 行.
+NOTIC: [8] Undefined index: content /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/7227c96e9770a06e35062cf098ce0da8.php 第 150 行.
+NOTIC: [8] Undefined index: payment_type /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/7227c96e9770a06e35062cf098ce0da8.php 第 158 行.
+NOTIC: [8] Undefined index: payment_type /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/7227c96e9770a06e35062cf098ce0da8.php 第 160 行.
+NOTIC: [8] Undefined index: payment_type /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/7227c96e9770a06e35062cf098ce0da8.php 第 164 行.
+NOTIC: [8] Undefined index: payment_type /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/7227c96e9770a06e35062cf098ce0da8.php 第 170 行.
+NOTIC: [8] Undefined index: payment_type /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/7227c96e9770a06e35062cf098ce0da8.php 第 173 行.
+NOTIC: [8] Undefined index: order_status /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/7227c96e9770a06e35062cf098ce0da8.php 第 185 行.
+NOTIC: [8] Undefined index: order_status /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/7227c96e9770a06e35062cf098ce0da8.php 第 186 行.
+NOTIC: [8] Undefined index: order_status /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/7227c96e9770a06e35062cf098ce0da8.php 第 187 行.
+NOTIC: [8] Undefined index: order_status /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/7227c96e9770a06e35062cf098ce0da8.php 第 188 行.
+NOTIC: [8] Undefined index: order_status /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/7227c96e9770a06e35062cf098ce0da8.php 第 189 行.
+NOTIC: [8] Undefined index: order_status /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/7227c96e9770a06e35062cf098ce0da8.php 第 190 行.
+NOTIC: [8] Undefined index: order_status /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/7227c96e9770a06e35062cf098ce0da8.php 第 191 行.
+NOTIC: [8] Undefined index: order_status /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/7227c96e9770a06e35062cf098ce0da8.php 第 192 行.
+NOTIC: [8] Undefined index: add_time /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/7227c96e9770a06e35062cf098ce0da8.php 第 218 行.
+NOTIC: [8] Undefined index: pay_time /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/7227c96e9770a06e35062cf098ce0da8.php 第 227 行.
+NOTIC: [8] Undefined index: shipping_time /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/7227c96e9770a06e35062cf098ce0da8.php 第 236 行.
+NOTIC: [8] Undefined index: confirm_time /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/7227c96e9770a06e35062cf098ce0da8.php 第 245 行.
+NOTIC: [8] Undefined index: trade_no /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/7227c96e9770a06e35062cf098ce0da8.php 第 253 行.
+NOTIC: [8] Use of undefined constant realname - assumed 'realname' /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/7227c96e9770a06e35062cf098ce0da8.php 第 310 行.
+SQL: SHOW COLUMNS FROM `sns_user` [ RunTime:0.0018s ]
+SQL: SELECT `realname` FROM `sns_user` WHERE `id` = 99 LIMIT 1   [ RunTime:0.0006s ]
+NOTIC: [8] Use of undefined constant phone - assumed 'phone' /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/7227c96e9770a06e35062cf098ce0da8.php 第 311 行.
+SQL: SELECT `phone` FROM `sns_user` WHERE `id` = 99 LIMIT 1   [ RunTime:0.0004s ]
+INFO: Run Behavior\ParseTemplateBehavior [ RunTime:0.024957s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.024994s ]
+INFO: [ view_filter ] --START--
+INFO: Run Behavior\WriteHtmlCacheBehavior [ RunTime:0.000133s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.000161s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.000410s ]
+INFO: [ app_end ] --END-- [ RunTime:0.000446s ]
+
+[ 2021-01-14T10:40:14+08:00 ] 172.17.0.1 /index.php/Admin/order/group/
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000010s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000220s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000317s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000352s ]
+SQL: SHOW COLUMNS FROM `sns_article_category` [ RunTime:0.0007s ]
+SQL: SELECT * FROM `sns_article_category` WHERE ( is_pc_show=1 )  [ RunTime:0.0002s ]
+SQL: SHOW COLUMNS FROM `sns_article` [ RunTime:0.0006s ]
+SQL: SELECT `id`,`title` FROM `sns_article` WHERE ( cat_id=8 )  [ RunTime:0.0002s ]
+SQL: SELECT `id`,`title` FROM `sns_article` WHERE ( cat_id=9 )  [ RunTime:0.0002s ]
+SQL: SELECT `id`,`title` FROM `sns_article` WHERE ( cat_id=10 )  [ RunTime:0.0001s ]
+SQL: SELECT `id`,`title` FROM `sns_article` WHERE ( cat_id=11 )  [ RunTime:0.0002s ]
+SQL: SELECT `id`,`title` FROM `sns_article` WHERE ( cat_id=12 )  [ RunTime:0.0002s ]
+SQL: SELECT `id`,`title` FROM `sns_article` WHERE ( cat_id=13 )  [ RunTime:0.0002s ]
+SQL: SHOW COLUMNS FROM `sns_jscd` [ RunTime:0.0009s ]
+SQL: SELECT * FROM `sns_jscd` WHERE ( level=1 and is_del=0 ) ORDER BY id asc  [ RunTime:0.0004s ]
+SQL: SELECT * FROM `sns_jscd` WHERE ( level=2 and is_del=0 and parent_id=83 ) ORDER BY id asc  [ RunTime:0.0004s ]
+SQL: SELECT * FROM `sns_jscd` WHERE ( level=2 and is_del=0 and parent_id=88 ) ORDER BY id asc  [ RunTime:0.0003s ]
+SQL: SELECT * FROM `sns_jscd` WHERE ( level=2 and is_del=0 and parent_id=95 ) ORDER BY id asc  [ RunTime:0.0004s ]
+SQL: SELECT * FROM `sns_jscd` WHERE ( level=2 and is_del=0 and parent_id=100 ) ORDER BY id asc  [ RunTime:0.0005s ]
+SQL: SELECT * FROM `sns_jscd` WHERE ( level=2 and is_del=0 and parent_id=105 ) ORDER BY id asc  [ RunTime:0.0004s ]
+SQL: SELECT * FROM `sns_jscd` WHERE ( level=2 and is_del=0 and parent_id=114 ) ORDER BY id asc  [ RunTime:0.0006s ]
+SQL: SELECT * FROM `sns_jscd` WHERE ( level=2 and is_del=0 and parent_id=121 ) ORDER BY id asc  [ RunTime:0.0004s ]
+SQL: SELECT * FROM `sns_jscd` WHERE ( level=2 and is_del=0 and parent_id=136 ) ORDER BY id asc  [ RunTime:0.0003s ]
+SQL: SELECT * FROM `sns_jscd` WHERE ( level=2 and is_del=0 and parent_id=179 ) ORDER BY id asc  [ RunTime:0.0004s ]
+SQL: SHOW COLUMNS FROM `sns_admin` [ RunTime:0.0007s ]
+SQL: SELECT * FROM `sns_admin` WHERE `id` = 1 LIMIT 1   [ RunTime:0.0003s ]
+SQL: SELECT * FROM `sns_jscd` WHERE `group1` = 'order' AND `level` = 1 LIMIT 1   [ RunTime:0.0003s ]
+SQL: SELECT * FROM `sns_jscd` WHERE `parent_id` = '100' AND `group1` = 'group' LIMIT 1   [ RunTime:0.0003s ]
+NOTIC: [2] Missing argument 1 for I(), called in /var/www/html/tiantianfan/Bin/Admin/Controller/OrderController.class.php on line 746 and defined /var/www/html/tiantianfan/ThinkPHP/Common/functions.php 第 271 行.
+NOTIC: [8] Undefined variable: name /var/www/html/tiantianfan/ThinkPHP/Common/functions.php 第 273 行.
+NOTIC: [8] Undefined variable: name /var/www/html/tiantianfan/ThinkPHP/Common/functions.php 第 278 行.
+NOTIC: [8] Undefined variable: name /var/www/html/tiantianfan/ThinkPHP/Common/functions.php 第 339 行.
+NOTIC: [8] Undefined index: order_no /var/www/html/tiantianfan/Bin/Clas/Orderout.class.php 第 874 行.
+NOTIC: [8] Undefined index: payment_type /var/www/html/tiantianfan/Bin/Clas/Orderout.class.php 第 878 行.
+NOTIC: [8] Undefined index: user_id /var/www/html/tiantianfan/Bin/Clas/Orderout.class.php 第 891 行.
+NOTIC: [8] Undefined index: isdel /var/www/html/tiantianfan/Bin/Clas/Orderout.class.php 第 895 行.
+NOTIC: [8] Undefined index: add_time /var/www/html/tiantianfan/Bin/Clas/Orderout.class.php 第 904 行.
+NOTIC: [8] Undefined index: pay_time /var/www/html/tiantianfan/Bin/Clas/Orderout.class.php 第 911 行.
+NOTIC: [8] Undefined index: shipping_time /var/www/html/tiantianfan/Bin/Clas/Orderout.class.php 第 918 行.
+NOTIC: [8] Undefined index: confirm_time /var/www/html/tiantianfan/Bin/Clas/Orderout.class.php 第 925 行.
+NOTIC: [8] Undefined index: content /var/www/html/tiantianfan/Bin/Clas/Orderout.class.php 第 932 行.
+NOTIC: [8] Undefined index: goods_name /var/www/html/tiantianfan/Bin/Clas/Orderout.class.php 第 955 行.
+NOTIC: [8] Undefined index: tracking_number /var/www/html/tiantianfan/Bin/Clas/Orderout.class.php 第 964 行.
+NOTIC: [8] Undefined index: trade_no /var/www/html/tiantianfan/Bin/Clas/Orderout.class.php 第 973 行.
+NOTIC: [8] Undefined index: shop_id /var/www/html/tiantianfan/Bin/Clas/Orderout.class.php 第 991 行.
+NOTIC: [8] Undefined index: pay_status /var/www/html/tiantianfan/Bin/Clas/Orderout.class.php 第 995 行.
+NOTIC: [8] Undefined index: page_size /var/www/html/tiantianfan/Bin/Clas/Orderout.class.php 第 1004 行.
+SQL: SHOW COLUMNS FROM `sns_order` [ RunTime:0.0012s ]
+SQL: SELECT COUNT(*) AS tp_count FROM `sns_order` WHERE `order_type` = 5 AND `isdel` = 0 LIMIT 1   [ RunTime:0.0004s ]
+SQL: SELECT * FROM `sns_order` WHERE `order_type` = 5 AND `isdel` = 0 ORDER BY id desc LIMIT 0,10   [ RunTime:0.0005s ]
+NOTIC: [8] Use of undefined constant x9x9x - assumed 'x9x9x' /var/www/html/tiantianfan/ThinkPHP/Library/Think/Page.class.php 第 151 行.
+SQL: SHOW COLUMNS FROM `sns_order_goods` [ RunTime:0.0010s ]
+SQL: SELECT SUM(goods_total) AS tp_sum FROM `sns_order_goods` WHERE ( order_id=12 ) LIMIT 1   [ RunTime:0.0003s ]
+SQL: SELECT COUNT(*) AS tp_count FROM `sns_order_goods` WHERE ( order_id=12 ) LIMIT 1   [ RunTime:0.0003s ]
+SQL: SELECT * FROM `sns_order_goods` WHERE ( order_id=12 ) LIMIT 1   [ RunTime:0.0003s ]
+SQL: SELECT * FROM `sns_order_goods` WHERE ( order_id=12 )  [ RunTime:0.0004s ]
+SQL: SHOW COLUMNS FROM `sns_express_service` [ RunTime:0.0007s ]
+SQL: SELECT * FROM `sns_express_service` WHERE ( is_start=1 ) LIMIT 1   [ RunTime:0.0003s ]
+NOTIC: [8] Undefined variable: region_list /var/www/html/tiantianfan/Bin/Common/Common/function.php 第 4050 行.
+SQL: SHOW COLUMNS FROM `sns_region` [ RunTime:0.0012s ]
+SQL: SELECT `name` FROM `sns_region` WHERE ( id=44336 ) LIMIT 1   [ RunTime:0.0003s ]
+SQL: SELECT `name` FROM `sns_region` WHERE ( id=44337 ) LIMIT 1   [ RunTime:0.0003s ]
+SQL: SELECT `name` FROM `sns_region` WHERE ( id=44658 ) LIMIT 1   [ RunTime:0.0002s ]
+SQL: SHOW COLUMNS FROM `sns_pay3_log` [ RunTime:0.0014s ]
+SQL: SELECT `serial_no` FROM `sns_pay3_log` WHERE `order_id` = 12 LIMIT 1   [ RunTime:0.0004s ]
+SQL: SELECT `trade_no` FROM `sns_pay3_log` WHERE `order_id` = 12 LIMIT 1   [ RunTime:0.0004s ]
+SQL: SELECT SUM(goods_total) AS tp_sum FROM `sns_order_goods` WHERE ( order_id=11 ) LIMIT 1   [ RunTime:0.0003s ]
+SQL: SELECT COUNT(*) AS tp_count FROM `sns_order_goods` WHERE ( order_id=11 ) LIMIT 1   [ RunTime:0.0002s ]
+SQL: SELECT * FROM `sns_order_goods` WHERE ( order_id=11 ) LIMIT 1   [ RunTime:0.0002s ]
+SQL: SELECT * FROM `sns_order_goods` WHERE ( order_id=11 )  [ RunTime:0.0002s ]
+SQL: SELECT * FROM `sns_express_service` WHERE ( is_start=1 ) LIMIT 1   [ RunTime:0.0001s ]
+NOTIC: [8] Undefined variable: region_list /var/www/html/tiantianfan/Bin/Common/Common/function.php 第 4050 行.
+SQL: SELECT `name` FROM `sns_region` WHERE ( id=44336 ) LIMIT 1   [ RunTime:0.0001s ]
+SQL: SELECT `name` FROM `sns_region` WHERE ( id=44337 ) LIMIT 1   [ RunTime:0.0001s ]
+SQL: SELECT `name` FROM `sns_region` WHERE ( id=44658 ) LIMIT 1   [ RunTime:0.0001s ]
+SQL: SELECT `serial_no` FROM `sns_pay3_log` WHERE `order_id` = 11 LIMIT 1   [ RunTime:0.0001s ]
+SQL: SELECT `trade_no` FROM `sns_pay3_log` WHERE `order_id` = 11 LIMIT 1   [ RunTime:0.0001s ]
+SQL: SELECT SUM(goods_total) AS tp_sum FROM `sns_order_goods` WHERE ( order_id=10 ) LIMIT 1   [ RunTime:0.0001s ]
+SQL: SELECT COUNT(*) AS tp_count FROM `sns_order_goods` WHERE ( order_id=10 ) LIMIT 1   [ RunTime:0.0001s ]
+SQL: SELECT * FROM `sns_order_goods` WHERE ( order_id=10 ) LIMIT 1   [ RunTime:0.0002s ]
+SQL: SELECT * FROM `sns_order_goods` WHERE ( order_id=10 )  [ RunTime:0.0002s ]
+SQL: SELECT * FROM `sns_express_service` WHERE ( is_start=1 ) LIMIT 1   [ RunTime:0.0001s ]
+NOTIC: [8] Undefined variable: region_list /var/www/html/tiantianfan/Bin/Common/Common/function.php 第 4050 行.
+SQL: SELECT `name` FROM `sns_region` WHERE ( id=44336 ) LIMIT 1   [ RunTime:0.0001s ]
+SQL: SELECT `name` FROM `sns_region` WHERE ( id=44337 ) LIMIT 1   [ RunTime:0.0001s ]
+SQL: SELECT `name` FROM `sns_region` WHERE ( id=44658 ) LIMIT 1   [ RunTime:0.0001s ]
+SQL: SELECT `serial_no` FROM `sns_pay3_log` WHERE `order_id` = 10 LIMIT 1   [ RunTime:0.0001s ]
+SQL: SELECT `trade_no` FROM `sns_pay3_log` WHERE `order_id` = 10 LIMIT 1   [ RunTime:0.0001s ]
+INFO: [ view_parse ] --START--
+INFO: [ template_filter ] --START--
+INFO: Run Behavior\ContentReplaceBehavior [ RunTime:0.000130s ]
+INFO: [ template_filter ] --END-- [ RunTime:0.000169s ]
+NOTIC: [8] Undefined index: user_type /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/c8628c0d393e5675b1b9fee9731effda.php 第 96 行.
+NOTIC: [8] Undefined index: user_type /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/c8628c0d393e5675b1b9fee9731effda.php 第 96 行.
+NOTIC: [8] Undefined index: user_type /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/c8628c0d393e5675b1b9fee9731effda.php 第 96 行.
+NOTIC: [8] Undefined index: user_type /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/c8628c0d393e5675b1b9fee9731effda.php 第 96 行.
+NOTIC: [8] Undefined index: user_type /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/c8628c0d393e5675b1b9fee9731effda.php 第 96 行.
+NOTIC: [8] Undefined index: user_type /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/c8628c0d393e5675b1b9fee9731effda.php 第 96 行.
+NOTIC: [8] Undefined index: user_type /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/c8628c0d393e5675b1b9fee9731effda.php 第 96 行.
+NOTIC: [8] Undefined index: user_type /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/c8628c0d393e5675b1b9fee9731effda.php 第 96 行.
+NOTIC: [8] Undefined index: user_type /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/c8628c0d393e5675b1b9fee9731effda.php 第 96 行.
+NOTIC: [8] Undefined index: user_type /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/c8628c0d393e5675b1b9fee9731effda.php 第 96 行.
+NOTIC: [8] Undefined index: user_type /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/c8628c0d393e5675b1b9fee9731effda.php 第 96 行.
+NOTIC: [8] Undefined index: user_type /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/c8628c0d393e5675b1b9fee9731effda.php 第 96 行.
+NOTIC: [8] Undefined index: user_type /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/c8628c0d393e5675b1b9fee9731effda.php 第 96 行.
+NOTIC: [8] Undefined index: user_type /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/c8628c0d393e5675b1b9fee9731effda.php 第 96 行.
+NOTIC: [8] Undefined index: user_type /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/c8628c0d393e5675b1b9fee9731effda.php 第 96 行.
+NOTIC: [8] Undefined index: user_type /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/c8628c0d393e5675b1b9fee9731effda.php 第 96 行.
+NOTIC: [8] Undefined index: user_type /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/c8628c0d393e5675b1b9fee9731effda.php 第 96 行.
+NOTIC: [8] Undefined index: user_type /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/c8628c0d393e5675b1b9fee9731effda.php 第 96 行.
+NOTIC: [8] Undefined index: user_type /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/c8628c0d393e5675b1b9fee9731effda.php 第 96 行.
+NOTIC: [8] Undefined index: user_type /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/c8628c0d393e5675b1b9fee9731effda.php 第 96 行.
+NOTIC: [8] Undefined index: user_type /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/c8628c0d393e5675b1b9fee9731effda.php 第 96 行.
+NOTIC: [8] Undefined index: user_type /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/c8628c0d393e5675b1b9fee9731effda.php 第 96 行.
+NOTIC: [8] Undefined index: user_type /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/c8628c0d393e5675b1b9fee9731effda.php 第 96 行.
+NOTIC: [8] Undefined index: user_type /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/c8628c0d393e5675b1b9fee9731effda.php 第 96 行.
+NOTIC: [8] Undefined index: user_type /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/c8628c0d393e5675b1b9fee9731effda.php 第 96 行.
+NOTIC: [8] Undefined index: user_type /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/c8628c0d393e5675b1b9fee9731effda.php 第 96 行.
+NOTIC: [8] Undefined index: user_type /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/c8628c0d393e5675b1b9fee9731effda.php 第 96 行.
+NOTIC: [8] Undefined index: user_type /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/c8628c0d393e5675b1b9fee9731effda.php 第 96 行.
+NOTIC: [8] Undefined index: user_type /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/c8628c0d393e5675b1b9fee9731effda.php 第 96 行.
+NOTIC: [8] Undefined index: user_type /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/c8628c0d393e5675b1b9fee9731effda.php 第 96 行.
+NOTIC: [8] Undefined index: user_type /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/c8628c0d393e5675b1b9fee9731effda.php 第 96 行.
+NOTIC: [8] Undefined index: user_type /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/c8628c0d393e5675b1b9fee9731effda.php 第 96 行.
+NOTIC: [8] Undefined index: user_type /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/c8628c0d393e5675b1b9fee9731effda.php 第 96 行.
+NOTIC: [8] Undefined index: user_type /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/c8628c0d393e5675b1b9fee9731effda.php 第 96 行.
+NOTIC: [8] Undefined index: user_type /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/c8628c0d393e5675b1b9fee9731effda.php 第 96 行.
+NOTIC: [8] Undefined index: order_no /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/c8628c0d393e5675b1b9fee9731effda.php 第 132 行.
+NOTIC: [8] Undefined index: goods_name /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/c8628c0d393e5675b1b9fee9731effda.php 第 138 行.
+NOTIC: [8] Undefined index: tracking_number /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/c8628c0d393e5675b1b9fee9731effda.php 第 144 行.
+NOTIC: [8] Undefined index: content /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/c8628c0d393e5675b1b9fee9731effda.php 第 150 行.
+NOTIC: [8] Undefined index: payment_type /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/c8628c0d393e5675b1b9fee9731effda.php 第 158 行.
+NOTIC: [8] Undefined index: payment_type /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/c8628c0d393e5675b1b9fee9731effda.php 第 160 行.
+NOTIC: [8] Undefined index: payment_type /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/c8628c0d393e5675b1b9fee9731effda.php 第 164 行.
+NOTIC: [8] Undefined index: payment_type /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/c8628c0d393e5675b1b9fee9731effda.php 第 170 行.
+NOTIC: [8] Undefined index: payment_type /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/c8628c0d393e5675b1b9fee9731effda.php 第 173 行.
+NOTIC: [8] Undefined index: payment_type /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/c8628c0d393e5675b1b9fee9731effda.php 第 175 行.
+NOTIC: [8] Undefined index: payment_type /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/c8628c0d393e5675b1b9fee9731effda.php 第 176 行.
+NOTIC: [8] Undefined index: payment_type /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/c8628c0d393e5675b1b9fee9731effda.php 第 177 行.
+NOTIC: [8] Undefined index: order_status /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/c8628c0d393e5675b1b9fee9731effda.php 第 188 行.
+NOTIC: [8] Undefined index: order_status /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/c8628c0d393e5675b1b9fee9731effda.php 第 189 行.
+NOTIC: [8] Undefined index: order_status /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/c8628c0d393e5675b1b9fee9731effda.php 第 190 行.
+NOTIC: [8] Undefined index: order_status /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/c8628c0d393e5675b1b9fee9731effda.php 第 191 行.
+NOTIC: [8] Undefined index: order_status /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/c8628c0d393e5675b1b9fee9731effda.php 第 192 行.
+NOTIC: [8] Undefined index: order_status /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/c8628c0d393e5675b1b9fee9731effda.php 第 193 行.
+NOTIC: [8] Undefined index: order_status /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/c8628c0d393e5675b1b9fee9731effda.php 第 194 行.
+NOTIC: [8] Undefined index: order_status /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/c8628c0d393e5675b1b9fee9731effda.php 第 195 行.
+NOTIC: [8] Undefined index: add_time /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/c8628c0d393e5675b1b9fee9731effda.php 第 221 行.
+NOTIC: [8] Undefined index: pay_time /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/c8628c0d393e5675b1b9fee9731effda.php 第 230 行.
+NOTIC: [8] Undefined index: shipping_time /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/c8628c0d393e5675b1b9fee9731effda.php 第 239 行.
+NOTIC: [8] Undefined index: confirm_time /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/c8628c0d393e5675b1b9fee9731effda.php 第 248 行.
+NOTIC: [8] Undefined index: trade_no /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/c8628c0d393e5675b1b9fee9731effda.php 第 256 行.
+NOTIC: [8] Use of undefined constant realname - assumed 'realname' /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/c8628c0d393e5675b1b9fee9731effda.php 第 314 行.
+SQL: SHOW COLUMNS FROM `sns_user` [ RunTime:0.0011s ]
+SQL: SELECT `realname` FROM `sns_user` WHERE `id` = 120 LIMIT 1   [ RunTime:0.0002s ]
+NOTIC: [8] Use of undefined constant phone - assumed 'phone' /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/c8628c0d393e5675b1b9fee9731effda.php 第 315 行.
+SQL: SELECT `phone` FROM `sns_user` WHERE `id` = 120 LIMIT 1   [ RunTime:0.0001s ]
+NOTIC: [8] Use of undefined constant realname - assumed 'realname' /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/c8628c0d393e5675b1b9fee9731effda.php 第 314 行.
+SQL: SELECT `realname` FROM `sns_user` WHERE `id` = 120 LIMIT 1   [ RunTime:0.0001s ]
+NOTIC: [8] Use of undefined constant phone - assumed 'phone' /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/c8628c0d393e5675b1b9fee9731effda.php 第 315 行.
+SQL: SELECT `phone` FROM `sns_user` WHERE `id` = 120 LIMIT 1   [ RunTime:0.0001s ]
+NOTIC: [8] Use of undefined constant realname - assumed 'realname' /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/c8628c0d393e5675b1b9fee9731effda.php 第 314 行.
+SQL: SELECT `realname` FROM `sns_user` WHERE `id` = 120 LIMIT 1   [ RunTime:0.0002s ]
+NOTIC: [8] Use of undefined constant phone - assumed 'phone' /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/c8628c0d393e5675b1b9fee9731effda.php 第 315 行.
+SQL: SELECT `phone` FROM `sns_user` WHERE `id` = 120 LIMIT 1   [ RunTime:0.0001s ]
+INFO: Run Behavior\ParseTemplateBehavior [ RunTime:0.025874s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.025910s ]
+INFO: [ view_filter ] --START--
+INFO: Run Behavior\WriteHtmlCacheBehavior [ RunTime:0.000151s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.000177s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.000480s ]
+INFO: [ app_end ] --END-- [ RunTime:0.000573s ]
+
+[ 2021-01-14T10:40:16+08:00 ] 172.17.0.1 /index.php/Admin/order/refunds/
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000010s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000227s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000292s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000326s ]
+SQL: SHOW COLUMNS FROM `sns_article_category` [ RunTime:0.0009s ]
+SQL: SELECT * FROM `sns_article_category` WHERE ( is_pc_show=1 )  [ RunTime:0.0006s ]
+SQL: SHOW COLUMNS FROM `sns_article` [ RunTime:0.0013s ]
+SQL: SELECT `id`,`title` FROM `sns_article` WHERE ( cat_id=8 )  [ RunTime:0.0004s ]
+SQL: SELECT `id`,`title` FROM `sns_article` WHERE ( cat_id=9 )  [ RunTime:0.0002s ]
+SQL: SELECT `id`,`title` FROM `sns_article` WHERE ( cat_id=10 )  [ RunTime:0.0003s ]
+SQL: SELECT `id`,`title` FROM `sns_article` WHERE ( cat_id=11 )  [ RunTime:0.0003s ]
+SQL: SELECT `id`,`title` FROM `sns_article` WHERE ( cat_id=12 )  [ RunTime:0.0003s ]
+SQL: SELECT `id`,`title` FROM `sns_article` WHERE ( cat_id=13 )  [ RunTime:0.0003s ]
+SQL: SHOW COLUMNS FROM `sns_jscd` [ RunTime:0.0008s ]
+SQL: SELECT * FROM `sns_jscd` WHERE ( level=1 and is_del=0 ) ORDER BY id asc  [ RunTime:0.0004s ]
+SQL: SELECT * FROM `sns_jscd` WHERE ( level=2 and is_del=0 and parent_id=83 ) ORDER BY id asc  [ RunTime:0.0004s ]
+SQL: SELECT * FROM `sns_jscd` WHERE ( level=2 and is_del=0 and parent_id=88 ) ORDER BY id asc  [ RunTime:0.0004s ]
+SQL: SELECT * FROM `sns_jscd` WHERE ( level=2 and is_del=0 and parent_id=95 ) ORDER BY id asc  [ RunTime:0.0003s ]
+SQL: SELECT * FROM `sns_jscd` WHERE ( level=2 and is_del=0 and parent_id=100 ) ORDER BY id asc  [ RunTime:0.0003s ]
+SQL: SELECT * FROM `sns_jscd` WHERE ( level=2 and is_del=0 and parent_id=105 ) ORDER BY id asc  [ RunTime:0.0004s ]
+SQL: SELECT * FROM `sns_jscd` WHERE ( level=2 and is_del=0 and parent_id=114 ) ORDER BY id asc  [ RunTime:0.0004s ]
+SQL: SELECT * FROM `sns_jscd` WHERE ( level=2 and is_del=0 and parent_id=121 ) ORDER BY id asc  [ RunTime:0.0004s ]
+SQL: SELECT * FROM `sns_jscd` WHERE ( level=2 and is_del=0 and parent_id=136 ) ORDER BY id asc  [ RunTime:0.0003s ]
+SQL: SELECT * FROM `sns_jscd` WHERE ( level=2 and is_del=0 and parent_id=179 ) ORDER BY id asc  [ RunTime:0.0003s ]
+SQL: SHOW COLUMNS FROM `sns_admin` [ RunTime:0.0007s ]
+SQL: SELECT * FROM `sns_admin` WHERE `id` = 1 LIMIT 1   [ RunTime:0.0003s ]
+SQL: SELECT * FROM `sns_jscd` WHERE `group1` = 'order' AND `level` = 1 LIMIT 1   [ RunTime:0.0003s ]
+SQL: SELECT * FROM `sns_jscd` WHERE `parent_id` = '100' AND `group1` = 'refunds' LIMIT 1   [ RunTime:0.0002s ]
+SQL: SHOW COLUMNS FROM `sns_order_refund` [ RunTime:0.0009s ]
+SQL: SELECT COUNT(*) AS tp_count FROM `sns_order_refund` WHERE `isdel` = 0 LIMIT 1   [ RunTime:0.0002s ]
+SQL: SELECT * FROM `sns_order_refund` WHERE `isdel` = 0 ORDER BY id desc LIMIT 0,10   [ RunTime:0.0003s ]
+INFO: [ view_parse ] --START--
+INFO: [ template_filter ] --START--
+INFO: Run Behavior\ContentReplaceBehavior [ RunTime:0.000088s ]
+INFO: [ template_filter ] --END-- [ RunTime:0.000126s ]
+NOTIC: [8] Undefined index: user_type /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/f0a0b9cba7d9d6b6b766b05a2e8d8ee3.php 第 96 行.
+NOTIC: [8] Undefined index: user_type /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/f0a0b9cba7d9d6b6b766b05a2e8d8ee3.php 第 96 行.
+NOTIC: [8] Undefined index: user_type /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/f0a0b9cba7d9d6b6b766b05a2e8d8ee3.php 第 96 行.
+NOTIC: [8] Undefined index: user_type /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/f0a0b9cba7d9d6b6b766b05a2e8d8ee3.php 第 96 行.
+NOTIC: [8] Undefined index: user_type /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/f0a0b9cba7d9d6b6b766b05a2e8d8ee3.php 第 96 行.
+NOTIC: [8] Undefined index: user_type /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/f0a0b9cba7d9d6b6b766b05a2e8d8ee3.php 第 96 行.
+NOTIC: [8] Undefined index: user_type /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/f0a0b9cba7d9d6b6b766b05a2e8d8ee3.php 第 96 行.
+NOTIC: [8] Undefined index: user_type /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/f0a0b9cba7d9d6b6b766b05a2e8d8ee3.php 第 96 行.
+NOTIC: [8] Undefined index: user_type /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/f0a0b9cba7d9d6b6b766b05a2e8d8ee3.php 第 96 行.
+NOTIC: [8] Undefined index: user_type /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/f0a0b9cba7d9d6b6b766b05a2e8d8ee3.php 第 96 行.
+NOTIC: [8] Undefined index: user_type /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/f0a0b9cba7d9d6b6b766b05a2e8d8ee3.php 第 96 行.
+NOTIC: [8] Undefined index: user_type /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/f0a0b9cba7d9d6b6b766b05a2e8d8ee3.php 第 96 行.
+NOTIC: [8] Undefined index: user_type /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/f0a0b9cba7d9d6b6b766b05a2e8d8ee3.php 第 96 行.
+NOTIC: [8] Undefined index: user_type /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/f0a0b9cba7d9d6b6b766b05a2e8d8ee3.php 第 96 行.
+NOTIC: [8] Undefined index: user_type /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/f0a0b9cba7d9d6b6b766b05a2e8d8ee3.php 第 96 行.
+NOTIC: [8] Undefined index: user_type /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/f0a0b9cba7d9d6b6b766b05a2e8d8ee3.php 第 96 行.
+NOTIC: [8] Undefined index: user_type /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/f0a0b9cba7d9d6b6b766b05a2e8d8ee3.php 第 96 行.
+NOTIC: [8] Undefined index: user_type /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/f0a0b9cba7d9d6b6b766b05a2e8d8ee3.php 第 96 行.
+NOTIC: [8] Undefined index: user_type /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/f0a0b9cba7d9d6b6b766b05a2e8d8ee3.php 第 96 行.
+NOTIC: [8] Undefined index: user_type /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/f0a0b9cba7d9d6b6b766b05a2e8d8ee3.php 第 96 行.
+NOTIC: [8] Undefined index: user_type /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/f0a0b9cba7d9d6b6b766b05a2e8d8ee3.php 第 96 行.
+NOTIC: [8] Undefined index: user_type /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/f0a0b9cba7d9d6b6b766b05a2e8d8ee3.php 第 96 行.
+NOTIC: [8] Undefined index: user_type /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/f0a0b9cba7d9d6b6b766b05a2e8d8ee3.php 第 96 行.
+NOTIC: [8] Undefined index: user_type /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/f0a0b9cba7d9d6b6b766b05a2e8d8ee3.php 第 96 行.
+NOTIC: [8] Undefined index: user_type /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/f0a0b9cba7d9d6b6b766b05a2e8d8ee3.php 第 96 行.
+NOTIC: [8] Undefined index: user_type /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/f0a0b9cba7d9d6b6b766b05a2e8d8ee3.php 第 96 行.
+NOTIC: [8] Undefined index: user_type /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/f0a0b9cba7d9d6b6b766b05a2e8d8ee3.php 第 96 行.
+NOTIC: [8] Undefined index: user_type /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/f0a0b9cba7d9d6b6b766b05a2e8d8ee3.php 第 96 行.
+NOTIC: [8] Undefined index: user_type /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/f0a0b9cba7d9d6b6b766b05a2e8d8ee3.php 第 96 行.
+NOTIC: [8] Undefined index: user_type /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/f0a0b9cba7d9d6b6b766b05a2e8d8ee3.php 第 96 行.
+NOTIC: [8] Undefined index: user_type /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/f0a0b9cba7d9d6b6b766b05a2e8d8ee3.php 第 96 行.
+NOTIC: [8] Undefined index: user_type /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/f0a0b9cba7d9d6b6b766b05a2e8d8ee3.php 第 96 行.
+NOTIC: [8] Undefined index: user_type /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/f0a0b9cba7d9d6b6b766b05a2e8d8ee3.php 第 96 行.
+NOTIC: [8] Undefined index: user_type /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/f0a0b9cba7d9d6b6b766b05a2e8d8ee3.php 第 96 行.
+NOTIC: [8] Undefined index: user_type /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/f0a0b9cba7d9d6b6b766b05a2e8d8ee3.php 第 96 行.
+NOTIC: [8] Undefined index: refund_no /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/f0a0b9cba7d9d6b6b766b05a2e8d8ee3.php 第 134 行.
+NOTIC: [8] Undefined index: content /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/f0a0b9cba7d9d6b6b766b05a2e8d8ee3.php 第 144 行.
+NOTIC: [8] Undefined index: refund_status /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/f0a0b9cba7d9d6b6b766b05a2e8d8ee3.php 第 154 行.
+NOTIC: [8] Undefined index: refund_status /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/f0a0b9cba7d9d6b6b766b05a2e8d8ee3.php 第 157 行.
+NOTIC: [8] Undefined index: refund_status /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/f0a0b9cba7d9d6b6b766b05a2e8d8ee3.php 第 160 行.
+NOTIC: [8] Undefined index: refund_status /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/f0a0b9cba7d9d6b6b766b05a2e8d8ee3.php 第 163 行.
+NOTIC: [8] Undefined index: refund_status /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/f0a0b9cba7d9d6b6b766b05a2e8d8ee3.php 第 166 行.
+NOTIC: [8] Undefined index: refund_status /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/f0a0b9cba7d9d6b6b766b05a2e8d8ee3.php 第 169 行.
+NOTIC: [8] Undefined index: refund_status /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/f0a0b9cba7d9d6b6b766b05a2e8d8ee3.php 第 172 行.
+NOTIC: [8] Undefined index: refund_status /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/f0a0b9cba7d9d6b6b766b05a2e8d8ee3.php 第 175 行.
+NOTIC: [8] Undefined index: refund_status /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/f0a0b9cba7d9d6b6b766b05a2e8d8ee3.php 第 178 行.
+NOTIC: [8] Undefined index: refund_status /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/f0a0b9cba7d9d6b6b766b05a2e8d8ee3.php 第 181 行.
+NOTIC: [8] Undefined index: add_time /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/f0a0b9cba7d9d6b6b766b05a2e8d8ee3.php 第 193 行.
+NOTIC: [8] Undefined variable: express_type /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/f0a0b9cba7d9d6b6b766b05a2e8d8ee3.php 第 317 行.
+INFO: Run Behavior\ParseTemplateBehavior [ RunTime:0.015739s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.015776s ]
+INFO: [ view_filter ] --START--
+INFO: Run Behavior\WriteHtmlCacheBehavior [ RunTime:0.000095s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.000120s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.000445s ]
+INFO: [ app_end ] --END-- [ RunTime:0.000497s ]
+
+[ 2021-01-14T10:40:18+08:00 ] 172.17.0.1 /index.php/Admin/order/index/
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000039s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000357s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000327s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000362s ]
+SQL: SHOW COLUMNS FROM `sns_article_category` [ RunTime:0.0009s ]
+SQL: SELECT * FROM `sns_article_category` WHERE ( is_pc_show=1 )  [ RunTime:0.0003s ]
+SQL: SHOW COLUMNS FROM `sns_article` [ RunTime:0.0009s ]
+SQL: SELECT `id`,`title` FROM `sns_article` WHERE ( cat_id=8 )  [ RunTime:0.0005s ]
+SQL: SELECT `id`,`title` FROM `sns_article` WHERE ( cat_id=9 )  [ RunTime:0.0002s ]
+SQL: SELECT `id`,`title` FROM `sns_article` WHERE ( cat_id=10 )  [ RunTime:0.0002s ]
+SQL: SELECT `id`,`title` FROM `sns_article` WHERE ( cat_id=11 )  [ RunTime:0.0002s ]
+SQL: SELECT `id`,`title` FROM `sns_article` WHERE ( cat_id=12 )  [ RunTime:0.0002s ]
+SQL: SELECT `id`,`title` FROM `sns_article` WHERE ( cat_id=13 )  [ RunTime:0.0001s ]
+SQL: SHOW COLUMNS FROM `sns_jscd` [ RunTime:0.0007s ]
+SQL: SELECT * FROM `sns_jscd` WHERE ( level=1 and is_del=0 ) ORDER BY id asc  [ RunTime:0.0004s ]
+SQL: SELECT * FROM `sns_jscd` WHERE ( level=2 and is_del=0 and parent_id=83 ) ORDER BY id asc  [ RunTime:0.0004s ]
+SQL: SELECT * FROM `sns_jscd` WHERE ( level=2 and is_del=0 and parent_id=88 ) ORDER BY id asc  [ RunTime:0.0003s ]
+SQL: SELECT * FROM `sns_jscd` WHERE ( level=2 and is_del=0 and parent_id=95 ) ORDER BY id asc  [ RunTime:0.0003s ]
+SQL: SELECT * FROM `sns_jscd` WHERE ( level=2 and is_del=0 and parent_id=100 ) ORDER BY id asc  [ RunTime:0.0003s ]
+SQL: SELECT * FROM `sns_jscd` WHERE ( level=2 and is_del=0 and parent_id=105 ) ORDER BY id asc  [ RunTime:0.0004s ]
+SQL: SELECT * FROM `sns_jscd` WHERE ( level=2 and is_del=0 and parent_id=114 ) ORDER BY id asc  [ RunTime:0.0003s ]
+SQL: SELECT * FROM `sns_jscd` WHERE ( level=2 and is_del=0 and parent_id=121 ) ORDER BY id asc  [ RunTime:0.0003s ]
+SQL: SELECT * FROM `sns_jscd` WHERE ( level=2 and is_del=0 and parent_id=136 ) ORDER BY id asc  [ RunTime:0.0003s ]
+SQL: SELECT * FROM `sns_jscd` WHERE ( level=2 and is_del=0 and parent_id=179 ) ORDER BY id asc  [ RunTime:0.0003s ]
+SQL: SHOW COLUMNS FROM `sns_admin` [ RunTime:0.0008s ]
+SQL: SELECT * FROM `sns_admin` WHERE `id` = 1 LIMIT 1   [ RunTime:0.0002s ]
+SQL: SELECT * FROM `sns_jscd` WHERE `group1` = 'order' AND `level` = 1 LIMIT 1   [ RunTime:0.0002s ]
+SQL: SELECT * FROM `sns_jscd` WHERE `parent_id` = '100' AND `group1` = 'index' LIMIT 1   [ RunTime:0.0002s ]
+NOTIC: [2] Missing argument 1 for I(), called in /var/www/html/tiantianfan/Bin/Admin/Controller/OrderController.class.php on line 27 and defined /var/www/html/tiantianfan/ThinkPHP/Common/functions.php 第 271 行.
+NOTIC: [8] Undefined variable: name /var/www/html/tiantianfan/ThinkPHP/Common/functions.php 第 273 行.
+NOTIC: [8] Undefined variable: name /var/www/html/tiantianfan/ThinkPHP/Common/functions.php 第 278 行.
+NOTIC: [8] Undefined variable: name /var/www/html/tiantianfan/ThinkPHP/Common/functions.php 第 339 行.
+NOTIC: [8] Undefined index: order_no /var/www/html/tiantianfan/Bin/Clas/Orderout.class.php 第 874 行.
+NOTIC: [8] Undefined index: payment_type /var/www/html/tiantianfan/Bin/Clas/Orderout.class.php 第 878 行.
+NOTIC: [8] Undefined index: user_id /var/www/html/tiantianfan/Bin/Clas/Orderout.class.php 第 891 行.
+NOTIC: [8] Undefined index: isdel /var/www/html/tiantianfan/Bin/Clas/Orderout.class.php 第 895 行.
+NOTIC: [8] Undefined index: add_time /var/www/html/tiantianfan/Bin/Clas/Orderout.class.php 第 904 行.
+NOTIC: [8] Undefined index: pay_time /var/www/html/tiantianfan/Bin/Clas/Orderout.class.php 第 911 行.
+NOTIC: [8] Undefined index: shipping_time /var/www/html/tiantianfan/Bin/Clas/Orderout.class.php 第 918 行.
+NOTIC: [8] Undefined index: confirm_time /var/www/html/tiantianfan/Bin/Clas/Orderout.class.php 第 925 行.
+NOTIC: [8] Undefined index: content /var/www/html/tiantianfan/Bin/Clas/Orderout.class.php 第 932 行.
+NOTIC: [8] Undefined index: goods_name /var/www/html/tiantianfan/Bin/Clas/Orderout.class.php 第 955 行.
+NOTIC: [8] Undefined index: tracking_number /var/www/html/tiantianfan/Bin/Clas/Orderout.class.php 第 964 行.
+NOTIC: [8] Undefined index: trade_no /var/www/html/tiantianfan/Bin/Clas/Orderout.class.php 第 973 行.
+NOTIC: [8] Undefined index: shop_id /var/www/html/tiantianfan/Bin/Clas/Orderout.class.php 第 991 行.
+NOTIC: [8] Undefined index: pay_status /var/www/html/tiantianfan/Bin/Clas/Orderout.class.php 第 995 行.
+NOTIC: [8] Undefined index: page_size /var/www/html/tiantianfan/Bin/Clas/Orderout.class.php 第 1004 行.
+SQL: SHOW COLUMNS FROM `sns_order` [ RunTime:0.0015s ]
+SQL: SELECT COUNT(*) AS tp_count FROM `sns_order` WHERE `order_type` IN (0,5,6) AND `isdel` = 0 LIMIT 1   [ RunTime:0.0004s ]
+SQL: SELECT * FROM `sns_order` WHERE `order_type` IN (0,5,6) AND `isdel` = 0 ORDER BY id desc LIMIT 0,10   [ RunTime:0.0006s ]
+NOTIC: [8] Use of undefined constant x9x9x - assumed 'x9x9x' /var/www/html/tiantianfan/ThinkPHP/Library/Think/Page.class.php 第 151 行.
+SQL: SHOW COLUMNS FROM `sns_order_goods` [ RunTime:0.0011s ]
+SQL: SELECT SUM(goods_total) AS tp_sum FROM `sns_order_goods` WHERE ( order_id=17 ) LIMIT 1   [ RunTime:0.0004s ]
+SQL: SELECT COUNT(*) AS tp_count FROM `sns_order_goods` WHERE ( order_id=17 ) LIMIT 1   [ RunTime:0.0003s ]
+SQL: SELECT * FROM `sns_order_goods` WHERE ( order_id=17 ) LIMIT 1   [ RunTime:0.0004s ]
+SQL: SELECT * FROM `sns_order_goods` WHERE ( order_id=17 )  [ RunTime:0.0003s ]
+SQL: SHOW COLUMNS FROM `sns_express_service` [ RunTime:0.0007s ]
+SQL: SELECT * FROM `sns_express_service` WHERE ( is_start=1 ) LIMIT 1   [ RunTime:0.0003s ]
+NOTIC: [8] Undefined variable: region_list /var/www/html/tiantianfan/Bin/Common/Common/function.php 第 4050 行.
+SQL: SHOW COLUMNS FROM `sns_region` [ RunTime:0.0008s ]
+SQL: SELECT `name` FROM `sns_region` WHERE ( id=32482 ) LIMIT 1   [ RunTime:0.0003s ]
+SQL: SELECT `name` FROM `sns_region` WHERE ( id=32483 ) LIMIT 1   [ RunTime:0.0003s ]
+SQL: SELECT `name` FROM `sns_region` WHERE ( id=32484 ) LIMIT 1   [ RunTime:0.0003s ]
+SQL: SHOW COLUMNS FROM `sns_pay3_log` [ RunTime:0.0008s ]
+SQL: SELECT `serial_no` FROM `sns_pay3_log` WHERE `order_id` = 17 LIMIT 1   [ RunTime:0.0003s ]
+SQL: SELECT `trade_no` FROM `sns_pay3_log` WHERE `order_id` = 17 LIMIT 1   [ RunTime:0.0003s ]
+SQL: SELECT SUM(goods_total) AS tp_sum FROM `sns_order_goods` WHERE ( order_id=16 ) LIMIT 1   [ RunTime:0.0003s ]
+SQL: SELECT COUNT(*) AS tp_count FROM `sns_order_goods` WHERE ( order_id=16 ) LIMIT 1   [ RunTime:0.0003s ]
+SQL: SELECT * FROM `sns_order_goods` WHERE ( order_id=16 ) LIMIT 1   [ RunTime:0.0004s ]
+SQL: SELECT * FROM `sns_order_goods` WHERE ( order_id=16 )  [ RunTime:0.0003s ]
+SQL: SELECT * FROM `sns_express_service` WHERE ( is_start=1 ) LIMIT 1   [ RunTime:0.0003s ]
+NOTIC: [8] Undefined variable: region_list /var/www/html/tiantianfan/Bin/Common/Common/function.php 第 4050 行.
+SQL: SELECT `name` FROM `sns_region` WHERE ( id=44336 ) LIMIT 1   [ RunTime:0.0002s ]
+SQL: SELECT `name` FROM `sns_region` WHERE ( id=44337 ) LIMIT 1   [ RunTime:0.0002s ]
+SQL: SELECT `name` FROM `sns_region` WHERE ( id=44658 ) LIMIT 1   [ RunTime:0.0003s ]
+SQL: SELECT `serial_no` FROM `sns_pay3_log` WHERE `order_id` = 16 LIMIT 1   [ RunTime:0.0003s ]
+SQL: SELECT `trade_no` FROM `sns_pay3_log` WHERE `order_id` = 16 LIMIT 1   [ RunTime:0.0002s ]
+SQL: SELECT SUM(goods_total) AS tp_sum FROM `sns_order_goods` WHERE ( order_id=15 ) LIMIT 1   [ RunTime:0.0003s ]
+SQL: SELECT COUNT(*) AS tp_count FROM `sns_order_goods` WHERE ( order_id=15 ) LIMIT 1   [ RunTime:0.0003s ]
+SQL: SELECT * FROM `sns_order_goods` WHERE ( order_id=15 ) LIMIT 1   [ RunTime:0.0003s ]
+SQL: SELECT * FROM `sns_order_goods` WHERE ( order_id=15 )  [ RunTime:0.0002s ]
+SQL: SELECT * FROM `sns_express_service` WHERE ( is_start=1 ) LIMIT 1   [ RunTime:0.0002s ]
+NOTIC: [8] Undefined variable: region_list /var/www/html/tiantianfan/Bin/Common/Common/function.php 第 4050 行.
+SQL: SELECT `name` FROM `sns_region` WHERE ( id=44336 ) LIMIT 1   [ RunTime:0.0002s ]
+SQL: SELECT `name` FROM `sns_region` WHERE ( id=44337 ) LIMIT 1   [ RunTime:0.0002s ]
+SQL: SELECT `name` FROM `sns_region` WHERE ( id=44658 ) LIMIT 1   [ RunTime:0.0001s ]
+SQL: SELECT `serial_no` FROM `sns_pay3_log` WHERE `order_id` = 15 LIMIT 1   [ RunTime:0.0001s ]
+SQL: SELECT `trade_no` FROM `sns_pay3_log` WHERE `order_id` = 15 LIMIT 1   [ RunTime:0.0001s ]
+SQL: SELECT SUM(goods_total) AS tp_sum FROM `sns_order_goods` WHERE ( order_id=14 ) LIMIT 1   [ RunTime:0.0001s ]
+SQL: SELECT COUNT(*) AS tp_count FROM `sns_order_goods` WHERE ( order_id=14 ) LIMIT 1   [ RunTime:0.0001s ]
+SQL: SELECT * FROM `sns_order_goods` WHERE ( order_id=14 )  [ RunTime:0.0003s ]
+SQL: SELECT * FROM `sns_express_service` WHERE ( is_start=1 ) LIMIT 1   [ RunTime:0.0001s ]
+NOTIC: [8] Undefined variable: region_list /var/www/html/tiantianfan/Bin/Common/Common/function.php 第 4050 行.
+SQL: SELECT `name` FROM `sns_region` WHERE ( id=1 ) LIMIT 1   [ RunTime:0.0001s ]
+SQL: SELECT `name` FROM `sns_region` WHERE ( id=209 ) LIMIT 1   [ RunTime:0.0001s ]
+SQL: SELECT `name` FROM `sns_region` WHERE ( id=277 ) LIMIT 1   [ RunTime:0.0001s ]
+SQL: SELECT `serial_no` FROM `sns_pay3_log` WHERE `order_id` = 14 LIMIT 1   [ RunTime:0.0001s ]
+SQL: SELECT `trade_no` FROM `sns_pay3_log` WHERE `order_id` = 14 LIMIT 1   [ RunTime:0.0001s ]
+SQL: SELECT SUM(goods_total) AS tp_sum FROM `sns_order_goods` WHERE ( order_id=13 ) LIMIT 1   [ RunTime:0.0001s ]
+SQL: SELECT COUNT(*) AS tp_count FROM `sns_order_goods` WHERE ( order_id=13 ) LIMIT 1   [ RunTime:0.0001s ]
+SQL: SELECT * FROM `sns_order_goods` WHERE ( order_id=13 ) LIMIT 1   [ RunTime:0.0002s ]
+SQL: SELECT * FROM `sns_order_goods` WHERE ( order_id=13 )  [ RunTime:0.0002s ]
+SQL: SELECT * FROM `sns_express_service` WHERE ( is_start=1 ) LIMIT 1   [ RunTime:0.0001s ]
+NOTIC: [8] Undefined variable: region_list /var/www/html/tiantianfan/Bin/Common/Common/function.php 第 4050 行.
+SQL: SELECT `name` FROM `sns_region` WHERE ( id=2694 ) LIMIT 1   [ RunTime:0.0001s ]
+SQL: SELECT `name` FROM `sns_region` WHERE ( id=2695 ) LIMIT 1   [ RunTime:0.0001s ]
+SQL: SELECT `name` FROM `sns_region` WHERE ( id=2696 ) LIMIT 1   [ RunTime:0.0001s ]
+SQL: SELECT `serial_no` FROM `sns_pay3_log` WHERE `order_id` = 13 LIMIT 1   [ RunTime:0.0001s ]
+SQL: SELECT `trade_no` FROM `sns_pay3_log` WHERE `order_id` = 13 LIMIT 1   [ RunTime:0.0002s ]
+SQL: SELECT SUM(goods_total) AS tp_sum FROM `sns_order_goods` WHERE ( order_id=12 ) LIMIT 1   [ RunTime:0.0004s ]
+SQL: SELECT COUNT(*) AS tp_count FROM `sns_order_goods` WHERE ( order_id=12 ) LIMIT 1   [ RunTime:0.0003s ]
+SQL: SELECT * FROM `sns_order_goods` WHERE ( order_id=12 ) LIMIT 1   [ RunTime:0.0004s ]
+SQL: SELECT * FROM `sns_order_goods` WHERE ( order_id=12 )  [ RunTime:0.0005s ]
+SQL: SELECT * FROM `sns_express_service` WHERE ( is_start=1 ) LIMIT 1   [ RunTime:0.0005s ]
+NOTIC: [8] Undefined variable: region_list /var/www/html/tiantianfan/Bin/Common/Common/function.php 第 4050 行.
+SQL: SELECT `name` FROM `sns_region` WHERE ( id=44336 ) LIMIT 1   [ RunTime:0.0006s ]
+SQL: SELECT `name` FROM `sns_region` WHERE ( id=44337 ) LIMIT 1   [ RunTime:0.0002s ]
+SQL: SELECT `name` FROM `sns_region` WHERE ( id=44658 ) LIMIT 1   [ RunTime:0.0001s ]
+SQL: SELECT `serial_no` FROM `sns_pay3_log` WHERE `order_id` = 12 LIMIT 1   [ RunTime:0.0001s ]
+SQL: SELECT `trade_no` FROM `sns_pay3_log` WHERE `order_id` = 12 LIMIT 1   [ RunTime:0.0001s ]
+SQL: SELECT SUM(goods_total) AS tp_sum FROM `sns_order_goods` WHERE ( order_id=11 ) LIMIT 1   [ RunTime:0.0002s ]
+SQL: SELECT COUNT(*) AS tp_count FROM `sns_order_goods` WHERE ( order_id=11 ) LIMIT 1   [ RunTime:0.0001s ]
+SQL: SELECT * FROM `sns_order_goods` WHERE ( order_id=11 ) LIMIT 1   [ RunTime:0.0002s ]
+SQL: SELECT * FROM `sns_order_goods` WHERE ( order_id=11 )  [ RunTime:0.0002s ]
+SQL: SELECT * FROM `sns_express_service` WHERE ( is_start=1 ) LIMIT 1   [ RunTime:0.0001s ]
+NOTIC: [8] Undefined variable: region_list /var/www/html/tiantianfan/Bin/Common/Common/function.php 第 4050 行.
+SQL: SELECT `name` FROM `sns_region` WHERE ( id=44336 ) LIMIT 1   [ RunTime:0.0001s ]
+SQL: SELECT `name` FROM `sns_region` WHERE ( id=44337 ) LIMIT 1   [ RunTime:0.0001s ]
+SQL: SELECT `name` FROM `sns_region` WHERE ( id=44658 ) LIMIT 1   [ RunTime:0.0001s ]
+SQL: SELECT `serial_no` FROM `sns_pay3_log` WHERE `order_id` = 11 LIMIT 1   [ RunTime:0.0001s ]
+SQL: SELECT `trade_no` FROM `sns_pay3_log` WHERE `order_id` = 11 LIMIT 1   [ RunTime:0.0001s ]
+SQL: SELECT SUM(goods_total) AS tp_sum FROM `sns_order_goods` WHERE ( order_id=10 ) LIMIT 1   [ RunTime:0.0001s ]
+SQL: SELECT COUNT(*) AS tp_count FROM `sns_order_goods` WHERE ( order_id=10 ) LIMIT 1   [ RunTime:0.0001s ]
+SQL: SELECT * FROM `sns_order_goods` WHERE ( order_id=10 ) LIMIT 1   [ RunTime:0.0002s ]
+SQL: SELECT * FROM `sns_order_goods` WHERE ( order_id=10 )  [ RunTime:0.0002s ]
+SQL: SELECT * FROM `sns_express_service` WHERE ( is_start=1 ) LIMIT 1   [ RunTime:0.0001s ]
+NOTIC: [8] Undefined variable: region_list /var/www/html/tiantianfan/Bin/Common/Common/function.php 第 4050 行.
+SQL: SELECT `name` FROM `sns_region` WHERE ( id=44336 ) LIMIT 1   [ RunTime:0.0001s ]
+SQL: SELECT `name` FROM `sns_region` WHERE ( id=44337 ) LIMIT 1   [ RunTime:0.0001s ]
+SQL: SELECT `name` FROM `sns_region` WHERE ( id=44658 ) LIMIT 1   [ RunTime:0.0001s ]
+SQL: SELECT `serial_no` FROM `sns_pay3_log` WHERE `order_id` = 10 LIMIT 1   [ RunTime:0.0002s ]
+SQL: SELECT `trade_no` FROM `sns_pay3_log` WHERE `order_id` = 10 LIMIT 1   [ RunTime:0.0002s ]
+SQL: SELECT SUM(goods_total) AS tp_sum FROM `sns_order_goods` WHERE ( order_id=9 ) LIMIT 1   [ RunTime:0.0002s ]
+SQL: SELECT COUNT(*) AS tp_count FROM `sns_order_goods` WHERE ( order_id=9 ) LIMIT 1   [ RunTime:0.0001s ]
+SQL: SELECT * FROM `sns_order_goods` WHERE ( order_id=9 ) LIMIT 1   [ RunTime:0.0002s ]
+SQL: SELECT * FROM `sns_order_goods` WHERE ( order_id=9 )  [ RunTime:0.0003s ]
+SQL: SELECT * FROM `sns_express_service` WHERE ( is_start=1 ) LIMIT 1   [ RunTime:0.0001s ]
+NOTIC: [8] Undefined variable: region_list /var/www/html/tiantianfan/Bin/Common/Common/function.php 第 4050 行.
+SQL: SELECT `name` FROM `sns_region` WHERE ( id=32482 ) LIMIT 1   [ RunTime:0.0002s ]
+SQL: SELECT `name` FROM `sns_region` WHERE ( id=32483 ) LIMIT 1   [ RunTime:0.0002s ]
+SQL: SELECT `name` FROM `sns_region` WHERE ( id=32484 ) LIMIT 1   [ RunTime:0.0003s ]
+SQL: SELECT `serial_no` FROM `sns_pay3_log` WHERE `order_id` = 9 LIMIT 1   [ RunTime:0.0003s ]
+SQL: SELECT `trade_no` FROM `sns_pay3_log` WHERE `order_id` = 9 LIMIT 1   [ RunTime:0.0005s ]
+SQL: SELECT SUM(goods_total) AS tp_sum FROM `sns_order_goods` WHERE ( order_id=8 ) LIMIT 1   [ RunTime:0.0005s ]
+SQL: SELECT COUNT(*) AS tp_count FROM `sns_order_goods` WHERE ( order_id=8 ) LIMIT 1   [ RunTime:0.0003s ]
+SQL: SELECT * FROM `sns_order_goods` WHERE ( order_id=8 ) LIMIT 1   [ RunTime:0.0003s ]
+SQL: SELECT * FROM `sns_order_goods` WHERE ( order_id=8 )  [ RunTime:0.0004s ]
+SQL: SELECT * FROM `sns_express_service` WHERE ( is_start=1 ) LIMIT 1   [ RunTime:0.0003s ]
+NOTIC: [8] Undefined variable: region_list /var/www/html/tiantianfan/Bin/Common/Common/function.php 第 4050 行.
+SQL: SELECT `name` FROM `sns_region` WHERE ( id=44336 ) LIMIT 1   [ RunTime:0.0003s ]
+SQL: SELECT `name` FROM `sns_region` WHERE ( id=44337 ) LIMIT 1   [ RunTime:0.0003s ]
+SQL: SELECT `name` FROM `sns_region` WHERE ( id=44658 ) LIMIT 1   [ RunTime:0.0003s ]
+SQL: SELECT `serial_no` FROM `sns_pay3_log` WHERE `order_id` = 8 LIMIT 1   [ RunTime:0.0003s ]
+SQL: SELECT `trade_no` FROM `sns_pay3_log` WHERE `order_id` = 8 LIMIT 1   [ RunTime:0.0002s ]
+INFO: [ view_parse ] --START--
+INFO: [ template_filter ] --START--
+INFO: Run Behavior\ContentReplaceBehavior [ RunTime:0.000152s ]
+INFO: [ template_filter ] --END-- [ RunTime:0.000197s ]
+NOTIC: [8] Undefined index: user_type /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/6c74acf06d2eb1d95b41a4e56c3b9793.php 第 96 行.
+NOTIC: [8] Undefined index: user_type /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/6c74acf06d2eb1d95b41a4e56c3b9793.php 第 96 行.
+NOTIC: [8] Undefined index: user_type /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/6c74acf06d2eb1d95b41a4e56c3b9793.php 第 96 行.
+NOTIC: [8] Undefined index: user_type /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/6c74acf06d2eb1d95b41a4e56c3b9793.php 第 96 行.
+NOTIC: [8] Undefined index: user_type /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/6c74acf06d2eb1d95b41a4e56c3b9793.php 第 96 行.
+NOTIC: [8] Undefined index: user_type /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/6c74acf06d2eb1d95b41a4e56c3b9793.php 第 96 行.
+NOTIC: [8] Undefined index: user_type /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/6c74acf06d2eb1d95b41a4e56c3b9793.php 第 96 行.
+NOTIC: [8] Undefined index: user_type /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/6c74acf06d2eb1d95b41a4e56c3b9793.php 第 96 行.
+NOTIC: [8] Undefined index: user_type /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/6c74acf06d2eb1d95b41a4e56c3b9793.php 第 96 行.
+NOTIC: [8] Undefined index: user_type /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/6c74acf06d2eb1d95b41a4e56c3b9793.php 第 96 行.
+NOTIC: [8] Undefined index: user_type /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/6c74acf06d2eb1d95b41a4e56c3b9793.php 第 96 行.
+NOTIC: [8] Undefined index: user_type /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/6c74acf06d2eb1d95b41a4e56c3b9793.php 第 96 行.
+NOTIC: [8] Undefined index: user_type /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/6c74acf06d2eb1d95b41a4e56c3b9793.php 第 96 行.
+NOTIC: [8] Undefined index: user_type /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/6c74acf06d2eb1d95b41a4e56c3b9793.php 第 96 行.
+NOTIC: [8] Undefined index: user_type /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/6c74acf06d2eb1d95b41a4e56c3b9793.php 第 96 行.
+NOTIC: [8] Undefined index: user_type /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/6c74acf06d2eb1d95b41a4e56c3b9793.php 第 96 行.
+NOTIC: [8] Undefined index: user_type /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/6c74acf06d2eb1d95b41a4e56c3b9793.php 第 96 行.
+NOTIC: [8] Undefined index: user_type /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/6c74acf06d2eb1d95b41a4e56c3b9793.php 第 96 行.
+NOTIC: [8] Undefined index: user_type /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/6c74acf06d2eb1d95b41a4e56c3b9793.php 第 96 行.
+NOTIC: [8] Undefined index: user_type /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/6c74acf06d2eb1d95b41a4e56c3b9793.php 第 96 行.
+NOTIC: [8] Undefined index: user_type /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/6c74acf06d2eb1d95b41a4e56c3b9793.php 第 96 行.
+NOTIC: [8] Undefined index: user_type /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/6c74acf06d2eb1d95b41a4e56c3b9793.php 第 96 行.
+NOTIC: [8] Undefined index: user_type /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/6c74acf06d2eb1d95b41a4e56c3b9793.php 第 96 行.
+NOTIC: [8] Undefined index: user_type /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/6c74acf06d2eb1d95b41a4e56c3b9793.php 第 96 行.
+NOTIC: [8] Undefined index: user_type /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/6c74acf06d2eb1d95b41a4e56c3b9793.php 第 96 行.
+NOTIC: [8] Undefined index: user_type /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/6c74acf06d2eb1d95b41a4e56c3b9793.php 第 96 行.
+NOTIC: [8] Undefined index: user_type /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/6c74acf06d2eb1d95b41a4e56c3b9793.php 第 96 行.
+NOTIC: [8] Undefined index: user_type /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/6c74acf06d2eb1d95b41a4e56c3b9793.php 第 96 行.
+NOTIC: [8] Undefined index: user_type /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/6c74acf06d2eb1d95b41a4e56c3b9793.php 第 96 行.
+NOTIC: [8] Undefined index: user_type /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/6c74acf06d2eb1d95b41a4e56c3b9793.php 第 96 行.
+NOTIC: [8] Undefined index: user_type /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/6c74acf06d2eb1d95b41a4e56c3b9793.php 第 96 行.
+NOTIC: [8] Undefined index: user_type /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/6c74acf06d2eb1d95b41a4e56c3b9793.php 第 96 行.
+NOTIC: [8] Undefined index: user_type /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/6c74acf06d2eb1d95b41a4e56c3b9793.php 第 96 行.
+NOTIC: [8] Undefined index: user_type /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/6c74acf06d2eb1d95b41a4e56c3b9793.php 第 96 行.
+NOTIC: [8] Undefined index: user_type /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/6c74acf06d2eb1d95b41a4e56c3b9793.php 第 96 行.
+NOTIC: [8] Undefined index: order_no /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/6c74acf06d2eb1d95b41a4e56c3b9793.php 第 134 行.
+NOTIC: [8] Undefined index: goods_name /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/6c74acf06d2eb1d95b41a4e56c3b9793.php 第 143 行.
+NOTIC: [8] Undefined index: tracking_number /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/6c74acf06d2eb1d95b41a4e56c3b9793.php 第 151 行.
+NOTIC: [8] Undefined index: content /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/6c74acf06d2eb1d95b41a4e56c3b9793.php 第 159 行.
+NOTIC: [8] Undefined index: payment_type /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/6c74acf06d2eb1d95b41a4e56c3b9793.php 第 170 行.
+NOTIC: [8] Undefined index: payment_type /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/6c74acf06d2eb1d95b41a4e56c3b9793.php 第 174 行.
+NOTIC: [8] Undefined index: payment_type /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/6c74acf06d2eb1d95b41a4e56c3b9793.php 第 178 行.
+NOTIC: [8] Undefined index: payment_type /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/6c74acf06d2eb1d95b41a4e56c3b9793.php 第 182 行.
+NOTIC: [8] Undefined index: payment_type /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/6c74acf06d2eb1d95b41a4e56c3b9793.php 第 188 行.
+NOTIC: [8] Undefined index: payment_type /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/6c74acf06d2eb1d95b41a4e56c3b9793.php 第 192 行.
+NOTIC: [8] Undefined index: payment_type /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/6c74acf06d2eb1d95b41a4e56c3b9793.php 第 196 行.
+NOTIC: [8] Undefined index: payment_type /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/6c74acf06d2eb1d95b41a4e56c3b9793.php 第 200 行.
+NOTIC: [8] Undefined index: payment_type /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/6c74acf06d2eb1d95b41a4e56c3b9793.php 第 204 行.
+NOTIC: [8] Undefined index: payment_type /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/6c74acf06d2eb1d95b41a4e56c3b9793.php 第 209 行.
+NOTIC: [8] Undefined index: payment_type /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/6c74acf06d2eb1d95b41a4e56c3b9793.php 第 213 行.
+NOTIC: [8] Undefined index: payment_type /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/6c74acf06d2eb1d95b41a4e56c3b9793.php 第 219 行.
+NOTIC: [8] Undefined index: payment_type /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/6c74acf06d2eb1d95b41a4e56c3b9793.php 第 223 行.
+NOTIC: [8] Undefined index: payment_type /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/6c74acf06d2eb1d95b41a4e56c3b9793.php 第 227 行.
+NOTIC: [8] Undefined index: order_status /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/6c74acf06d2eb1d95b41a4e56c3b9793.php 第 238 行.
+NOTIC: [8] Undefined index: order_status /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/6c74acf06d2eb1d95b41a4e56c3b9793.php 第 241 行.
+NOTIC: [8] Undefined index: order_status /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/6c74acf06d2eb1d95b41a4e56c3b9793.php 第 244 行.
+NOTIC: [8] Undefined index: order_status /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/6c74acf06d2eb1d95b41a4e56c3b9793.php 第 247 行.
+NOTIC: [8] Undefined index: order_status /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/6c74acf06d2eb1d95b41a4e56c3b9793.php 第 250 行.
+NOTIC: [8] Undefined index: order_status /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/6c74acf06d2eb1d95b41a4e56c3b9793.php 第 253 行.
+NOTIC: [8] Undefined index: order_status /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/6c74acf06d2eb1d95b41a4e56c3b9793.php 第 256 行.
+NOTIC: [8] Undefined index: order_status /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/6c74acf06d2eb1d95b41a4e56c3b9793.php 第 259 行.
+NOTIC: [8] Undefined index: add_time /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/6c74acf06d2eb1d95b41a4e56c3b9793.php 第 287 行.
+NOTIC: [8] Undefined index: pay_time /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/6c74acf06d2eb1d95b41a4e56c3b9793.php 第 299 行.
+NOTIC: [8] Undefined index: shipping_time /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/6c74acf06d2eb1d95b41a4e56c3b9793.php 第 312 行.
+NOTIC: [8] Undefined index: confirm_time /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/6c74acf06d2eb1d95b41a4e56c3b9793.php 第 324 行.
+NOTIC: [8] Undefined index: trade_no /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/6c74acf06d2eb1d95b41a4e56c3b9793.php 第 334 行.
+NOTIC: [8] Use of undefined constant realname - assumed 'realname' /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/6c74acf06d2eb1d95b41a4e56c3b9793.php 第 394 行.
+SQL: SHOW COLUMNS FROM `sns_user` [ RunTime:0.0011s ]
+SQL: SELECT `realname` FROM `sns_user` WHERE `id` = 99 LIMIT 1   [ RunTime:0.0003s ]
+NOTIC: [8] Use of undefined constant phone - assumed 'phone' /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/6c74acf06d2eb1d95b41a4e56c3b9793.php 第 395 行.
+SQL: SELECT `phone` FROM `sns_user` WHERE `id` = 99 LIMIT 1   [ RunTime:0.0003s ]
+NOTIC: [8] Use of undefined constant realname - assumed 'realname' /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/6c74acf06d2eb1d95b41a4e56c3b9793.php 第 394 行.
+SQL: SELECT `realname` FROM `sns_user` WHERE `id` = 105 LIMIT 1   [ RunTime:0.0003s ]
+NOTIC: [8] Use of undefined constant phone - assumed 'phone' /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/6c74acf06d2eb1d95b41a4e56c3b9793.php 第 395 行.
+SQL: SELECT `phone` FROM `sns_user` WHERE `id` = 105 LIMIT 1   [ RunTime:0.0002s ]
+NOTIC: [8] Use of undefined constant realname - assumed 'realname' /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/6c74acf06d2eb1d95b41a4e56c3b9793.php 第 394 行.
+SQL: SELECT `realname` FROM `sns_user` WHERE `id` = 105 LIMIT 1   [ RunTime:0.0002s ]
+NOTIC: [8] Use of undefined constant phone - assumed 'phone' /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/6c74acf06d2eb1d95b41a4e56c3b9793.php 第 395 行.
+SQL: SELECT `phone` FROM `sns_user` WHERE `id` = 105 LIMIT 1   [ RunTime:0.0005s ]
+NOTIC: [8] Use of undefined constant realname - assumed 'realname' /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/6c74acf06d2eb1d95b41a4e56c3b9793.php 第 394 行.
+SQL: SELECT `realname` FROM `sns_user` WHERE `id` = 110 LIMIT 1   [ RunTime:0.0008s ]
+NOTIC: [8] Use of undefined constant phone - assumed 'phone' /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/6c74acf06d2eb1d95b41a4e56c3b9793.php 第 395 行.
+SQL: SELECT `phone` FROM `sns_user` WHERE `id` = 110 LIMIT 1   [ RunTime:0.0003s ]
+NOTIC: [8] Use of undefined constant realname - assumed 'realname' /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/6c74acf06d2eb1d95b41a4e56c3b9793.php 第 394 行.
+SQL: SELECT `realname` FROM `sns_user` WHERE `id` = 112 LIMIT 1   [ RunTime:0.0004s ]
+NOTIC: [8] Use of undefined constant phone - assumed 'phone' /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/6c74acf06d2eb1d95b41a4e56c3b9793.php 第 395 行.
+SQL: SELECT `phone` FROM `sns_user` WHERE `id` = 112 LIMIT 1   [ RunTime:0.0002s ]
+NOTIC: [8] Use of undefined constant realname - assumed 'realname' /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/6c74acf06d2eb1d95b41a4e56c3b9793.php 第 394 行.
+SQL: SELECT `realname` FROM `sns_user` WHERE `id` = 120 LIMIT 1   [ RunTime:0.0002s ]
+NOTIC: [8] Use of undefined constant phone - assumed 'phone' /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/6c74acf06d2eb1d95b41a4e56c3b9793.php 第 395 行.
+SQL: SELECT `phone` FROM `sns_user` WHERE `id` = 120 LIMIT 1   [ RunTime:0.0001s ]
+NOTIC: [8] Use of undefined constant realname - assumed 'realname' /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/6c74acf06d2eb1d95b41a4e56c3b9793.php 第 394 行.
+SQL: SELECT `realname` FROM `sns_user` WHERE `id` = 120 LIMIT 1   [ RunTime:0.0002s ]
+NOTIC: [8] Use of undefined constant phone - assumed 'phone' /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/6c74acf06d2eb1d95b41a4e56c3b9793.php 第 395 行.
+SQL: SELECT `phone` FROM `sns_user` WHERE `id` = 120 LIMIT 1   [ RunTime:0.0002s ]
+NOTIC: [8] Use of undefined constant realname - assumed 'realname' /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/6c74acf06d2eb1d95b41a4e56c3b9793.php 第 394 行.
+SQL: SELECT `realname` FROM `sns_user` WHERE `id` = 120 LIMIT 1   [ RunTime:0.0001s ]
+NOTIC: [8] Use of undefined constant phone - assumed 'phone' /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/6c74acf06d2eb1d95b41a4e56c3b9793.php 第 395 行.
+SQL: SELECT `phone` FROM `sns_user` WHERE `id` = 120 LIMIT 1   [ RunTime:0.0001s ]
+NOTIC: [8] Use of undefined constant realname - assumed 'realname' /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/6c74acf06d2eb1d95b41a4e56c3b9793.php 第 394 行.
+SQL: SELECT `realname` FROM `sns_user` WHERE `id` = 99 LIMIT 1   [ RunTime:0.0001s ]
+NOTIC: [8] Use of undefined constant phone - assumed 'phone' /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/6c74acf06d2eb1d95b41a4e56c3b9793.php 第 395 行.
+SQL: SELECT `phone` FROM `sns_user` WHERE `id` = 99 LIMIT 1   [ RunTime:0.0001s ]
+NOTIC: [8] Use of undefined constant realname - assumed 'realname' /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/6c74acf06d2eb1d95b41a4e56c3b9793.php 第 394 行.
+SQL: SELECT `realname` FROM `sns_user` WHERE `id` = 102 LIMIT 1   [ RunTime:0.0001s ]
+NOTIC: [8] Use of undefined constant phone - assumed 'phone' /var/www/html/tiantianfan/Bin/Runtime/Cache/Admin/6c74acf06d2eb1d95b41a4e56c3b9793.php 第 395 行.
+SQL: SELECT `phone` FROM `sns_user` WHERE `id` = 102 LIMIT 1   [ RunTime:0.0001s ]
+INFO: Run Behavior\ParseTemplateBehavior [ RunTime:0.033201s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.033251s ]
+INFO: [ view_filter ] --START--
+INFO: Run Behavior\WriteHtmlCacheBehavior [ RunTime:0.000134s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.000161s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.000488s ]
+INFO: [ app_end ] --END-- [ RunTime:0.000539s ]
+

@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>api文档</title>
+	<script type="text/javascript" src="__PUBLIC__/js/jquery.min.js"></script>
+	<style type="text/css">
+	body { font-size:12px;}
+	input[type='text'] { width: 300px;}
+	.style1 table {border-collapse: collapse; border: none;}
+	.style1 td{border: solid #ccc 1px;}
+	</style>
+	<script type="text/javascript">
+	function addTr(id){
+		var tr = $("#" + id);
+		var h = tr.html();
+		var len = tr.parent().children('tr').length - 1;
+		h = h.replace(/\[0\]/g, '[' + len + ']');
+		tr.parent().append('<tr>' + h + '</tr>');
+	}
+	function move() {
+		var line = $("#line").val() * 1;
+		var t = $("#respTable tr");
+		for(var i= t.length - 1; i > 0; i--){
+			if (i < line) {
+				break;
+			}
+			var prev = $(t[i]).prev().find("input");
+			$(t[i]).find("input").each(function(j, ele){
+				if ($(ele).attr('type') == 'text') {
+					if (i > line) {
+						$(ele).val(prev.eq(j).val());
+					} else {
+						$(ele).val("");
+					}
+				}
+			});
+		}
+	}
+	</script>
+</head>
+
+<body>
+<strong>修改接口</strong><a href="{:U('Doc/index')}">返回接口列表</a>
+<form method="post" action="{:U('Doc/updateAct')}" accept-charset="utf-8">
+	<input type="hidden" name="id" value="{$api.id}" />
+	<table align="center" cellpadding="5">
+		<tr>
+			<td>接口说明</td>
+			<td><input type="text" name="title" value="{$api.title}"/></td>
+		</tr>
+		<tr>
+			<td>URL</td>
+			<td><input type="text" name="url" value="{$api.url}" /></td>
+		</tr>
+		<tr>
+			<td>分类</td>
+			<td>
+				<select name="classify">
+					<foreach name="classify" item="vo" >
+					<option value="{$vo}" <eq name="api.classify" value="$vo"> selected="selected"</eq>>{$vo}</option>
+					</foreach>
+				</select>
+			</td>
+		</tr>
+		<tr>
+			<td>版本</td>
+			<td><input type="text" name="version" value="{$api.version}" readonly="readonly" /></td>
+		</tr>
+		<tr>
+			<td>请求方式</td>
+			<td>
+				<input type="radio" name="method" value="POST,GET" <eq name="api.method" value="POST,GET"> checked="checked"</eq> />不限 
+				<input type="radio" name="method" value="POST" <eq name="api.method" value="POST"> checked="checked"</eq> />POST  
+				<input type="radio" name="method" value="GET" <eq name="api.method" value="GET"> checked="checked"</eq> />GET</td>
+		</tr>
+		<tr>
+			<td colspan="2">请求参数 &nbsp; &nbsp; <input type="button" value="继续追加" onClick="addTr('reqTr')" /></td>
+		<tr>
+		<tr>
+			<td colspan="2" class="style1">
+				<table border="0" cellpadding="5" cellspacing="0">
+					<tr>
+						<th>参数名称</th>
+						<th>是否必须</th>
+						<th>参数类型</th>
+						<th>描述</th>
+					</tr>
+					
+					<volist name="req" id="i">
+					<tr>
+						<td><input type="text" name="req[{$i.id}][parameter]" value="{$i.parameter}" /></td>
+						<td>
+							<input type="radio" name="req[{$i.id}][ismust]" value="必须" <eq name="i.ismust" value="必须"> checked="checked"</eq> />必须
+							<input type="radio" name="req[{$i.id}][ismust]" value="可选" <eq name="i.ismust" value="可选"> checked="checked"</eq> />可选</td>
+						<td>
+							<input type="radio" name="req[{$i.id}][type]" value="string" <eq name="i.type" value="string"> checked="checked"</eq> />string
+							<input type="radio" name="req[{$i.id}][type]" value="int" <eq name="i.type" value="int"> checked="checked"</eq> />int
+							<input type="radio" name="req[{$i.id}][type]" value="image" <eq name="i.type" value="image"> checked="checked"</eq> />image
+						</td>
+						<td><input type="text" name="req[{$i.id}][miaoshu]" value="{$i.miaoshu}" /></td>
+					</tr>
+					</volist>
+
+					
+
+					<tr id="reqTr">
+						<td><input type="text" name="req1[0][parameter]" /></td>
+						<td>
+							<input type="radio" name="req1[0][ismust]" value="必须" />必须
+							<input type="radio" name="req1[0][ismust]" value="可选" />可选</td>
+						<td>
+							<input type="radio" name="req1[0][type]" value="string" />string
+							<input type="radio" name="req1[0][type]" value="int" />int
+							<input type="radio" name="req1[0][type]" value="image" />image
+						</td>
+						<td><input type="text" name="req1[0][miaoshu]" /></td>
+					</tr>
+					
+			  </table>
+			</td>
+		</tr>
+		<tr>
+			<td>返回类型</td>
+			<td>
+				<input type="radio" name="resp_type" value="json" <eq name="api.resp_type" value="json"> checked="checked"</eq> />json 
+				<input type="radio" name="resp_type" value="XML" <eq name="api.resp_type" value="XML"> checked="checked"</eq> />XML 
+				<input type="radio" name="resp_type" value="HTML" <eq name="api.resp_type" value="HTML"> checked="checked"</eq> />HTML 
+				<input type="radio" name="resp_type" value="text" <eq name="api.resp_type" value="text"> checked="checked"</eq> />text  </td>
+		</tr>
+		<tr>
+			<td colspan="2">
+				返回参数  &nbsp; &nbsp; <input type="button" value="继续追加" onClick="addTr('resqTr')" />
+				&nbsp; &nbsp; 从<input type="text" id="line" value="4" style="width:20px;" />行<input type="button" value="下移一行" onClick="move()" />
+			</td>
+		</tr>
+		<tr>
+			<td colspan="2" class="style1">
+				<table border="0" cellpadding="5" cellspacing="0" id="respTable">
+					<tr>
+						<th>参数名称</th>
+						<th>参数类型</th>
+						<th>描述</th>
+					</tr>
+					<volist name="resp" id="i">
+					<tr>
+						<td><input type="text" name="resp[{$i.id}][parameter]" value="{$i.parameter}" /></td>
+						<td>
+							<input type="radio" name="resp[{$i.id}][type]" value="string" <eq name="i.type" value="string"> checked="checked"</eq> />string
+							<input type="radio" name="resp[{$i.id}][type]" value="int" <eq name="i.type" value="int"> checked="checked"</eq> />int
+							<input type="radio" name="resp[{$i.id}][type]" value="boolean" <eq name="i.type" value="boolean"> checked="checked"</eq> />boolean
+							<input type="radio" name="resp[{$i.id}][type]" value="object" <eq name="i.type" value="object"> checked="checked"</eq> />object
+							<input type="radio" name="resp[{$i.id}][type]" value="object[]" <eq name="i.type" value="object[]"> checked="checked"</eq> />object[]
+						</td>
+						<td><input type="text" name="resp[{$i.id}][miaoshu]" value="{$i.miaoshu}" /></td>
+					</tr>
+					</volist>
+
+
+					
+					<tr id="resqTr">
+						<td><input type="text" name="resp1[0][parameter]" /></td>
+						<td>
+							<input type="radio" name="resp1[0][type]" value="string" checked="checked" />string
+							<input type="radio" name="resp1[0][type]" value="int" />int
+							<input type="radio" name="resp1[0][type]" value="boolean" />boolean
+							<input type="radio" name="resp1[0][type]" value="object" />object
+							<input type="radio" name="resp1[0][type]" value="object[]" />object[]
+						</td>
+						<td><input type="text" name="resp1[0][miaoshu]" /></td>
+					</tr>
+			  </table>
+			</td>
+		</tr>
+		<tr>
+			<td>备注说明</td>
+			<td><input type="text" name="note" style="width:600px;" value="{$api.note}" /></td>
+		</tr>
+		<tr>
+			<td>修改密码</td>
+			<td><input type="password" name="pwd" /></td>
+		</tr>
+		<tr>
+			<td></td>
+			<td><input type="submit" value="  提交  " /></td>
+		</tr>
+	</table>
+</form>
+</body>
+</html>

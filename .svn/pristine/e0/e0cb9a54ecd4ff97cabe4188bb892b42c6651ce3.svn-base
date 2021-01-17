@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<!--<meta name="viewport" content="width=device-width, initial-scale=1">-->
+	<title>{:GC('web_title')}管理后台-运费管理</title>
+	<include file="Public/asset_top_page"/>
+	<style>
+		table{
+			border-bottom: 1px solid #ddd
+		}
+	</style>
+</head>
+
+<body>
+<!-- header -->
+<include file="Public/header"/>
+<!-- /header -->
+<!-- Page container -->
+<div class="page-container">
+	<!-- Page content -->
+	<div class="page-content">
+		<!-- main sidebar -->
+		<include file="Public/left"/>
+		<!-- /main sidebar -->
+
+		<!-- Main content -->
+		<div class="content-wrapper">
+
+			<!-- Content area -->
+			<div class="content" style="padding-top: 10px;">
+				<!-- Pagination types -->
+				<div class="v-container">
+					<div class="alert alert-tips alert-dismissible" role="alert">
+						<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span
+								aria-hidden="true">×</span></button>
+						本页运费管理
+					</div>
+
+					<div class="panel panel-flat">
+						<div class="panel-heading">
+							<form class="v-filter-container" action="" method="POST">
+								<div class="filter-fields-wrap">
+									<div class="filter-item clearfix">
+										<div class="filter-item__field">
+											<div class="v__control-group padd_left_11">
+
+												<div class="v__controls">
+													<a href="{:U('expressEdit')}"><input type="button" value="添加" class="btn btn-primary search" style="width:100px;height: 35px;"></a>
+													<a class="btn btn-success ml-15 dataExcel" style="display: none;">导出订单</a>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</form>
+
+							<!--搜索框-->
+							<div class="heading-elements">
+
+							</div>
+						</div>
+
+						<div class="dataTables_wrapper no-footer mini-space">
+							<table class="table datatable-tools-basic basic_table">
+								<thead>
+								<tr>
+									<th style="width: 1px;">
+									</th>
+									<th class="">名称</th>
+									<th class="">是否默认</th>
+
+									<th class="text-center">操作</th>
+								</tr>
+								</thead>
+
+
+								<foreach name="list" item="vo">
+
+									<tr class="tt_color" style="">
+										<td style="width: 1px;">
+										</td>
+
+
+										<td class="">{$vo.name}</td>
+
+										<td class="">
+											<div class="ed_stand">
+												<p><if condition="$vo['is_default'] eq 1">是
+													<else/>否
+												</if> </p>
+											</div>
+										</td>
+
+										<td class="text-center col-xs-2">
+											<div class="tt_stand">
+												<a title="查看详情" href="{:U('expressEdit', array('id'=> $vo['id']))}" class="layui-btn layui-btn-sm layui-btn-normal btn_detail">详情</a>
+												<a title="删除订单" href="{:U('expressDel', array('id'=>$vo['id']))}" class="layui-btn layui-btn-sm layui-btn-danger btn_detail" onclick="return confirm('确定要删除吗?');">删除</a>
+											</div>
+										</td>
+									</tr>
+								</foreach>
+							</table>
+
+						</div>
+						<!-- /pagination types -->
+					</div>
+				</div>
+				<!--end-->
+				<!-- Footer -->
+				<include file="Public/footer"/>
+				<!-- /footer -->
+			</div>
+			<!-- /content area -->
+		</div>
+		<!-- /main content -->
+
+	</div>
+	<!-- /page content -->
+
+</div>
+<!-- /page container -->
+
+<script>
+	//执行一个laydate实例
+	//  laydate.render({
+	//      elem: '#startTime' //指定元素
+	//  });
+	//  laydate.render({
+	//      elem: '#endTime' //指定元素
+	//  });
+	//执行一个laydate实例
+	//下单时间
+	laydate.render({
+		elem: '#add_time'
+		, type: 'datetime'
+		, range: true
+	});
+
+	laydate.render({
+		elem: '#pay_time'
+		, type: 'datetime'
+		, range: true
+	});
+
+	//根据搜索值导出订单
+	function expOrder() {
+		var content = $("#content").val();//搜索内容
+		var cate = $("#cate").val();//搜索条件
+		var startTime = $("#startTime").val();//开始时间
+		var endTime = $("#endTime").val();//结束时间
+		var order_status = $("#order_status").val();//结束时间
+
+		$downUrl = "/index.php/Admin/Order/expOrder?content=" + content + "&cate=" + cate + "&order_type=0&starttime=" + startTime + "&endtime=" + endTime + "&order_status=" + order_status;
+		location.href = $downUrl;
+		// console.log($downUrl);
+		return;
+	}
+
+	//批量发货
+	function pi_ship() {
+		var arr = [];
+		$('input:checkbox:checked').each(function () {
+			var checkValue = $(this).val();
+			arr.push(checkValue);
+			// 选中框中的值
+		});
+		if (arr === undefined || arr.length == 0) {
+			alert('未选择商品');
+			return false;
+		}
+		if (arr[0] == 'on') {
+			arr.splice(0, 1);
+		}
+		$.ajax({
+			type: "POST",
+			url: "/index.php/Admin/order/pi_ship",
+			data: {pi: arr},
+			dataType: 'json',
+			success: function (data) {
+				console.log(data);
+				if (data.status == 0) {
+					alert('操作成功');
+				} else {
+					alert('操作失败');
+				}
+			}
+		});
+	}
+</script>
+
+
+</body>
+</html>

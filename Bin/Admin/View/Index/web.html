@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!--<meta name="viewport" content="width=device-width, initial-scale=1">-->
+    <title>{:GC('web_title')}管理后台-基本管理</title>
+    <include file="Public/asset_top_page"/>
+</head>
+<body>
+<!-- header -->
+<include file="Public/header"/>
+<!-- /header -->
+<!-- Page container -->
+<div class="page-container">
+    <!-- Page content -->
+    <div class="page-content">
+        <!-- main sidebar -->
+        <include file="Public/left"/>
+        <!-- /main sidebar -->
+
+        <!-- Main content -->
+        <div class="content-wrapper">
+
+            <!-- Content area -->
+            <div class="content" style="padding-top: 10px;">
+                <!-- Pagination types -->
+                <div class="v-container">
+                    <div class="alert alert-tips alert-dismissible" role="alert">
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span
+                                aria-hidden="true">×</span></button>
+                        本页基本管理
+                    </div>
+
+                    <!-- page -->
+                    <form class="form-horizontal pt-15" method="post" action="">
+
+                        <volist name="config" id="i">
+
+                            <div class="form-group">
+
+                                <label class="col-xs-2 control-label text-right">{$i.text}</label>
+                                <div class="col-xs-5">
+                                    <neq name="i.type" value="file">
+                                        <if condition="$i['is_radio'] eq 1 ">
+                                            <label class="radio-inline">
+                                                <input type="radio" name="ratio[{$i.id}]" value="1" class="styled" <if condition="$i['val'] eq 1">checked</if> required>开启
+                                            </label>
+                                            <label class="radio-inline">
+                                                <input type="radio" name="ratio[{$i.id}]" value="0" class="styled" <if condition="$i['val'] eq 0">checked</if>>关闭
+                                            </label>
+                                            <elseif condition="$i['name'] eq 'upload_type'"/>
+                                            <label class="radio-inline">
+                                                <input type="radio" name="ratio[{$i.id}]" value="1" class="styled" <if condition="$i['val'] eq 1">checked</if> required>上传到七牛
+                                            </label>
+                                            <label class="radio-inline">
+                                                <input type="radio" name="ratio[{$i.id}]" value="0" class="styled" <if condition="$i['val'] eq 0">checked</if>>上传到本服务器
+                                            </label>
+                                            <elseif condition="$i['name'] eq 'score_pay_mode'"/>
+                                            <label class="radio-inline">
+                                                <input type="radio" name="ratio[{$i.id}]" value="1" class="styled" <if condition="$i['val'] eq 1">checked</if> required>积分支付
+                                            </label>
+                                            <label class="radio-inline">
+                                                <input type="radio" name="ratio[{$i.id}]" value="2" class="styled" <if condition="$i['val'] eq 2">checked</if>>现金支付
+                                            </label>
+                                            <else/>
+                                            <input class="form-control" type="text" value="{$i.val}" name="ratio[{$i.id}]"/>
+                                        </if>
+                                        <else/>
+
+                                        <div class="placeholder">
+                                            <img src="{$i.val}" class="img_headimgurl">
+                                        </div>
+                                        <button type="button" class="layui-btn layui-btn-sm" id="upimg">
+                                            <i class="layui-icon">&#xe67c;</i>上传图片
+                                        </button>
+                                        <!--									<input class="form-control" type="file"  name="file{$i.id}" />-->
+                                        <input type="hidden" name="ratio[{$i.id}]" class="headimgurl" value="{$i.val}">
+                                        <!--									<input type="hidden" value="{$i.val}" name="ratio[{$i.id}]" />-->
+                                    </neq>
+
+
+                                    <input type="hidden" name="type[{$i.id}]" value="{$i.type}"/>
+
+                                </div>
+                                <label class="col-xs-2 control-label text-left">{$i.remark}</label>
+                            </div>
+
+
+                        </volist>
+
+<!--                        <div class="form-group">-->
+<!--							<label class="col-xs-2 control-label text-right">API文档</label>-->
+<!--                            <div class="layui-input-block">-->
+<!--&lt;!&ndash;								<input type="checkbox" name="close" lay-skin="switch" lay-text="ON|OFF">&ndash;&gt;-->
+<!--								<input type="checkbox" checked="" name="open" lay-skin="switch" lay-filter="switchTest" lay-text="开启|关闭">-->
+<!--                            </div>-->
+<!--                        </div>-->
+
+
+                        <div class="form-group">
+                            <label class="col-xs-2 control-label"></label>
+                            <div class="col-xs-8">
+                                <button class="layui-btn layui-btn-sm layui-btn-normal" type="submit">提交</button>
+                                <a href="javascript:history.go(-1);"
+                                   class="layui-btn layui-btn-sm layui-btn-primary">返回</a>
+                            </div>
+                        </div>
+                    </form>
+
+                    <!-- page end -->
+
+                    <!-- Footer -->
+                    <include file="Public/footer"/>
+                    <!-- /footer -->
+
+                </div>
+                <!-- /content area -->
+
+            </div>
+            <!-- /main content -->
+
+        </div>
+        <!-- /page content -->
+
+    </div>
+    <!-- /page container -->
+
+    <!-- 上传图片 -->
+    <script>
+        layui.use('upload', function () {
+            var upload = layui.upload;
+
+            //执行实例
+            var uploadInst = upload.render({
+                elem: '#upimg' 							//绑定元素
+                , url: '/index.php/Admin/Common/uploads' 	//上传接口
+                , data: {handlename: "headimg"}			// 接口接收值
+                , field: "headimg"						// input name，与接口接收值 一致
+                , done: function (res) {
+                    //上传完毕回调-不一定成功，需要判断
+                    console.log(res);
+                    if (res.status > 0) {
+                        // 异常提示
+                        layer.alert(res.result);
+                    } else {
+                        $(".headimgurl").val(res.result);
+                        $(".img_headimgurl").attr("src", res.result);
+                    }
+                }
+                , error: function (e) {
+                    //请求异常回调
+                    console.log(e);
+                }
+            });
+        });
+
+        layui.use(['form'], function () {
+            var form = layui.form
+                , layer = layui.layer
+            //监听指定开关
+            form.on('switch(switchTest)', function (data) {
+                if (this.checked) {
+                    layer.msg('开启：' + (this.checked ? 'true' : 'false'), {
+                        offset: '6px'
+                    });
+                } else {
+                    layer.msg('开关： 关闭', {
+                        offset: '6px'
+                    });
+                }
+                //do some ajax opeartiopns;
+            });
+        });
+
+    </script>
+    <!-- 上传图片 -->
+
+</body>
+</html>

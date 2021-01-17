@@ -1,0 +1,202 @@
+<!DOCTYPE html >
+<html>
+
+	<head>
+		<meta name="Generator" content="tpshop v1.1" />
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width">
+		<title>素材圈</title>
+		<meta http-equiv="keywords" content="{$tpshop_config['shop_info_store_keyword']}" />
+		<meta name="description" content="{$tpshop_config['shop_info_store_desc']}" />
+		<meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+		<link rel="stylesheet" href="__PUBLIC__/mobile/style/main_style.css">
+		<link rel="stylesheet" type="text/css" href="__PUBLIC__/mobile/css_v3/material_v2.css" />
+		<link href="__PUBLIC__/css/footer.css" rel="stylesheet" type="text/css" />
+		<script src="__PUBLIC__/layer/mobile/layer.js"></script>
+		<script src="__PUBLIC__/mobile/js/jquery-2.1.4.js"></script>
+
+	</head>
+
+	<body>
+
+		<div class="mater_cont">
+			<!--头部-->
+			<div class="mater_head">
+				<img class="logo" src="/Public/mobile/images_v3/f-gr-1.png" />
+				<div class="mater_lf">
+					<div class="ma_tit">
+						官方素材发布官方素材发布官方素
+					</div>
+					<div class="ma_date">4月15日</div>
+
+				</div>
+			</div>
+			<!--内容部分-->
+			<div class="mater_mid">
+				<h2 class="mid_h2">麦趣多纯植物麦片</h2>
+				<div class="introduce omit3">
+					趁着额额活动的时候一囗气买了四种口味，现在已经吃完两包了，里面真是真材实料，里面的东西和包装上一样坚果和水果干都很多趁着额额活动的时候一口气买了四种口味，现在已经吃完两包了，里面真是真材实料，里面的东西和包装上一样坚果和水果干都很多。
+				</div>
+				<div class="show_cont" onclick="$('.introduce').removeClass('omit3');$(this).hide()">
+					展开全文
+				</div>
+
+				<!--图片循环部分-->
+
+				<div class="product_ul">
+					<img class="pro_img" src="/Public/mobile/images_v3/f-gr-1.png" />
+					<img class="pro_img" src="/Public/mobile/images_v3/f-gr-1.png" />
+					<img class="pro_img" src="/Public/mobile/images_v3/f-gr-1.png" />
+					<img class="pro_img" src="/Public/mobile/images_v3/f-gr-1.png" />
+					<img class="pro_img" src="/Public/mobile/images_v3/f-gr-1.png" />
+					<img class="pro_img" src="/Public/mobile/images_v3/f-gr-1.png" />
+					<img class="pro_img" src="/Public/mobile/images_v3/f-gr-1.png" />
+					<img class="pro_img" src="/Public/mobile/images_v3/f-gr-1.png" />
+					<img class="pro_img" src="/Public/mobile/images_v3/f-gr-1.png" />
+
+				</div>
+				<!--购买部分-->
+				<div class="buy_cont">
+					<!--左-->
+					<img class="pro_buy_lf" src="/Public/mobile/images_v3/f-gr-1.png" />
+					<!--中间的价格-->
+					<div class="pro_buy_jg">
+						<div class="buy_title">麦趣多纯植物麦片麦趣多纯</div>
+						<div class="buy_price">
+							<div class="buy_price_lf">
+								<span class="price_a">￥39.9</span>
+								<span class="price_b">￥69.9</span>
+							</div>
+
+							<div class="immediately">
+								立即购买
+							</div>
+						</div>
+
+					</div>
+
+				</div>
+
+			</div>
+			<!--底部的分享-->
+			<div class="footer_fx">
+				<div class="footer_lf footer_line f_fxsc">
+					<div class="footer_lf_bk">
+
+						<img class="footer_img" src="/Public/mobile/images_v3/f_zhuan.png" />
+						<span class="text">分享素材</span>
+					</div>
+				</div>
+				<!--右边-->
+				<div class="footer_lf">
+					<div class="footer_lf_bk">
+
+						<img class="footer_img" src="/Public/mobile/images_v3/f_pyq.png" />
+						<span class="text">一键发圈</span>
+					</div>
+				</div>
+
+			</div>
+
+		</div>
+		<!--弹窗-->
+		<div class="popup_window_f" style="display: none;">
+			<!--中间部分-->
+			<div class="window_cont">
+				<div class="window_bj">
+					<div class="window_title">
+						请选择要分享的图片
+					</div>
+					<div class="window_ul">
+						<div class="window_ul_bk">
+
+							<div class="window_li">
+								<img class="window_img" src="/Public/mobile/images_v3/f-tubiao.png" />
+								<i class="agreement"></i>
+							</div>
+							<div class="window_li">
+								<img class="window_img" src="/Public/mobile/images_v3/f-tubiao.png" />
+								<i class="agreement"></i>
+							</div>
+							<div class="window_li">
+								<img class="window_img" src="/Public/mobile/images_v3/f-tubiao.png" />
+								<i class="agreement"></i>
+							</div>
+							<div class="window_li">
+								<img class="window_img" src="/Public/mobile/images_v3/f-tubiao.png" />
+								<i class="agreement"></i>
+							</div>
+							<div class="window_li">
+								<img class="window_img" src="/Public/mobile/images_v3/f-tubiao.png" />
+								<i class="agreement"></i>
+							</div>
+							<div class="window_li">
+								<img class="window_img" src="/Public/mobile/images_v3/f-tubiao.png" />
+								<i class="agreement"></i>
+							</div>
+							<div class="window_li">
+								<img class="window_img" src="/Public/mobile/images_v3/f-tubiao.png" />
+								<i class="agreement"></i>
+							</div>
+							<div class="window_li">
+								<img class="window_img" src="/Public/mobile/images_v3/f-tubiao.png" />
+								<i class="agreement"></i>
+							</div>
+							<div class="window_li">
+								<img class="window_img" src="/Public/mobile/images_v3/f-tubiao.png" />
+								<i class="agreement"></i>
+							</div>
+						</div>
+					</div>
+					<!--复制文案-->
+					<div class="album_cont">
+						<div class="album_list" style="width: 27vw;">
+							<div class="auth_agreen">
+								<input id="select_all" name="agree" type="checkbox" checked>
+								<label for="select_all">
+									<i></i>
+									<span class="fz">文案已复制</span>
+								</label>
+							</div>
+
+						</div>
+						<div class="album_list">
+							<div class="auth_agreen">
+								<input id="select_al2" name="agree" type="checkbox" checked>
+								<label for="select_al2">
+									<i></i>
+								<span class="fz">图片已保存相册</span>
+								</label>
+							</div>
+
+						</div>
+
+					</div>
+					<!--微信图片-->
+					<div class="weixin_cont">
+						<img class="weixin_img" src="/Public/mobile/images_v3/f_weixin.png" />
+						<div class="weixin_bt">
+							分享给微信好友
+						</div>
+					</div>
+				</div>
+		 			 	<img class="f_guanbi_img" src="/Public/mobile/images_v3/f_xy22.png" />
+			</div>
+		  
+		</div>
+
+		<!--弹窗-->
+		<script>
+			$(function() {
+				$(".f_fxsc,.f_guanbi_img").click(function() {
+					$(".popup_window_f").toggle();
+				});
+			});
+			//产品选中
+			$(".window_ul").on('click', '.window_li', function() {
+				$(this).children(".agreement").toggleClass('active')
+			});
+		</script>
+	</body>
+
+</html>

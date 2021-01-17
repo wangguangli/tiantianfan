@@ -1,0 +1,36 @@
+<div class="sidebar sidebar-main">
+	<div class="sidebar-content">
+
+		<!-- Main navigation -->
+		<div class="sidebar-category sidebar-category-visible">
+			<div class="category-content no-padding">
+				<ul class="navigation navigation-main navigation-accordion">
+
+					<li><a href="{:U('Index/index')}"><i class="icon-home4"></i> <span>首页</span></a></li>
+					<foreach name="menu_list" item="vo" key="k">
+						<notempty name="vo.sub_menu">
+							<li
+							<if condition="strtolower($controllerName) eq 'Index'">
+								<elseif condition="strtolower($controllerName) eq strtolower($k)"/>
+								class="active"
+							</if>
+							>
+							<a href="javascript:;"><i class="{$vo.Icon}"></i> <span>{$vo.name}</span></a>
+							<ul>
+								<foreach name="vo.sub_menu" item="vv" key="kk">
+									<li>
+										<a href="/index.php/Admin/{$vv.control}/{$vv.act}/{$vv.user_type}">{$vv.name}</a>
+									</li>
+								</foreach>
+							</ul>
+							</li>
+						</notempty>
+					</foreach>
+				</ul>
+			</div>
+		</div>
+		<!-- /main navigation -->
+
+	</div>
+</div>
+<!-- /main sidebar -->

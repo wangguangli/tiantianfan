@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>分销中心</title>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+	<meta name="Keywords" content="">
+	<meta name="description" content="">
+	<!-- UC强制全屏 -->
+	<meta name="full-screen" content="yes">
+	<!-- QQ强制全屏 -->
+	<meta name="x5-fullscreen" content="true">
+	<link rel="stylesheet" href="__PUBLIC__/mobile/style/jquery-weui.min.css">
+	<link rel="stylesheet" href="__PUBLIC__/mobile/css_v3/weui.min.css?n=1">
+	<link rel="stylesheet" href="__PUBLIC__/mobile/style/main_style.css">
+	<link rel="stylesheet" href="__PUBLIC__/mobile/css_v3/distribution.css?n=2">
+	<link href="__PUBLIC__/css/footer.css" rel="stylesheet" type="text/css" />
+	<!--上拉加载-->
+	<link rel="stylesheet" href="__PUBLIC__/mobile/style/dropload.css">
+	<script type="text/javascript" src="__PUBLIC__/layer/mobile/layer.js"></script>
+
+</head>
+
+<body style="background-color: #f7f8fa;">
+<div class="dis_container">
+	<!--头像部分-->
+	<div class="portrait_cont">
+		<a href="#">
+			<img class="portrait_img" src="{$user.headimgurl}" />
+			<div class="portrait_lr">
+				<span class="name">{$user.nickname}</span>
+				<div class="introduce">
+					推荐人：{$nickname}<if condition="empty($nickname)">无</if>
+				</div>
+
+			</div>
+		</a>
+	</div>
+</div>
+<!--提现-->
+<div class="withdrawal">
+	<div class="wit_top">
+		<div class="wit_top_tit">可提现佣金</div>
+		<div class="money_cont">
+			<a href="{:U('User/accountDetail','type=1')}" class="number">{$user.money}</a>
+			<a href="{:U('User/moneyout')}" class="tx_button">提现</a>
+		</div>
+	</div>
+	<div class="wit_top">
+		<div class="wit_top_tit">可提现已返金额</div>
+		<div class="money_cont">
+			<a href="{:U('User/accountDetail','type=18')}" class="number">{$user.price}</a>
+			<a href="{:U('Shopcenter/moneyout')}" class="tx_button">提现</a>
+		</div>
+	</div>
+	<!--资产说明-->
+<!--	<div class="wit_bot">-->
+<!--		<a href="{:U('User/accountDetail','type=1')}">-->
+<!--			<div class="assets_lf">-->
+<!--				<img class="qiandai_img" src="__PUBLIC__/mobile/images_v3/qaindai.png" />-->
+<!--				<span class="instruc">资产明细</span>-->
+<!--			</div>-->
+<!--			<img class="assets_jump" src="__PUBLIC__/mobile/images_v3/qian_fh.png" />-->
+<!--		</a>-->
+<!--	</div>-->
+
+</div>
+<!--佣金-->
+<div class="commission">
+	<div class="comm_lf">
+		<a href="#">
+			<span class="comm_lf_tit">已提金额</span>
+			<div class="comm_lf_qian">
+				{$price}
+			</div>
+		</a>
+	</div>
+	<div class="comm_lf line">
+		<a href="#">
+			<span class="comm_lf_tit">待返积分</span>
+			<div class="comm_lf_qian">
+				{$user.money_wait}
+			</div>
+		</a>
+	</div>
+</div>
+<!--管理工具-->
+<div class="tool_container">
+	<h2 class="title">管理工具</h2>
+	<div class="tool_ul">
+		<div class="tool_li">
+			<a href="{:U('User/accountDetail','type=1')}">
+				<div class="tool_li_lf">
+					<img class="tool_img" src="__PUBLIC__/mobile/images_v3/gl1.png" />
+					<span class="x_baioti">佣金明细</span>
+				</div>
+				<img class="tooi_jump" src="__PUBLIC__/mobile/images_v3/f_fanhui2.png" />
+			</a>
+		</div>
+<!--		<div class="tool_li">-->
+<!--			<a href="{:U('User/distributionOrder', 'type=-1')}">-->
+<!--				<div class="tool_li_lf">-->
+<!--					<img class="tool_img" src="__PUBLIC__/mobile/images_v3/gl2.png" />-->
+<!--					<span class="x_baioti">分销订单</span>-->
+<!--				</div>-->
+<!--				<img class="tooi_jump" src="__PUBLIC__/mobile/images_v3/f_fanhui2.png" />-->
+<!--			</a>-->
+<!--		</div>-->
+		<div class="tool_li">
+			<a href="{:U('User/fansList','type=1')}">
+				<div class="tool_li_lf">
+					<img class="tool_img" src="__PUBLIC__/mobile/images_v3/gl3.png" />
+					<span class="x_baioti">我的团队</span>
+				</div>
+				<img class="tooi_jump" src="__PUBLIC__/mobile/images_v3/f_fanhui2.png" />
+			</a>
+		</div>
+		<div class="tool_li" style="margin-bottom: 0;">
+			<a href="{:U('User/make_qrcode')}">
+				<div class="tool_li_lf">
+					<img class="tool_img" src="__PUBLIC__/mobile/images_v3/gl4.png" />
+					<span class="x_baioti">推广二维码</span>
+				</div>
+				<img class="tooi_jump" src="__PUBLIC__/mobile/images_v3/f_fanhui2.png" />
+			</a>
+		</div>
+
+	</div>
+
+</div>
+
+<include file="Public/tabbar" />
+<script src="__PUBLIC__/mobile/js/vue.min.js"></script>
+<script src="__PUBLIC__/mobile/js/jquery-2.1.4.js"></script>
+<script src="__PUBLIC__/mobile/js/jquery-weui.min.js"></script>
+<script src="__PUBLIC__/mobile/js/swiper.min.js"></script>
+<script src="__PUBLIC__/mobile/js/dropload.min.js"></script>
+
+</body>
+
+</html>

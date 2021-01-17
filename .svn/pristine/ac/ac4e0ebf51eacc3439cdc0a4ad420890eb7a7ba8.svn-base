@@ -1,0 +1,1359 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<!--<meta name="viewport" content="width=device-width, initial-scale=1">-->
+	<title>{:GC('web_title')}管理后台</title>
+	<include file="Public/asset_top_page"/>
+	<style>
+		.layui-form-select .layui-input{
+			padding-right: 13px;
+			height: 31.55px;
+			border: none;
+			border-bottom: 1px solid #DDDDDD;
+		}
+		.layui-form-select dl {
+			z-index: 9999;
+		}
+		.bj{
+			width: 100%;
+			height:50px;
+			margin: auto;
+			padding: 20px;
+		}
+		.bj_x{
+			float: left;
+			width: 18%;
+		}
+
+
+		.bj_nr{
+			float: left;
+			width: 60%;
+			margin: -1% 0 0 20%
+		}
+		body .layer-ext-myskin .layui-layer-content {
+			overflow: visible;
+		}
+		.input-group .form-control {
+			z-index: auto;
+
+		}
+
+		.layui-form-radio *{
+			font-size: 12px;
+		}
+		.layui-form-checkbox span{
+			font-size: 12px;
+		}
+	</style>
+</head>
+<body>
+<!-- header -->
+<include file="Public/header"/>
+<!-- /header-->
+<!-- Page container-->
+<div class="page-container">
+	<!-- Page content -->
+	<div class="page-content">
+		<!-- main sidebar -->
+		<include file="Public/left"/>
+		<!-- /main sidebar -->
+
+		<!-- Main content -->
+		<div class="content-wrapper">
+
+			<!--             Content area-->
+			<div class="content" style="padding-top: 10px;">
+				<!-- Pagination types -->
+				<div class="v-container">
+					<div class="alert alert-tips alert-dismissible" role="alert">
+						<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
+						等级配置(添加等级,配置相关信息和等级信息)</div>
+
+					<div class="panel panel-flat">
+						<div class="panel-heading">
+
+						</div>
+
+						<!-- page -->
+						<form class="form-horizontal layui-form" method="post" action="{:U('commission')}" onsubmit="return sub()">
+							<input type="hidden" class="form-control" name="id" value="{$data['id']}">
+
+							<div class="form-group" style="margin-top: -12px">
+								<label class="col-xs-2 control-label text-right">等级状态</label>
+								<div class="col-xs-5">
+									<div class="input-group">
+										<input type="radio" name="status" value="1" title="启用"  <if condition="$data['status'] == 1">checked</if>>
+										<input type="radio" name="status" value="0" title="停用"  <if condition="$data['status'] != null && $data['status'] !=1">checked</if>>
+									</div>
+								</div>
+							</div>
+
+							<div class="form-group">
+								<label class="col-xs-2 control-label text-right">等级图标</label>
+								<div class="col-xs-5 control-label">
+									<div class="placeholder">
+										<img src="{$data['level_icon']}" class="img_headimgurl">
+									</div>
+									<button type="button" class="layui-btn layui-btn-sm" id="upimg">
+										<i class="layui-icon">&#xe67c;</i>上传图片
+									</button>
+									<input type="hidden" name="level_icon" class="headimgurl"  value="{$data['level_icon']}">
+								</div>
+							</div>
+
+							<div class="form-group">
+								<label class="col-xs-2 control-label text-right">等级名称</label>
+								<div class="col-xs-5">
+									<input type="text" class="form-control" name="level_name" value="{$data['level_name']}" required>
+								</div>
+							</div>
+
+							<div class="form-group">
+								<label class="col-xs-2 control-label text-right">等级权重</label>
+								<div class="col-xs-5">
+									<input type="text" class="form-control" name="level_ranking" value="{$data['level_ranking']}" <if condition="$data['level_ranking']!=null">disabled="disabled"</if>  required>
+								</div>
+							</div>
+
+							<div class="form-group" style="height:30px;margin:0;padding:0">
+								<label class="col-xs-2 control-label text-right"></label>
+								<div class="col-xs-5" style="margin-top: -12px;color:#A6AEC4;font-size: 12px">
+									数值越大权重越小,添加完不可修改
+								</div>
+							</div>
+
+							<!--支付升级-->
+							<!--<div class="form-group">
+								<label class="col-xs-2 control-label text-right">支付升级</label>
+								<div class="col-xs-5">
+									<input type="checkbox" name="up_level_by_money"  lay-skin="switch" lay-filter="zfsj" lay-text="开启|关闭" <if condition="$data['up_level_by_money']">checked</if>>
+								</div>
+							</div>
+
+							<div class="form-group" id="zfsj"  <if condition="$data['up_level_by_money']">style='display:block'<else/>style='display:none'</if>>
+							<label class="col-xs-2 control-label text-right">支付升级金额</label>
+							<div class="col-xs-5">
+								<input type="text" class="form-control" name="up_level_money" value="{$data['up_level_money']}"  id="up_level_money">
+							</div>
+					</div>-->
+					<!--!支付升级-->
+
+					<!--自动升级-->
+					<div class="form-group">
+						<label class="col-xs-2 control-label text-right">自动升级</label>
+						<div class="col-xs-5">
+							<input type="checkbox" name="up_level_by_auto"  lay-skin="switch" lay-filter="zdsj" lay-text="开启|关闭" <if condition="$data['up_level_by_auto']">checked</if>>
+						</div>
+					</div>
+
+					<div id="zdsj"  <if condition="$data['up_level_by_auto']">style='display:block'<else/>style='display:none'</if>>
+
+					<div class="form-group">
+						<label class="col-xs-2 control-label text-right">升级条件</label>
+						<div class="col-xs-5">
+							<div class="input-group">
+								<input type="radio" name="up_auto_mode" value="2"  title="满足所有勾选条件" <if condition="$data['up_auto_mode'] == 2">checked</if>>
+								<input type="radio" name="up_auto_mode" value="1"  title="满足勾选条件之一即可" <if condition="$data['up_auto_mode']==1">checked</if>>
+							</div>
+						</div>
+					</div>
+
+					<div class="form-group">
+						<label class="col-xs-2 control-label text-right"></label>
+						<div class="col-xs-5">
+							<div style="width:100%;background-color: #F8F8FF;border: 1px solid #e8e7e7;">
+
+								<div class="bj">
+									<div class="bj_x">
+										<input type="checkbox" name=""  value="" title="下一级等级" lay-skin="primary" <if condition="$data['up_auto_first_leader_num']">checked</if>>
+									</div>
+									<div class="input-group bj_nr" >
+										<div class="form-control" style="margin: 0;padding: 0;">
+											<select name="up_auto_first_leader_level" lay-verify="">
+												<option value="0">请选择</option>
+												<volist name="level" id="vo">
+													<option value="{$vo.id}" <if condition="$vo['id']==$data['up_auto_first_leader_level']">selected</if>>{$vo.level_name}</option>
+												</volist>
+											</select>
+										</div>
+										<span class="input-group-addon" >等级</span>
+										<input type="text" class="form-control" placeholder="" name="up_auto_first_leader_num" value="{$data['up_auto_first_leader_num']}">
+										<span class="input-group-addon" >人</span>
+
+
+									</div>
+								</div>
+
+								<div  class="bj">
+									<div  class="bj_x">
+										<input type="checkbox" name="" value="" title="下二级等级" lay-skin="primary"  <if condition="$data['up_auto_second_leader_num']">checked</if>>
+									</div>
+									<div class="input-group bj_nr"  >
+										<div class="form-control" style="margin: 0;padding: 0;">
+											<select name="up_auto_second_leader_level" lay-verify="" >
+												<option value="0">请选择</option>
+												<volist name="level" id="vo">
+													<option value="{$vo.id}" <if condition="$vo['id']==$data['up_auto_second_leader_level']">selected</if>>{$vo.level_name}</option>
+												</volist>
+											</select>
+										</div>
+										<span class="input-group-addon" >等级</span>
+										<input type="text" class="form-control" placeholder="" name="up_auto_second_leader_num" value="{$data['up_auto_second_leader_num']}">
+										<span class="input-group-addon" >人</span>
+
+									</div>
+								</div>
+
+								<div class="bj">
+									<div class="bj_x">
+										<input type="checkbox" name=""  value="" title="下三级等级" lay-skin="primary" <if condition="$data['up_auto_third_leader_num']">checked</if>>
+									</div>
+									<div class="input-group bj_nr">
+										<div class="form-control" style="margin: 0;padding: 0;">
+											<select name="up_auto_third_leader_level" lay-verify="">
+												<option value="0">请选择</option>
+												<volist name="level" id="vo">
+													<option value="{$vo.id}" <if condition="$vo['id']==$data['up_auto_third_leader_level']">selected</if>>{$vo.level_name}</option>
+												</volist>
+											</select>
+										</div>
+										<span class="input-group-addon" >等级</span>
+										<input type="text" class="form-control" placeholder=""  name="up_auto_third_leader_num" value="{$data['up_auto_third_leader_num']}">
+										<span class="input-group-addon" >人</span>
+									</div>
+								</div>
+
+								<div class="bj">
+									<div class="bj_x">
+										<input type="checkbox" name="" value="" title="本团队等级" lay-skin="primary"  <if condition="$data['up_auto_team_num']">checked</if>>
+									</div>
+									<div class="input-group bj_nr">
+										<div class="form-control" style="margin: 0;padding: 0;">
+											<select name="up_auto_team_level" lay-verify="">
+												<option value="0">请选择</option>
+												<volist name="level" id="vo">
+													<option value="{$vo.id}" <if condition="$vo['id']==$data['up_auto_team_level']">selected</if>>{$vo.level_name}</option>
+												</volist>
+											</select>
+										</div>
+										<span class="input-group-addon" >等级</span>
+										<input type="text" class="form-control" placeholder="" name="up_auto_team_num" value="{$data['up_auto_team_num']}">
+										<span class="input-group-addon" >人</span>
+									</div>
+								</div>
+
+
+
+								<div class="bj">
+									<div class="bj_x">
+										<input type="checkbox" name="" value="" title="本人消费金额 " lay-skin="primary" <if condition="$data['up_auto_self_money']!=0.00 && $data['up_auto_self_money']!=null">checked</if>>
+									</div>
+									<div class="input-group bj_nr"  >
+										<input type="text" class="form-control" placeholder="" name="up_auto_self_money" value="{$data.up_auto_self_money}">
+										<span class="input-group-addon" >元</span>
+									</div>
+								</div>
+
+								<div class="bj">
+									<div class="bj_x">
+										<input type="checkbox" name="" value="" title="下一级金额" lay-skin="primary"  <if condition="$data['up_auto_first_money']!=0.00 && $data['up_auto_first_money']!=null ">checked</if>>
+									</div>
+									<div class="input-group bj_nr"  >
+										<input type="text" class="form-control" placeholder="" name="up_auto_first_money" value="{$data['up_auto_first_money']}">
+										<span class="input-group-addon" >元</span>
+
+										<div class="form-control" style="margin: 0;padding: 0;">
+											<select name="up_auto_first_money_level" lay-verify="">
+												<option value="0">请选择</option>
+												<volist name="level" id="vo">
+													<option value="{$vo.id}" <if condition="$vo['id']==$data['up_auto_first_money_level']">selected</if>>{$vo.level_name}</option>
+												</volist>
+											</select>
+										</div>
+										<span class="input-group-addon" >等级</span>
+									</div>
+								</div>
+
+								<div class="bj">
+									<div class="bj_x">
+										<input type="checkbox" name="" value="" title="下二级金额" lay-skin="primary" <if condition="$data['up_auto_second_money']!=0.00 && $data['up_auto_second_money']!=null ">checked</if>>
+									</div>
+									<div class="input-group bj_nr"  >
+										<input type="text" class="form-control" placeholder="" name="up_auto_second_money" value="{$data['up_auto_second_money']}">
+										<span class="input-group-addon" >元</span>
+										<div class="form-control" style="margin: 0;padding: 0;">
+											<select name="up_auto_second_money_level" lay-verify="">
+												<option value="0">请选择</option>
+												<volist name="level" id="vo">
+													<option value="{$vo.id}" <if condition="$vo['id']==$data['up_auto_second_money_level']">selected</if>>{$vo.level_name}</option>
+												</volist>
+											</select>
+										</div>
+										<span class="input-group-addon" >等级</span>
+									</div>
+								</div>
+
+								<div class="bj">
+									<div class="bj_x">
+										<input type="checkbox" name="" value="" title="下三级金额" lay-skin="primary" <if condition="$data['up_auto_third_money']!=0.00 && $data['up_auto_third_money']!=null ">checked</if>>
+									</div>
+									<div class="input-group bj_nr"  >
+										<input type="text" class="form-control" placeholder="" name="up_auto_third_money" value="{$data['up_auto_third_money']}">
+										<span class="input-group-addon">元</span>
+
+										<div class="form-control" style="margin: 0;padding: 0;">
+											<select name="up_auto_third_money_level" lay-verify="">
+												<option value="0">请选择</option>
+												<volist name="level" id="vo">
+													<option value="{$vo.id}" <if condition="$vo['id']==$data['up_auto_third_money_level']">selected</if>>{$vo.level_name}</option>
+												</volist>
+											</select>
+										</div>
+										<span class="input-group-addon" >等级</span>
+									</div>
+								</div>
+
+								<div class="bj">
+									<div class="bj_x">
+										<input type="checkbox" name="" value="" title="本团队金额" lay-skin="primary" <if condition="$data['up_auto_team_money']!=0.00 && $data['up_auto_team_money']!=null">checked</if>>
+									</div>
+									<div class="input-group bj_nr"  >
+										<input type="text" class="form-control" placeholder="" name="up_auto_team_money" value="{$data['up_auto_team_money']}">
+										<span class="input-group-addon" >元</span>
+										<div class="form-control" style="margin: 0;padding: 0;">
+											<select name="up_auto_team_money_level" lay-verify="">
+												<option value="0">请选择</option>
+												<volist name="level" id="vo">
+													<option value="{$vo.id}" <if condition="$vo['id']==$data['up_auto_team_money_level']">selected</if>>{$vo.level_name}</option>
+												</volist>
+											</select>
+										</div>
+										<span class="input-group-addon" >等级</span>
+									</div>
+								</div>
+
+								<div class="bj">
+									<div class="bj_x">
+										<input type="checkbox" name="" value="" title="下一级订单" lay-skin="primary"  <if condition="$data['up_auto_first_order']">checked</if>>
+									</div>
+									<div class="input-group bj_nr"  >
+										<input type="text" class="form-control" placeholder="" name="up_auto_first_order" value="{$data['up_auto_first_order']}">
+										<span class="input-group-addon" >个</span>
+										<div class="form-control" style="margin: 0;padding: 0;">
+											<select name="up_auto_first_order_level" lay-verify="">
+												<option value="0">请选择</option>
+												<volist name="level" id="vo">
+													<option value="{$vo.id}" <if condition="$vo['id']==$data['up_auto_first_order_level']">selected</if>>{$vo.level_name}</option>
+												</volist>
+											</select>
+										</div>
+										<span class="input-group-addon" >等级</span>
+									</div>
+								</div>
+
+
+
+								<div class="bj">
+									<div class="bj_x">
+										<input type="checkbox" name="" value="" title="下二级订单" lay-skin="primary" <if condition="$data['up_auto_second_order']">checked</if>>
+									</div>
+									<div class="input-group bj_nr"  >
+										<input type="text" class="form-control" placeholder="" name="up_auto_second_order" value="{$data['up_auto_second_order']}">
+										<span class="input-group-addon" >个</span>
+
+										<div class="form-control" style="margin: 0;padding: 0;">
+											<select name="up_auto_second_order_level" lay-verify="">
+												<option value="0">请选择</option>
+												<volist name="level" id="vo">
+													<option value="{$vo.id}" <if condition="$vo['id']==$data['up_auto_second_order_level']">selected</if>>{$vo.level_name}</option>
+												</volist>
+											</select>
+										</div>
+										<span class="input-group-addon" >等级</span>
+									</div>
+								</div>
+
+
+
+								<div class="bj">
+									<div class="bj_x">
+										<input type="checkbox" name="" value="" title="下三级订单" lay-skin="primary" <if condition="$data['up_auto_third_order']">checked</if>>
+									</div>
+									<div class="input-group bj_nr"  >
+										<input type="text" class="form-control" placeholder="" name="up_auto_third_order" value="{$data['up_auto_third_order']}">
+										<span class="input-group-addon" >个</span>
+										<div class="form-control" style="margin: 0;padding: 0;">
+											<select name="up_auto_third_order_level" lay-verify="">
+												<option value="0">请选择</option>
+												<volist name="level" id="vo">
+													<option value="{$vo.id}" <if condition="$vo['id']==$data['up_auto_third_order_level']">selected</if>>{$vo.level_name}</option>
+												</volist>
+											</select>
+										</div>
+										<span class="input-group-addon" >等级</span>
+									</div>
+								</div>
+
+
+
+								<div class="bj">
+									<div class="bj_x">
+										<input type="checkbox" name="" value="" title="本团队订单" lay-skin="primary" <if condition="$data['up_auto_team_order']">checked</if>>
+									</div>
+									<div class="input-group bj_nr"  >
+										<input type="text" class="form-control" placeholder="" name="up_auto_team_order"  value="{$data['up_auto_team_order']}">
+										<span class="input-group-addon" >个</span>
+										<div class="form-control" style="margin: 0;padding: 0;">
+											<select name="up_auto_team_order_level" lay-verify="">
+												<option value="0">请选择</option>
+												<volist name="level" id="vo">
+													<option value="{$vo.id}" <if condition="$vo['id']==$data['up_auto_team_order_level']">selected</if>>{$vo.level_name}</option>
+												</volist>
+											</select>
+										</div>
+										<span class="input-group-addon" >等级</span>
+									</div>
+								</div>
+
+								<style>
+									.cate_div {
+										min-width: 30px;
+										border: none;
+										background: none;
+										border: 1px dashed #ccc;
+										display: block;
+										float: left;
+										padding: 3px 5px;
+										margin-right: 8px;
+										margin-bottom: 8px;
+									}
+									.goods_div {
+										min-width: 30px;
+										border: none;
+										background: none;
+										border: 1px dashed #ccc;
+										display: block;
+										float: left;
+										padding: 3px 5px;
+										margin-right: 8px;
+										margin-bottom: 8px;
+									}
+									.cate_div2 {
+										min-width: 30px;
+										border: none;
+										background: none;
+										border: 1px dashed #ccc;
+										display: block;
+										float: left;
+										padding: 3px 5px;
+										margin-right: 8px;
+										margin-bottom: 8px;
+									}
+									.goods_div2 {
+										min-width: 30px;
+										border: none;
+										background: none;
+										border: 1px dashed #ccc;
+										display: block;
+										float: left;
+										padding: 3px 5px;
+										margin-right: 8px;
+										margin-bottom: 8px;
+									}
+								</style>
+								<div class="bj">
+									<div class="bj_x">
+										<input type="checkbox" name="" value="" title="订单分类 " lay-skin="primary" >
+									</div>
+									<div class="input-group bj_nr"  >
+										<div class="cate_list">
+											<span class="cate_div ext_cate" cid="c999999999" id="cate_div">已选</span>
+											<input type="hidden" value="999999999" name="up_auto_order_type[]" class="cate_ipt" id="cate_ipt">
+											<foreach name="up_auto_order_type" item="vo">
+												<span class="cate_div ext_cate" cid="c{$vo}">{$vo|get_order_type_cn}</span>
+												<input type="hidden" value="{$vo}" name="up_auto_order_type[]"
+												       class="cate_ipt c{$vo}">
+											</foreach>
+										</div>
+									</div>
+								</div>
+
+								<div class="bj">
+									<div class="bj_x" >
+									</div>
+									<div class="input-group bj_nr" style="margin-left: 38%">
+										<div class="form-control" style="margin: 0;padding: 0;">
+											<select name="order_type" lay-search onchange="changeCate(this.options[this.options.selectedIndex].value, this.options[this.options.selectedIndex].text);">
+												<option value="">请选择</option>
+												<volist name="type" id="vo">
+													<option value="{$vo.type}">{$vo.name}</option>
+												</volist>
+											</select>
+										</div>
+										<span class="input-group-addon" >分类</span>
+									</div>
+								</div>
+
+								<div class="bj">
+									<div class="bj_x">
+										<input type="checkbox" name="" value="" title="购买指定商品 " lay-skin="primary" >
+									</div>
+									<div class="input-group bj_nr"  >
+										<div class="goods_list">
+											<span class="goods_div ext_goods" gid="g0" id="goods_div">已选</span>
+											<input type="hidden" value="0" name="up_auto_goods[]" class="goods_ipt" id="goods_ipt">
+											<foreach name="up_auto_goods" item="vo">
+												<span class="goods_div ext_goods" cid="g{$vo.id}">{$vo.name}</span>
+												<input type="hidden" value="{$vo.id}" name="up_auto_goods[]"
+												       class="goods_ipt g{$vo.id}">
+											</foreach>
+										</div>
+									</div>
+								</div>
+
+								<div class="bj">
+									<div class="bj_x">
+									</div>
+									<div class="input-group bj_nr" style="margin-left: 38%">
+										<div class="form-control" style="margin: 0;padding: 0;" >
+											<select name="goods" onchange="changeGoods(this.options[this.options.selectedIndex].value, this.options[this.options.selectedIndex].text);" lay-search>
+												<option value="" title="请选择">请选择</option>
+												<volist name="goods" id="vo">
+													<option value="{$vo.id}">{$vo.name}</option>
+
+												</volist>
+											</select>
+										</div>
+										<span class="input-group-addon" >商品</span>
+										<input type="text" class="form-control" placeholder="" name="" value="">
+										<span class="input-group-addon" >搜索</span>
+									</div>
+								</div>
+
+
+
+							</div>
+						</div>
+					</div>
+
+				</div>
+
+				<!--!自动升级-->
+
+				<!--自动降级-->
+				<!--<div class="form-group">
+					<label class="col-xs-2 control-label text-right">自动降级</label>
+					<div class="col-xs-5">
+						<input type="checkbox" name="down_level_by_auto" lay-skin="switch" lay-filter="zdjj" lay-text="开启|关闭" <if condition="$data['down_level_by_auto']">checked</if>>
+					</div>
+				</div>-->
+
+				<div id="zdjj"  <if condition="$data['down_level_by_auto']">style='display:block'<else/>style='display:none'</if>>
+				<div class="form-group">
+					<label class="col-xs-2 control-label text-right">降级条件</label>
+					<div class="col-xs-5">
+						<div class="input-group">
+							<input type="radio" name="down_auto_mode" value="2"  title="满足所有勾选条件" <if condition="$data['down_auto_mode']==2">checked</if>>
+							<input type="radio" name="down_auto_mode" value="1" title="满足勾选条件之一即可" <if condition="$data['down_auto_mode']==1">checked</if>>
+						</div>
+					</div>
+				</div>
+
+				<div class="form-group">
+					<label class="col-xs-2 control-label text-right"></label>
+					<div class="col-xs-5">
+						<div style="width:100%;height: 820px;background-color: #F8F8FF;border: 1px solid #e8e7e7;">
+
+
+							<div class="bj">
+								<div class="bj_x">
+									<input type="checkbox" name="" value="" title="自购总订单量" lay-skin="primary" <if condition="$data['down_auto_self_order_days']">checked
+									<elseif condition="$data['down_auto_self_order_num_1']"/>checked</if>>
+								</div>
+								<div class="input-group bj_nr"  >
+									<input type="text" class="form-control" placeholder="" name="down_auto_self_order_days" value="{$data['down_auto_self_order_days']}">
+									<span class="input-group-addon" >天</span>
+									<input type="text" class="form-control" placeholder="" name="down_auto_self_order_num_1" value="{$data['down_auto_self_order_num_1']}">
+									<span class="input-group-addon" >单</span>
+								</div>
+							</div>
+
+							<div class="bj">
+								<div class="bj_x">
+									<input type="checkbox" name="" value="" title="自购总订单量" lay-skin="primary" <if condition="$data['down_auto_self_money_days']">checked<elseif condition="$data['down_auto_self_money_num_1'] != 0.00" />checked</if>>
+								</div>
+								<div class="input-group bj_nr"  >
+									<input type="text" class="form-control" placeholder="" name="down_auto_self_money_days" value="{$data['down_auto_self_money_days']}">
+									<span class="input-group-addon" >天</span>
+									<input type="text" class="form-control" placeholder="" name="down_auto_self_money_num_1" value="{$data['down_auto_self_money_num_1']}">
+									<span class="input-group-addon" >元</span>
+								</div>
+							</div>
+
+							<div class="bj">
+								<div class="bj_x">
+									<input type="checkbox" name="" value="" title="下线总订单量" lay-skin="primary" <if condition="$data['down_auto_team_order_days']">checked<elseif condition="$data['down_auto_team_order_num_1']"/>checked</if>>
+								</div>
+								<div class="input-group bj_nr"  >
+									<input type="text" class="form-control" placeholder="" name="down_auto_team_order_days" value="{$data['down_auto_team_order_days']}">
+									<span class="input-group-addon">天</span>
+									<input type="text" class="form-control" placeholder="" name="down_auto_team_order_num_1" value="{$data['down_auto_team_order_num_1']}">
+									<span class="input-group-addon" >单</span>
+								</div>
+							</div>
+
+							<div class="bj">
+								<div class="bj_x">
+									<input type="checkbox" name="" value="" title="下线总订单量" lay-skin="primary" <if condition="$data['down_auto_team_money_days']">checked<elseif condition="$data['down_auto_team_money_num_1']!=0.00"/>checked</if>>
+								</div>
+								<div class="input-group bj_nr"  >
+									<input type="text" class="form-control" placeholder="" name="down_auto_team_money_days" value="{$data['down_auto_team_money_days']}">
+									<span class="input-group-addon" >天</span>
+									<input type="text" class="form-control" placeholder="" name="down_auto_team_money_num_1" value="{$data['down_auto_team_money_num_1']}">
+									<span class="input-group-addon" >元</span>
+								</div>
+							</div>
+
+							<div class="bj">
+								<div class="bj_x">
+									<input type="checkbox" name="" value="" title="自购总订单量" lay-skin="primary" <if condition="$data['down_auto_self_order_weeks']">checked<elseif condition="$data['down_auto_self_order_num_2']"/>checked</if>>
+								</div>
+								<div class="input-group bj_nr"  >
+									<input type="text" class="form-control" placeholder="" name="down_auto_self_order_weeks" value="{$data['down_auto_self_order_weeks']}">
+									<span class="input-group-addon" >周</span>
+									<input type="text" class="form-control" placeholder="" name="down_auto_self_order_num_2" value="{$data['down_auto_self_order_num_2']}">
+									<span class="input-group-addon" >单</span>
+								</div>
+							</div>
+
+							<div class="bj">
+								<div class="bj_x">
+									<input type="checkbox" name="" value="" title="自购总订单量" lay-skin="primary" <if condition="$data['down_auto_self_money_weeks']">checked<elseif condition="$data['down_auto_self_money_num_2']!=0.00"/>checked</if>>
+								</div>
+								<div class="input-group bj_nr"  >
+									<input type="text" class="form-control" placeholder="" name="down_auto_self_money_weeks" value="{$data['down_auto_self_money_weeks']}">
+									<span class="input-group-addon" >周</span>
+									<input type="text" class="form-control" placeholder="" name="down_auto_self_money_num_2" value="{$data['down_auto_self_money_num_2']}">
+									<span class="input-group-addon" >元</span>
+								</div>
+							</div>
+
+							<div class="bj">
+								<div class="bj_x">
+									<input type="checkbox" name="" value="" title="下线总订单量" lay-skin="primary" <if condition="$data['down_auto_team_order_weeks']">checked<elseif condition="$data['down_auto_team_order_num_2']"/>checked</if>>
+								</div>
+								<div class="input-group bj_nr"  >
+									<input type="text" class="form-control" placeholder="" name="down_auto_team_order_weeks" value="{$data['down_auto_team_order_weeks']}">
+									<span class="input-group-addon">周</span>
+									<input type="text" class="form-control" placeholder="" name="down_auto_team_order_num_2" value="{$data['down_auto_team_order_num_2']}">
+									<span class="input-group-addon" >单</span>
+								</div>
+							</div>
+
+							<div class="bj">
+								<div class="bj_x">
+									<input type="checkbox" name="" value="" title="下线总订单量" lay-skin="primary" <if condition="$data['down_auto_team_money_weeks']">checked<elseif condition="$data['down_auto_team_money_num_2']!=0.00"/>checked</if>>
+								</div>
+								<div class="input-group bj_nr"  >
+									<input type="text" class="form-control" placeholder="" name="down_auto_team_money_weeks" value="{$data['down_auto_team_money_weeks']}">
+									<span class="input-group-addon" >周</span>
+									<input type="text" class="form-control" placeholder="" name="down_auto_team_money_num_2" value="{$data['down_auto_team_money_num_2']}">
+									<span class="input-group-addon" >元</span>
+								</div>
+							</div>
+
+							<div class="bj">
+								<div class="bj_x">
+									<input type="checkbox" name="" value="" title="自购总订单量" lay-skin="primary" <if condition="$data['down_auto_self_order_months']">checked<elseif condition="$data['down_auto_self_order_num_3']"/>checked</if>>
+								</div>
+								<div class="input-group bj_nr"  >
+									<input type="text" class="form-control" placeholder="" name="down_auto_self_order_months" value="{$data['down_auto_self_order_months']}">
+									<span class="input-group-addon" >月</span>
+									<input type="text" class="form-control" placeholder="" name="down_auto_self_order_num_3" value="{$data['down_auto_self_order_num_3']}">
+									<span class="input-group-addon" >单</span>
+								</div>
+							</div>
+
+							<div class="bj">
+								<div class="bj_x">
+									<input type="checkbox" name="" value="" title="自购总订单量" lay-skin="primary" <if condition="$data['down_auto_self_money_months']">checked<elseif condition="$data['down_auto_self_money_num_3']!=0.00"/>checked</if>>
+								</div>
+								<div class="input-group bj_nr"  >
+									<input type="text" class="form-control" placeholder="" name="down_auto_self_money_months" value="{$data['down_auto_self_money_months']}">
+									<span class="input-group-addon" >月</span>
+									<input type="text" class="form-control" placeholder="" name="down_auto_self_money_num_3" value="{$data['down_auto_self_money_num_3']}">
+									<span class="input-group-addon" >元</span>
+								</div>
+							</div>
+
+							<div class="bj">
+								<div class="bj_x">
+									<input type="checkbox" name="" value="" title="下线总订单量" lay-skin="primary" <if condition="$data['down_auto_team_order_months']">checked<elseif condition="$data['down_auto_team_order_num_3']"/>checked</if>>
+								</div>
+								<div class="input-group bj_nr"  >
+									<input type="text" class="form-control" placeholder="" name="down_auto_team_order_months" value="{$data['down_auto_team_order_months']}">
+									<span class="input-group-addon">月</span>
+									<input type="text" class="form-control" placeholder="" name="down_auto_team_order_num_3" value="{$data['down_auto_team_order_num_3']}">
+									<span class="input-group-addon" >单</span>
+								</div>
+							</div>
+
+							<div class="bj">
+								<div class="bj_x">
+									<input type="checkbox" name="" value="" title="下线总订单量" lay-skin="primary" <if condition="$data['down_auto_team_money_months']">checked<elseif condition="$data['down_auto_team_money_num_3']!=0.00"/>checked</if>>
+								</div>
+								<div class="input-group bj_nr"  >
+									<input type="text" class="form-control" placeholder="" name="down_auto_team_money_months" value="{$data['down_auto_team_money_months']}">
+									<span class="input-group-addon" >月</span>
+									<input type="text" class="form-control" placeholder="" name="down_auto_team_money_num_3" value="{$data['down_auto_team_money_num_3']}">
+									<span class="input-group-addon" >元</span>
+								</div>
+							</div>
+
+							<div class="bj">
+								<div class="bj_x">
+									<input type="checkbox" name="" value="" title="订单分类 " lay-skin="primary" >
+								</div>
+								<div class="input-group bj_nr"  >
+									<div class="cate_list2">
+										<span class="cate_div2 ext_cate2" cid="c999999999" id="cate_div2">已选</span>
+										<input type="hidden" value="999999999" name="down_auto_order_type[]" class="cate_ipt2" id="cate_ipt2">
+										<foreach name="down_auto_order_type" item="vo">
+											<span class="cate_div2 ext_cate2" gid="c{$vo}">{$vo|get_order_type_cn}</span>
+											<input type="hidden" value="{$vo}" name="down_auto_order_type[]"
+											       class="cate_ipt2 c{$vo}">
+										</foreach>
+									</div>
+								</div>
+							</div>
+
+							<div class="bj">
+								<div class="bj_x" >
+								</div>
+								<div class="input-group bj_nr" style="margin-left: 38%">
+									<div class="form-control" style="margin: 0;padding: 0;">
+										<select name="order_type2" lay-search onchange="changeCate2(this.options[this.options.selectedIndex].value, this.options[this.options.selectedIndex].text);">
+											<option value="">请选择</option>
+											<volist name="type" id="vo">
+												<option value="{$vo.type}">{$vo.name}</option>
+
+											</volist>
+										</select>
+									</div>
+									<span class="input-group-addon" >分类</span>
+								</div>
+							</div>
+
+							<div class="bj">
+								<div class="bj_x">
+									<input type="checkbox" name="" value="" title="购买指定商品 " lay-skin="primary" >
+								</div>
+								<div class="input-group bj_nr"  >
+									<div class="goods_list2">
+										<span class="goods_div2 ext_goods2" gid="g0" id="goods_div2">已选</span>
+										<input type="hidden" value="0" name="down_auto_goods[]" class="goods_ipt" id="goods_ipt2">
+										<foreach name="down_auto_goods" item="vo">
+											<span class="goods_div2 ext_goods2" gid="g{$vo.id}">{$vo.name}</span>
+											<input type="hidden" value="{$vo.id}" name="down_auto_goods[]"
+											       class="goods_ipt2 g{$vo.id}">
+										</foreach>
+									</div>
+								</div>
+							</div>
+
+							<div class="bj">
+								<div class="bj_x">
+								</div>
+								<div class="input-group bj_nr" style="margin-left: 38%">
+									<div class="form-control" style="margin: 0;padding: 0;" >
+										<select name="goods" onchange="changeGoods2(this.options[this.options.selectedIndex].value, this.options[this.options.selectedIndex].text);">
+											<option value="" title="请选择">请选择</option>
+											<volist name="goods" id="vo">
+												<option value="{$vo.id}">{$vo.name}</option>
+
+											</volist>
+										</select>
+									</div>
+									<span class="input-group-addon" >商品</span>
+									<input type="text" class="form-control" placeholder="" name="" value="">
+									<span class="input-group-addon" >搜索</span>
+								</div>
+							</div>
+
+						</div>
+					</div>
+				</div>
+
+			</div>
+			<!--!自动降级-->
+
+			<!--推荐奖励-->
+			<div class="form-group">
+				<label class="col-xs-2 control-label text-right">推荐奖励</label>
+				<div class="col-xs-5">
+					<input type="checkbox" name="recommend_status" lay-skin="switch" lay-filter="tjjl" lay-text="开启|关闭" <if condition="$data['recommend_status']">checked</if>>
+				</div>
+			</div>
+
+			<div id="tjjl"  <if condition="$data['recommend_status']">style='display:block'<else/>style='display:none'</if>>
+
+			<!--<div class="form-group">
+				<label class="col-xs-2 control-label text-right">是否级差</label>
+				<div class="col-xs-5">
+					<div class="input-group">
+						<input type="radio" name="recommend_level_diff" value="1" title="是"  <if condition="$data['recommend_level_diff'] == 1">checked</if>>
+						<input type="radio" name="recommend_level_diff" value="0" title="否" <if condition="!$data['recommend_level_diff']">checked</if>>
+					</div>
+				</div>
+			</div>-->
+			<div class="form-group">
+				<label class="col-xs-2 control-label text-right">奖励类型</label>
+				<div class="col-xs-5">
+					<div class="input-group">
+						<input type="radio" name="recommend_mode" value="2" title="按比例" checked>
+					</div>
+				</div>
+			</div>
+
+			<div class="form-group">
+				<label class="col-xs-2 control-label text-right"></label>
+				<div class="col-xs-5">
+					<div style="width:100%;height: 66px;background-color: #F8F8FF;border: 1px solid #e8e7e7;">
+
+						<div class="bj">
+							<div class="bj_x">
+								<input type="checkbox" name="" value="1" title="一级奖励" lay-skin="primary" <if condition="$data['recommend_first_money'] !=0.00">checked<elseif condition="$data['recommend_first_point'] !=0.00"/>checked</if>>
+							</div>
+							<div class="input-group bj_nr"  >
+								<input type="text" class="form-control" placeholder="" name="recommend_first_money" value="{$data['recommend_first_money']}">
+								<span class="input-group-addon" >%</span>
+								<!--<input type="text" class="form-control" placeholder="" name="recommend_first_point" value="{$data['recommend_first_point']}">
+								<span class="input-group-addon" >积分</span>-->
+							</div>
+						</div>
+
+						<!--<div class="bj">
+							<div class="bj_x">
+								<input type="checkbox" name="" value="2" title="二级奖励" lay-skin="primary" <if condition="$data['recommend_second_money']!=0.00">checked<elseif condition="$data['recommend_second_point']!=0.00"/>checked</if>>
+							</div>
+							<div class="input-group bj_nr"  >
+								<input type="text" class="form-control" placeholder="" name="recommend_second_money" value="{$data['recommend_second_money']}">
+								<span class="input-group-addon" >金额</span>
+								<input type="text" class="form-control" placeholder="" name="recommend_second_point" value="{$data['recommend_second_point']}">
+								<span class="input-group-addon" >积分</span>
+							</div>
+						</div>
+
+						<div class="bj">
+							<div class="bj_x">
+								<input type="checkbox" name="zdsj_xf[]" value="3" title="三级奖励" lay-skin="primary" <if condition="$data['recommend_third_money']!=0.00">checked<elseif condition="$data['recommend_third_point']!=0.00"/>checked</if>>
+							</div>
+							<div class="input-group bj_nr"  >
+								<input type="text" class="form-control" placeholder="" name="recommend_third_money"  value="{$data['recommend_third_money']}">
+								<span class="input-group-addon">金额</span>
+								<input type="text" class="form-control" placeholder="" name="recommend_third_point" value="{$data['recommend_third_point']}">
+								<span class="input-group-addon" >积分</span>
+							</div>
+						</div>-->
+					</div>
+				</div>
+			</div>
+
+		</div>
+		<!--!推荐奖励-->
+
+		<!--首购返佣-->
+		<div class="form-group">
+			<label class="col-xs-2 control-label text-right">首购返佣</label>
+			<div class="col-xs-5">
+				<input type="checkbox" name="buy_award_status" lay-skin="switch" lay-filter="xffy" lay-text="开启|关闭" <if condition="$data['buy_award_status']">checked</if>>
+			</div>
+		</div>
+
+		<div id="xffy" <if condition="$data['buy_award_status']">style='display: block'<else/>style='display: none'</if>>
+		<div class="form-group">
+			<label class="col-xs-2 control-label text-right">奖励类型</label>
+			<div class="col-xs-5">
+				<div class="input-group">
+					<input type="radio" name="buy_award_mode" value="1" title="按比例"  <if condition="$data['buy_award_mode'] == 1">checked</if>>
+					<input type="radio" name="buy_award_mode" value="2" title="固定金额" <if condition="$data['buy_award_mode'] == 2">checked</if>>
+				</div>
+			</div>
+		</div>
+
+		<div class="form-group">
+			<label class="col-xs-2 control-label text-right"></label>
+			<div class="col-xs-5">
+				<div style="width:100%;height: 210px;background-color: #F8F8FF;border: 1px solid #e8e7e7;">
+					<div class="bj">
+						<div class="bj_x">
+							<input type="checkbox" name="" value="" title="自身奖励" lay-skin="primary" <if condition="$data['buy_award_self_money']!=0.00">checked<elseif condition="$data['buy_award_self_point']!=0.00"/>checked</if>>
+						</div>
+						<div class="input-group bj_nr"  >
+							<input type="text" class="form-control" placeholder="" name="buy_award_self_money" value="{$data['buy_award_self_money']}">
+							<span class="input-group-addon" >金额</span>
+							<input type="text" class="form-control" placeholder="" name="buy_award_self_point" value="{$data['buy_award_self_point']}">
+							<span class="input-group-addon" >积分</span>
+						</div>
+					</div>
+					<div class="bj">
+						<div class="bj_x">
+							<input type="checkbox" name="" value="" title="一级返佣" lay-skin="primary" <if condition="$data['buy_award_first_money']!=0.00">checked<elseif condition="$data['buy_award_first_point']!=0.00"/>checked</if>>
+						</div>
+						<div class="input-group bj_nr"  >
+							<input type="text" class="form-control" placeholder="" name="buy_award_first_money" value="{$data['buy_award_first_money']}">
+							<span class="input-group-addon" >金额</span>
+							<input type="text" class="form-control" placeholder="" name="buy_award_first_point" value="{$data['buy_award_first_point']}">
+							<span class="input-group-addon" >积分</span>
+						</div>
+					</div>
+
+					<div class="bj">
+						<div class="bj_x">
+							<input type="checkbox" name="" value="" title="二级返佣" lay-skin="primary"  <if condition="$data['buy_award_second_money']!=0.00">checked<elseif condition="$data['buy_award_second_point']!=0.00"/>checked</if>>
+						</div>
+						<div class="input-group bj_nr"  >
+							<input type="text" class="form-control" placeholder="" name="buy_award_second_money" value="{$data['buy_award_second_money']}">
+							<span class="input-group-addon" >金额</span>
+							<input type="text" class="form-control" placeholder="" name="buy_award_second_point" value="{$data['buy_award_second_point']}">
+							<span class="input-group-addon" >积分</span>
+						</div>
+					</div>
+
+					<div class="bj">
+						<div class="bj_x">
+							<input type="checkbox" name="" value="" title="三级返佣" lay-skin="primary"  <if condition="$data['buy_award_third_money']!=0.00">checked<elseif condition="$data['buy_award_third_point']!=0.00"/>checked</if>>
+						</div>
+						<div class="input-group bj_nr"  >
+							<input type="text" class="form-control" placeholder="" name="buy_award_third_money"  value="{$data['buy_award_third_money']}">
+							<span class="input-group-addon">金额</span>
+							<input type="text" class="form-control" placeholder="" name="buy_award_third_point"  value="{$data['buy_award_third_point']}">
+							<span class="input-group-addon" >积分</span>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!--!首购返佣-->
+
+
+	<!--复购返佣-->
+	<div class="form-group">
+		<label class="col-xs-2 control-label text-right">复购返佣</label>
+		<div class="col-xs-5">
+			<input type="checkbox" name="repeat_buy_award_status" lay-skin="switch" lay-filter="fgfy" lay-text="开启|关闭" <if condition="$data['repeat_buy_award_status']">checked</if>>
+		</div>
+	</div>
+
+	<div class="form-group" style="height:30px;margin:0;padding:0">
+		<label class="col-xs-2 control-label text-right"></label>
+		<div class="col-xs-5" style="margin-top: -12px;color:#A6AEC4;font-size: 12px">
+			开启后分销商下线再次购买商城商品时则按照复购返佣规则计算佣金
+		</div>
+	</div>
+
+	<div id="fgfy" style='display: <if condition="$data['repeat_buy_award_status']">block<else/>none</if>'>
+
+	<div class="form-group">
+		<label class="col-xs-2 control-label text-right">奖励类型</label>
+		<div class="col-xs-5">
+			<div class="input-group">
+				<input type="radio" name="repeat_buy_award_mode" value="1" title="按比例" <if condition="$data['repeat_buy_award_mode'] == 1">checked</if>>
+				<input type="radio" name="repeat_buy_award_mode" value="2" title="固定金额"  <if condition="$data['repeat_buy_award_mode'] == 2">checked</if>>
+			</div>
+		</div>
+	</div>
+	<div class="form-group">
+		<label class="col-xs-2 control-label text-right"></label>
+		<div class="col-xs-5">
+			<div style="width:100%;height: 210px;background-color: #F8F8FF;border: 1px solid #e8e7e7;">
+				<div class="bj">
+					<div class="bj_x">
+						<input type="checkbox" name="" value="1" title="复购自身奖励" lay-skin="primary" <if condition="$data['repeat_buy_award_self_money']!=0.00">checked<elseif condition="$data['repeat_buy_award_self_point']!=0.00"/>checked</if>>
+					</div>
+					<div class="input-group bj_nr"  >
+						<input type="text" class="form-control" placeholder="" name="repeat_buy_award_self_money" value="{$data['repeat_buy_award_self_money']}">
+						<span class="input-group-addon" >金额</span>
+						<input type="text" class="form-control" placeholder="" name="repeat_buy_award_self_point" value="{$data['repeat_buy_award_self_point']}">
+						<span class="input-group-addon" >积分</span>
+					</div>
+				</div>
+				<div class="bj">
+					<div class="bj_x">
+						<input type="checkbox" name="" value="1" title="复购一级返佣" lay-skin="primary" <if condition="$data['repeat_buy_award_first_money']!=0.00">checked<elseif condition="$data['repeat_buy_award_first_point']!=0.00"/>checked</if>>
+					</div>
+					<div class="input-group bj_nr"  >
+						<input type="text" class="form-control" placeholder="" name="repeat_buy_award_first_money"  value="{$data['repeat_buy_award_first_money']}">
+						<span class="input-group-addon" >金额</span>
+						<input type="text" class="form-control" placeholder="" name="repeat_buy_award_first_point" value="{$data['repeat_buy_award_first_point']}">
+						<span class="input-group-addon" >积分</span>
+					</div>
+				</div>
+
+				<div class="bj">
+					<div class="bj_x">
+						<input type="checkbox" name="" value="2" title="复购二级返佣" lay-skin="primary" <if condition="$data['repeat_buy_award_second_money']!=0.00">checked<elseif condition="$data['repeat_buy_award_second_point']!=0.00"/>checked</if>>
+					</div>
+					<div class="input-group bj_nr"  >
+						<input type="text" class="form-control" placeholder="" name="repeat_buy_award_second_money" value="{$data['repeat_buy_award_second_money']}">
+						<span class="input-group-addon" >金额</span>
+						<input type="text" class="form-control" placeholder="" name="repeat_buy_award_second_point" value="{$data['repeat_buy_award_second_point']}">
+						<span class="input-group-addon" >积分</span>
+					</div>
+				</div>
+
+				<div class="bj">
+					<div class="bj_x">
+						<input type="checkbox" name="zdsj_xf[]" value="3" title="复购三级返佣" lay-skin="primary" <if condition="$data['repeat_buy_award_third_money']!=0.00">checked<elseif condition="$data['repeat_buy_award_third_point']!=0.00"/>checked</if>>
+					</div>
+					<div class="input-group bj_nr"  >
+						<input type="text" class="form-control" placeholder="" name="repeat_buy_award_third_money" value="{$data['repeat_buy_award_third_money']}">
+						<span class="input-group-addon">金额</span>
+						<input type="text" class="form-control" placeholder="" name="repeat_buy_award_third_point" value="{$data['repeat_buy_award_third_point']}">
+						<span class="input-group-addon" >积分</span>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<!--!复购返佣-->
+
+<div class="form-group">
+	<label class="col-xs-2 control-label"></label>
+	<div class="col-xs-8">
+		<button class="layui-btn layui-btn-sm layui-btn-normal" type="submit" >提交</button>
+		<a href="javascript:history.go(-1);" class="layui-btn layui-btn-sm layui-btn-primary">返回</a>
+	</div>
+</div>
+</form>
+</div>
+</div>
+</div>
+</div>            <!-- page end -->
+
+<include file="Public/footer" />
+</div>
+</div>
+
+
+<!-- 上传图片 -->
+<script>
+
+
+	layui.use('form',function(){
+		var  form = layui.form;
+		var  table = layui.table;
+		var  $ = layui.jquery;
+		form.render();
+
+		form.on('select', function(data){
+			$(data.elem).trigger('change', data.elem)
+		});
+
+
+		form.on('switch(test)',function(data) {
+
+			var display = $('.xian').css('display');
+			if(display == 'none'){
+				$('.xian').css('display','block');
+			}else{
+				$('.xian').css('display','none');
+			}
+		})
+
+		form.on('switch(zfsj)',function(data){
+			var display = $('#zfsj').css('display');
+			if(display == 'none'){
+
+				$('#zfsj').css('display','block');
+				$('#up_level_money').attr('required','true');
+			}else{
+				$('#up_level_money').removeAttr('required');
+				$('#zfsj').css('display','none');
+
+			}
+
+		})
+
+		form.on('switch(zdsj)',function(data){
+			var display = $('#zdsj').css('display');
+			if(display == 'none'){
+				$('#zdsj').css('display','block');
+				$('#up_auto_mode').attr('checked','checked');
+
+			}else{
+				$('#zdsj').css('display','none');
+
+			}
+		})
+
+		form.on('switch(zdjj)',function(data){
+			var display = $('#zdjj').css('display');
+			if(display == 'none'){
+				$('#zdjj').css('display','block');
+			}else{
+				$('#zdjj').css('display','none');
+			}
+		})
+
+		form.on('switch(tjjl)',function(data){
+			var display = $('#tjjl').css('display');
+			if(display == 'none'){
+				$('#tjjl').css('display','block');
+			}else{
+				$('#tjjl').css('display','none');
+			}
+		})
+
+		form.on('switch(xffy)',function(data){
+			var display = $('#xffy').css('display');
+			if(display == 'none'){
+				$('#xffy').css('display','block');
+			}else{
+				$('#xffy').css('display','none');
+			}
+		})
+
+		form.on('switch(fgfy)',function(data){
+			var display = $('#fgfy').css('display');
+			if(display == 'none'){
+				$('#fgfy').css('display','block');
+			}else{
+				$('#fgfy').css('display','none');
+			}
+		})
+	});
+
+	layui.use('upload', function(){
+		var upload = layui.upload;
+
+		//执行实例
+		var uploadInst = upload.render({
+			elem: '#upimg' 							//绑定元素
+			,url: '/index.php/Admin/Common/uploads' 	//上传接口
+			,data:{handlename:"headimg"}			// 接口接收值
+			,field:"headimg"						// input name，与接口接收值 一致
+			,done: function(res)
+			{
+				//上传完毕回调-不一定成功，需要判断
+				console.log(res);
+				if (res.status > 0)
+				{
+					// 异常提示
+					layer.alert(res.result);
+				}
+				else
+				{
+					$(".headimgurl").val(res.result);
+					$(".img_headimgurl").attr("src", res.result);
+				}
+			}
+			,error: function(e)
+			{
+				//请求异常回调
+				console.log(e);
+			}
+		});
+	});
+
+	function sub(){
+		var status = $('input[name="status"]:checked').val();
+
+		if(status == null){
+			alert('等级状态必须选择!');
+			return false;
+		}
+
+		var up_level_by_auto = $('input[name="up_level_by_auto"]:checked').val();
+		if(up_level_by_auto == 'on'){
+			var up_auto_mode =  $('input[name="up_auto_mode"]:checked').val();
+
+			if(up_auto_mode == null){
+				alert('升级条件必须选择!');
+				return false;
+			}
+		}
+		var down_level_by_auto = $('input[name="down_level_by_auto"]:checked').val();
+		if(down_level_by_auto == 'on'){
+			var down_auto_mode =  $('input[name="down_auto_mode"]:checked').val();
+
+			if(down_auto_mode == null){
+				alert('降级条件必须选择!');
+				return false;
+			}
+		}
+
+		var recommend_status = $('input[name="recommend_status"]:checked').val();
+		if(recommend_status == 'on'){
+			var recommend_level_diff =  $('input[name="recommend_level_diff"]:checked').val();
+
+			if(recommend_level_diff == null){
+				alert('是否级差必须选择!');
+				return false;
+			}
+
+			var recommend_mode =  $('input[name="recommend_mode"]:checked').val();
+
+			if(recommend_mode == null){
+				alert('推荐奖励类型必须选择!');
+				return false;
+			}
+		}
+
+		var buy_award_status = $('input[name="buy_award_status"]:checked').val();
+		if(buy_award_status == 'on'){
+			var buy_award_mode =  $('input[name="buy_award_mode"]:checked').val();
+
+			if(buy_award_mode == null){
+				alert('首购返佣奖励类型必须选择!');
+				return false;
+			}
+
+
+		}
+		var repeat_buy_award_status = $('input[name="repeat_buy_award_status"]:checked').val();
+		if(repeat_buy_award_status == 'on'){
+
+			var repeat_buy_award_mode =  $('input[name="repeat_buy_award_mode"]:checked').val();
+
+			if(repeat_buy_award_mode == null){
+				alert('复购返佣奖励类型必须选择!');
+				return false;
+			}
+		}
+		return true;
+	}
+	$(function(){
+		$(".bj_x").click(function() {
+			if (!($(this).children('input[type="checkbox"]').prop("checked"))) {
+				$(this).next().find('input[type="text"]').val('0');
+				$(this).next().find('.layui-unselect').val('请选择');
+                $(this).next().find("option:selected").attr("selected", false);
+                $(this).next().find(".layui-anim-upbit dd").removeClass(".layui-this");
+			}
+		});
+	})
+
+	// 升级 分类选择
+	function changeCate(id, txt) {
+		var cate_div = $("#cate_div").clone(true).text(txt).removeAttr("id").attr("cid", "c" + id);
+		var cate_ipt = $("#cate_ipt").clone(true).val(id).removeAttr("id").addClass("c" + id);
+		$(".cate_list").append(cate_div);
+		$(".cate_list").append(cate_ipt);
+	}
+	$(".cate_list").on("click", ".ext_cate", function () {
+		var that = $(this);
+		var cid = that.attr("cid");
+		if (cid == "c999999999") {
+			return true;
+		}
+		layer.confirm('是否删除此附属分类?', {icon: 3, title: '提示'}, function (index) {
+
+			console.log(that);
+			console.log(cid);
+			if (cid) {
+				$(".cate_list").find("." + cid).remove();
+				that.remove();
+			} else {
+				layer.msg('删除失败，请尝试刷新');
+			}
+
+			layer.close(index);
+		});
+	});
+
+	// 商品选择
+	function changeGoods(id, txt) {
+		var goods_div = $("#goods_div").clone(true).text(txt).removeAttr("id").attr("gid", "g" + id);
+		var goods_ipt = $("#goods_ipt").clone(true).val(id).removeAttr("id").addClass("g" + id);
+		$(".goods_list").append(goods_div);
+		$(".goods_list").append(goods_ipt);
+	}
+	$(".goods_list").on("click", ".ext_goods", function () {
+		var that = $(this);
+		var gid = that.attr("gid");
+		if (gid == "c0") {
+			return true;
+		}
+		layer.confirm('是否删除此附属分类?', {icon: 3, title: '提示'}, function (index) {
+
+			console.log(that);
+			console.log(gid);
+			if (gid) {
+				$(".goods_list").find("." + gid).remove();
+				that.remove();
+			} else {
+				layer.msg('删除失败，请尝试刷新');
+			}
+
+			layer.close(index);
+		});
+	});
+
+
+	// 降级 分类选择
+	function changeCate2(id, txt) {
+		var cate_div2 = $("#cate_div2").clone(true).text(txt).removeAttr("id").attr("cid", "c" + id);
+		var cate_ipt2 = $("#cate_ipt2").clone(true).val(id).removeAttr("id").addClass("c" + id);
+		$(".cate_list2").append(cate_div2);
+		$(".cate_list2").append(cate_ipt2);
+	}
+
+	$(".cate_list2").on("click", ".ext_cate2", function () {
+		var that = $(this);
+		var cid = that.attr("cid");
+		if (cid == "c999999999") {
+			return true;
+		}
+		layer.confirm('是否删除此附属分类?', {icon: 3, title: '提示'}, function (index) {
+
+			console.log(that);
+			console.log(cid);
+			if (cid) {
+				$(".cate_list2").find("." + cid).remove();
+				that.remove();
+			} else {
+				layer.msg('删除失败，请尝试刷新');
+			}
+
+			layer.close(index);
+		});
+	});
+
+	// 降级 商品选择
+	function changeGoods2(id, txt) {
+		var goods_div2 = $("#goods_div2").clone(true).text(txt).removeAttr("id").attr("gid", "g" + id);
+		var goods_ipt2 = $("#goods_ipt2").clone(true).val(id).removeAttr("id").addClass("g" + id);
+		$(".goods_list2").append(goods_div2);
+		$(".goods_list2").append(goods_ipt2);
+	}
+	$(".goods_list2").on("click", ".ext_goods", function () {
+		var that = $(this);
+		var gid = that.attr("gid");
+		if (gid == "c0") {
+			return true;
+		}
+		layer.confirm('是否删除此附属分类?', {icon: 3, title: '提示'}, function (index) {
+
+			console.log(that);
+			console.log(gid);
+			if (gid) {
+				$(".goods_list").find("." + gid).remove();
+				that.remove();
+			} else {
+				layer.msg('删除失败，请尝试刷新');
+			}
+
+			layer.close(index);
+		});
+	});
+
+</script>
+</body>
+
+</html>
